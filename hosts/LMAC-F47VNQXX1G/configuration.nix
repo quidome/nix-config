@@ -44,6 +44,12 @@
     })
   ];
 
+  users.users.qmeijer = {
+    shell = pkgs.zsh;
+    description = "Quido Meijer";
+    home = "/Users/qmeijer";
+  };
+
   # Keyboard
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;

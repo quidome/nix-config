@@ -6,6 +6,7 @@
   ];
 
   home = {
+    username = "qmeijer";
     stateVersion = "22.11";
   };
 
