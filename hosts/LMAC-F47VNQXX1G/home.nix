@@ -2,7 +2,7 @@
 
 {
   imports = [
-    # ../../modules/programs/neovim.nix
+    ../../home/neovim.nix
     ../../home/zsh.nix
   ];
 
