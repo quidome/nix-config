@@ -3,6 +3,7 @@
 {
   imports = [
     # ../../modules/programs/neovim.nix
+    ../../home/zsh.nix
   ];
 
   home = {
