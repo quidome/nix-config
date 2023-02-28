@@ -1,0 +1,25 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+import:
+  - ~/.config/alacritty/monokai.yaml
+
+# Font configuration
+font:
+  size: 13
+
+  normal:
+    family: Source Code Pro
+    style: Regular
+  bold:
+    family: Source Code Pro
+    style: Bold
+  italic:
+    family: Source Code Pro
+    style: Italic
+  bold_italic:
+    family: Source Code Pro
+    style: Bold Italic
+
+# Window opacity as a floating point number from `0.0` to `1.0`.
+# The value `0.0` is completely transparent and `1.0` is opaque.
+window:
+  opacity: 0.9
