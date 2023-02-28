@@ -2,8 +2,7 @@
 
 {
   imports = [
-    ../../home/neovim.nix
-    ../../home/zsh.nix
+    ../../home
   ];
 
   home = {
