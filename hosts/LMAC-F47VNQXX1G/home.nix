@@ -5,6 +5,9 @@
     ../../home
   ];
 
+  my.programs.alacritty.enable = true;
+  my.programs.zsh.enable = true;
+
   home = {
     username = "qmeijer";
     stateVersion = "22.11";
@@ -20,13 +23,6 @@
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
   programs.htop.enable = true;
   programs.htop.settings.show_program_path = true;
-
-  programs.kitty = {
-    enable = true;
-    theme = "Earthsong";
-    font.name = "Source Code Pro";
-    font.size = 13;
-  };
 
   home.packages = with pkgs;
     [
