@@ -22,7 +22,6 @@ in
         vim = "nvim";
       };
 
-
       enableCompletion = true;
       enableAutosuggestions = true;
       history = {
@@ -34,12 +33,7 @@ in
       defaultKeymap = "emacs";
 
       initExtra = ''
-        # bind ctrl + arrows to move work forward and back
-        bindkey "^[[1;5C" forward-word
-        bindkey "^[[1;5D" backward-word
-
-        # get rid of current path on the right part of the prompt
-        unset RPS1
+        ## initExtra
 
         # source all .sh file in .env.d
         if [ -d "$HOME"/.env.d ]; then
@@ -51,13 +45,7 @@ in
           unset i
         fi
 
-        # load known hosts into ssh completion
-        zstyle -s ':completion:*:hosts' hosts _ssh_config
-        [[ -r "$BOLCOM_HOSTS" ]] && _ssh_config+=($(cat "$BOLCOM_HOSTS"))
-        zstyle ':completion:*:hosts' hosts $_ssh_config
-
-        # # hack for starship that won't build on arm atm
-        # eval "$(starship init zsh)"
+        ## initExtra end
       '';
     };
   };
