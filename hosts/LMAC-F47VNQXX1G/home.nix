@@ -68,6 +68,9 @@
 
     htop.enable = true;
     htop.settings.show_program_path = true;
+
+    exa.enable = true;
+    exa.enableAliases = true;
   };
 
   # Misc configuration files --------------------------------------------------------------------{{{
