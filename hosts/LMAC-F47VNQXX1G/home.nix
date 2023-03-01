@@ -3,6 +3,7 @@
 {
   imports = [
     ../../home
+    ./vars.nix
   ];
 
   my.programs.alacritty.enable = true;
