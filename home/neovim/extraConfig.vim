@@ -53,7 +53,7 @@ endif
 let g:airline_symbols.space = "\ua0"
 
 "
-let g:airline_theme='dark_minimal'
+let g:airline_theme='tender'
 "let g:airline_theme='sol'
 " nerdtree
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -106,10 +106,15 @@ else
 endif
 
 try
-   colorscheme gruvbox
+   colorscheme tender
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
 endtry
+
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors"))
+ set termguicolors
+endif
 
 " Make gutter background color match that of line numbers
 highlight clear SignColumn

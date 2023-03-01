@@ -13,6 +13,7 @@
     extraConfig = builtins.readFile ./neovim/extraConfig.vim;
 
     plugins = with pkgs.vimPlugins; [
+      tender-vim
       vim-nix
       gruvbox
       nerdtree
