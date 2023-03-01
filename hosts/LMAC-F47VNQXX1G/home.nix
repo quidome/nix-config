@@ -6,8 +6,11 @@
     ./vars.nix
   ];
 
-  my.programs.alacritty.enable = true;
-  my.programs.zsh.enable = true;
+  my = {
+    programs.alacritty.enable = true;
+    programs.tmux.enable = true;
+    programs.zsh.enable = true;
+  };
 
   home = {
     username = "qmeijer";
