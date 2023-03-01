@@ -12,36 +12,60 @@
   home = {
     username = "qmeijer";
     stateVersion = "22.11";
+    packages = with pkgs;
+      [
+        # Basic tools
+        coreutils
+        curl
+        wget
+        gopass
+        bat
+        dog
+        fd
+        fzf
+        ripgrep
+        rcm
+        gnupg
+        pinentry_mac
+
+        # dev tools
+        gitui
+        go
+        jq
+        jless
+        maven
+        pandoc
+        postgresql
+        shellcheck
+
+        # Docker/Cloud
+        colima
+        docker-client
+        docker-compose
+        docker-credential-helpers
+        k9s
+        kubectx
+        stern
+
+        # Useful nix related tools
+        cachix # adding/managing alternative binary caches hosted by Cachix
+        comma # run software from without installing it
+        niv # easy dependency management for nix projects
+        rnix-lsp # nix language server
+
+      ] ++ lib.optionals stdenv.isDarwin [
+        cocoapods
+        m-cli # useful macOS CLI commands
+      ];
   };
 
-  # Direnv, load and unload environment variables depending on the current directory.
-  # https://direnv.net
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
+  programs = {
+    direnv.enable = true;
+    direnv.nix-direnv.enable = true;
 
-  # Htop
-  # https://rycee.gitlab.io/home-manager/options.html#opt-programs.htop.enable
-  programs.htop.enable = true;
-  programs.htop.settings.show_program_path = true;
-
-  home.packages = with pkgs;
-    [
-      # Some basics
-      coreutils
-      curl
-      wget
-
-      # Useful nix related tools
-      cachix # adding/managing alternative binary caches hosted by Cachix
-      comma # run software from without installing it
-      niv # easy dependency management for nix projects
-      rnix-lsp # nix language server
-
-    ] ++ lib.optionals stdenv.isDarwin [
-      cocoapods
-      m-cli # useful macOS CLI commands
-    ];
+    htop.enable = true;
+    htop.settings.show_program_path = true;
+  };
 
   # Misc configuration files --------------------------------------------------------------------{{{
 
