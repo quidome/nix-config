@@ -71,6 +71,9 @@
 
     exa.enable = true;
     exa.enableAliases = true;
+
+    ssh.enable = true;
+    ssh.extraConfig = "AddKeysToAgent yes";
   };
 
   # Misc configuration files --------------------------------------------------------------------{{{
