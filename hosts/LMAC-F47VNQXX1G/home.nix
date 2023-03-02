@@ -8,6 +8,7 @@
 
   my = {
     programs.alacritty.enable = true;
+    programs.git.enable = true;
     programs.tmux.enable = true;
     programs.zsh.enable = true;
   };
@@ -32,7 +33,6 @@
         pinentry_mac
 
         # dev tools
-        gitui
         go
         jq
         jless
@@ -42,6 +42,8 @@
         shellcheck
 
         # Docker/Cloud
+        gitui
+        git-crypt
         colima
         docker-client
         docker-compose
@@ -77,7 +79,6 @@
   };
 
   # Misc configuration files --------------------------------------------------------------------{{{
-
 
   # https://github.com/nix-community/home-manager/issues/1341#issuecomment-778820334
   # This piece of code copies all the installed app to /Applications so that Alfred picks them up
