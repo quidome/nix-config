@@ -31,6 +31,7 @@
         rcm
         gnupg
         pinentry_mac
+        watch
 
         # dev tools
         go
