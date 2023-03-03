@@ -38,6 +38,8 @@
   users.users.qmeijer.home = "/Users/qmeijer";
   users.users.qmeijer.shell = pkgs.zsh;
 
+  security.pam.enableSudoTouchIdAuth = true;
+
   # Keyboard
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
