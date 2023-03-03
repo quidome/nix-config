@@ -21,7 +21,6 @@
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-
   programs.nix-index.enable = true;
 
   # Fonts
@@ -36,11 +35,8 @@
     })
   ];
 
-  users.users.qmeijer = {
-    shell = pkgs.zsh;
-    description = "Quido Meijer";
-    home = "/Users/qmeijer";
-  };
+  users.users.qmeijer.home = "/Users/qmeijer";
+  users.users.qmeijer.shell = pkgs.zsh;
 
   # Keyboard
   system.keyboard.enableKeyMapping = true;
