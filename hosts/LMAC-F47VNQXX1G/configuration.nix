@@ -27,7 +27,6 @@
   # Fonts
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
-    source-code-pro
     recursive
     (nerdfonts.override {
       fonts = [
