@@ -13,7 +13,7 @@ in
 
   # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
   programs.zsh.interactiveShellInit = mkIf brewEnabled ''
-    FPATH="$(brew --prefix)/share/zsh/site-functions:\$\{FPATH\}"
+    FPATH="$(brew --prefix)/share/zsh/site-functions:''${FPATH}"
   '';
 
   homebrew.enable = true;
