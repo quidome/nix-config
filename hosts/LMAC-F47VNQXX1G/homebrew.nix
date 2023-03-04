@@ -27,16 +27,17 @@ in
   ];
 
   # Prefer installing application from the Mac App Store
-  homebrew.masApps = {
-    "DaVinci Resolve" = 571213071;
-    "Home Assistant" = 1099568401;
-    "MQTT Explorer" = 1455214828;
-    "Simplemind - Mind Mapping" = 439654199;
-    "Slack for Desktop" = 803453959;
-    "Telegram" = 747648890;
-    "Things 3" = 904280696;
-    "Whatsapp Desktop" = 1147396723;
-  };
+  # commenting this out, it is in my way too often
+  # homebrew.masApps = {
+  #   "DaVinci Resolve" = 571213071;
+  #   "Home Assistant" = 1099568401;
+  #   "MQTT Explorer" = 1455214828;
+  #   "Simplemind - Mind Mapping" = 439654199;
+  #   "Slack for Desktop" = 803453959;
+  #   "Telegram" = 747648890;
+  #   "Things 3" = 904280696;
+  #   "Whatsapp Desktop" = 1147396723;
+  # };
 
   # If an app isn't available in the Mac App Store, or the version in the App Store has
   # limitiations, e.g., Transmit, install the Homebrew Cask.
