@@ -34,6 +34,8 @@
         watch
 
         # dev tools
+        pipenv
+        poetry
         go
         jq
         jless
@@ -52,6 +54,11 @@
         k9s
         kubectx
         stern
+
+        # other apps
+        discord
+        gimp
+        rectangle
 
         # Useful nix related tools
         cachix # adding/managing alternative binary caches hosted by Cachix
