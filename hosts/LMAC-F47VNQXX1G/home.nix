@@ -65,6 +65,11 @@
 
   programs = {
     alacritty.enable = true;
+
+    bat.enable = true;
+    bat.config.theme = "DarkNeon";
+    bat.config.style = "header,snip";
+
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
 
