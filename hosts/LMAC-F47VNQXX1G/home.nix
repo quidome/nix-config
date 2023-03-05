@@ -15,60 +15,58 @@
   home = {
     username = "qmeijer";
     stateVersion = "22.11";
-    packages = with pkgs;
-      [
-        # Basic tools
-        coreutils
-        curl
-        wget
-        gopass
-        bat
-        dog
-        fd
-        fzf
-        ripgrep
-        rcm
-        gnupg
-        pinentry_mac
-        watch
+    packages = with pkgs; [
+      # Basic tools
+      coreutils
+      curl
+      wget
+      gopass
+      dog
+      fd
+      fzf
+      ripgrep
+      rcm
+      gnupg
+      pinentry_mac
+      watch
 
-        # dev tools
-        pipenv
-        poetry
-        go
-        jq
-        jless
-        maven
-        pandoc
-        postgresql
-        shellcheck
+      # dev tools
+      pipenv
+      poetry
+      go
+      jq
+      jless
+      maven
+      pandoc
+      postgresql
+      shellcheck
 
-        # Docker/Cloud
-        gitui
-        git-crypt
-        colima
-        docker-client
-        docker-compose
-        docker-credential-helpers
-        k9s
-        kubectx
-        stern
+      # Docker/Cloud
+      gitui
+      git-crypt
+      colima
+      docker-client
+      docker-compose
+      docker-credential-helpers
+      k9s
+      kubectx
+      stern
 
-        # other apps
-        discord
-        gimp
-        rectangle
+      # other apps
+      discord
+      gimp
+      rectangle
 
-        # Useful nix related tools
-        cachix # adding/managing alternative binary caches hosted by Cachix
-        comma # run software from without installing it
-        niv # easy dependency management for nix projects
-        rnix-lsp # nix language server
+      # Useful nix related tools
+      cachix # adding/managing alternative binary caches hosted by Cachix
+      comma # run software from without installing it
+      niv # easy dependency management for nix projects
+      rnix-lsp # nix language server
 
-      ] ++ lib.optionals stdenv.isDarwin [
-        cocoapods
-        m-cli # useful macOS CLI commands
-      ];
+    ] ++ lib.optionals stdenv.isDarwin [
+      cocoapods
+      m-cli # useful macOS CLI commands
+    ];
   };
 
   programs = {
