@@ -55,6 +55,7 @@
       cachix # adding/managing alternative binary caches hosted by Cachix
       comma # run software from without installing it
       niv # easy dependency management for nix projects
+      nixpkgs-fmt
       rnix-lsp # nix language server
 
     ] ++ lib.optionals stdenv.isDarwin [
