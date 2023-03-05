@@ -5,7 +5,6 @@ let
 in
 {
   config.programs.starship = mkIf starshipEnabled {
-    enableZshIntegration = config.programs.zsh.enable;
     settings = {
       format = "$hostname$status$env_var$shlvl$directory$git_branch$git_status[\\$](bold) ";
 
