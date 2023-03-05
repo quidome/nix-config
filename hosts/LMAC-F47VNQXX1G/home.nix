@@ -8,7 +8,6 @@
 
   my = {
     programs.alacritty.enable = true;
-    programs.git.enable = true;
     programs.tmux.enable = true;
     programs.zsh.enable = true;
   };
@@ -84,6 +83,8 @@
 
     ssh.enable = true;
     ssh.extraConfig = "AddKeysToAgent yes";
+
+    git.enable = true;
   };
 
   # Misc configuration files --------------------------------------------------------------------{{{
