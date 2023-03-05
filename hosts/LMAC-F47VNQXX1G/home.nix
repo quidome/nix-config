@@ -74,6 +74,8 @@
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
 
+    git.enable = true;
+
     htop.enable = true;
     htop.settings.show_program_path = true;
 
@@ -83,10 +85,9 @@
     ssh.enable = true;
     ssh.extraConfig = "AddKeysToAgent yes";
 
-    git.enable = true;
-    zsh.enable = true;
-
     tmux.enable = true;
+
+    zsh.enable = true;
   };
 
   # Misc configuration files --------------------------------------------------------------------{{{
