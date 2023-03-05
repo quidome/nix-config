@@ -7,7 +7,6 @@
   ];
 
   my = {
-    programs.tmux.enable = true;
     programs.zsh.enable = true;
   };
 
@@ -83,6 +82,7 @@
     ssh.extraConfig = "AddKeysToAgent yes";
 
     git.enable = true;
+    tmux.enable = true;
   };
 
   # Misc configuration files --------------------------------------------------------------------{{{
