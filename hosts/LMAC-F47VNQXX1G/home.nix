@@ -7,7 +7,6 @@
   ];
 
   my = {
-    programs.alacritty.enable = true;
     programs.tmux.enable = true;
     programs.zsh.enable = true;
   };
@@ -70,6 +69,7 @@
   };
 
   programs = {
+    alacritty.enable = true;
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
 
