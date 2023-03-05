@@ -1,20 +1,14 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  cfg = config.my.programs.zsh;
+  zshEnabled = config.programs.zsh.enable;
 in
 {
-  options.my.programs.zsh = {
-    enable = mkEnableOption "Enable zsh";
-  };
-
-  config = mkIf cfg.enable {
+  config = mkIf zshEnabled {
     # enable starship
     programs.starship.enable = true;
 
     programs.zsh = {
-      enable = true;
-
       shellAliases = {
         find = "noglob find";
         nix-update = "darwin-rebuild switch --flake $HOME/projects/github.com/quidome/nix-config";

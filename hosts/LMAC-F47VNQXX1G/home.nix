@@ -6,10 +6,6 @@
     ./vars.nix
   ];
 
-  my = {
-    programs.zsh.enable = true;
-  };
-
   home = {
     username = "qmeijer";
     stateVersion = "22.11";
@@ -82,6 +78,8 @@
     ssh.extraConfig = "AddKeysToAgent yes";
 
     git.enable = true;
+    zsh.enable = true;
+
     tmux.enable = true;
   };
 
