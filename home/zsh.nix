@@ -10,7 +10,7 @@ in
 
   config = mkIf cfg.enable {
     # enable starship
-    my.programs.starship.enable = true;
+    programs.starship.enable = true;
 
     programs.zsh = {
       enable = true;

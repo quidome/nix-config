@@ -1,43 +1,35 @@
 { lib, pkgs, config, ... }:
 with lib;
 let
-  cfg = config.my.programs.starship;
+  starshipEnabled = config.programs.starship.enable;
 in
 {
-  options.my.programs.starship = {
-    enable = mkEnableOption "starship";
-  };
+  config.programs.starship = mkIf starshipEnabled {
+    enableZshIntegration = config.programs.zsh.enable;
+    settings = {
+      format = "$hostname$status$env_var$shlvl$directory$git_branch$git_status[\\$](bold) ";
 
-  config = mkIf cfg.enable {
+      directory.truncate_to_repo = false;
 
-    programs.starship = {
-      enable = true;
-      enableZshIntegration = true;
-      settings = {
-        format = "$hostname$status$env_var$shlvl$directory$git_branch$git_status[\\$](bold) ";
+      status = {
+        disabled = false;
+        not_found_symbol = "";
+        not_executable_symbol = "";
+      };
 
-        directory.truncate_to_repo = false;
+      git_branch.format = "[$branch](bold purple)";
 
-        status = {
-          disabled = false;
-          not_found_symbol = "";
-          not_executable_symbol = "";
-        };
+      # env_var.SSH_CONNECTION.format = "[ SSH ](bold bright-red)";
 
-        git_branch.format = "[$branch](bold purple)";
-
-        # env_var.SSH_CONNECTION.format = "[ SSH ](bold bright-red)";
-
-        git_status = {
-          style = "yellow";
-          modified = "✗";
-          staged = "[ $count ](green)";
-          renamed = "✗";
-          deleted = "✗";
-        };
-        hostname = {
-          format = "[$hostname]($style):";
-        };
+      git_status = {
+        style = "yellow";
+        modified = "✗";
+        staged = "[ $count ](green)";
+        renamed = "✗";
+        deleted = "✗";
+      };
+      hostname = {
+        format = "[$hostname]($style):";
       };
     };
   };
