@@ -11,7 +11,7 @@ in
     programs.zsh = {
       shellAliases = {
         find = "noglob find";
-        nix-update = "darwin-rebuild switch --flake $HOME/projects/github.com/quidome/nix-config";
+        nix-update = "darwin-rebuild switch --flake $HOME/dev/github.com/quidome/nix-config";
       };
 
       enableCompletion = true;
