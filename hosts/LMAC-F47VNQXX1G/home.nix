@@ -47,6 +47,7 @@
       stern
 
       # other apps
+      bitwarden-cli
       discord
       gimp
       rectangle
@@ -86,6 +87,8 @@
     ssh.extraConfig = "AddKeysToAgent yes";
 
     tmux.enable = true;
+
+    zellij.enable = true;
 
     zsh.enable = true;
   };
