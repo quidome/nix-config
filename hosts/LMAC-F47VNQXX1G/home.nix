@@ -12,13 +12,7 @@
     packages = with pkgs; [
       # Basic tools
       coreutils
-      curl
-      wget
       gopass
-      dog
-      fd
-      fzf
-      ripgrep
       rcm
       gnupg
       pinentry_mac
@@ -68,10 +62,6 @@
   programs = {
     alacritty.enable = true;
 
-    bat.enable = true;
-    bat.config.theme = "DarkNeon";
-    bat.config.style = "header,snip";
-
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
 
@@ -80,15 +70,9 @@
     htop.enable = true;
     htop.settings.show_program_path = true;
 
-    exa.enable = true;
-    exa.enableAliases = true;
-
     ssh.enable = true;
-    ssh.extraConfig = "AddKeysToAgent yes";
 
     tmux.enable = true;
-
-    zellij.enable = true;
 
     zsh.enable = true;
   };

@@ -1,5 +1,6 @@
 {
   imports = [
+    ./base.nix
     ./alacritty.nix
     ./git.nix
     ./neovim.nix
