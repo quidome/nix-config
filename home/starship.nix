@@ -16,10 +16,10 @@ in
 
       fill.symbol = " ";
 
-      git_branch.format = "[$symbol$branch](purple)";
-      git_commit.format = "[$hash]($style)";
+      git_branch.format = "[$symbol$branch]($style) ";
+      git_commit.format = "[$hash]($style) ";
       git_status = {
-        format = "([$all_status$ahead_behind]($style))";
+        format = "([$all_status$ahead_behind]($style)) ";
         style = "green";
         ahead = "[↑$count](blue)";
         behind = "[↓$count](red)";
