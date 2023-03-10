@@ -1,12 +1,13 @@
 { conf, lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
+    bottom
     curl
-    wget
     dog
     fd
     fzf
     ripgrep
+    wget
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
