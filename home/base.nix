@@ -1,4 +1,4 @@
-{ conf, lib, ... }:
+{ conf, lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
     curl
