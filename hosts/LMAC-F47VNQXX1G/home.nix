@@ -6,7 +6,6 @@
   ];
 
   home = {
-    username = "qmeijer";
     stateVersion = "22.11";
     packages = with pkgs; [
       # Basic tools
