@@ -4,7 +4,7 @@ let
   gitEnabled = config.programs.git.enable;
 in
 {
-  config.programs.git = lib.mkIf gitEnabled {
+  config.programs.git = mkIf gitEnabled {
     delta.enable = true;
     extraConfig = {
       core.excludesfile = "${config.home.homeDirectory}/.gitignore_global";
