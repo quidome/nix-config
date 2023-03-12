@@ -1,5 +1,4 @@
 { nixpkgs, config, pkgs, lib, ... }:
-
 {
   imports = [
     ../../home
@@ -69,7 +68,4 @@
 
     zsh.enable = true;
   };
-
-  # Misc configuration files --------------------------------------------------------------------{{{
-
 }

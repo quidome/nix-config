@@ -1,11 +1,9 @@
 { config, lib, ... }:
-
 let
   inherit (lib) mkIf;
   caskPresent = cask: lib.any (x: x.name == cask) config.homebrew.casks;
   brewEnabled = config.homebrew.enable;
 in
-
 {
   environment.shellInit = mkIf brewEnabled ''
     eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
