@@ -1,9 +1,10 @@
 { config, pkgs, lib, ... }:
+with lib;
 let
   alacrittyEnabled = config.programs.alacritty.enable;
 in
 {
-  config.programs.alacritty.settings = lib.mkIf alacrittyEnabled {
+  config.programs.alacritty.settings = mkIf alacrittyEnabled {
     selection.save_to_clipboard = true;
     cursor.style = "beam";
 
