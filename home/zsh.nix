@@ -25,7 +25,6 @@ in
       defaultKeymap = "emacs";
 
       initExtra = ''
-        ## initExtra
         # unfortunally a few system paths end up in front of my profile path
         # this just adds the path (again) before the other paths
         export PATH=${config.home.profileDirectory}/bin:$PATH
@@ -39,7 +38,6 @@ in
           done
           unset i
         fi
-        ## initExtra end
       '';
     };
   };
