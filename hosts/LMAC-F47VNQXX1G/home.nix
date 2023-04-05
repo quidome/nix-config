@@ -17,15 +17,17 @@
       watch
 
       # dev tools
-      pipenv
-      poetry
       go
-      jq
       jless
+      jq
       maven
       pandoc
+      pipenv
+      plantuml
+      poetry
       postgresql
       shellcheck
+      yq
 
       # Docker/Cloud
       gitui
