@@ -55,6 +55,7 @@
       "${config.home.homeDirectory}/bin"
       "${config.home.homeDirectory}/go/bin"
       "${config.home.homeDirectory}/.cargo/bin"
+      "/Applications/IntelliJ IDEA.app/Contents/MacOS"
     ];
 
     sessionVariables = {
