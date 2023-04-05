@@ -19,7 +19,7 @@ in
     text = ''
       tap "homebrew/cask"
       tap "homebrew/core"
-      tap "GoogleContainerTools/kpt https://github.com/GoogleContainerTools/kpt.git"
+      tap "GoogleContainerTools/kpt"
 
       brew "nvm"
       brew "pyenv-virtualenv"
