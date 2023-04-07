@@ -27,7 +27,7 @@
       poetry
       postgresql
       shellcheck
-      yq
+      yq-go
 
       # Docker/Cloud
       gitui
