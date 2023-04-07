@@ -19,14 +19,12 @@ in
     text = ''
       tap "homebrew/cask"
       tap "homebrew/core"
-      tap "GoogleContainerTools/kpt"
 
       brew "nvm"
       brew "pyenv-virtualenv"
       brew "pyenv"
-      brew "kpt"
       
-      cask  "obsidian"
+      cask "obsidian"
       cask "browserosaurus"
       cask "gimp"
       cask "raycast"
