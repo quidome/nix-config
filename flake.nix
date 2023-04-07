@@ -7,23 +7,25 @@
   description = "quidome's nix flake";
 
   inputs = {
-    # Package sets
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-22.11-darwin";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # nixpkgs-with-patched-kitty.url = github:azuwis/nixpkgs/kitty;
+      nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";                  # Nix Packages
+      nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";                  # Nix Packages
 
-    # Environment/system management
-    darwin.url = "github:lnl7/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-22.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+      home-manager = {                                                      # User Package Management
+        url = "github:nix-community/home-manager";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+
+      darwin = {
+        url = "github:lnl7/nix-darwin/master";                              # MacOS Package Management
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
   outputs = { self, darwin, nixpkgs, home-manager, ... }@inputs:
     let
 
       inherit (darwin.lib) darwinSystem;
-      inherit (inputs.nixpkgs-unstable.lib)
+      inherit (inputs.nixpkgs.lib)
         attrValues makeOverridable optionalAttrs singleton;
 
       # Configuration for `nixpkgs`
@@ -69,7 +71,7 @@
         apple-silicon = final: prev:
           optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
             # Add access to x86 packages system is running Apple Silicon
-            pkgs-x86 = import inputs.nixpkgs-unstable {
+            pkgs-x86 = import inputs.nixpkgs {
               system = "x86_64-darwin";
               inherit (nixpkgsConfig) config;
             };
