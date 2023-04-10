@@ -5,7 +5,7 @@ let
   kdeEnabled = config.xserver.desktopManager.plasma5.enable;
 in
 {
-  config = mkIf kdeEnable {
+  config = mkIf kdeEnabled {
     networking.networkmanager.enable = true;
 
     # services required for plasma
