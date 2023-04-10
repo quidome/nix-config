@@ -2,7 +2,7 @@
 with lib;
 
 let
-  kdeEnabled = config.xserver.desktopManager.plasma5.enable;
+  kdeEnabled = config.services.xserver.desktopManager.plasma5.enable;
 in
 {
   config = mkIf kdeEnabled {
