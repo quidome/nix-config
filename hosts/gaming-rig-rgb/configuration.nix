@@ -22,6 +22,12 @@
   networking.hostName = "gaming-rig-rgb";
   networking.networkmanager.enable = true;
 
+  # Set your time zone.
+  time.timeZone = "Europe/Amsterdam";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_IE.UTF-8";
+
   hardware = {
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
