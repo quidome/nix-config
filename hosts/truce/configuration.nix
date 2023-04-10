@@ -50,6 +50,7 @@
     enable = true;
     enableSSHSupport = true;
   };
+  programs.zsh.enable = true;
 
   services.openssh.enable = true;
   services.pipewire.enable = true;
