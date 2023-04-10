@@ -7,24 +7,27 @@
   description = "quidome's nix flake";
 
   inputs = {
-      nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";                  # Nix Packages
-      nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";                  # Nix Packages
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-      home-manager = {                                                      # User Package Management
-        url = "github:nix-community/home-manager";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-      darwin = {
-        url = "github:lnl7/nix-darwin/master";                              # MacOS Package Management
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+    darwin.url = "github:lnl7/nix-darwin/master";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, darwin, nixpkgs, home-manager, ... }@inputs:
+  outputs =
+    { self
+    , darwin
+    , nixpkgs
+    , home-manager
+    , ...
+    }@inputs:
     let
 
       inherit (darwin.lib) darwinSystem;
+      inherit (nixpkgs.lib) nixosSystem;
       inherit (inputs.nixpkgs.lib)
         attrValues makeOverridable optionalAttrs singleton;
 
@@ -44,11 +47,27 @@
       };
     in
     {
-      # My `nix-darwin` configs
+
+      nixosConfigurations = rec {
+        gaming-rig-rgb = nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/gaming-rig-rgb/configuration.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs = nixpkgsConfig;
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.quidome = import ./hosts/gaming-rig-rgb/home.nix;
+            }
+          ];
+        };
+      };
 
       darwinConfigurations = rec {
         LMAC-F47VNQXX1G = darwinSystem {
-          system = "aarch64-darwin";
+          # system = "aarch64-darwin";
           modules = [
             ./hosts/LMAC-F47VNQXX1G/configuration.nix
 
@@ -66,7 +85,6 @@
       # Overlays --------------------------------------------------------------- {{{
       overlays = {
         # Overlays to add various packages into package set
-
         # Overlay useful on Macs with Apple Silicon
         apple-silicon = final: prev:
           optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
