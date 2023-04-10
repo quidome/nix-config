@@ -56,6 +56,10 @@
   services = {
     openssh.enable = true;
     pipewire.enable = true;
+
+    xserver.enable = true;
+    xserver.displayManager.sddm.enable = true;
+    xserver.desktopManager.plasma5.enable = true;
   };
 
   system.stateVersion = "22.11"; # Did you read the comment?
