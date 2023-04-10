@@ -25,7 +25,6 @@
     , ...
     }@inputs:
     let
-
       inherit (darwin.lib) darwinSystem;
       inherit (nixpkgs.lib) nixosSystem;
       inherit (inputs.nixpkgs.lib)
@@ -60,6 +59,20 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.quidome = import ./hosts/gaming-rig-rgb/home.nix;
+            }
+          ];
+        };
+        truce = nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/truce/configuration.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs = nixpkgsConfig;
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.quidome = import ./hosts/truce/home.nix;
             }
           ];
         };
