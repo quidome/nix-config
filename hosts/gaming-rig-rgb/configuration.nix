@@ -35,7 +35,7 @@
 
   users.users.quidome = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager"];
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 
   environment.systemPackages = with pkgs; [
