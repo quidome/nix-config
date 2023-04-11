@@ -19,6 +19,7 @@
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
 
+    firefox.enable = true;
     git.enable = true;
 
     htop.enable = true;
