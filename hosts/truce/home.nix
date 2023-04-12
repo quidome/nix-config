@@ -9,13 +9,9 @@
   home = {
     stateVersion = "22.11";
     packages = with pkgs; [
-      # Basic tools
-      rcm
-
       # dev tools
       go
       jless
-      maven
       pandoc
       pipenv
       plantuml
@@ -26,9 +22,6 @@
 
       # Docker/Cloud
       gitui
-      docker-client
-      docker-compose
-      docker-credential-helpers
       k9s
       kubectx
       stern
