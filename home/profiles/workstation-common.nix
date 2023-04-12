@@ -19,8 +19,6 @@ with lib;
         bitwarden-cli
         discord
         gimp
-      ] ++ lib.optionals stdenv.isDarwin [
-        rectangle
       ];
 
       sessionPath = [
