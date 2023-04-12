@@ -27,6 +27,7 @@
   users.users.quidome = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
+    shell = pkgs.zsh;
   };
 
   environment.systemPackages = with pkgs; [
