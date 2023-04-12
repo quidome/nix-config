@@ -1,37 +1,47 @@
 { config, pkgs, ... }:
+with lib;
+let
+  isWorkstation = mkIf (my.profile == "workstation"];
+in
 {
-  home.packages = with pkgs; [
-    gitui
-    go
-    jless
-    pandoc
-    pipenv
-    plantuml
-    poetry
-    shellcheck
-    yq-go
+  config = mkIf isWorkstation {
+    my.syncthing.enable = true;
 
-    bitwarden-cli
-    discord
-    gimp
-  ] ++ lib.optionals stdenv.isDarwin [
-    rectangle
-  ];
+    home = {
+      packages = with pkgs; [
+        gitui
+        go
+        jless
+        pandoc
+        pipenv
+        plantuml
+        poetry
+        shellcheck
+        yq-go
 
-  home.sessionPath = [
-    "${config.home.homeDirectory}/bin"
-    "${config.home.homeDirectory}/go/bin"
-    "${config.home.homeDirectory}/.cargo/bin"
-  ];
+        bitwarden-cli
+        discord
+        gimp
+      ] ++ lib.optionals stdenv.isDarwin [
+        rectangle
+      ];
 
-  home.sessionVariables = {
-    DEV_PATH = "${config.home.homeDirectory}/dev";
-  };
+      sessionPath = [
+        "${config.home.homeDirectory}/bin"
+        "${config.home.homeDirectory}/go/bin"
+        "${config.home.homeDirectory}/.cargo/bin"
+      ];
 
-  programs = {
-    alacritty.enable = true;
+      sessionVariables = {
+        DEV_PATH = "${config.home.homeDirectory}/dev";
+      };
+    };
 
-    direnv.enable = true;
-    direnv.nix-direnv.enable = true;
+    programs = {
+      alacritty.enable = true;
+
+      direnv.enable = true;
+      direnv.nix-direnv.enable = true;
+    };
   };
 }
