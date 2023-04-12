@@ -47,9 +47,5 @@
 
   programs.tmux.enable = true;
 
-  programs.zellij.enable = true;
-  programs.zellij.settings.theme = "nord";
-  programs.zellij.settings.default_layout = "compact";
-
   programs.zsh.enable = true;
 }
