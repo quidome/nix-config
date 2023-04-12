@@ -80,7 +80,7 @@
 
       darwinConfigurations = rec {
         LMAC-F47VNQXX1G = darwinSystem {
-          # system = "aarch64-darwin";
+          system = "aarch64-darwin";
           modules = [
             ./hosts/LMAC-F47VNQXX1G/configuration.nix
 
