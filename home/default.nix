@@ -1,6 +1,6 @@
 {
   imports = [
-    ./base.nix
+    ./common.nix
     ./alacritty.nix
     ./git.nix
     ./homebrew.nix
