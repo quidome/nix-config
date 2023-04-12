@@ -1,10 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 with lib;
-let
-  isWorkstation = mkIf (my.profile == "workstation"];
-in
 {
-  config = mkIf isWorkstation {
+  config = mkIf (config.my.profile == "workstation") {
     my.syncthing.enable = true;
 
     home = {
