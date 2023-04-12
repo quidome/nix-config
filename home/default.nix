@@ -1,9 +1,10 @@
 {
   imports = [
     ./programs
+    ./services
+
     ./common.nix
 
     ./homebrew.nix
-    ./syncthing.nix
   ];
 }
