@@ -1,5 +1,6 @@
 {
   imports = [
+    ./services
     ./kde.nix
   ];
 }
