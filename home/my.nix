@@ -1,4 +1,5 @@
-{ config, ... }:
+{ config, lib, ... }:
+with lib;
 {
   options.my = {
     syncthing.enable = mkEnableOption "syncthing";
