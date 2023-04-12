@@ -2,6 +2,7 @@
 {
   imports = [
     ../../home
+    ../../home/vscode.nix
     ./vars.nix
   ];
 
