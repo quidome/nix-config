@@ -10,13 +10,11 @@
     stateVersion = "22.11";
     packages = with pkgs; [
       # Basic tools
-      gopass
       rcm
 
       # dev tools
       go
       jless
-      jq
       maven
       pandoc
       pipenv
@@ -28,7 +26,6 @@
 
       # Docker/Cloud
       gitui
-      git-crypt
       docker-client
       docker-compose
       docker-credential-helpers
@@ -51,15 +48,5 @@
     direnv.nix-direnv.enable = true;
 
     firefox.enable = true;
-    git.enable = true;
-
-    htop.enable = true;
-    htop.settings.show_program_path = true;
-
-    ssh.enable = true;
-
-    tmux.enable = true;
-
-    zsh.enable = true;
   };
 }
