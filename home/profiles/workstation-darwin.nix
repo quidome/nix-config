@@ -8,9 +8,5 @@ in
     home.packages = with pkgs; [
       rectangle
     ];
-
-    home.sessionPath = [
-      "/Applications/IntelliJ IDEA.app/Contents/MacOS"
-    ];
   };
 }
