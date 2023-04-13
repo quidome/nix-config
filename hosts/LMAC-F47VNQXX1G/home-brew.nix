@@ -28,7 +28,6 @@ in
       cask "browserosaurus"
       cask "gimp"
       cask "raycast"
-      cask "rectangle"
     '';
   };
 }
