@@ -1,9 +1,12 @@
 { pkgs, lib, ... }: {
   # Nix configuration ------------------------------------------------------------------------------
 
+  imports = [
+    ./system-vars.nix
+  ];
+
   nix.settings.substituters = [ "https://cache.nixos.org/" ];
-  nix.settings.trusted-public-keys =
-    [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+
   nix.settings.trusted-users = [ "@admin" ];
   nix.configureBuildUsers = true;
 
@@ -35,9 +38,7 @@
     })
   ];
 
-  users.users.qmeijer.home = "/Users/qmeijer";
-  users.users.qmeijer.shell = pkgs.zsh;
-
+  # Allow touchid to be used for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
   # Keyboard
