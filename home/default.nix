@@ -1,12 +1,10 @@
 {
   imports = [
+    ./common.nix
+    ./my.nix
+
     ./profiles
     ./programs
     ./services
-
-    ./my.nix
-    ./common.nix
-
-    ./homebrew.nix
   ];
 }

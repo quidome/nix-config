@@ -1,9 +1,10 @@
 { nixpkgs, config, pkgs, lib, ... }:
 {
   imports = [
-    ../../home
-    ../../home/profile/workstation.nix
+    ./homebrew.nix
     ./vars.nix
+
+    ../../home
   ];
 
   home = {
