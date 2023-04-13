@@ -1,8 +1,8 @@
 { nixpkgs, config, pkgs, lib, ... }:
 {
   imports = [
-    ./homebrew.nix
-    ./vars.nix
+    ./home-brew.nix
+    ./home-vars.nix
 
     ../../home
   ];

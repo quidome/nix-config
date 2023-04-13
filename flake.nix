@@ -82,7 +82,7 @@
         LMAC-F47VNQXX1G = darwinSystem {
           system = "aarch64-darwin";
           modules = [
-            ./hosts/LMAC-F47VNQXX1G/configuration.nix
+            ./hosts/LMAC-F47VNQXX1G/system.nix
 
             home-manager.darwinModules.home-manager
             {
