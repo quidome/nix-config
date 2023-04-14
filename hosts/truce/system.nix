@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
+    ./system-vars.nix
     ./hardware-configuration.nix
     ./zfs-configuration.nix
     ../../modules
@@ -22,12 +23,6 @@
   hardware = {
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
-  };
-
-  users.users.quidome = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
-    shell = pkgs.zsh;
   };
 
   programs = {
