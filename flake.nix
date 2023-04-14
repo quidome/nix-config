@@ -51,7 +51,7 @@
         gaming-rig-rgb = nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./hosts/gaming-rig-rgb/configuration.nix
+            ./hosts/gaming-rig-rgb/system.nix
 
             home-manager.nixosModules.home-manager
             {
