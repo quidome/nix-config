@@ -19,6 +19,7 @@ with lib;
         bitwarden-cli
         discord
         gimp
+        element-desktop
       ];
 
       sessionPath = [
