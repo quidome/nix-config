@@ -6,6 +6,7 @@ with lib;
 
     home = {
       packages = with pkgs; [
+        emacs
         gitui
         go
         jless
