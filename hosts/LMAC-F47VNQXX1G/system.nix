@@ -6,7 +6,6 @@
   ];
 
   nix.settings.substituters = [ "https://cache.nixos.org/" ];
-
   nix.settings.trusted-users = [ "@admin" ];
   nix.configureBuildUsers = true;
 
