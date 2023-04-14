@@ -30,11 +30,6 @@
     shell = pkgs.zsh;
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    curl
-  ];
-
   programs = {
     gnupg.agent.enable = true;
     gnupg.agent.enableSSHSupport = true;
