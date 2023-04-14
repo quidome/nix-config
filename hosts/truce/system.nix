@@ -38,8 +38,6 @@
   programs = {
     gnupg.agent.enable = true;
     gnupg.agent.enableSSHSupport = true;
-
-    zsh.enable = true;
   };
 
   services = {
