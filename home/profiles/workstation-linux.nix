@@ -10,5 +10,7 @@ in
       signal-desktop
       spotify
     ];
+
+    programs.firefox.enable = true;
   };
 }
