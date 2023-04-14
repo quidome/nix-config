@@ -65,7 +65,7 @@
         truce = nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./hosts/truce/configuration.nix
+            ./hosts/truce/system.nix
 
             home-manager.nixosModules.home-manager
             {

@@ -2,7 +2,7 @@
 {
   imports = [
     ../../home
-    ./vars.nix
+    ./home-vars.nix
   ];
 
   my.profile = "workstation";
