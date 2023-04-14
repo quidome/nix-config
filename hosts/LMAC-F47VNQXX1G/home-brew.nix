@@ -24,10 +24,11 @@ in
       brew "pyenv-virtualenv"
       brew "pyenv"
       
-      cask "obsidian"
       cask "browserosaurus"
       cask "gimp"
+      cask "obsidian"
       cask "raycast"
+      cask "signal"
     '';
   };
 }
