@@ -37,6 +37,7 @@
         # public ssh key used for login
         authorizedKeys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPKKNAKrwchOKKqlFJjwCJu+0Uv0X+YvWExjQ+HghNA0 qmeijer@bol.com"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBaWfnH8Kf151utxsPmNvamuMW49QpLMbC5g6RxX1L6H quidome@truce"
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGaDOuD9ffRB6dYMc2bgO3LxjupiO2gQs8TM4gYdwyDS quidome@gmail.com"
         ];
       };
