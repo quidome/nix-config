@@ -24,6 +24,8 @@
   hardware = {
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
+
+    nvidia.modesetting.enable = true;
   };
 
   programs = {
@@ -36,6 +38,7 @@
     pipewire.enable = true;
 
     xserver.desktopManager.plasma5.enable = true;
+    xserver.videoDrivers = [ "nvidia" ];
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
