@@ -15,6 +15,7 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
+  time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Amsterdam";
 
   # Select internationalisation properties.
