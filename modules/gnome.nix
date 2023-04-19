@@ -6,7 +6,6 @@ let
 in
 {
   config = mkIf gnomeEnabled {
-    my.gui.wayland.enable = true;
     networking.networkmanager.enable = true;
 
     # use gdm and gnome-shell
