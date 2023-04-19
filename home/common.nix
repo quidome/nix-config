@@ -43,6 +43,7 @@
   programs.htop.enable = true;
   programs.htop.settings.show_program_path = true;
 
+  programs.ssh.enable = true;
   programs.ssh.extraConfig = "AddKeysToAgent yes";
 
   programs.tmux.enable = true;
