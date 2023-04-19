@@ -2,7 +2,6 @@
 with lib;
 
 let
-  cfg = config.my.gui;
   gnomeEnabled = config.services.xserver.desktopManager.gnome.enable;
 in
 {
@@ -14,7 +13,7 @@ in
     services.xserver = {
       enable = true;
       displayManager.gdm.enable = true;
-      displayManager.gdm.wayland = cfg.wayland.enable;
+      displayManager.gdm.wayland = true;
     };
 
     programs.gnupg.agent.pinentryFlavor = "gnome3";
@@ -26,8 +25,8 @@ in
         gnome3.gnome-tweaks
         guake
 
-        gnomeExtensions.appindicator
-        gnomeExtensions.sound-output-device-chooser
+        # gnomeExtensions.appindicator
+        # gnomeExtensions.sound-output-device-chooser
       ];
     };
   };
