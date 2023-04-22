@@ -20,7 +20,6 @@ in
       tap "homebrew/cask"
       tap "homebrew/core"
 
-      brew "nvm"
       brew "pyenv-virtualenv"
       brew "pyenv"
       
