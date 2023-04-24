@@ -37,6 +37,8 @@
     })
   ];
 
+  programs.gnupg.agent.enable = true;
+
   # Allow touchid to be used for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
