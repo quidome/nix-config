@@ -25,6 +25,7 @@ in
       
       cask "browserosaurus"
       cask "gimp"
+      cask "logseq"
       cask "obsidian"
       cask "raycast"
       cask "signal"
