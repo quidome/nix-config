@@ -6,6 +6,7 @@ in
   config = mkIf (config.my.profile == "workstation" && !isDarwin) {
     home.packages = with pkgs; [
       adoptopenjdk-icedtea-web
+      calibre
       logseq
       obsidian
       signal-desktop
