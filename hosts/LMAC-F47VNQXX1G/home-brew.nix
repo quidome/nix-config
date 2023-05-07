@@ -20,8 +20,10 @@ in
       tap "homebrew/cask"
       tap "homebrew/core"
 
+      brew "openssl"
       brew "pyenv-virtualenv"
       brew "pyenv"
+      brew "xz"
       
       cask "browserosaurus"
       cask "gimp"
