@@ -13,6 +13,9 @@
       # dev tools
       postgresql
 
+      # 
+      blender
+
       # office
       libreoffice-qt
       hunspell
