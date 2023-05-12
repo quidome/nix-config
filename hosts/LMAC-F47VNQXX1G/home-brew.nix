@@ -25,6 +25,7 @@ in
       brew "pyenv"
       brew "xz"
       
+      cask "blender"
       cask "browserosaurus"
       cask "gimp"
       cask "logseq"
