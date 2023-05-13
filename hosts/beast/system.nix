@@ -11,7 +11,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "vm.swappiness" = 1; };
 
-  networking.hostName = "gaming-rig-rgb";
+  networking.hostName = "beast";
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -37,7 +37,7 @@
     openssh.enable = true;
     pipewire.enable = true;
 
-    xserver.desktopManager.plasma5.enable = true;
+    xserver.desktopManager.gnome.enable = true;
     xserver.videoDrivers = [ "nvidia" ];
   };
 

@@ -48,17 +48,17 @@
     {
 
       nixosConfigurations = rec {
-        gaming-rig-rgb = nixosSystem {
+        beast = nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./hosts/gaming-rig-rgb/system.nix
+            ./hosts/beast/system.nix
 
             home-manager.nixosModules.home-manager
             {
               nixpkgs = nixpkgsConfig;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.quidome = import ./hosts/gaming-rig-rgb/home.nix;
+              home-manager.users.quidome = import ./hosts/beast/home.nix;
             }
           ];
         };
