@@ -31,6 +31,8 @@
   programs = {
     gnupg.agent.enable = true;
     gnupg.agent.enableSSHSupport = true;
+
+    steam.enable = true;
   };
 
   services = {
