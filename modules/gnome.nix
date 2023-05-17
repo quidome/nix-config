@@ -17,16 +17,22 @@ in
 
     programs.gnupg.agent.pinentryFlavor = "gnome3";
 
-    # add extra packages to this desktop setup
-    environment = {
-      # add some desktop applications
-      systemPackages = with pkgs; [
-        gnome3.gnome-tweaks
-        guake
+    environment.gnome.excludePackages = (with pkgs; [
+      gnome-photos
+    ]) ++ (with pkgs.gnome;[
+      geary
+    ]);
 
-        # gnomeExtensions.appindicator
-        # gnomeExtensions.sound-output-device-chooser
-      ];
-    };
+    # add extra packages to this desktop setup
+    environment.systemPackages = (with pkgs; [
+      blackbox-terminal
+      guake
+    ]) ++ (with pkgs.gnome; [
+      gnome-terminal
+      gnome-tweaks
+    ]) ++ (with pkgs.gnomeExtensions; [
+      appindicator
+      # sound-output-device-chooser
+    ]);
   };
 }
