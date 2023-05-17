@@ -11,9 +11,9 @@ with lib;
         go
         jless
         pandoc
-        pipenv
+        # pipenv
         plantuml
-        poetry
+        # poetry
         shellcheck
         yq-go
 

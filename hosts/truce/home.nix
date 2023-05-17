@@ -1,4 +1,9 @@
 { config, pkgs, lib, ... }:
+let my-python-packages = ps: with ps; [
+  poetry
+  pip
+];
+in
 {
   imports = [
     ../../home
@@ -12,6 +17,7 @@
     packages = with pkgs; [
       # dev tools
       postgresql
+      (python3.withPackages my-python-packages)
 
       # 
       blender
