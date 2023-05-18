@@ -62,6 +62,22 @@
             }
           ];
         };
+
+        coolding = nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/coolding/system.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs = nixpkgsConfig;
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.quidome = import ./hosts/coolding/home.nix;
+            }
+          ];
+        };
+
         truce = nixosSystem {
           system = "x86_64-linux";
           modules = [
