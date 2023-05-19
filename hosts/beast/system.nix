@@ -39,7 +39,7 @@
     openssh.enable = true;
     pipewire.enable = true;
 
-    xserver.desktopManager.gnome.enable = true;
+    xserver.desktopManager.plasma5.enable = true;
     xserver.videoDrivers = [ "nvidia" ];
   };
 
