@@ -47,6 +47,7 @@
     rustup
   ];
 
+  powerManagement.enable = true;
 
   programs = {
     gnupg.agent.enableSSHSupport = true;
