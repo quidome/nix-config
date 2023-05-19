@@ -1,8 +1,9 @@
 { config, pkgs, lib, ... }:
-let my-python-packages = ps: with ps; [
-  poetry
-  pip
-];
+let
+  my-python-packages = ps: with ps; [
+    poetry
+    pip
+  ];
 in
 {
   imports = [

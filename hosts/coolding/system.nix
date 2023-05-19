@@ -10,8 +10,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "vm.swappiness" = 1; };
   boot.extraModprobeConfig = ''
-      options hid_apple swap_opt_cmd=1
-    '';
+    options hid_apple swap_opt_cmd=1
+  '';
 
   networking.hostName = "coolding";
   networking.networkmanager.enable = true;
