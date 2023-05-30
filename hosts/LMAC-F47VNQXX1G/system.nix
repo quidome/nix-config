@@ -18,7 +18,7 @@
     extra-platforms = x86_64-darwin aarch64-darwin
   '';
 
-  # Create /etc/bashrc that loads the nix-darwin environment.
+  # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true;
   environment.shells = [ pkgs.zsh ];
 
