@@ -24,7 +24,8 @@ in
       brew "pyenv-virtualenv"
       brew "pyenv"
       brew "xz"
-      
+
+      cask "bitwarden"
       cask "blender"
       cask "browserosaurus"
       cask "gimp"
