@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   my-python-packages = ps: with ps; [
-    poetry
     pip
   ];
 in
@@ -18,6 +17,7 @@ in
     packages = with pkgs; [
       # dev tools
       postgresql
+      poetry
       (python3.withPackages my-python-packages)
 
       # 
