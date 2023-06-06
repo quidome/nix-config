@@ -21,9 +21,11 @@ in
       tap "homebrew/core"
 
       brew "openssl"
+      brew "xz"
+
+      # Dev
       brew "pyenv-virtualenv"
       brew "pyenv"
-      brew "xz"
 
       cask "bitwarden"
       cask "blender"
