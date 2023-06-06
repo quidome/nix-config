@@ -26,6 +26,7 @@ in
       # Dev
       brew "pyenv-virtualenv"
       brew "pyenv"
+      brew "poetry"
 
       cask "bitwarden"
       cask "blender"
