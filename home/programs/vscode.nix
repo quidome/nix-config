@@ -1,8 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+let
+  vscodeEnabled = config.programs.vscode.enable;
+in
 {
-  programs.vscode = {
-    enable = true;
-    enableUpdateCheck = true;
+  programs.vscode = lib.mkIf vscodeEnabled {
+    enableUpdateCheck = false;
     enableExtensionUpdateCheck = true;
 
     extensions = with pkgs.vscode-extensions; [

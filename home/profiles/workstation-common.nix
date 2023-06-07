@@ -33,6 +33,8 @@ with lib;
 
       direnv.enable = true;
       direnv.nix-direnv.enable = true;
+
+      vscode.enable = true;
     };
   };
 }
