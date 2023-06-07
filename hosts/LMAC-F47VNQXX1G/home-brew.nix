@@ -17,16 +17,13 @@ in
   home.file.brewfile = {
     target = ".config/brewfile";
     text = ''
-      tap "homebrew/cask"
-      tap "homebrew/core"
-
       brew "openssl"
       brew "xz"
 
       # Dev
+      brew "poetry"
       brew "pyenv-virtualenv"
       brew "pyenv"
-      brew "poetry"
 
       cask "bitwarden"
       cask "blender"
