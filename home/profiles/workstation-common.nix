@@ -7,15 +7,9 @@ with lib;
     home = {
       packages = with pkgs; [
         emacs
-        gitui
         go
-        jless
         pandoc
-        # pipenv
         plantuml
-        # poetry
-        shellcheck
-        yq-go
 
         bitwarden-cli
         discord
