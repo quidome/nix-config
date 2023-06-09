@@ -29,7 +29,8 @@
   # Fonts
   fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
-    recursive
+    fira-code
+    source-code-pro
     (nerdfonts.override {
       fonts = [
         "JetBrainsMono"
