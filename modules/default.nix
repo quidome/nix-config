@@ -1,8 +1,10 @@
 {
   imports = [
+    ./my.nix
+    ./common.nix
+
     ./services
 
-    ./common.nix
     ./gnome.nix
     ./kde.nix
   ];
