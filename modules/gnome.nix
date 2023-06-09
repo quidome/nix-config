@@ -6,6 +6,7 @@ let
 in
 {
   config = mkIf gnomeEnabled {
+    my.profile = "workstation";
     networking.networkmanager.enable = true;
 
     # use gdm and gnome-shell

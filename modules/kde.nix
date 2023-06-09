@@ -6,6 +6,7 @@ let
 in
 {
   config = mkIf kdeEnabled {
+    my.profile = "workstation";
     networking.networkmanager.enable = true;
 
     # services required for plasma
