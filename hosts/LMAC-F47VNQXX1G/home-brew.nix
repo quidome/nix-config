@@ -30,6 +30,7 @@ in
       cask "browserosaurus"
       cask "gimp"
       cask "inkscape"
+      cask "logseq"
       cask "obsidian"
       cask "raycast"
       cask "rectangle"
