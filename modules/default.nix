@@ -2,6 +2,7 @@
   imports = [
     ./my.nix
     ./common.nix
+    ./workstation.nix
 
     ./services
 
