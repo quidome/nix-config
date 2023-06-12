@@ -2,6 +2,7 @@
 with lib;
 let
   alacrittyEnabled = config.programs.alacritty.enable;
+  font = "Fira Code";
 in
 {
   config.programs.alacritty.settings = mkIf alacrittyEnabled {
@@ -11,13 +12,13 @@ in
     font = {
       size = 14;
 
-      normal.family = "JetBrainsMono Nerd Font";
+      normal.family = font;
       normal.style = "Regular";
-      bold.family = "JetBrainsMono Nerd Font";
+      bold.family = font;
       bold.style = "Bold";
-      italic.family = "JetBrainsMono Nerd Font";
+      italic.family = font;
       italic.style = "Italic";
-      bold_italic.family = "JetBrainsMono Nerd Font";
+      bold_italic.family = font;
       bold_italic.style = "Bold Italic";
     };
 
