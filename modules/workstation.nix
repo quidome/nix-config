@@ -2,16 +2,14 @@
 with lib;
 {
   config = mkIf (config.my.profile == "workstation") {
-    fonts.fonts = with pkgs;
-      [
-        (
-          nerdfonts.override {
-            fonts = [
-              "JetBrainsMono"
-              "FiraCode"
-              "SourceCodePro"
-            ];
-          })
-      ];
+    fonts.fonts = with pkgs; [
+      fira-code
+      source-code-pro
+      (nerdfonts.override {
+        fonts = [
+          "JetBrainsMono"
+        ];
+      })
+    ];
   };
 }
