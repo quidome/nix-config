@@ -2,7 +2,8 @@
 with lib;
 let
   alacrittyEnabled = config.programs.alacritty.enable;
-  font = "Fira Code";
+  font = "JetBrainsMono Nerd Font";
+  fontSize = (if pkgs.stdenv.isDarwin then 14 else 9);
 in
 {
   config.programs.alacritty.settings = mkIf alacrittyEnabled {
@@ -10,7 +11,7 @@ in
     cursor.style = "beam";
 
     font = {
-      size = 14;
+      size = fontSize;
 
       normal.family = font;
       normal.style = "Regular";
