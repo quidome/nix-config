@@ -21,6 +21,7 @@ in
       brew "xz"
 
       # Dev
+      brew "libyaml"
       brew "poetry"
       brew "pyenv-virtualenv"
       brew "pyenv"
