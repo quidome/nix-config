@@ -32,7 +32,7 @@
     openssh.enable = true;
     pipewire.enable = true;
 
-    xserver.desktopManager.plasma5.enable = true;
+    xserver.desktopManager.gnome.enable = true;
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
