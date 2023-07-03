@@ -31,6 +31,7 @@ in
       cask "browserosaurus"
       cask "gimp"
       cask "inkscape"
+      cask "lapce"
       cask "logseq"
       cask "obsidian"
       cask "raycast"
