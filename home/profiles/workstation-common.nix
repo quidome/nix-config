@@ -10,6 +10,8 @@ with lib;
         go
         pandoc
         plantuml
+        lapce
+        nil
 
         bitwarden-cli
         discord
