@@ -11,5 +11,7 @@ with lib;
         ];
       })
     ];
+
+    services.flatpak.enable = true;
   };
 }
