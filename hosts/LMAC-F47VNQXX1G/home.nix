@@ -18,6 +18,7 @@
 
       # Dev
       fnm
+      envsubst
 
       # Docker/k8s
       colima
