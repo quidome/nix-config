@@ -7,6 +7,7 @@ in
     home.packages = with pkgs; [
       adoptopenjdk-icedtea-web
       calibre
+      digikam
       logseq
       obsidian
       signal-desktop
