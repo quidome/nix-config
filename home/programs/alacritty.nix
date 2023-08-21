@@ -52,5 +52,10 @@ in
         white = "0xfeffff";
       };
     };
+
+    shell = mkIf pkgs.stdenv.isDarwin {
+      program = "login";
+      args = ["-fp" config.home.username];
+    };
   };
 }
