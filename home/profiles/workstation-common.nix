@@ -31,8 +31,6 @@ with lib;
     };
 
     programs = {
-      alacritty.enable = true;
-
       direnv.enable = true;
       direnv.nix-direnv.enable = true;
     };
