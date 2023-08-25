@@ -7,5 +7,7 @@ in
   config = mkIf (config.my.profile == "workstation" && isDarwin) {
     home.packages = with pkgs; [
     ];
+
+    programs.alacritty.enable = true;
   };
 }
