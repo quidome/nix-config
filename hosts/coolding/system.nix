@@ -64,7 +64,7 @@
 
     logind.extraConfig = "HandlePowerKey=suspend";
 
-    xserver.desktopManager.plasma5.enable = true;
+    xserver.desktopManager.gnome.enable = true;
   };
 
 
