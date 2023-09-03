@@ -17,7 +17,7 @@ in
       # run kde on xorg
       xserver.enable = true;
 
-      xserver.displayManager.defaultSession = "plasma";
+      xserver.displayManager.defaultSession = "plasmawayland";
       xserver.displayManager.sddm.enable = true;
       xserver.displayManager.sddm.settings.Users.RememberLastUser = false;
     };
