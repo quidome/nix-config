@@ -40,7 +40,7 @@
     pipewire.enable = true;
 
     xserver.desktopManager.plasma5.enable = true;
-    xserver.videoDrivers = [ "nvidia" ];
+    xserver.videoDrivers = [ "amdgpu" ];
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
