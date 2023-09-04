@@ -28,7 +28,6 @@ in
 
       cask "bitwarden"
       cask "blender"
-      cask "browserosaurus"
       cask "gimp"
       cask "inkscape"
       cask "lapce"
