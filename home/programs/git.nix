@@ -7,10 +7,11 @@ in
   config.programs.git = mkIf gitEnabled {
     delta.enable = true;
     extraConfig = {
-      core.excludesfile = "${config.home.homeDirectory}/.gitignore_global";
       branch.autosetuprebase = "always";
       color.ui = "auto";
+      core.excludesfile = "${config.home.homeDirectory}/.gitignore_global";
       pull.rebase = true;
+      push.autoSetupRemote = true;
       rebase.autoStash = true;
     };
     # Aliases
