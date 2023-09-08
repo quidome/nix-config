@@ -34,7 +34,6 @@ in
       cask "logseq"
       cask "obsidian"
       cask "raycast"
-#      cask "rectangle"
       cask "signal"
     '';
   };
