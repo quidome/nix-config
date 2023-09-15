@@ -55,7 +55,7 @@ in
 
     shell = mkIf pkgs.stdenv.isDarwin {
       program = "login";
-      args = ["-fp" config.home.username];
+      args = [ "-fp" config.home.username ];
     };
   };
 }
