@@ -33,6 +33,8 @@ with lib;
     programs = {
       direnv.enable = true;
       direnv.nix-direnv.enable = true;
+
+      helix.enable = true;
     };
   };
 }
