@@ -53,6 +53,10 @@ in
       };
     };
 
+    window = {
+      option_as_alt = mkIf pkgs.stdenv.isDarwin "Both";
+    };
+
     shell = mkIf pkgs.stdenv.isDarwin {
       program = "login";
       args = [ "-fp" config.home.username ];
