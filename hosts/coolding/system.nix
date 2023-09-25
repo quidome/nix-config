@@ -59,9 +59,6 @@
 
 
   services = {
-    flatpak.enable = true;
-    openssh.enable = true;
-    pipewire.enable = true;
     printing.enable = true;
 
     logind.extraConfig = "HandlePowerKey=suspend";

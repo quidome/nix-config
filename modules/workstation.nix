@@ -13,5 +13,7 @@ with lib;
     ];
 
     services.flatpak.enable = true;
+    services.openssh.enable = true;
+    services.pipewire.enable = true;
   };
 }

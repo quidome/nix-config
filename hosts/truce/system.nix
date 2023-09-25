@@ -30,11 +30,6 @@
     gnupg.agent.enableSSHSupport = true;
   };
 
-  services = {
-    openssh.enable = true;
-    pipewire.enable = true;
-  };
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "22.11"; # Did you read the comment?
 }

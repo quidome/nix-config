@@ -38,9 +38,6 @@
   };
 
   services = {
-    openssh.enable = true;
-    pipewire.enable = true;
-
     xserver.videoDrivers = [ "amdgpu" ];
   };
 
