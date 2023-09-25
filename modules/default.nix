@@ -8,5 +8,6 @@
 
     ./gnome.nix
     ./kde.nix
+    ./sway.nix
   ];
 }
