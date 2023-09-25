@@ -6,5 +6,6 @@
     ./profiles
     ./programs
     ./services
+    ./xdg.nix
   ];
 }
