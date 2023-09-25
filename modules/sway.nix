@@ -26,13 +26,14 @@ in
       wofi
     ];
 
+    programs.dconf.enable = true;
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true; # so that gtk works properly
     };
 
     # for qt theming
-    qt5.platformTheme = "qt5ct";
+    qt.platformTheme = "qt5ct";
 
     services.dbus.enable = true;
 
