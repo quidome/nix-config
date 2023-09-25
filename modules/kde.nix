@@ -2,7 +2,7 @@
 with lib;
 
 let
-  kdeEnabled = config.services.xserver.desktopManager.plasma5.enable;
+  kdeEnabled = (config.my.gui == "kde");
 in
 {
   config = mkIf kdeEnabled {
@@ -17,6 +17,7 @@ in
       # run kde on xorg
       xserver.enable = true;
 
+      xserver.desktopManager.plasma5.enable = true;
       xserver.displayManager.defaultSession = "plasmawayland";
       xserver.displayManager.sddm.enable = true;
       xserver.displayManager.sddm.settings.Users.RememberLastUser = false;

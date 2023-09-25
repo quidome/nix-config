@@ -2,7 +2,7 @@
 with lib;
 
 let
-  gnomeEnabled = config.services.xserver.desktopManager.gnome.enable;
+  gnomeEnabled = (config.my.gui == "gnome");
 in
 {
   config = mkIf gnomeEnabled {
@@ -12,6 +12,7 @@ in
     # use gdm and gnome-shell
     services.xserver = {
       enable = true;
+      desktopManager.gnome.enable = true;
       displayManager.gdm.enable = true;
       displayManager.gdm.wayland = true;
     };

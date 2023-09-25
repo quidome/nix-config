@@ -7,6 +7,8 @@
     ../../modules
   ];
 
+  my.gui = "kde";
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "vm.swappiness" = 1; };
@@ -31,8 +33,6 @@
   services = {
     openssh.enable = true;
     pipewire.enable = true;
-
-    xserver.desktopManager.plasma5.enable = true;
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

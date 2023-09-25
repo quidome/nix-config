@@ -7,6 +7,8 @@
     ../../modules
   ];
 
+  my.gui = "kde";
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "vm.swappiness" = 1; };
@@ -39,7 +41,6 @@
     openssh.enable = true;
     pipewire.enable = true;
 
-    xserver.desktopManager.plasma5.enable = true;
     xserver.videoDrivers = [ "amdgpu" ];
   };
 

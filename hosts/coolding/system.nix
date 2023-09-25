@@ -6,6 +6,8 @@
     ../../modules
   ];
 
+  my.gui = "gnome";
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "vm.swappiness" = 1; };
@@ -63,8 +65,6 @@
     printing.enable = true;
 
     logind.extraConfig = "HandlePowerKey=suspend";
-
-    xserver.desktopManager.gnome.enable = true;
   };
 
 
