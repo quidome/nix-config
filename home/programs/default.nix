@@ -7,6 +7,7 @@
     ./starship.nix
     ./tmux.nix
     ./vscode.nix
+    ./waybar.nix
     ./wofi.nix
     ./zsh.nix
   ];
