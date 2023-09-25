@@ -47,27 +47,6 @@ in
 
     programs.alacritty.enable = true;
 
-    programs.mako = {
-      enable = true;
-      anchor = "bottom-right";
-      defaultTimeout = 10000;
-
-      font = "JetBrainsMono Nerd Font 11";
-
-      borderRadius = 5;
-      backgroundColor = "#282828ff";
-      borderColor = "#161616ff";
-      textColor = "#a1a1a1";
-
-      margin = "2,2";
-
-      groupBy = "summary";
-      extraConfig = ''
-        [grouped]
-        format=<b>%s</b>\n%b
-      '';
-    };
-
     programs.zsh.initExtraFirst = mkIf zshEnabled ''
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ] ; then
         # run sway, logout upon exit
@@ -105,31 +84,33 @@ in
           };
         };
       };
+
+      mako = {
+        enable = true;
+        anchor = "bottom-right";
+        defaultTimeout = 10000;
+
+        font = "JetBrainsMono Nerd Font 11";
+
+        borderRadius = 5;
+        backgroundColor = "#282828ff";
+        borderColor = "#161616ff";
+        textColor = "#a1a1a1";
+
+        margin = "2,2";
+
+        groupBy = "summary";
+        extraConfig = ''
+          [grouped]
+          format=<b>%s</b>\n%b
+        '';
+      };
     };
 
     xdg.systemDirs.data = [
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
       "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
     ];
-
-    # start mako with graphical session
-    # HM mako does not come with a systemd service
-    systemd.user.services.mako = {
-      Unit = {
-        Description = "Mako notification daemon";
-        PartOf = [ "graphical-session.target" ];
-      };
-      Install = {
-        WantedBy = [ "graphical-session.target" ];
-      };
-      Service = {
-        Type = "dbus";
-        BusName = "org.freedesktop.Notifications";
-        ExecStart = "${pkgs.mako}/bin/mako";
-        RestartSec = 5;
-        Restart = "always";
-      };
-    };
 
     # enable dbus service for sway
     systemd.user.sockets.dbus = {
