@@ -7,7 +7,7 @@
     ../../modules
   ];
 
-  my.gui = "kde";
+  my.gui = "sway";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
