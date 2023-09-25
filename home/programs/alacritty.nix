@@ -2,8 +2,8 @@
 with lib;
 let
   alacrittyEnabled = config.programs.alacritty.enable;
-  font = "JetBrainsMono Nerd Font";
   fontSize = (if pkgs.stdenv.isDarwin then 14 else 9);
+  font = "FiraCode Nerd Font";
 in
 {
   config.programs.alacritty.settings = mkIf alacrittyEnabled {

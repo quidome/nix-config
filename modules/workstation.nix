@@ -8,6 +8,7 @@ with lib;
       (nerdfonts.override {
         fonts = [
           "JetBrainsMono"
+          "FiraCode"
         ];
       })
     ];
