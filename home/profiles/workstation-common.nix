@@ -7,7 +7,6 @@ with lib;
     home = {
       packages = with pkgs; [
         emacs
-        go
         pandoc
         plantuml
         lapce

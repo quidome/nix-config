@@ -8,6 +8,7 @@ in
       adoptopenjdk-icedtea-web
       calibre
       digikam
+      go
       logseq
       obsidian
       signal-desktop
