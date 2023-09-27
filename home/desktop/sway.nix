@@ -169,7 +169,10 @@ in
           "type:keyboard" = { xkb_options = "caps:none"; };
           "type:tablet_tool" = { tool_mode = "* relative"; };
           "type:pointer" = { natural_scroll = "enabled"; };
-          "type:touchpad" = { natural_scroll = "enabled"; };
+          "type:touchpad" = {
+            natural_scroll = "enabled";
+            tap = "enabled";
+          };
         };
 
         keybindings =
