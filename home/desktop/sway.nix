@@ -16,7 +16,6 @@ in
 
     # extra packages for my sway config
     home.packages = with pkgs; [
-      swaylock
       swayidle
       wl-clipboard
 
@@ -46,6 +45,8 @@ in
     };
 
     programs.alacritty.enable = true;
+    programs.swaylock.enable = true;
+    programs.waybar.enable = true;
 
     programs.zsh.initExtraFirst = mkIf zshEnabled ''
       if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ] ; then
@@ -53,8 +54,6 @@ in
         exec sway > ''${HOME}/.local/log/sway.log
       fi
     '';
-
-    programs.waybar.enable = true;
 
     services = {
       kanshi = {
