@@ -5,7 +5,6 @@
     ./helix
     ./neovim.nix
     ./starship.nix
-    ./swaylock.nix
     ./tmux.nix
     ./vscode.nix
     ./waybar.nix
