@@ -41,7 +41,7 @@ in
             };
             design-capacity = false;
             format = "{capacity}% {icon}";
-            format-charging = "{capacity}% ";
+            format-charging = "{capacity}% ";
             format-plugged = "{capacity}% ";
             format-alt = "{time} {icon}";
             format-icons = [ "" "" "" "" "" ];
@@ -71,8 +71,8 @@ in
 
           network = {
             format-wifi = "{essid} ({signalStrength}%) ";
-            format-ethernet = "{ifname}: {ipaddr}/{cidr} ";
-            format-linked = "{ifname} (No IP) ";
+            format-ethernet = "{ifname}: {ipaddr}/{cidr} 󱘖";
+            format-linked = "{ifname} (No IP) 󱘖";
             format-disconnected = "Disconnected ⚠";
             format-alt = "{ifname}: {ipaddr}/{cidr}";
           };
@@ -86,8 +86,8 @@ in
             format-source-muted = "";
             format-icons = {
               headphone = "";
-              hands-free = "";
-              headset = "";
+              hands-free = "󰋎";
+              headset = "󰋎";
               phone = "";
               portable = "";
               car = "";
@@ -138,7 +138,7 @@ in
             border: none;
             border-radius: 0;
             font-family: FiraCode Nerd Font, Source Code Pro, Helvetica, Arial, sans-serif;
-            font-size: 11pt;
+            font-size: 12pt;
             min-height: 0;
         }
 
