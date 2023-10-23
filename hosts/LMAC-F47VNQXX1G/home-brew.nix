@@ -28,12 +28,9 @@ in
       brew "pyenv"
 
       cask "bitwarden"
-      cask "blender"
       cask "emacs"
       cask "gimp"
       cask "inkscape"
-      cask "lapce"
-      cask "logseq"
       cask "obsidian"
       cask "raycast"
       cask "signal"
