@@ -6,7 +6,6 @@ with lib;
 
     home = {
       packages = with pkgs; [
-        emacs
         pandoc
         plantuml
         lapce

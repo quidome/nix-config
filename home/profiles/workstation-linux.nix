@@ -8,6 +8,7 @@ in
       adoptopenjdk-icedtea-web
       calibre
       digikam
+      emacs
       go
       logseq
       obsidian
