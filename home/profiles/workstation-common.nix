@@ -8,8 +8,6 @@ with lib;
       packages = with pkgs; [
         pandoc
         plantuml
-        lapce
-        nil
 
         bitwarden-cli
         discord
