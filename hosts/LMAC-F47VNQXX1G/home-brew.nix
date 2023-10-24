@@ -31,6 +31,7 @@ in
       cask "emacs"
       cask "gimp"
       cask "inkscape"
+      cask "macdown"
       cask "obsidian"
       cask "raycast"
       cask "signal"
