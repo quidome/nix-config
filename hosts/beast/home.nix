@@ -13,6 +13,8 @@
     packages = with pkgs; [
       # dev tools
       postgresql
+      jetbrains.idea-community
+      jdk17
     ];
   };
 
