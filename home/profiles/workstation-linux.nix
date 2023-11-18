@@ -10,7 +10,6 @@ in
       digikam
       emacs
       go
-      logseq
       obsidian
       signal-desktop
       spotify
