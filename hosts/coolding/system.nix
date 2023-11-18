@@ -37,16 +37,9 @@
     };
   };
 
-
   # install packages unique for this host
   environment.systemPackages = with pkgs; [
-    cointop
-    discord
     libva-utils
-
-    # development
-    rnix-lsp
-    rustup
   ];
 
   powerManagement.enable = true;

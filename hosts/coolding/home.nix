@@ -20,8 +20,13 @@ in
       postgresql
       poetry
       (python3.withPackages my-python-packages)
+      jetbrains.idea-community
+      rnix-lsp
+      rustup
 
-      # 
+      # some tools
+      cointop
+      discord
       blender
 
       # office
