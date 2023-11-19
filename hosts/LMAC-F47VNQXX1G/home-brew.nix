@@ -21,11 +21,9 @@ in
       brew "xz"
 
       # Dev
-      brew "go"
+      brew "go"               # Go programming language
       brew "libyaml"
-      brew "poetry"
-      brew "pyenv-virtualenv"
-      brew "pyenv"
+      brew "rtx"              # Meta language manager
 
       cask "bitwarden"
       cask "emacs"
