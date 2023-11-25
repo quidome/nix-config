@@ -14,7 +14,7 @@
       # dev tools
       postgresql
       jetbrains.idea-community
-      jdk17
+      temurin-bin-17
     ];
   };
 
