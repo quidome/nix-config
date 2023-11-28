@@ -20,6 +20,7 @@ in
       postgresql
       poetry
       (python3.withPackages my-python-packages)
+      temurin-bin-17
       jetbrains.idea-community
       rnix-lsp
       rustup

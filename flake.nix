@@ -8,7 +8,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -21,6 +21,7 @@
     { self
     , darwin
     , nixpkgs
+    , nixpkgs-unstable
     , home-manager
     , ...
     }@inputs:
@@ -116,6 +117,12 @@
 
       # Overlays --------------------------------------------------------------- {{{
       overlays = {
+        unstable-packages = final: _prev: {
+          unstable = import inputs.nixpkgs-unstable {
+            system = final.system;
+            config.allowUnfree = true;
+          };
+        };
         # Overlays to add various packages into package set
         # Overlay useful on Macs with Apple Silicon
         apple-silicon = final: prev:
