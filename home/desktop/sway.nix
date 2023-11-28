@@ -44,7 +44,7 @@ in
     };
 
     programs.alacritty.enable = true;
-    
+
     programs.swaylock = {
       enable = true;
       settings = {
