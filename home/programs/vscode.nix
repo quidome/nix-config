@@ -11,5 +11,10 @@ in
       arrterian.nix-env-selector
       jnoortheen.nix-ide
     ];
+
+    userSettings = {
+      "git.autofetch" = true;
+      "update.mode" = "none";
+    };
   };
 }
