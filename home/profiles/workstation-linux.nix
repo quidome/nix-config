@@ -13,10 +13,10 @@ in
       obsidian
       signal-desktop
       spotify
+      vscode
     ];
 
     programs.firefox.enable = true;
-    programs.vscode.enable = true;
 
     services.gpg-agent.enableSshSupport = true;
     services.gpg-agent.enable = true;
