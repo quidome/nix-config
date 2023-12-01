@@ -10,6 +10,7 @@ in
       branch.autosetuprebase = "always";
       color.ui = "auto";
       core.excludesfile = "${config.home.homeDirectory}/.gitignore_global";
+      init.defaultBranch = "main";
       pull.rebase = true;
       push.autoSetupRemote = true;
       rebase.autoStash = true;
