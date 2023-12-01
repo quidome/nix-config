@@ -33,8 +33,7 @@ in
       gnome-terminal
       gnome-tweaks
     ]) ++ (with pkgs.gnomeExtensions; [
-      appindicator
-      # sound-output-device-chooser
+      # Add extensions here
     ]);
   };
 }
