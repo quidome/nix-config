@@ -40,8 +40,8 @@
   programs.bat.config.theme = "DarkNeon";
   programs.bat.config.style = "header,snip";
 
-  programs.exa.enable = true;
-  programs.exa.enableAliases = true;
+  programs.eza.enable = true;
+  programs.eza.enableAliases = true;
 
   programs.git.enable = true;
 

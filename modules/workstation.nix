@@ -2,7 +2,7 @@
 with lib;
 {
   config = mkIf (config.my.profile == "workstation") {
-    fonts.fonts = with pkgs; [
+    fonts.packages = with pkgs; [
       fira-code
       source-code-pro
       (nerdfonts.override {
