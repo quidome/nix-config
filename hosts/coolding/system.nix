@@ -6,7 +6,7 @@
     ../../modules
   ];
 
-  my.gui = "gnome";
+  my.gui = "kde";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
