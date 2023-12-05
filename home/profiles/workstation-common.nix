@@ -4,6 +4,8 @@ with lib;
   config = mkIf (config.my.profile == "workstation") {
     my.syncthing.enable = true;
 
+    fonts.fontconfig.enable = true;
+
     home = {
       packages = with pkgs; [
         pandoc
@@ -13,6 +15,8 @@ with lib;
         discord
         gimp
         element-desktop
+
+        (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
       ];
 
       sessionPath = [
