@@ -8,13 +8,13 @@ with lib;
 
     home = {
       packages = with pkgs; [
-        pandoc
-        plantuml
-
         bitwarden-cli
         discord
-        gimp
         element-desktop
+        gimp
+        pandoc
+        plantuml
+        rcm
 
         (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
       ];

@@ -11,7 +11,6 @@
   home = {
     stateVersion = "22.11";
     packages = with pkgs; [
-      rcm
       # dev tools
       postgresql
       jetbrains.idea-community

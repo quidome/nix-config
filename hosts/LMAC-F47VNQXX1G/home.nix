@@ -13,7 +13,6 @@
     stateVersion = "22.11";
     packages = with pkgs; [
       # Basics
-      rcm
       pinentry_mac
 
       # Dev
