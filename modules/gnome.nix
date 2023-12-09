@@ -29,6 +29,7 @@ in
     environment.systemPackages = (with pkgs; [
       blackbox-terminal
       guake
+      pinentry-gnome
     ]) ++ (with pkgs.gnome; [
       gnome-terminal
       gnome-tweaks
