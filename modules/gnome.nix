@@ -35,6 +35,7 @@ in
       gnome-tweaks
     ]) ++ (with pkgs.gnomeExtensions; [
       # Add extensions here
+      appindicator
     ]);
   };
 }
