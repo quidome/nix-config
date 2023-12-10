@@ -6,6 +6,7 @@ in
   config = mkIf (config.my.profile == "workstation" && !isDarwin) {
     home.packages = with pkgs; [
       adoptopenjdk-icedtea-web
+      bitwarden
       calibre
       digikam
       emacs
@@ -14,6 +15,7 @@ in
       signal-desktop
       spotify
       vscode
+      wl-clipboard
     ];
 
     programs.firefox.enable = true;
