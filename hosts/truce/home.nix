@@ -17,8 +17,10 @@ in
     stateVersion = "22.11";
     packages = with pkgs; [
       # dev tools
-      postgresql
+      jetbrains.idea-community
       poetry
+      postgresql
+      temurin-bin-21
       (python3.withPackages my-python-packages)
 
       # 
