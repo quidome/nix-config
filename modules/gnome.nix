@@ -22,13 +22,13 @@ in
     environment.gnome.excludePackages = (with pkgs; [
       gnome-photos
     ]) ++ (with pkgs.gnome;[
-      geary
     ]);
 
     # add extra packages to this desktop setup
     environment.systemPackages = (with pkgs; [
       blackbox-terminal
       guake
+      meld
       pinentry-gnome
     ]) ++ (with pkgs.gnome; [
       gnome-terminal
