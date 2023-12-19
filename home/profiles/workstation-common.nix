@@ -10,7 +10,6 @@ with lib;
       packages = with pkgs; [
         bitwarden-cli
         discord
-        element-desktop
         gimp
         pandoc
         plantuml
