@@ -11,7 +11,7 @@ in
   ];
 
   my.profile = "workstation";
-  my.gui = "gnome";
+  my.gui = "kde";
 
   home = {
     stateVersion = "22.11";
