@@ -1,6 +1,8 @@
-{ pkgs, lib, config, ... }: lib.mkIf config.programs.helix.enable {
+{ pkgs, lib, config, ... }:
+with pkgs;
+lib.mkIf config.programs.helix.enable {
 
-  home.packages = with pkgs; [
+  home.packages = [
     marksman # markdown lsp
     nil # nix lsp
     nixpkgs-fmt # nix formatter
