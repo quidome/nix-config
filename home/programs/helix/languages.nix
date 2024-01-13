@@ -3,6 +3,8 @@ with pkgs;
 lib.mkIf config.programs.helix.enable {
 
   home.packages = [
+    gopls
+    delve
     marksman # markdown lsp
     nil # nix lsp
     nixpkgs-fmt # nix formatter
