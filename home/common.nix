@@ -1,6 +1,6 @@
 # Contains the most common config
 # headless, both applicable to linux and darwin
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs;  [
     # Base
     bottom
