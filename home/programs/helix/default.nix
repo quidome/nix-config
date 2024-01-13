@@ -3,7 +3,7 @@
   imports = [ ./languages.nix ];
   config.programs.helix = lib.mkIf config.programs.helix.enable {
     settings = {
-      theme = "monokai_pro";
+      theme = "darcula-solid";
       editor = {
         file-picker.hidden = false;
         line-number = "relative";
