@@ -28,6 +28,12 @@
   hardware = {
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
+
+    opengl.driSupport32Bit = true;
+    opengl.extraPackages = with pkgs; [
+      rocm-opencl-icd
+      rocm-opencl-runtime
+    ];
   };
 
   programs = {
