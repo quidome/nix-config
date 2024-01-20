@@ -15,6 +15,13 @@
       postgresql
       jetbrains.idea-community
       temurin-bin-21
+
+      # office
+      libreoffice-qt
+      hunspell
+      hunspellDicts.nl_NL
+      hunspellDicts.en_US-large
+      hunspellDicts.en_GB-large
     ];
   };
 
