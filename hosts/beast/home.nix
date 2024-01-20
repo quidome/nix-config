@@ -16,6 +16,11 @@
       jetbrains.idea-community
       temurin-bin-21
 
+      # some tools
+      cointop
+      discord
+      blender
+
       # office
       libreoffice-qt
       hunspell
