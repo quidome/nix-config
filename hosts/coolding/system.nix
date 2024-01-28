@@ -25,7 +25,9 @@
   hardware = {
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
-
+    bluetooth.input = {
+      General.UserspaceHID = true;
+    };
     opengl = {
       enable = true;
       extraPackages = with pkgs; [
