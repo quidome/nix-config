@@ -36,6 +36,7 @@ in
     ]) ++ (with pkgs.gnomeExtensions; [
       # Add extensions here
       appindicator
+      tailscale-status
     ]);
   };
 }
