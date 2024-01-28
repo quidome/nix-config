@@ -166,7 +166,7 @@ in
         floating = {
           border = 0;
           criteria = [
-            { class = "^(Pinentry-gtk-2)$"; }
+            { class = "^Pinentry$"; }
             { app_id = "pavucontrol"; }
             { app_id = "^firefox$"; title = "^Extension:"; }
             { app_id = "^firefox$"; title = "^Library$"; }
