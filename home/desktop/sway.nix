@@ -98,6 +98,12 @@ in
               }
             ];
           };
+          desktop = {
+            outputs = [
+              { criteria = "HK2W200965"; position = "0,0"; }
+              { criteria = "9X2VY66A0S2L"; status = "disable"; }
+            ];
+          };
         };
       };
 
