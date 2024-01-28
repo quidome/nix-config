@@ -298,10 +298,6 @@ in
               criteria = { app_id = "^alacritty_sp$"; };
               command = "move scratchpad";
             }
-            {
-              criteria = { app_id = "firefox"; title = "Firefox — Sharing Indicator"; };
-              command = "kill";
-            }
           ];
         };
 
