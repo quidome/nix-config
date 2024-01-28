@@ -167,8 +167,9 @@ in
           border = 0;
           criteria = [
             { class = "^(Pinentry-gtk-2)$"; }
-            { class = "^Firefox$"; title = "^Library$"; }
             { app_id = "pavucontrol"; }
+            { app_id = "^firefox$"; title = "^Extension:"; }
+            { app_id = "^firefox$"; title = "^Library$"; }
           ];
         };
 
@@ -294,7 +295,7 @@ in
 
           commands = [
             {
-              criteria = { app_id = "alacritty_sp"; };
+              criteria = { app_id = "^alacritty_sp$"; };
               command = "move scratchpad";
             }
             {
