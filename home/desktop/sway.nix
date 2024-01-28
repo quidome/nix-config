@@ -89,12 +89,12 @@ in
           docked = {
             outputs = [
               {
-                criteria = "eDP-1";
-                position = "0,360";
+                criteria = "Dell Inc. DELL U2515H 9X2VY66A0S2L";
+                position = "0,0";
               }
               {
-                criteria = "Dell Inc. DELL U2515H 9X2VY66A0S2L";
-                position = "1920,0";
+                criteria = "eDP-1";
+                position = "2580,360";
               }
             ];
           };
