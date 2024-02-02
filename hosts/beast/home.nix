@@ -6,7 +6,7 @@
   ];
 
   my.profile = "workstation";
-  my.gui = "kde";
+  my.gui = "sway";
 
   home = {
     stateVersion = "23.11";
