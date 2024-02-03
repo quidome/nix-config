@@ -16,6 +16,9 @@ in
   home = {
     stateVersion = "22.11";
     packages = with pkgs; [
+      wireguard-tools
+      httpie
+      ipcalc
       # dev tools
       jetbrains.idea-community
       poetry
