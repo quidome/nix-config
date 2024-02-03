@@ -5,7 +5,7 @@
     # Base
     bottom
     curl
-    dog
+    dogdns
     fd
     fzf
     git-crypt
