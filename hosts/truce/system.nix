@@ -15,6 +15,7 @@
   # crypto_LUKS /dev/sda3 - swap
   boot.initrd.luks.devices."luks-d1cc9c47-a9e6-4e8a-92c8-92155208f018".device = "/dev/disk/by-uuid/d1cc9c47-a9e6-4e8a-92c8-92155208f018";
 
+  networking.firewall.enable = true;
   networking.hostName = "truce";
   networking.networkmanager.enable = true;
 
