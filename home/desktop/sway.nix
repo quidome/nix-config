@@ -215,10 +215,10 @@ in
             "${modifier}+0" = "workspace number 10";
             "${modifier}+Shift+0" = "move container to workspace number 10";
 
-            "Print" = "exec IMG=~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%s).png && grim -g \"\$(slurp)\" $IMG && wl-copy -t image/png < $IMG";
-            "Shift+Print" = "exec IMG=~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%s).png && grim $IMG && wl-copy -t image/png < $IMG";
-            "XF86Eject" = "exec IMG=~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%s).png && grim -g \"\$(slurp)\" $IMG && wl-copy -t image/png < $IMG";
-            "Shift+XF86Eject" = "exec IMG=~/Pictures/screenshots/$(date +%Y-%m-%d_%H-%M-%s).png && grim $IMG && wl-copy -t image/png < $IMG";
+            "Print" = "exec IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%s).png && grim -g \"\$(slurp)\" $IMG && wl-copy -t image/png < $IMG";
+            "Shift+Print" = "exec IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%s).png && grim $IMG && wl-copy -t image/png < $IMG";
+            "XF86Eject" = "exec IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%s).png && grim -g \"\$(slurp)\" $IMG && wl-copy -t image/png < $IMG";
+            "Shift+XF86Eject" = "exec IMG=~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%s).png && grim $IMG && wl-copy -t image/png < $IMG";
 
             "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
             "XF86MonBrightnessUp" = "exec brightnessctl set 5%+";
