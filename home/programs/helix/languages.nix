@@ -17,6 +17,8 @@ lib.mkIf config.programs.helix.enable {
     python311Packages.python-lsp-server
   ];
 
+  # Default config:
+  # https://github.com/helix-editor/helix/blob/master/languages.toml
   programs.helix.languages = {
     language = [
       {
