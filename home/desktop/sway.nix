@@ -230,6 +230,7 @@ in
             "XF86AudioPrev" = "exec playerctl previous";
             "Shift+XF86AudioLowerVolume" = "exec playerctl previous";
             "XF86AudioMute" = "exec pamixer -t";
+            "XF86AudioMicMute" = "exec amixer set Capture toggle -q";
             "XF86AudioLowerVolume" = "exec pamixer -d 2";
             "XF86AudioRaiseVolume" = "exec pamixer -i 3";
 
