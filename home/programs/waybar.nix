@@ -7,6 +7,7 @@ in
   config = mkIf waybarEnabled {
     home.packages = with pkgs; [
       libappindicator-gtk3
+      pavucontrol
     ];
 
     programs.waybar = {
