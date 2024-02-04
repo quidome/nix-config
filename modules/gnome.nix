@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
 with lib;
-
 let
   gnomeEnabled = (config.my.gui == "gnome");
 in
@@ -21,7 +20,6 @@ in
 
     environment.gnome.excludePackages = (with pkgs; [
       gnome-photos
-    ]) ++ (with pkgs.gnome;[
     ]);
 
     # add extra packages to this desktop setup

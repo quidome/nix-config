@@ -5,7 +5,7 @@ let
 in
 {
   config = mkIf (config.my.profile == "workstation" && isDarwin) {
-    home.packages = with pkgs; [
+    home.packages = [
     ];
 
     programs.alacritty.enable = true;

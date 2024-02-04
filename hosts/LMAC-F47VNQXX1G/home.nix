@@ -1,4 +1,4 @@
-{ nixpkgs, config, pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./home-brew.nix

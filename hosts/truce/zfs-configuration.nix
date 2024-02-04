@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   networking.hostId = "16d91c92";
   boot.supportedFilesystems = [ "zfs" ];

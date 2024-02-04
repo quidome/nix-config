@@ -17,19 +17,12 @@
     darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    { self
-    , darwin
-    , nixpkgs
-    , nixpkgs-unstable
-    , home-manager
-    , ...
-    }@inputs:
+  outputs = { self, ... }@inputs:
     let
-      inherit (darwin.lib) darwinSystem;
-      inherit (nixpkgs.lib) nixosSystem;
+      inherit (inputs.darwin.lib) darwinSystem;
+      inherit (inputs.nixpkgs.lib) nixosSystem;
       inherit (inputs.nixpkgs.lib)
-        attrValues makeOverridable optionalAttrs singleton;
+        attrValues optionalAttrs singleton;
 
       # Configuration for `nixpkgs`
       nixpkgsConfig = {
@@ -51,13 +44,13 @@
     in
     {
 
-      nixosConfigurations = rec {
+      nixosConfigurations = {
         beast = nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./hosts/beast/system.nix
 
-            home-manager.nixosModules.home-manager
+            inputs.home-manager.nixosModules.home-manager
             {
               nixpkgs = nixpkgsConfig;
               home-manager.useGlobalPkgs = true;
@@ -72,7 +65,7 @@
           modules = [
             ./hosts/coolding/system.nix
 
-            home-manager.nixosModules.home-manager
+            inputs.home-manager.nixosModules.home-manager
             {
               nixpkgs = nixpkgsConfig;
               home-manager.useGlobalPkgs = true;
@@ -87,7 +80,7 @@
           modules = [
             ./hosts/truce/system.nix
 
-            home-manager.nixosModules.home-manager
+            inputs.home-manager.nixosModules.home-manager
             {
               nixpkgs = nixpkgsConfig;
               home-manager.useGlobalPkgs = true;
@@ -98,13 +91,13 @@
         };
       };
 
-      darwinConfigurations = rec {
+      darwinConfigurations = {
         LMAC-F47VNQXX1G = darwinSystem {
           system = "aarch64-darwin";
           modules = [
             ./hosts/LMAC-F47VNQXX1G/system.nix
 
-            home-manager.darwinModules.home-manager
+            inputs.home-manager.darwinModules.home-manager
             {
               nixpkgs = nixpkgsConfig;
               home-manager.useGlobalPkgs = true;

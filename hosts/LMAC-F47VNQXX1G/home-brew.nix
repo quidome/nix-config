@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, ... }:
 with lib;
 let
   zshEnabled = config.programs.zsh.enable;
