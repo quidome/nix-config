@@ -28,6 +28,7 @@
     };
   };
 
+  networking.firewall.enable = true;
   networking.hostName = "beast";
 
   systemd.network.enable = true;
