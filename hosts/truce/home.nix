@@ -11,7 +11,7 @@ in
   ];
 
   my.profile = "workstation";
-  my.gui = "sway";
+  my.gui = "gnome";
 
   home = {
     stateVersion = "22.11";
