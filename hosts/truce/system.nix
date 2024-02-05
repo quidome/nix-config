@@ -17,7 +17,6 @@
 
   networking.firewall.enable = true;
   networking.hostName = "truce";
-  networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -33,7 +32,6 @@
     gnupg.agent.enableSSHSupport = true;
   };
 
-  services.auto-cpufreq.enable = true;
   services.usbmuxd.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

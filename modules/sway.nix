@@ -27,14 +27,14 @@ in
     ];
 
     programs.dconf.enable = true;
-    programs.sway = {
-      enable = true;
-      wrapperFeatures.gtk = true; # so that gtk works properly
-    };
+
+    programs.sway.enable = true;
+    programs.sway.wrapperFeatures.gtk = true; # so that gtk works properly
 
     # for qt theming
     qt.platformTheme = "qt5ct";
 
+    services.auto-cpufreq.enable = true;
     services.dbus.enable = true;
 
     xdg.portal = {
