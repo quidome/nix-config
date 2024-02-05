@@ -29,7 +29,12 @@
   };
 
   networking.hostName = "beast";
-  networking.networkmanager.enable = true;
+
+  systemd.network.enable = true;
+  systemd.network.networks."10-lan" = {
+    matchConfig.Name = "enp42s0";
+    networkConfig.DHCP = "ipv4";
+  };
 
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Amsterdam";

@@ -7,7 +7,6 @@ in
 {
   config = mkIf swayEnabled {
     my.profile = "workstation";
-    networking.networkmanager.enable = true;
 
     environment.systemPackages = with pkgs; [
       # gtk theming
