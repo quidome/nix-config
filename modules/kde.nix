@@ -3,6 +3,7 @@ with lib;
 
 let
   kdeEnabled = (config.my.gui == "kde");
+  tailscaleEnabled = config.services.tailscale.enable;
 in
 {
   config = mkIf kdeEnabled {
@@ -41,10 +42,11 @@ in
         libsForQt5.kipi-plugins
         libsForQt5.qt5.qttools
         sddm-kcm
-        tailscale-systray
         yakuake
 
         vlc
+
+        (mkIf tailscaleEnabled tailscale-systray)
       ];
     };
   };

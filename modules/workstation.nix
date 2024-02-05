@@ -9,13 +9,8 @@ with lib;
       '';
     };
 
-    environment.systemPackages = with pkgs; [
-      tailscale
-    ];
-
     services.flatpak.enable = true;
     services.openssh.enable = true;
     services.pipewire.enable = true;
-    services.tailscale.enable = true;
   };
 }

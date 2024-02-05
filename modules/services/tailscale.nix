@@ -1,6 +1,9 @@
 { config, lib, pkgs, ... }:
+with lib;
+with pkgs;
 {
-  config = lib.mkIf config.services.tailscale.enable {
-    environment.systemPackages = with pkgs; [ tailscale ];
+  config = mkIf config.services.tailscale.enable {
+    environment.systemPackages =
+      [ tailscale ];
   };
 }

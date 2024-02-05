@@ -2,6 +2,7 @@
 with lib;
 let
   gnomeEnabled = (config.my.gui == "gnome");
+  tailscaleEnabled = config.services.tailscale.enable;
 in
 {
   config = mkIf gnomeEnabled {
@@ -33,7 +34,7 @@ in
     ]) ++ (with pkgs.gnomeExtensions; [
       # Add extensions here
       appindicator
-      tailscale-status
+      (mkIf tailscaleEnabled tailscale-status)
     ]);
   };
 }
