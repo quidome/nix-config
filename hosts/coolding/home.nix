@@ -39,6 +39,4 @@ in
       hunspellDicts.en_GB-large
     ];
   };
-
-  programs.home-manager.enable = true;
 }
