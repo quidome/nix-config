@@ -6,7 +6,7 @@
     ../../modules
   ];
 
-  my.gui = "sway";
+  my.gui = "gnome";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
