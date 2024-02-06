@@ -27,10 +27,19 @@
 
   networking.firewall.enable = true;
   networking.hostName = "truce";
-  networking.wireless = {
-    enable = true;
-    interfaces = [ "wlp2s0" ];
-    userControlled.enable = true;
+  # networking.wireless = {
+  #   enable = true;
+  #   interfaces = [ "wlp2s0" ];
+  #   userControlled.enable = true;
+  # };
+
+  # systemd.network = {
+  #   enable = true;
+  #   networks."10-wlan" = {
+  #     matchConfig.Name = "wlp2s0";
+  #     networkConfig.DHCP = "ipv4";
+  #   };
+  # };
   };
 
   programs = {
@@ -39,14 +48,6 @@
   };
 
   services.usbmuxd.enable = true;
-
-  systemd.network = {
-    enable = true;
-    networks."10-wlan" = {
-      matchConfig.Name = "wlp2s0";
-      networkConfig.DHCP = "ipv4";
-    };
-  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "22.11"; # Did you read the comment?
