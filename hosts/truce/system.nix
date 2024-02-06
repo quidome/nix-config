@@ -40,6 +40,21 @@
   #     networkConfig.DHCP = "ipv4";
   #   };
   # };
+
+  networking.wg-quick.interfaces.wg0 = {
+    autostart = false;
+    address = [ "172.16.41.14/32" ];
+    dns = [ "172.16.41.1" "lan.balti.casa" "balti.casa" "quido.me" ];
+    listenPort = 51820;
+    privateKeyFile = "/etc/secrets/wg0-private";
+
+    peers = [
+      {
+        publicKey = "YkOAj87heEGLFgM8h1VhsBfBp1qYgpcpTAz9NUOTTQU=";
+        allowedIPs = [ "0.0.0.0/0" ];
+        endpoint = "wg.quido.me:51232";
+      }
+    ];
   };
 
   programs = {
