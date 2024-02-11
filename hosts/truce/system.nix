@@ -27,6 +27,8 @@
 
   networking.firewall.enable = true;
   networking.hostName = "truce";
+
+  # networking.networkmanager.enable = false;
   # networking.wireless = {
   #   enable = true;
   #   interfaces = [ "wlp2s0" ];
@@ -38,6 +40,7 @@
   #   networks."10-wlan" = {
   #     matchConfig.Name = "wlp2s0";
   #     networkConfig.DHCP = "ipv4";
+  #     dhcpV4Config.UseDomains = true;
   #   };
   # };
 
