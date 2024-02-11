@@ -31,10 +31,11 @@
   networking.firewall.enable = true;
   networking.hostName = "beast";
 
+  networking.networkmanager.enable = false;
   systemd.network.enable = true;
-  systemd.network.networks."10-lan" = {
-    matchConfig.Name = "enp42s0";
-    networkConfig.DHCP = "ipv4";
+  systemd.network.networks = {
+    "10-lan" = { matchConfig.Name = "enp4s0"; networkConfig.DHCP = "ipv4"; dhcpV4Config.UseDomains = true; };
+    "11-lan" = { matchConfig.Name = "enp42s0"; networkConfig.DHCP = "ipv4"; dhcpV4Config.UseDomains = true; };
   };
 
   time.hardwareClockInLocalTime = true;

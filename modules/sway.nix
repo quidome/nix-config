@@ -3,6 +3,7 @@ with lib;
 
 let
   swayEnabled = (config.my.gui == "sway");
+  networkmanagerEnabled = config.networking.networkmanager.enable;
 in
 {
   config = mkIf swayEnabled {
@@ -21,7 +22,7 @@ in
       libsForQt5.breeze-qt5
       adwaita-qt
 
-      networkmanagerapplet
+      (mkIf networkmanagerEnabled networkmanagerapplet)
       wofi
     ];
 
