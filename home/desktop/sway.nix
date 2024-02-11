@@ -190,13 +190,12 @@ in
         };
 
         input = {
+          "1133:49242:Logitech_USB_Optical_Mouse" = { left_handed = "enabled"; };
           "type:keyboard" = { xkb_options = "caps:none"; };
-          "type:tablet_tool" = { tool_mode = "* relative"; };
+          "type:mouse" = { natural_scroll = "enabled"; };
           "type:pointer" = { natural_scroll = "enabled"; };
-          "type:touchpad" = {
-            natural_scroll = "enabled";
-            tap = "enabled";
-          };
+          "type:tablet_tool" = { tool_mode = "* relative"; };
+          "type:touchpad" = { natural_scroll = "enabled"; tap = "enabled"; };
         };
 
         keybindings =
