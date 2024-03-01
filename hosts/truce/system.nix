@@ -8,13 +8,16 @@
 
   my.gui = "sway";
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernel.sysctl = { "vm.swappiness" = 1; };
-  boot.kernelParams = [ "consoleblank=60" ];
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
 
-  # crypto_LUKS /dev/sda3 - swap
-  boot.initrd.luks.devices."luks-d1cc9c47-a9e6-4e8a-92c8-92155208f018".device = "/dev/disk/by-uuid/d1cc9c47-a9e6-4e8a-92c8-92155208f018";
+    kernel.sysctl = { "vm.swappiness" = 1; };
+    kernelParams = [ "consoleblank=60" ];
+
+    # crypto_LUKS /dev/sda3 - swap
+    initrd.luks.devices."luks-d1cc9c47-a9e6-4e8a-92c8-92155208f018".device = "/dev/disk/by-uuid/d1cc9c47-a9e6-4e8a-92c8-92155208f018";
+  };
 
   time.timeZone = "Europe/Amsterdam";
 
