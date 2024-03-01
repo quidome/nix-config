@@ -16,6 +16,7 @@ in
   home = {
     stateVersion = "22.11";
     packages = with pkgs; [
+      android-tools
       wireguard-tools
       httpie
       ipcalc
