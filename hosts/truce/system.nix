@@ -28,39 +28,34 @@
     bluetooth.powerOnBoot = true;
   };
 
-  networking.firewall.enable = true;
-  networking.hostName = "truce";
+  networking = {
+    hostName = "truce";
 
-  # networking.networkmanager.enable = false;
-  # networking.wireless = {
-  #   enable = true;
-  #   interfaces = [ "wlp2s0" ];
-  #   userControlled.enable = true;
-  # };
+    firewall.enable = true;
 
-  # systemd.network = {
-  #   enable = true;
-  #   networks."10-wlan" = {
-  #     matchConfig.Name = "wlp2s0";
-  #     networkConfig.DHCP = "ipv4";
-  #     dhcpV4Config.UseDomains = true;
-  #   };
-  # };
+    networkmanager.enable = false;
 
-  networking.wg-quick.interfaces.wg0 = {
-    autostart = false;
-    address = [ "172.16.41.14/32" ];
-    dns = [ "172.16.41.1" "lan.balti.casa" "balti.casa" "quido.me" ];
-    listenPort = 51820;
-    privateKeyFile = "/etc/secrets/wg0-private";
+    wireless = {
+      enable = true;
+      interfaces = [ "wlp2s0" ];
+      userControlled.enable = true;
+    };
 
-    peers = [
-      {
-        publicKey = "YkOAj87heEGLFgM8h1VhsBfBp1qYgpcpTAz9NUOTTQU=";
-        allowedIPs = [ "0.0.0.0/0" ];
-        endpoint = "wg.quido.me:51232";
-      }
-    ];
+    wg-quick.interfaces.wg0 = {
+      autostart = false;
+      address = [ "172.16.41.14/32" ];
+      dns = [ "172.16.41.1" "lan.balti.casa" "balti.casa" "quido.me" ];
+      listenPort = 51820;
+      privateKeyFile = "/etc/secrets/wg0-private";
+
+      peers = [
+        {
+          publicKey = "YkOAj87heEGLFgM8h1VhsBfBp1qYgpcpTAz9NUOTTQU=";
+          allowedIPs = [ "0.0.0.0/0" ];
+          endpoint = "wg.quido.me:51232";
+        }
+      ];
+    };
   };
 
   programs = {
@@ -69,6 +64,13 @@
   };
 
   services.usbmuxd.enable = true;
+
+  systemd.network = {
+    enable = true;
+    networks = {
+      "10-wlan" = { matchConfig.Name = "wlp2s0"; networkConfig.DHCP = "ipv4"; dhcpV4Config.UseDomains = true; };
+    };
+  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "22.11"; # Did you read the comment?
