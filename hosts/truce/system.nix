@@ -6,7 +6,7 @@
     ../../modules
   ];
 
-  my.gui = "sway";
+  my.gui = "kde";
 
   boot = {
     loader.systemd-boot.enable = true;
@@ -33,13 +33,7 @@
 
     firewall.enable = true;
 
-    networkmanager.enable = false;
-
-    wireless = {
-      enable = true;
-      interfaces = [ "wlp2s0" ];
-      userControlled.enable = true;
-    };
+    networkmanager.enable = true;
 
     wg-quick.interfaces.wg0 = {
       autostart = false;
@@ -64,13 +58,6 @@
   };
 
   services.usbmuxd.enable = true;
-
-  systemd.network = {
-    enable = true;
-    networks = {
-      "10-wlan" = { matchConfig.Name = "wlp2s0"; networkConfig.DHCP = "ipv4"; dhcpV4Config.UseDomains = true; };
-    };
-  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "22.11"; # Did you read the comment?
