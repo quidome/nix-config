@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./system-vars.nix
@@ -15,9 +15,14 @@
     kernel.sysctl = { "vm.swappiness" = 1; };
     kernelParams = [ "consoleblank=60" ];
 
+    supportedFilesystems = [ "bcachefs" ];
+    kernelPackages = pkgs.linuxPackages_latest;
+
     # crypto_LUKS /dev/sda3 - swap
     initrd.luks.devices."luks-d1cc9c47-a9e6-4e8a-92c8-92155208f018".device = "/dev/disk/by-uuid/d1cc9c47-a9e6-4e8a-92c8-92155208f018";
   };
+
+  environment.systemPackages = with pkgs; [ bcachefs-tools ];
 
   time.timeZone = "Europe/Amsterdam";
 
