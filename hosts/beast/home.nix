@@ -17,6 +17,7 @@
       temurin-bin-21
 
       # some tools
+      android-tools
       cointop
       discord
       blender
