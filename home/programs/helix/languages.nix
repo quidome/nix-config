@@ -15,6 +15,9 @@ lib.mkIf config.programs.helix.enable {
     nodePackages.vscode-json-languageserver
     nodePackages.yaml-language-server
     python311Packages.python-lsp-server
+
+    rust-analyzer
+    vscode-extensions.vadimcn.vscode-lldb
   ];
 
   # Default config:
