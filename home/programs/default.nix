@@ -9,6 +9,7 @@
     ./vscode.nix
     ./waybar.nix
     ./wofi.nix
+    ./zellij
     ./zsh.nix
   ];
 }
