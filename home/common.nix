@@ -1,6 +1,6 @@
 # Contains the most common config
 # headless, both applicable to linux and darwin
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
   home.packages = with pkgs;  [
     # Base
     bottom
@@ -53,7 +53,7 @@
   programs.ssh.enable = true;
   programs.ssh.extraConfig = "AddKeysToAgent yes";
 
-  programs.tmux.enable = true;
+  programs.zellij.enable = lib.mkDefault true;
 
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = true;
