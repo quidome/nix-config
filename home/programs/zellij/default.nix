@@ -2,7 +2,6 @@
 let
   zellijEnabled = config.programs.zellij.enable;
   helixEnabled = config.programs.helix.enable;
-  copyCommandEnabled = config.my.gui == "kde" || config.my.gui == "gnome";
 in
 {
   config = lib.mkIf zellijEnabled {
@@ -22,7 +21,6 @@ in
         scrollback_editor = lib.mkIf helixEnabled (lib.getExe pkgs.helix);
         pane_frames = false;
         default_layout = "layout";
-        copy_command = lib.mkIf copyCommandEnabled "wl-copy";
       };
     };
 
