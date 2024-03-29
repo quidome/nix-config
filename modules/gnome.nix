@@ -8,33 +8,39 @@ in
   config = mkIf gnomeEnabled {
     my.profile = "workstation";
 
-    # use gdm and gnome-shell
-    services.xserver = {
-      enable = true;
-      desktopManager.gnome.enable = true;
-      displayManager.gdm.enable = true;
-      displayManager.gdm.wayland = true;
-    };
-
-    programs.gnupg.agent.pinentryFlavor = "gnome3";
-
     environment.gnome.excludePackages = (with pkgs; [
       gnome-photos
+      gnome-tour
+    ]) ++ (with pkgs.gnome; [
+      cheese
+      gnome-music
+      gnome-terminal
+      epiphany
+      geary
+      totem
+      tali
+      iagno
+      hitori
+      atomix
     ]);
 
     # add extra packages to this desktop setup
     environment.systemPackages = (with pkgs; [
-      blackbox-terminal
-      guake
-      meld
       pinentry-gnome
     ]) ++ (with pkgs.gnome; [
-      gnome-terminal
       gnome-tweaks
     ]) ++ (with pkgs.gnomeExtensions; [
-      # Add extensions here
       appindicator
       (mkIf tailscaleEnabled tailscale-status)
     ]);
+
+    programs.gnupg.agent.pinentryFlavor = "gnome3";
+
+    services.xserver.enable = true;
+    services.xserver.desktopManager.gnome.enable = true;
+    services.xserver.displayManager.gdm.enable = true;
+    # services.xserver.displayManager.gdm.wayland = true;
+
+    services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   };
 }
