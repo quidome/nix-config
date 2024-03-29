@@ -35,6 +35,7 @@
     watch
   ];
 
+  programs.alacritty.enable = true;
 
   programs.bat.enable = true;
   programs.bat.config.theme = "DarkNeon";
