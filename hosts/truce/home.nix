@@ -20,6 +20,7 @@ in
       wireguard-tools
       httpie
       ipcalc
+
       # dev tools
       jetbrains.idea-community
       poetry
@@ -27,7 +28,7 @@ in
       temurin-bin-21
       (python3.withPackages my-python-packages)
 
-      # 
+      # other tools
       blender
     ];
   };
