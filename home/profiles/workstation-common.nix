@@ -35,12 +35,5 @@ with lib;
         DEV_PATH = "${config.home.homeDirectory}/dev";
       };
     };
-
-    programs = {
-      direnv.enable = true;
-      direnv.nix-direnv.enable = true;
-
-      helix.enable = true;
-    };
   };
 }

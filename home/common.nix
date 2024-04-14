@@ -40,10 +40,15 @@
   programs.bat.config.theme = "DarkNeon";
   programs.bat.config.style = "header,snip";
 
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+
   programs.eza.enable = true;
   programs.eza.enableAliases = true;
 
   programs.git.enable = true;
+
+  programs.helix.enable = true;
 
   programs.home-manager.enable = true;
 
