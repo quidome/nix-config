@@ -29,7 +29,6 @@
         config.allowUnfree = true;
         config.permittedInsecurePackages = [
           "electron-25.9.0" # for obsidian
-          "nix-2.15.3" # cannot find what pulls this in
         ];
         overlays = attrValues self.overlays ++ singleton (
           # Sub in x86 version of packages that don't build on Apple Silicon yet

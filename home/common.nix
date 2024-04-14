@@ -24,7 +24,6 @@
     comma # run software from without installing it
     niv # easy dependency management for nix projects
     nixpkgs-fmt
-    rnix-lsp # nix language server
 
     # Mac specific
   ] ++ lib.optionals stdenv.isDarwin [
