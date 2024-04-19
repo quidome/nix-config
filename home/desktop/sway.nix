@@ -74,37 +74,8 @@ in
 
     services = {
       kanshi = {
-        enable = true;
+        enable = mkDefault true;
         systemdTarget = "graphical-session.target";
-
-        profiles = {
-          undocked = {
-            outputs = [
-              {
-                criteria = "eDP-1";
-                status = "enable";
-              }
-            ];
-          };
-          docked = {
-            outputs = [
-              {
-                criteria = "Dell Inc. DELL U2515H 9X2VY66A0S2L";
-                position = "0,0";
-              }
-              {
-                criteria = "eDP-1";
-                position = "2580,360";
-              }
-            ];
-          };
-          desktop = {
-            outputs = [
-              { criteria = "HK2W200965"; position = "0,0"; }
-              { criteria = "9X2VY66A0S2L"; status = "disable"; }
-            ];
-          };
-        };
       };
 
       mako = {
