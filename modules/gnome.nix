@@ -6,8 +6,6 @@ let
 in
 {
   config = mkIf gnomeEnabled {
-    my.profile = "workstation";
-
     environment.gnome.excludePackages = (with pkgs; [
       gnome-photos
       gnome-tour

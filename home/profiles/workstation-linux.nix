@@ -1,9 +1,11 @@
 { config, pkgs, lib, ... }:
 with lib;
-let isDarwin = pkgs.stdenv.isDarwin;
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+  isLinuxWorkstation = (!isDarwin && config.my.gui != "none");
 in
 {
-  config = mkIf (config.my.profile == "workstation" && !isDarwin) {
+  config = mkIf isLinuxWorkstation {
     home.packages = with pkgs; [
       adoptopenjdk-icedtea-web
       bitwarden

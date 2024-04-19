@@ -7,8 +7,6 @@
     ../../home
   ];
 
-  my.profile = "workstation";
-
   home = {
     stateVersion = "22.11";
     packages = with pkgs; [

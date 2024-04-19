@@ -1,12 +1,11 @@
 { pkgs, ... }:
 {
   imports = [
+    ./shared.nix
     ../../home
     ./home-vars.nix
   ];
 
-  my.profile = "workstation";
-  my.gui = "gnome";
 
   home = {
     stateVersion = "23.11";

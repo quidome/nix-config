@@ -1,7 +1,11 @@
 { config, pkgs, lib, ... }:
 with lib;
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+  isLinuxWorkstation = (!isDarwin && config.my.gui != "none");
+in
 {
-  config = mkIf (config.my.profile == "workstation") {
+  config = mkIf (isDarwin || isLinuxWorkstation) {
     my.syncthing.enable = true;
 
     fonts.fontconfig.enable = true;

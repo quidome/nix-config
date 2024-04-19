@@ -7,8 +7,6 @@ let
 in
 {
   config = mkIf swayEnabled {
-    my.profile = "workstation";
-
     environment.systemPackages = with pkgs; [
       # gtk theming
       glib

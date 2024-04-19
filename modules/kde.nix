@@ -7,8 +7,6 @@ let
 in
 {
   config = mkIf kdeEnabled {
-    my.profile = "workstation";
-
     # services required for plasma
     services = {
       # avahi.enable = true;

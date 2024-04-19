@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 let
   isDarwin = pkgs.stdenv.isDarwin;
 in
 {
-  config = lib.mkIf (config.my.profile == "workstation" && isDarwin) {
+  config = lib.mkIf (isDarwin) {
     home.packages = [
     ];
   };

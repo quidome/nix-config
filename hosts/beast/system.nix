@@ -1,12 +1,11 @@
 { pkgs, ... }:
 {
   imports = [
+    ./shared.nix
     ./system-vars.nix
     ./hardware-configuration.nix
     ../../modules
   ];
-
-  my.gui = "gnome";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

@@ -10,7 +10,6 @@ in
     ./home-vars.nix
   ];
 
-  my.profile = "workstation";
   my.gui = "kde";
 
   home = {

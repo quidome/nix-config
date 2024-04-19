@@ -1,7 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 with lib;
 {
-  config = mkIf (config.my.profile == "workstation") {
+  config = mkIf (config.my.gui != "none") {
     # Install and configure flatpak
     system.activationScripts = {
       flathub = ''
