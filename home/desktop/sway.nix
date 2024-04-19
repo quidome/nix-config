@@ -269,6 +269,7 @@ in
         window = {
           border = 0;
           hideEdgeBorders = "both";
+          titlebar = false;
 
           commands = [
             {
