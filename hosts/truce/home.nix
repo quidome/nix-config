@@ -6,6 +6,7 @@ let
 in
 {
   imports = [
+    ./shared.nix
     ../../home
     ./home-vars.nix
   ];

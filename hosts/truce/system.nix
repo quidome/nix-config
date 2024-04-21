@@ -1,12 +1,11 @@
 { ... }:
 {
   imports = [
+    ./shared.nix
     ./system-vars.nix
     ./hardware-configuration.nix
     ../../modules
   ];
-
-  my.gui = "sway";
 
   boot = {
     loader.systemd-boot.enable = true;
