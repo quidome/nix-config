@@ -7,11 +7,9 @@ in
 {
   imports = [
     ./shared.nix
-    ../../home
     ./home-vars.nix
+    ../../home
   ];
-
-  my.gui = "sway";
 
   home = {
     stateVersion = "22.11";
