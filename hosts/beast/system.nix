@@ -29,7 +29,7 @@
 
   networking.firewall.enable = true;
   networking.hostName = "beast";
-  networking.networkmanager.enable = true;
+  networking.networkmanager.enable = false;
 
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Amsterdam";
@@ -58,6 +58,9 @@
   };
 
   services.xserver.videoDrivers = [ "amdgpu" ];
+
+  systemd.network.enable = true;
+  systemd.network.networks."10-enp4s0" = { matchConfig.Name = "enp4s0"; networkConfig.DHCP = "ipv4"; dhcpV4Config.UseDomains = true; };
 
   virtualisation.docker.enable = true;
 
