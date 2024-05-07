@@ -11,7 +11,7 @@ in
       bitwarden
       calibre
       digikam
-      emacs
+      emacs29
       go
       logseq
       obsidian
