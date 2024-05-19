@@ -18,6 +18,13 @@ in
       signal-desktop
       spotify
       vscode
+
+      # office
+      (if config.my.gui == "kde" then libreoffice-qt else libreoffice)
+      hunspell
+      hunspellDicts.nl_NL
+      hunspellDicts.en_US-large
+      hunspellDicts.en_GB-large
     ];
 
     programs.firefox.enable = true;
