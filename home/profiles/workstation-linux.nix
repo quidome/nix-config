@@ -18,7 +18,6 @@ in
       signal-desktop
       spotify
       vscode
-      wl-clipboard
     ];
 
     programs.firefox.enable = true;

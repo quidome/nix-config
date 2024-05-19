@@ -21,6 +21,7 @@ in
       adwaita-qt
 
       (mkIf networkmanagerEnabled networkmanagerapplet)
+      wl-clipboard
       wofi
     ];
 

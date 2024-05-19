@@ -25,6 +25,7 @@ in
     # add extra packages to this desktop setup
     environment.systemPackages = (with pkgs; [
       pinentry-gnome
+      wl-clipboard
     ]) ++ (with pkgs.gnome; [
       gnome-tweaks
     ]) ++ (with pkgs.gnomeExtensions; [

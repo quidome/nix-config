@@ -40,6 +40,7 @@ in
         libsForQt5.kipi-plugins
         libsForQt5.qt5.qttools
         sddm-kcm
+        wl-clipboard
         yakuake
 
         vlc
