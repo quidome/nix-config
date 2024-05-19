@@ -37,6 +37,7 @@ in
         kompare
         krename
         libsForQt5.kcolorchooser
+        libsForQt5.discover
         libsForQt5.kipi-plugins
         libsForQt5.qt5.qttools
         sddm-kcm
