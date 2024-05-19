@@ -65,14 +65,4 @@
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = true;
   programs.zsh.initExtraBeforeCompInit = "fpath+=($HOME/.zsh/completion/)";
-  programs.zsh.initExtra =
-    ''
-      v() {
-      if [[ $# -eq 0 ]] ; then
-        hx .
-      else
-        hx "$@"
-      fi
-      }
-    '';
 }
