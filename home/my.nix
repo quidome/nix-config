@@ -5,7 +5,7 @@ with lib;
     syncthing.enable = mkEnableOption "syncthing";
 
     gui = mkOption {
-      type = with types; enum [ "none" "gnome" "kde" "sway" ];
+      type = with types; enum [ "none" "gnome" "kde" "sway" "pantheon" ];
       default = "none";
       description = ''
         Which gui to use. Gnome or KDE will install the entire desktop environment. Sway will install the bare minumum. 
