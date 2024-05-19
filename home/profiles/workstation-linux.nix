@@ -9,12 +9,7 @@ in
     home.packages = with pkgs; [
       adoptopenjdk-icedtea-web
       bitwarden
-      calibre
-      digikam
-      emacs29
       go
-      logseq
-      obsidian
       signal-desktop
       spotify
       vscode

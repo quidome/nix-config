@@ -44,8 +44,6 @@ in
         wl-clipboard
         yakuake
 
-        vlc
-
         (mkIf tailscaleEnabled tailscale-systray)
       ];
     };

@@ -13,9 +13,7 @@ in
     home = {
       packages = with pkgs; [
         bitwarden-cli
-        discord
         element-desktop
-        gimp
         pandoc
         plantuml
         rcm
