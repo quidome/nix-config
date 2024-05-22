@@ -6,22 +6,6 @@ let
 in
 {
   config = mkIf gnomeEnabled {
-    environment.gnome.excludePackages = (with pkgs; [
-      gnome-photos
-      gnome-tour
-    ]) ++ (with pkgs.gnome; [
-      cheese
-      gnome-music
-      gnome-terminal
-      epiphany
-      geary
-      totem
-      tali
-      iagno
-      hitori
-      atomix
-    ]);
-
     # add extra packages to this desktop setup
     environment.systemPackages = (with pkgs; [
       pinentry-gnome
