@@ -48,7 +48,7 @@ in
     programs.swaylock = {
       enable = true;
       settings = {
-        image = "~/Pictures/wallpapers/183940.jpg";
+        image = "~/Pictures/Wallpapers/183940.jpg";
         scaling = "fill";
 
         ignore-empty-password = true;
