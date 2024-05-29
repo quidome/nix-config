@@ -2,39 +2,31 @@
 with lib;
 
 let
-  plasmaEnabled = (config.my.gui == "plasma");
+  plasma6Enabled = (config.my.gui == "plasma6");
   # tailscaleEnabled = config.services.tailscale.enable;
 in
 {
-  config = mkIf plasmaEnabled {
+  config = mkIf plasma6Enabled {
     # services required for plasma
     services = {
-      # avahi.enable = true;
-      #       accounts-daemon.enable = true;
+      avahi.enable = true;
 
-      # run kde on xorg
       xserver.enable = true;
 
       desktopManager.plasma6.enable = true;
-
-      # displayManager.defaultSession = "plasma";
 
       displayManager.sddm.enable = true;
       displayManager.sddm.settings.Users.RememberLastUser = false;
     };
 
-    #     programs.dconf.enable = true;
-    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
+    programs.dconf.enable = true;
 
-    # add extra packages to this desktop setup
-    /*    environment = {
-      # add some desktop applications
+    # packages to add with kde/plasma
+    environment = {
       systemPackages = with pkgs; [
-        ark
         aspell
         aspellDicts.en
         hunspell
-        kate
         kgpg
         kompare
         krename
@@ -44,11 +36,9 @@ in
         libsForQt5.qt5.qttools
         sddm-kcm
         wl-clipboard
-        yakuake
 
         (mkIf tailscaleEnabled tailscale-systray)
       ];
-    */
-    # };
+    };
   };
 }
