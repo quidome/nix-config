@@ -6,7 +6,7 @@
     ../../modules
   ];
 
-  my.gui = "kde";
+  my.gui = "plasma5";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

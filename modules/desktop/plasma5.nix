@@ -2,11 +2,11 @@
 with lib;
 
 let
-  kdeEnabled = (config.my.gui == "kde");
+  plasma5Enabled = (config.my.gui == "plasma5");
   tailscaleEnabled = config.services.tailscale.enable;
 in
 {
-  config = mkIf kdeEnabled {
+  config = mkIf plasma5Enabled {
     # services required for plasma
     services = {
       # avahi.enable = true;
