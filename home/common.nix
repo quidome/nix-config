@@ -44,7 +44,7 @@
   programs.direnv.nix-direnv.enable = true;
 
   programs.eza.enable = true;
-  programs.eza.enableAliases = true;
+  programs.eza.enableZshIntegration = true;
 
   programs.git.enable = true;
 
