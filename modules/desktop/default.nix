@@ -1,7 +1,7 @@
 {
   imports = [
     ./gnome.nix
-    ./kde.nix
+    ./plasma5.nix
     ./pantheon.nix
     ./sway.nix
   ];
