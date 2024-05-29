@@ -3,7 +3,7 @@ with lib;
 
 let
   plasma6Enabled = (config.my.gui == "plasma6");
-  # tailscaleEnabled = config.services.tailscale.enable;
+  tailscaleEnabled = config.services.tailscale.enable;
 in
 {
   config = mkIf plasma6Enabled {
