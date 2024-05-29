@@ -1,5 +1,8 @@
-{ lib, ... }:
+{ lib, config, ... }:
 with lib;
+let
+  cfg = config.my;
+in
 {
   options.my = {
     syncthing.enable = mkEnableOption "syncthing";
@@ -13,5 +16,11 @@ with lib;
       '';
       example = "sway";
     };
+
+    preferQt = mkEnableOption "qt";
+  };
+
+  config = {
+    my.preferQt = builtins.elem cfg.gui [ "plasma5" "plasma6" ];
   };
 }
