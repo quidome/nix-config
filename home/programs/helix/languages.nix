@@ -16,7 +16,9 @@ lib.mkIf config.programs.helix.enable {
     nodePackages.yaml-language-server
     python311Packages.python-lsp-server
 
+    rustfmt
     rust-analyzer
+
     vscode-extensions.vadimcn.vscode-lldb
   ];
 
@@ -35,11 +37,37 @@ lib.mkIf config.programs.helix.enable {
       {
         name = "nix";
         auto-format = true;
-        formatter.command = "nixpkgs-fmt";
+      }
+
+
+      {
+        name = "rust";
+        auto-format = true;
+        language-servers = [
+          "rust-analyzer"
+          # "buffer-language-server"
+        ];
+        formatter = {
+          command = lib.getExe rustfmt;
+          args = [ "--edition" "2021" ];
+        };
       }
     ];
 
     language-server = {
+
+      rust-analyzer = {
+        command = lib.getExe rust-analyzer;
+        config.rust-analyzer = {
+          cargo = {
+            buildScripts.enable = true;
+            features = "all";
+          };
+          # checkOnSave.command = "clippy";
+          # procMacro.enable = true;
+        };
+      };
+
       vscode-json-language-server = {
         command = "vscode-json-languageserver";
         args = [ "--stdio" ];
