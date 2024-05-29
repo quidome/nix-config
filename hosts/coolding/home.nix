@@ -10,7 +10,7 @@ in
     ./home-vars.nix
   ];
 
-  my.gui = "kde";
+  my.gui = "plasma5";
 
   home = {
     stateVersion = "22.11";
