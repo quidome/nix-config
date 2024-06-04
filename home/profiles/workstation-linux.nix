@@ -15,7 +15,7 @@ in
       vscode
 
       # office
-      (if config.my.gui == "plasma5" then libreoffice-qt else libreoffice)
+      (if config.my.preferQt then libreoffice-qt else libreoffice)
       hunspell
       hunspellDicts.nl_NL
       hunspellDicts.en_US-large
