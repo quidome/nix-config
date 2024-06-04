@@ -16,6 +16,8 @@
         jetbrains.idea-community
         temurin-bin-21
         emacs
+
+        heroic
       ];
     };
 
