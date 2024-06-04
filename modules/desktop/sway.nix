@@ -4,6 +4,7 @@ with lib;
 let
   swayEnabled = (config.my.gui == "sway");
   networkmanagerEnabled = config.networking.networkmanager.enable;
+  tailscaleEnabled = config.services.tailscale.enable;
 in
 {
   config = mkIf swayEnabled {
@@ -17,10 +18,12 @@ in
       lxappearance
 
       # qt theming
-      libsForQt5.breeze-qt5
       adwaita-qt
+      libsForQt5.breeze-qt5
+      libsForQt5.qt5ct
 
       (mkIf networkmanagerEnabled networkmanagerapplet)
+      (mkIf tailscaleEnabled tailscale-systray)
       wl-clipboard
       wofi
     ];

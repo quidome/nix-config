@@ -136,9 +136,12 @@ in
 
     wayland.windowManager.sway = {
       enable = true;
+      checkConfig = false;
 
       config = {
         bars = [ ];
+
+        defaultWorkspace = "workspace number 1";
 
         floating = {
           border = 0;
@@ -261,7 +264,6 @@ in
                   before-sleep '${lock}'
               '';
             }
-            { command = "sleep 2; swaymsg workspace number 1"; }
           ];
 
         terminal = "alacritty";
