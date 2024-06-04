@@ -16,13 +16,16 @@ in
       xserver.enable = true;
 
       xserver.desktopManager.plasma5.enable = true;
-      xserver.displayManager.defaultSession = "plasmawayland";
-      xserver.displayManager.sddm.enable = true;
-      xserver.displayManager.sddm.settings.Users.RememberLastUser = false;
+
+      displayManager.defaultSession = "plasmawayland";
+
+      displayManager.sddm.enable = true;
+      displayManager.sddm.settings.Users.RememberLastUser = false;
     };
 
     programs.dconf.enable = true;
-    programs.gnupg.agent.pinentryFlavor = "qt";
+    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
+
 
     # add extra packages to this desktop setup
     environment = {

@@ -14,7 +14,7 @@ in
       };
 
       enableCompletion = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       history = {
         size = 50000;
         save = 50000;
