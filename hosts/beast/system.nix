@@ -10,7 +10,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "vm.swappiness" = 1; };
-  boot.kernelParams = [ "ip=dhcp" "consoleblank=60" ];
+  boot.kernelParams = [ "consoleblank=60" ];
 
   boot.initrd = {
     luks.devices.cryptroot = {
@@ -19,6 +19,8 @@
     };
 
     network.enable = true;
+    network.udhcpc.enable = true;
+    network.flushBeforeStage2 = true;
     network.ssh = {
       enable = true;
       hostKeys = [ "/etc/secrets/initrd/ssh_host_rsa_key" "/etc/secrets/initrd/ssh_host_ed25519_key" ];
@@ -29,7 +31,7 @@
 
   networking.firewall.enable = true;
   networking.hostName = "beast";
-  networking.networkmanager.enable = false;
+  networking.networkmanager.enable = true;
 
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Amsterdam";
@@ -58,9 +60,6 @@
   };
 
   services.xserver.videoDrivers = [ "amdgpu" ];
-
-  systemd.network.enable = true;
-  systemd.network.networks."10-enp4s0" = { matchConfig.Name = "enp4s0"; networkConfig.DHCP = "ipv4"; dhcpV4Config.UseDomains = true; };
 
   virtualisation.docker.enable = true;
 
