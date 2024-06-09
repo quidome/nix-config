@@ -29,6 +29,11 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    heroic
+    mangohud
+  ];
+
   networking.firewall.enable = true;
   networking.hostName = "beast";
   networking.networkmanager.enable = true;
@@ -56,6 +61,7 @@
     gnupg.agent.enable = true;
     gnupg.agent.enableSSHSupport = true;
 
+    gamescope.enable = true;
     steam.enable = true;
   };
 
