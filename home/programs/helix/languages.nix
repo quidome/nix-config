@@ -37,6 +37,11 @@ lib.mkIf config.programs.helix.enable {
       {
         name = "nix";
         auto-format = true;
+        formatter.command = lib.getExe nixpkgs-fmt;
+        language-servers = [
+          "nil"
+          "buffer-language-server"
+        ];
       }
 
 
