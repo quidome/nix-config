@@ -5,6 +5,8 @@
     ./darwin-vars.nix
   ];
 
+  environment.shells = [ pkgs.zsh ];
+
   nix.settings.substituters = [ "https://cache.nixos.org/" ];
   nix.settings.trusted-users = [ "@admin" ];
   nix.configureBuildUsers = true;
@@ -18,21 +20,18 @@
     extra-platforms = x86_64-darwin aarch64-darwin
   '';
 
-  # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true;
-  environment.shells = [ pkgs.zsh ];
-
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   programs.nix-index.enable = true;
-
-
   programs.gnupg.agent.enable = true;
 
   # Allow touchid to be used for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
-  # Keyboard
+  # Auto upgrade nix package and the daemon service.
+  services.nix-daemon.enable = true;
+  services.karabiner-elements.enable = true;
+
+  # Keyboard mappings
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
 }
