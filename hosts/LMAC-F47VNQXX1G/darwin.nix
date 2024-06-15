@@ -2,7 +2,7 @@
   # Nix configuration ------------------------------------------------------------------------------
 
   imports = [
-    ./system-vars.nix
+    ./darwin-vars.nix
   ];
 
   nix.settings.substituters = [ "https://cache.nixos.org/" ];
