@@ -26,18 +26,6 @@
   services.nix-daemon.enable = true;
   programs.nix-index.enable = true;
 
-  # Fonts
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
-    fira-code
-    source-code-pro
-    (nerdfonts.override {
-      fonts = [
-        "JetBrainsMono"
-        "FiraCode"
-      ];
-    })
-  ];
 
   programs.gnupg.agent.enable = true;
 
