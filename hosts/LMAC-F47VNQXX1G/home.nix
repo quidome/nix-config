@@ -8,7 +8,9 @@
   ];
 
   home = {
-    stateVersion = "22.11";
+    language.base = "en_IE.UTF-8";
+    language.ctype = "en_IE.UTF-8";
+    stateVersion = "24.05";
     packages = with pkgs; [
       # Basics
       pinentry_mac

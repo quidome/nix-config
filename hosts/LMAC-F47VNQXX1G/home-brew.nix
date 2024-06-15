@@ -20,15 +20,19 @@ in
       brew "openssl"
       brew "xz"
 
-      # Dev
-      brew "go"               # Go programming language
+      # DevOps
+      brew "go"
+      brew "jenv"
       brew "libyaml"
-      brew "rtx"              # Meta language manager
+      brew "pyenv"
+      brew "pyenv-virtualenv"
+      cask "google-cloud-sdk"
 
+      # Apps
       cask "bitwarden"
+      cask "browserosaurus"
       cask "emacs"
-      cask "gimp"
-      cask "inkscape"
+      cask "logseq"
       cask "obsidian"
       cask "raycast"
       cask "signal"

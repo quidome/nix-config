@@ -2,6 +2,7 @@
 {
   imports = [ ./languages.nix ];
   config.programs.helix = lib.mkIf config.programs.helix.enable {
+    defaultEditor = true;
     settings = {
       theme = "molokai";
       editor = {
