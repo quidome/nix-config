@@ -27,6 +27,7 @@ in
       brew "pyenv"
       brew "pyenv-virtualenv"
       cask "google-cloud-sdk"
+      cask "zulu@21"
 
       # Apps
       cask "bitwarden"
