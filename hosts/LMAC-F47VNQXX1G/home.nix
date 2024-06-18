@@ -12,18 +12,13 @@
     language.ctype = "en_IE.UTF-8";
     stateVersion = "24.05";
     packages = with pkgs; [
-      # Basics
-      pinentry_mac
-
-      # Dev
-      fnm
-      envsubst
-
-      # Docker/k8s
+      # DevOps
       colima
       docker-client
       docker-compose
       docker-credential-helpers
+      envsubst
+      fnm
       k9s
       kubectx
       stern

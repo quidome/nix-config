@@ -4,7 +4,8 @@ let
 in
 {
   config = lib.mkIf (isDarwin) {
-    home.packages = [
+    home.packages = with pkgs; [
+      pinentry_mac
     ];
   };
 }
