@@ -10,6 +10,7 @@ in
       adoptopenjdk-icedtea-web
       bitwarden
       go
+      logseq
       signal-desktop
       spotify
       vscode
