@@ -13,7 +13,5 @@
         name = "Launch Alacritty";
       };
     };
-
-    programs.zellij.settings.copy_command = "wl-copy";
   };
 }
