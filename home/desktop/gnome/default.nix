@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
   config = lib.mkIf (config.my.gui == "gnome") {
     dconf.settings = {
@@ -7,10 +7,16 @@
         icon-theme = "Adwaita";
       };
 
+      "plugins/media-keys" = {
+        custom-keybindings = [
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+        ];
+      };
+
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
         binding = "<Super>Return";
-        command = "alacritty";
-        name = "Launch Alacritty";
+        command = lib.getExe pkgs.alacritty;
+        name = "Launch Terminal";
       };
     };
   };
