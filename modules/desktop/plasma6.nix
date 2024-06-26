@@ -33,7 +33,7 @@ in
         krename
         wl-clipboard
 
-        (mkIf tailscaleEnabled tailscale-systray)
+        (mkIf tailscaleEnabled ktailctl)
       ]) ++ (with pkgs.kdePackages; [
         kcolorchooser
         discover
