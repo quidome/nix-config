@@ -32,6 +32,7 @@ in
       # Apps
       cask "bitwarden"
       cask "browserosaurus"
+      cask "drawio"
       cask "emacs"
       cask "logseq"
       cask "obsidian"
