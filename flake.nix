@@ -72,6 +72,21 @@
           ];
         };
 
+        nimbus = nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/nimbus/system.nix
+
+            inputs.home-manager.nixosModules.home-manager
+            {
+              nixpkgs = nixpkgsConfig;
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.quidome = import ./hosts/nimbus/home.nix;
+            }
+          ];
+        };
+
         truce = nixosSystem {
           system = "x86_64-linux";
           modules = [
