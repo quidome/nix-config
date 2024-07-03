@@ -5,6 +5,8 @@ let
 in
 {
   config = mkIf zshEnabled {
+    home.file.".env.d/70-dev.sh".source = ./zsh/dev.sh;
+
     # enable starship
     programs.starship.enable = true;
 
