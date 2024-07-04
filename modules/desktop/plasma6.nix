@@ -16,7 +16,11 @@ in
       desktopManager.plasma6.enable = true;
 
       displayManager.sddm.enable = true;
-      displayManager.sddm.settings.Users.RememberLastUser = false;
+      displayManager.sddm.settings.Users = {
+        MaximumUid = 99999;
+        MinimumUid = 99999;
+        RememberLastUser = false;
+      };
     };
 
     programs.dconf.enable = true;
