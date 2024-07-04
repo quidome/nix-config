@@ -36,7 +36,6 @@
   networking = {
     hostName = "nimbus";
     firewall.enable = true;
-    networkmanager.enable = true;
   };
 
   services.btrfs.autoScrub.enable = true;
