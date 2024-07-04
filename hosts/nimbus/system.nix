@@ -31,6 +31,7 @@
   hardware = {
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
+    cpu.intel.updateMicrocode = true;
   };
 
   networking = {
