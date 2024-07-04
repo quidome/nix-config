@@ -14,7 +14,6 @@ in
   home = {
     stateVersion = "24.05";
     packages = with pkgs; [
-      wireguard-tools
       httpie
       ipcalc
 
