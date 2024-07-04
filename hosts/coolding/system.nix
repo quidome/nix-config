@@ -46,13 +46,7 @@
 
   powerManagement.enable = true;
 
-  programs = {
-    gnupg.agent.enable = true;
-    gnupg.agent.enableSSHSupport = true;
-    ssh.startAgent = false;
-    steam.enable = true;
-  };
-
+  programs.steam.enable = true;
 
   services = {
     printing.enable = true;

@@ -1,5 +1,9 @@
 { ... }:
 {
-  programs.zsh.enable = true;
-  programs.gnupg.agent.enable = true;
+  programs = {
+    zsh.enable = true;
+    gnupg.agent.enable = true;
+    gnupg.agent.enableSSHSupport = true;
+    ssh.startAgent = false;
+  };
 }

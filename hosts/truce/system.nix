@@ -49,11 +49,6 @@
     };
   };
 
-  programs = {
-    gnupg.agent.enable = true;
-    gnupg.agent.enableSSHSupport = true;
-  };
-
   services.tailscale.enable = true;
   services.usbmuxd.enable = true;
 

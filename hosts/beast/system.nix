@@ -53,9 +53,6 @@
   };
 
   programs = {
-    gnupg.agent.enable = true;
-    gnupg.agent.enableSSHSupport = true;
-
     gamescope.enable = true;
     steam.enable = true;
   };
