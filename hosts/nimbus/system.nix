@@ -39,11 +39,6 @@
     networkmanager.enable = true;
   };
 
-  programs = {
-    gnupg.agent.enable = true;
-    gnupg.agent.enableSSHSupport = true;
-  };
-
   services.btrfs.autoScrub.enable = true;
   services.btrfs.autoScrub.interval = "weekly";
 
