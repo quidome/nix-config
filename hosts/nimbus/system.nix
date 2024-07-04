@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 {
   imports = [
     ./shared.nix
@@ -37,6 +37,11 @@
   networking = {
     hostName = "nimbus";
     firewall.enable = true;
+
+    wireless = lib.mkIf (! config.networking.networkmanager.enable) {
+      enable = true;
+      userControlled.enable = true;
+    };
   };
 
   services.btrfs.autoScrub.enable = true;
