@@ -43,7 +43,6 @@ in
         discover
         # kipi-plugins # marked as broken atm
         qttools
-        sddm-kcm
       ]);
     };
   };
