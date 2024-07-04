@@ -7,6 +7,8 @@ let
 in
 {
   config = mkIf plasma6Enabled {
+    networking.networkmanager.enable = true;
+
     # services required for plasma
     services = {
       avahi.enable = true;
