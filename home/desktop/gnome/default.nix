@@ -19,5 +19,10 @@
         name = "Launch Terminal";
       };
     };
+
+    services.gpg-agent = {
+      enableSshSupport = false;
+      pinentryPackage = pkgs.pinentry-gnome3;
+    };
   };
 }

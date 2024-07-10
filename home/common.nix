@@ -10,6 +10,7 @@
     fzf
     git-crypt
     gitui
+    gnupg
     gopass
     jless
     jq
@@ -29,7 +30,6 @@
   ] ++ lib.optionals stdenv.isDarwin [
     cocoapods
     coreutils
-    gnupg
     m-cli # useful macOS CLI commands
     watch
   ];
@@ -66,4 +66,10 @@
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = true;
   programs.zsh.initExtraBeforeCompInit = "fpath+=($HOME/.zsh/completion/)";
+
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = lib.mkDefault true;
+    pinentryPackage = lib.mkDefault pkgs.pinentry-qt;
+  };
 }

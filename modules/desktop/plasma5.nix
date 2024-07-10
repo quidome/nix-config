@@ -24,8 +24,6 @@ in
     };
 
     programs.dconf.enable = true;
-    programs.gnupg.agent.pinentryPackage = pkgs.pinentry-qt;
-
 
     # add extra packages to this desktop setup
     environment = {
