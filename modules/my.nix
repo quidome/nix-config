@@ -1,5 +1,8 @@
 { config, lib, ... }:
 with lib;
+let
+  isWorkstation = (config.my.gui != "none");
+in
 {
   options.my = {
     gui = mkOption {
@@ -13,7 +16,7 @@ with lib;
     };
   };
 
-  config = mkIf (config.my.gui != "none") {
+  config = mkIf isWorkstation {
     services.flatpak.enable = mkDefault true;
     services.pipewire.enable = mkDefault true;
   };
