@@ -8,7 +8,7 @@ in
     syncthing.enable = mkEnableOption "syncthing";
 
     gui = mkOption {
-      type = with types; enum [ "none" "gnome" "pantheon" "plasma5" "plasma6" "sway" ];
+      type = with types; enum [ "none" "gnome" "pantheon" "plasma" "plasma5" "sway" ];
       default = "none";
       description = ''
         Which gui to use. Gnome or Plasma will install the entire desktop environment. Sway will install the bare minumum. 
@@ -21,6 +21,6 @@ in
   };
 
   config = {
-    my.preferQt = builtins.elem cfg.gui [ "plasma5" "plasma6" ];
+    my.preferQt = builtins.elem cfg.gui [ "plasma" "plasma5" ];
   };
 }

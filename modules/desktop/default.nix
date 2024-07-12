@@ -2,8 +2,8 @@
   imports = [
     ./gnome.nix
     ./pantheon.nix
+    ./plasma.nix
     ./plasma5.nix
-    ./plasma6.nix
     ./sway.nix
   ];
 }

@@ -2,11 +2,11 @@
 with lib;
 
 let
-  plasma6Enabled = (config.my.gui == "plasma6");
+  plasmaEnabled = (config.my.gui == "plasma");
   tailscaleEnabled = config.services.tailscale.enable;
 in
 {
-  config = mkIf plasma6Enabled {
+  config = mkIf plasmaEnabled {
     networking.networkmanager.enable = true;
 
     # services required for plasma
@@ -17,15 +17,15 @@ in
 
       desktopManager.plasma6.enable = true;
 
-      displayManager.sddm.enable = true;
-      displayManager.sddm.settings.Users = {
-        MaximumUid = 99999;
-        MinimumUid = 99999;
-        RememberLastUser = false;
+      displayManager.sddm = {
+        enable = true;
+        settings.Users = {
+          MaximumUid = 99999;
+          MinimumUid = 99999;
+          RememberLastUser = false;
+        };
       };
     };
-
-    programs.dconf.enable = true;
 
     # packages to add with kde/plasma
     environment = {
@@ -34,15 +34,16 @@ in
         aspellDicts.en
         aspellDicts.nl
         hunspell
-        kgpg
         kompare
         krename
         wl-clipboard
 
         (mkIf tailscaleEnabled ktailctl)
       ]) ++ (with pkgs.kdePackages; [
-        kcolorchooser
         discover
+        kcalc
+        kcolorchooser
+        kgpg
         # kipi-plugins # marked as broken atm
         qttools
       ]);
