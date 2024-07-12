@@ -48,5 +48,7 @@ in
         qttools
       ]);
     };
+
+    programs.gnupg.agent.enableSSHSupport = true;
   };
 }

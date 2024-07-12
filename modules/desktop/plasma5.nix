@@ -24,6 +24,7 @@ in
     };
 
     programs.dconf.enable = true;
+    programs.gnupg.agent.enableSSHSupport = true;
 
     # add extra packages to this desktop setup
     environment = {

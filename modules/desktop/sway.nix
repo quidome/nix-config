@@ -28,8 +28,8 @@ in
       wofi
     ];
 
+    programs.gnupg.agent.enableSSHSupport = true;
     programs.dconf.enable = true;
-
     programs.sway.enable = true;
     programs.sway.wrapperFeatures.gtk = true; # so that gtk works properly
 

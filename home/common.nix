@@ -67,9 +67,4 @@
   programs.zsh.enableCompletion = true;
   programs.zsh.initExtraBeforeCompInit = "fpath+=($HOME/.zsh/completion/)";
 
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = lib.mkDefault true;
-    pinentryPackage = lib.mkDefault pkgs.pinentry-qt;
-  };
 }

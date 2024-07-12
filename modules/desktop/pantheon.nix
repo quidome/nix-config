@@ -28,6 +28,7 @@ in
     programs = {
       evince.enable = true;
       gnome-disks.enable = true;
+      gnupg.agent.enableSSHSupport = true;
       pantheon-tweaks.enable = true;
       seahorse.enable = true;
 
