@@ -46,6 +46,8 @@
 
   environment.systemPackages = with pkgs; [ calibre ];
 
+  powerManagement.enable = true;
+
   services.btrfs.autoScrub.enable = true;
   services.btrfs.autoScrub.interval = "weekly";
 
