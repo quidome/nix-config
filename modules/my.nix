@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 with lib;
 {
   options.my = {
@@ -11,5 +11,10 @@ with lib;
       '';
       example = "sway";
     };
+  };
+
+  config = mkIf (config.my.gui != "none") {
+    services.flatpak.enable = mkDefault true;
+    services.pipewire.enable = mkDefault true;
   };
 }
