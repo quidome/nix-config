@@ -20,6 +20,7 @@
       envsubst
       fnm
       k9s
+      ktlint
       kubectx
       stern
     ];
