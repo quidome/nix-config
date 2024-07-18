@@ -19,6 +19,7 @@
       docker-credential-helpers
       envsubst
       fnm
+      httpie
       k9s
       ktlint
       kubectx
