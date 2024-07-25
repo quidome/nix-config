@@ -37,11 +37,7 @@
   networking = {
     hostName = "nimbus";
     firewall.enable = true;
-
-    wireless = lib.mkIf (! config.networking.networkmanager.enable) {
-      enable = true;
-      userControlled.enable = true;
-    };
+    networkmanager.enable = true;
   };
 
   environment.systemPackages = with pkgs; [ calibre ];
