@@ -245,7 +245,7 @@ in
         };
 
         modifier = "Mod4";
-        output."*".bg = "~/.config/wallpaper fill";
+        output."*".bg = "~/Pictures/Wallpapers/digital-art-15.jpg fill";
         menu = "wofi --show run | xargs swaymsg exec --";
 
         startup =
