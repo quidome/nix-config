@@ -145,6 +145,7 @@ in
 
         floating = {
           border = 0;
+          titlebar = false;
           criteria = [
             { class = "^Pinentry$"; }
             { app_id = "pavucontrol"; }
