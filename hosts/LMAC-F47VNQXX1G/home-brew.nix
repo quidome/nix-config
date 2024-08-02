@@ -24,6 +24,7 @@ in
       brew "go"
       brew "jenv"
       brew "libyaml"
+      brew "poetry"
       brew "pyenv"
       brew "pyenv-virtualenv"
       cask "google-cloud-sdk"
