@@ -21,10 +21,21 @@ in
 
     programs.gpg.enable = true;
     programs.zsh.initExtra = ''
+      # Configure gpg/ssh
       unset SSH_AGENT_PID
       export GPG_TTY="$(tty)"
       export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
       gpgconf --launch gpg-agent
+
+      # Add function to update nixpkgs index
+      download_nixpkgs_cache_index () {
+        location=~/.cache/nix-index
+        filename="index-$(uname -m | sed 's/^arm64$/aarch64/')-$(uname | tr A-Z a-z)"
+        mkdir -p "$location"
+        # -N will only download a new version if there is an update.
+        wget -P "$location" -q -N https://github.com/nix-community/nix-index-database/releases/latest/download/$filename
+        ln -f "$location/$filename" "$location/files"
+      }
     '';
   };
 }
