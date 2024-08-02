@@ -12,17 +12,23 @@
     language.ctype = "en_IE.UTF-8";
     stateVersion = "24.05";
     packages = with pkgs; [
+      # Lang stuff
+      fnm
+      go
+      ktlint
+      poetry
+
       # DevOps
       colima
       docker-client
       docker-compose
       docker-credential-helpers
       envsubst
-      fnm
       httpie
       k9s
-      ktlint
       kubectx
+      libyaml
+      postgresql
       stern
     ];
 
