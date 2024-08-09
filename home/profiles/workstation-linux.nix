@@ -21,6 +21,7 @@ in
       hunspellDicts.nl_NL
       hunspellDicts.en_US-large
       hunspellDicts.en_GB-large
+      thunderbird
     ];
 
     programs.firefox.enable = true;
