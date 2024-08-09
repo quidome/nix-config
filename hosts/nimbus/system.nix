@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ./shared.nix
@@ -13,6 +13,7 @@
 
     kernel.sysctl = { "vm.swappiness" = 1; };
     kernelParams = [ "consoleblank=60" ];
+    kernelPackages = pkgs.linuxPackages_latest;
 
     initrd.postDeviceCommands = lib.mkAfter ''
       mkdir /mnt
