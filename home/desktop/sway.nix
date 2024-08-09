@@ -9,13 +9,13 @@ in
     my.xdg.enable = true;
 
     home.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
       XDG_CURRENT_DESKTOP = "sway";
     };
 
     # extra packages for my sway config
     home.packages = with pkgs; [
       swayidle
-      wl-clipboard
 
       brightnessctl
       grim
@@ -24,7 +24,6 @@ in
       playerctl
       slurp
       wdisplays
-      xorg.xeyes
       xorg.xlsclients
 
       # theming
