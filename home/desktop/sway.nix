@@ -54,29 +54,8 @@ in
       fi
     '';
 
-    services = {
-      mako = {
-        enable = true;
-        anchor = "bottom-right";
-        defaultTimeout = 10000;
-
-        font = "JetBrainsMono Nerd Font 11";
-
-        borderRadius = 5;
-        backgroundColor = "#282828ff";
-        borderColor = "#161616ff";
-        textColor = "#a1a1a1";
-
-        margin = "2,2";
-
-        groupBy = "summary";
-        extraConfig = ''
-          [grouped]
-          format=<b>%s</b>\n%b
-        '';
-      };
-    };
     services.kanshi.enable = mkDefault true;
+    services.mako.enable = true;
 
     xdg.systemDirs.data = [
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
