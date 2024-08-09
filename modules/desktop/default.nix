@@ -5,5 +5,6 @@
     ./plasma.nix
     ./plasma5.nix
     ./sway.nix
+    ./hyprland.nix
   ];
 }
