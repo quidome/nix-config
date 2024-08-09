@@ -72,7 +72,7 @@
 
   services.fwupd.enable = true;
 
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
   services.usbmuxd.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
