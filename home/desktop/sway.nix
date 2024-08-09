@@ -2,7 +2,6 @@
 with lib;
 let
   swayEnabled = (config.my.gui == "sway");
-  zshEnabled = config.programs.zsh.enable;
 in
 {
   config = mkIf swayEnabled {
@@ -46,13 +45,6 @@ in
     programs.alacritty.enable = true;
     programs.swaylock.enable = true;
     programs.waybar.enable = true;
-
-    programs.zsh.initExtraFirst = mkIf zshEnabled ''
-      if [ -z "''${DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ] ; then
-        # run sway, logout upon exit
-        exec sway > ''${HOME}/.local/log/sway.log
-      fi
-    '';
 
     services.kanshi.enable = mkDefault true;
     services.mako.enable = true;
