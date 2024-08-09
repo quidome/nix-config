@@ -73,11 +73,6 @@ in
     '';
 
     services = {
-      kanshi = {
-        enable = mkDefault true;
-        systemdTarget = "graphical-session.target";
-      };
-
       mako = {
         enable = true;
         anchor = "bottom-right";
@@ -99,6 +94,7 @@ in
         '';
       };
     };
+    services.kanshi.enable = mkDefault true;
 
     xdg.systemDirs.data = [
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
