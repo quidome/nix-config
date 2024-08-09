@@ -6,7 +6,7 @@ in
 {
   options.my = {
     gui = mkOption {
-      type = with types; enum [ "none" "gnome" "pantheon" "plasma" "plasma5" "sway" ];
+      type = with types; enum [ "none" "gnome" "hyprland" "pantheon" "plasma" "sway" ];
       default = "none";
       description = ''
         Which gui to use. Gnome or Plasma will install the entire desktop environment. Sway will install the bare minumum. 
