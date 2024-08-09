@@ -8,25 +8,33 @@ let
 in
 {
   config = mkIf swayEnabled {
-    environment.systemPackages = with pkgs; [
-      # gtk theming
-      glib
-      gtk-engine-murrine
-      gnome.adwaita-icon-theme
-      gtk_engines
-      gsettings-desktop-schemas
-      lxappearance
+    environment = {
+      sessionVariables = {
+        NIXOS_OZONE_WL_1 = "1";
+      };
 
-      # qt theming
-      adwaita-qt
-      libsForQt5.breeze-qt5
-      libsForQt5.qt5ct
+      systemPackages = with pkgs; [
+        # gtk theming
+        glib
+        gtk-engine-murrine
+        gnome.adwaita-icon-theme
+        gtk_engines
+        gsettings-desktop-schemas
+        lxappearance
 
-      (mkIf networkmanagerEnabled networkmanagerapplet)
-      (mkIf tailscaleEnabled tailscale-systray)
-      wl-clipboard
-      wofi
-    ];
+        # qt theming
+        adwaita-qt
+        libsForQt5.breeze-qt5
+        libsForQt5.qt5ct
+
+        (mkIf networkmanagerEnabled networkmanagerapplet)
+        (mkIf tailscaleEnabled tailscale-systray)
+        wl-clipboard
+        wofi
+      ];
+    };
+
+    hardware.opengl.enable = true;
 
     programs.gnupg.agent.enableSSHSupport = true;
     programs.dconf.enable = true;
