@@ -15,9 +15,6 @@ in
       systemPackages = with pkgs; [
         avizo
         glib
-        rofi-wayland
-        wl-clipboard
-        wofi
         (mkIf networkmanagerEnabled networkmanagerapplet)
         (mkIf tailscaleEnabled tailscale-systray)
       ];

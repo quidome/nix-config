@@ -5,8 +5,6 @@ let
 in
 {
   options.my = {
-    syncthing.enable = mkEnableOption "syncthing";
-
     gui = mkOption {
       type = with types; enum [ "none" "gnome" "hyprland" "pantheon" "plasma" "sway" ];
       default = "none";
@@ -18,9 +16,12 @@ in
     };
 
     preferQt = mkEnableOption "qt";
+    syncthing.enable = mkEnableOption "syncthing";
+    wayland.enable = mkEnableOption "wayland";
   };
 
   config = {
-    my.preferQt = builtins.elem cfg.gui [ "plasma" "plasma5" ];
+    my.preferQt = builtins.elem cfg.gui [ "hyprland" "plasma" "sway" ];
+    my.wayland.enable = builtins.elem cfg.gui [ "gnome" "hyprland" "plasma" "sway" ];
   };
 }

@@ -36,7 +36,6 @@ in
         hunspell
         kompare
         krename
-        wl-clipboard
 
         (mkIf tailscaleEnabled ktailctl)
       ]) ++ (with pkgs.kdePackages; [

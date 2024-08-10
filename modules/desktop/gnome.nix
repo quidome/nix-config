@@ -8,7 +8,6 @@ in
   config = mkIf gnomeEnabled {
     # add extra packages to this desktop setup
     environment.systemPackages = (with pkgs; [
-      wl-clipboard
     ]) ++ (with pkgs.gnome; [
       gnome-tweaks
     ]) ++ (with pkgs.gnomeExtensions; [

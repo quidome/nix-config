@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
 with lib;
-
 let
   swayEnabled = (config.my.gui == "sway");
   networkmanagerEnabled = config.networking.networkmanager.enable;
@@ -29,8 +28,6 @@ in
 
         (mkIf networkmanagerEnabled networkmanagerapplet)
         (mkIf tailscaleEnabled tailscale-systray)
-        wl-clipboard
-        wofi
       ];
     };
 

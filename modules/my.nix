@@ -14,10 +14,14 @@ in
       '';
       example = "sway";
     };
+
+    wayland.enable = mkEnableOption "wayland";
   };
 
   config = mkIf isWorkstation {
     services.flatpak.enable = mkDefault true;
     services.pipewire.enable = mkDefault true;
+
+    my.wayland.enable = builtins.elem cfg.gui [ "gnome" "hyprland" "plasma" "sway" ];
   };
 }
