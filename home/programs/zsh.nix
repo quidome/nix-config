@@ -1,10 +1,10 @@
 { config, lib, ... }:
 with lib;
 let
-  zshEnabled = config.programs.zsh.enable;
+  cfg = config.programs.zsh;
 in
 {
-  config = mkIf zshEnabled {
+  config = mkIf cfg.enable {
     home.file.".env.d/70-dev.sh".source = ./zsh/dev.sh;
 
     # enable starship

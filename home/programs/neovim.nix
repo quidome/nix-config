@@ -1,9 +1,9 @@
 { pkgs, config, lib, ... }:
 let
-  neovimEnabled = config.programs.neovim.enable;
+  cfg = config.programs.neovim;
 in
 {
-  config = lib.mkIf neovimEnabled {
+  config = lib.mkIf cfg.enable {
     home.sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "nvim";

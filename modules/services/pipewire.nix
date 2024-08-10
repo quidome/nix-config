@@ -1,11 +1,6 @@
 { lib, config, ... }:
-with lib;
-let
-  pipewireEnabled = config.services.pipewire.enable;
-in
 {
-  config = mkIf pipewireEnabled {
-    # Remove sound.enable or turn it off if you had it set previously, it seems to cause conflicts with pipewire
+  config = lib.mkIf config.services.pipewire.enable {
     sound.enable = true;
     hardware.pulseaudio.enable = false;
 

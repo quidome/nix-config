@@ -1,10 +1,10 @@
 { lib, pkgs, config, ... }:
 with lib;
 let
-  waybarEnabled = config.programs.waybar.enable;
+  cfg = config.programs.waybar;
 in
 {
-  config = mkIf waybarEnabled {
+  config = mkIf cfg.enable {
     home.packages = with pkgs; [
       libappindicator-gtk3
       pavucontrol

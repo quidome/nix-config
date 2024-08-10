@@ -1,10 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
 {
-  config = lib.mkIf config.services.usbmuxd.enable
-    {
-      services.usbmuxd.package = pkgs.usbmuxd2;
-      environment.systemPackages = with pkgs; [
-        libimobiledevice
-      ];
-    };
+  config = lib.mkIf config.services.usbmuxd.enable {
+    environment.systemPackages = [ pkgs.libimobiledevice ];
+    services.usbmuxd.package = pkgs.usbmuxd2;
+  };
 }
