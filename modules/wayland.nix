@@ -1,9 +1,12 @@
 { lib, config, pkgs, ... }:
 {
   config = lib.mkIf config.my.wayland.enable {
-    environment.systemPackages = with pkgs; [
-      wl-clipboard
-      wofi
-    ];
+    environment = {
+      sessionVariables.NIXOS_OZONE_WL = "1";
+      systemPackages = with pkgs; [
+        wl-clipboard
+        wofi
+      ];
+    };
   };
 }
