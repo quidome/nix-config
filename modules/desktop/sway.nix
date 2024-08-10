@@ -31,10 +31,7 @@ in
       ];
     };
 
-    hardware.opengl.enable = true;
-
     programs.gnupg.agent.enableSSHSupport = true;
-    programs.dconf.enable = true;
     programs.sway.enable = true;
     programs.sway.wrapperFeatures.gtk = true; # so that gtk works properly
 
@@ -49,7 +46,6 @@ in
 
     xdg.portal = {
       enable = true;
-      wlr.enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
   };
