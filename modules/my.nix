@@ -1,7 +1,8 @@
 { config, lib, ... }:
 with lib;
 let
-  isWorkstation = (config.my.gui != "none");
+  cfg = config.my;
+  isWorkstation = (cfg.gui != "none");
 in
 {
   options.my = {
