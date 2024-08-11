@@ -8,10 +8,6 @@ in
 {
   config = lib.mkIf hyprlandEnabled {
     environment = {
-      sessionVariables = {
-        NIXOS_OZONE_WL = "1";
-      };
-
       systemPackages = with pkgs; [
         # hyprland deps
         avizo

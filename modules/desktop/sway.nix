@@ -8,10 +8,6 @@ in
 {
   config = mkIf swayEnabled {
     environment = {
-      sessionVariables = {
-        NIXOS_OZONE_WL_1 = "1";
-      };
-
       systemPackages = with pkgs; [
         # gtk theming
         glib
