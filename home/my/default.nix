@@ -4,6 +4,11 @@ let
   cfg = config.my;
 in
 {
+  imports = [
+    ./wayland.nix
+    ./xdg.nix
+  ];
+
   options.my = {
     gui = mkOption {
       type = with types; enum [ "none" "gnome" "hyprland" "pantheon" "plasma" "sway" ];

@@ -5,7 +5,6 @@ in
 {
   config = lib.mkIf hyprlandEnabled {
     my = {
-      programs.wofi.enable = true;
       xdg.enable = true;
     };
 

@@ -1,12 +1,11 @@
 { lib, pkgs, ... }:
 {
   imports = [
-    ./my.nix
+    ./my
     ./desktop
     ./profiles
     ./programs
     ./services
-    ./xdg.nix
   ];
 
   home.packages = with pkgs;  [

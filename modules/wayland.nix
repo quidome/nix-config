@@ -8,7 +8,6 @@
 
       systemPackages = with pkgs; [
         wl-clipboard
-        wofi
       ];
     };
   };

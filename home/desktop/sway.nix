@@ -5,7 +5,6 @@ let
 in
 {
   config = mkIf swayEnabled {
-    my.programs.wofi.enable = true;
     my.xdg.enable = true;
 
     home.sessionVariables = {

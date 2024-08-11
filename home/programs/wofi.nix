@@ -1,18 +1,13 @@
 { lib, pkgs, config, ... }:
 let
-  cfg = config.my.programs.wofi;
+  cfg = config.programs.wofi;
 in
 {
-  options.my.programs.wofi = {
-    enable = lib.mkEnableOption "wofi";
-  };
-
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ wofi ];
-    xdg.configFile."wofi/config".text = ''
-      width = 600
-      lines = 7
-    '';
+    programs.wofi.settings = {
+      width = 600;
+      lines = 7;
+    };
 
     xdg.configFile."wofi/style.css".text = ''
       @define-color foreground #b1b1b1;
