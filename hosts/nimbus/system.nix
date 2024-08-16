@@ -57,8 +57,12 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [ calibre ];
+  environment.systemPackages = with pkgs; [
+    calibre
 
+    libimobiledevice
+    ifuse
+  ];
   powerManagement.enable = true;
 
   services.btrfs.autoScrub.enable = true;
