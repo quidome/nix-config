@@ -60,6 +60,9 @@
   environment.systemPackages = with pkgs; [
     calibre
 
+    docker-compose
+    lazydocker
+
     libimobiledevice
     ifuse
   ];
@@ -78,6 +81,13 @@
 
   # services.tailscale.enable = true;
   services.usbmuxd.enable = true;
+
+  virtualisation = {
+    containers.enable = true;
+
+    docker.enable = true;
+    docker.storageDriver = "btrfs";
+  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "24.05"; # Did you read the comment?
