@@ -60,13 +60,22 @@
   environment.systemPackages = with pkgs; [
     calibre
 
+    factorio-demo
+    freeciv_qt
+    openttd
+    unciv
+    wesnoth
+
     docker-compose
     lazydocker
 
     libimobiledevice
     ifuse
   ];
+
   powerManagement.enable = true;
+
+  programs.steam.enable = true;
 
   services.btrfs.autoScrub.enable = true;
   services.btrfs.autoScrub.interval = "weekly";
