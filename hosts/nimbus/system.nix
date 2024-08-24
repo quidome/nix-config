@@ -59,7 +59,11 @@
 
   environment.systemPackages = with pkgs; [
     calibre
+    telegram-desktop
+    gimp
 
+    # gaming
+    discord
     factorio-demo
     freeciv_qt
     openttd
