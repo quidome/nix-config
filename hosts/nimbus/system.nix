@@ -65,7 +65,7 @@
     # gaming
     discord
     factorio-demo
-    freeciv_qt
+    freeciv
     openttd
     unciv
     wesnoth
