@@ -32,6 +32,7 @@
   environment.systemPackages = with pkgs; [
     heroic
     mangohud
+    factorio-demo
   ];
 
   networking.firewall.enable = true;
