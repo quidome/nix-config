@@ -45,6 +45,7 @@
     shellAliases = {
       nix-update = "darwin-rebuild switch --flake $HOME/dev/github.com/quidome/nix-config";
       idea = "open -na \"IntelliJ IDEA.app\" --args \"$@\"";
+      em = "emacsclient -t -a ''";
     };
   };
 }
