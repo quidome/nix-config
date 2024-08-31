@@ -7,7 +7,7 @@ in
 {
   options.my = {
     gui = mkOption {
-      type = with types; enum [ "none" "gnome" "hyprland" "pantheon" "plasma" "sway" ];
+      type = with types; enum [ "none" "cosmic" "gnome" "hyprland" "pantheon" "plasma" "sway" ];
       default = "none";
       description = ''
         Which gui to use. Gnome or Plasma will install the entire desktop environment. Sway will install the bare minumum. 
@@ -23,6 +23,6 @@ in
     services.flatpak.enable = mkDefault true;
     services.pipewire.enable = mkDefault true;
 
-    my.wayland.enable = builtins.elem cfg.gui [ "gnome" "hyprland" "plasma" "sway" ];
+    my.wayland.enable = builtins.elem cfg.gui [ "cosmic" "gnome" "hyprland" "plasma" "sway" ];
   };
 }

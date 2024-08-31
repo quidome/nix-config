@@ -13,6 +13,9 @@
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+    nixos-cosmic.inputs.nixpkgs.follows = "nixpkgs";
+
     darwin.url = "github:lnl7/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -75,15 +78,20 @@
         nimbus = nixosSystem {
           system = "x86_64-linux";
           modules = [
-            ./hosts/nimbus/system.nix
-
-            inputs.home-manager.nixosModules.home-manager
             {
               nixpkgs = nixpkgsConfig;
+
+              nix.settings.substituters = [ "https://cosmic.cachix.org/" ];
+              nix.settings.trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.quidome = import ./hosts/nimbus/home.nix;
             }
+            inputs.home-manager.nixosModules.home-manager
+            inputs.nixos-cosmic.nixosModules.default
+
+            ./hosts/nimbus/system.nix
           ];
         };
 
