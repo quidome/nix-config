@@ -30,6 +30,8 @@
       # Configuration for `nixpkgs`
       nixpkgsConfig = {
         config.allowUnfree = true;
+        config.permittedInsecurePackages = [ "electron-27.3.11" ];
+
         overlays = attrValues self.overlays ++ singleton (
           # Sub in x86 version of packages that don't build on Apple Silicon yet
           final: prev:
