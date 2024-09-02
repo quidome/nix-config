@@ -1,9 +1,9 @@
 { config, pkgs, lib, ... }:
-with lib;
 let
   cosmicEnabled = (config.my.gui == "cosmic");
 in
 {
+  config = lib.mkIf cosmicEnabled {
     programs.gnupg.agent.enableSSHSupport = true;
 
     services.avahi = {
