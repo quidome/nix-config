@@ -19,10 +19,7 @@ in
     wayland.enable = mkEnableOption "wayland";
   };
 
-  config = mkIf isWorkstation {
-    services.flatpak.enable = mkDefault true;
-    services.pipewire.enable = mkDefault true;
-
+  config = {
     my.wayland.enable = builtins.elem cfg.gui [ "cosmic" "gnome" "hyprland" "plasma" "sway" ];
   };
 }

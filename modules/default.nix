@@ -7,6 +7,7 @@ with lib;
     ./desktop
     ./services
     ./wayland.nix
+    ./workstation.nix
   ];
 
   programs.gnupg.agent.enable = mkDefault true;
