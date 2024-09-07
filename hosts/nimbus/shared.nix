@@ -1,3 +1,3 @@
 {
-  my.gui = "cosmic";
+  my.gui = "plasma";
 }
