@@ -1,10 +1,19 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
   isWorkstation = (config.my.gui != "none");
 in
 {
   config = lib.mkIf isWorkstation {
+    environment.systemPackages = with pkgs; [
+      adoptopenjdk-icedtea-web
+      bitwarden
+      signal-desktop
+      spotify
+      thunderbird
+      vscode
+    ];
+
     services.flatpak.enable = mkDefault true;
     services.pipewire.enable = mkDefault true;
 

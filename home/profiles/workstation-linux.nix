@@ -7,13 +7,7 @@ in
 {
   config = mkIf isLinuxWorkstation {
     home.packages = with pkgs; [
-      adoptopenjdk-icedtea-web
-      bitwarden
       go
-      logseq
-      signal-desktop
-      spotify
-      vscode
 
       # office
       (if config.my.preferQt then libreoffice-qt else libreoffice)
@@ -21,7 +15,6 @@ in
       hunspellDicts.nl_NL
       hunspellDicts.en_US-large
       hunspellDicts.en_GB-large
-      thunderbird
     ];
 
     programs.firefox.enable = true;
