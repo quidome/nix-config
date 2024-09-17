@@ -8,6 +8,8 @@ in
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
       bitwarden
+      obsidian
+      logseq
       signal-desktop
       spotify
       thunderbird
