@@ -22,10 +22,16 @@ in
       example = "sway";
     };
 
+    my.profile.headless = mkEnableOption "headless";
+    my.profile.workstation = mkEnableOption "workstation";
+
     my.wayland.enable = mkEnableOption "wayland";
   };
 
   config = {
+    my.profile.headless = (cfg.gui == "none");
+    my.profile.workstation = !cfg.profile.headless;
+
     my.wayland.enable = builtins.elem cfg.gui [ "gnome" "hyprland" "plasma" "sway" ];
   };
 }

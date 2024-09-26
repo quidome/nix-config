@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  isWorkstation = (config.my.gui != "none");
+  cfg = config.my.profile;
 in
 {
-  config = lib.mkIf isWorkstation {
+  config = lib.mkIf cfg.workstation {
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
       bitwarden

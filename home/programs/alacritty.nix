@@ -1,17 +1,15 @@
-{ config, pkgs, lib, ... }:
-with lib;
+{ config, lib, ... }:
 let
   alacrittyEnabled = config.programs.alacritty.enable;
   font = "FiraCode Nerd Font";
-  fontSize = (if pkgs.stdenv.isDarwin then 14 else 11);
 in
 {
-  config.programs.alacritty.settings = mkIf alacrittyEnabled {
+  config.programs.alacritty.settings = lib.mkIf alacrittyEnabled {
     selection.save_to_clipboard = true;
     cursor.style = "beam";
 
     font = {
-      size = fontSize;
+      size = 11;
 
       normal.family = font;
       normal.style = "Regular";
@@ -51,15 +49,6 @@ in
         cyan = "0x73cef4";
         white = "0xfeffff";
       };
-    };
-
-    window = {
-      option_as_alt = mkIf pkgs.stdenv.isDarwin "Both";
-    };
-
-    shell = mkIf pkgs.stdenv.isDarwin {
-      program = "login";
-      args = [ "-fp" config.home.username ];
     };
   };
 }

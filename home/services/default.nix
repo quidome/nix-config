@@ -1,9 +1,8 @@
 { lib, ... }:
 {
-    imports = [
-      ./mako.nix
-      ./syncthing.nix
-    ];
+  imports = [
+    ./mako.nix
+  ];
 
-    services.kanshi.systemdTarget = lib.mkDefault "graphical-session.target";
+  services.kanshi.systemdTarget = lib.mkDefault "graphical-session.target";
 }

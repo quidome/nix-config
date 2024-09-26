@@ -58,8 +58,8 @@
   };
 
   environment.systemPackages = with pkgs; [
+    home-manager
     calibre
-    telegram-desktop
     gimp
 
     # gaming

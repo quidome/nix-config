@@ -1,6 +1,6 @@
-{ config, lib, ...}: 
+{ config, lib, ... }:
 let
-cfg = config.my.wayland;
+  cfg = config.my.wayland;
 in
 {
   config = lib.mkIf cfg.enable {

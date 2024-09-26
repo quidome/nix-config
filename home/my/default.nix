@@ -28,13 +28,18 @@ in
       example = "sway";
     };
 
+    my.profile.headless = mkEnableOption "headless";
+    my.profile.workstation = mkEnableOption "workstation";
+
     my.preferQt = mkEnableOption "qt";
-    my.syncthing.enable = mkEnableOption "syncthing";
     my.wayland.enable = mkEnableOption "wayland";
   };
 
   config = {
     my.preferQt = builtins.elem cfg.gui [ "plasma" ];
     my.wayland.enable = builtins.elem cfg.gui [ "gnome" "hyprland" "plasma" "sway" ];
+
+    my.profile.headless = (cfg.gui == "none");
+    my.profile.workstation = !cfg.profile.headless;
   };
 }

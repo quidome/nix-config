@@ -26,22 +26,12 @@
     wget
     yq-go
 
-
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
     niv # easy dependency management for nix projects
     nixpkgs-fmt
-
-    # Mac specific
-  ] ++ lib.optionals stdenv.isDarwin [
-    cocoapods
-    coreutils
-    m-cli # useful macOS CLI commands
-    watch
   ];
-
-  programs.alacritty.enable = true;
 
   programs.bat.enable = true;
   programs.bat.config.theme = "DarkNeon";
