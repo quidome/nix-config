@@ -21,8 +21,5 @@ in
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
-
-    nix.settings.substituters = [ "https://cosmic.cachix.org/" ];
-    nix.settings.trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
   };
 }

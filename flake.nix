@@ -57,7 +57,21 @@
       };
 
       nixosConfigurations = {
-        nimbus = mkHost "nimbus";
+        # nimbus = mkHost "nimbus";
+        nimbus = inputs.nixpkgs.lib.nixosSystem {
+          inherit pkgs;
+          modules = [
+            {
+              nix.settings = {
+                substituters = [ "https://cosmic.cachix.org/" ];
+                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+              };
+            }
+            inputs.nixos-cosmic.nixosModules.default
+            ./hosts/nimbus/system.nix
+          ];
+        };
+
         beast = mkHost "beast";
         coolding = mkHost "coolding";
         truce = mkHost "truce";
