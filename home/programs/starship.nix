@@ -1,10 +1,9 @@
 { lib, config, ... }:
-with lib;
 let
-  starshipEnabled = config.programs.starship.enable;
+  cfg = config.programs.starship;
 in
 {
-  config.programs.starship = mkIf starshipEnabled {
+  config.programs.starship = lib.mkIf cfg.enable {
     settings = {
       format = "$hostname$directory$nix_shell$git_branch$git_commit$git_status$fill$golang$java$kotlin$nodejs$php$python$ruby$rust$kubernetes$line_break$status$character";
       fill.symbol = " ";

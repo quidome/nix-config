@@ -1,10 +1,9 @@
 { lib, config, ... }:
-with lib;
 let
-  tmuxEnabled = config.programs.tmux.enable;
+  cfg = config.programs.tmux;
 in
 {
-  config.programs.tmux = mkIf tmuxEnabled {
+  config.programs.tmux = lib.mkIf cfg.enable {
     historyLimit = 30000;
     baseIndex = 1;
     clock24 = true;

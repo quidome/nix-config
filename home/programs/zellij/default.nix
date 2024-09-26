@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 let
-  zellijEnabled = config.programs.zellij.enable;
-  helixEnabled = config.programs.helix.enable;
+  cfg = config.programs.zellij;
 in
 {
-  config = lib.mkIf zellijEnabled {
+  config = lib.mkIf cfg.enable {
     programs.zellij = {
       settings = {
         keybinds = {
@@ -18,7 +17,7 @@ in
           };
 
         };
-        scrollback_editor = lib.mkIf helixEnabled (lib.getExe pkgs.helix);
+        scrollback_editor = lib.mkIf config.programs.helix.enable (lib.getExe pkgs.helix);
         pane_frames = false;
         default_layout = "layout";
       };

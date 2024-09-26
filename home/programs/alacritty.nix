@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
-  alacrittyEnabled = config.programs.alacritty.enable;
+  cfg = config.programs.alacritty;
   font = "FiraCode Nerd Font";
 in
 {
-  config.programs.alacritty.settings = lib.mkIf alacrittyEnabled {
+  config.programs.alacritty.settings = lib.mkIf cfg.enable {
     selection.save_to_clipboard = true;
     cursor.style = "beam";
 

@@ -1,10 +1,9 @@
 { config, lib, ... }:
-with lib;
 let
-  gitEnabled = config.programs.git.enable;
+  cfg = config.programs.git;
 in
 {
-  config.programs.git = mkIf gitEnabled {
+  config.programs.git = lib.mkIf cfg.enable {
     delta.enable = true;
     extraConfig = {
       branch.autosetuprebase = "always";
