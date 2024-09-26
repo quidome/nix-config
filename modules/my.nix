@@ -7,9 +7,10 @@ in
   options = {
     my.gui = mkOption {
       type = with types; enum [
+        "none"
+        "cosmic"
         "gnome"
         "hyprland"
-        "none"
         "pantheon"
         "plasma"
         "sway"
@@ -32,6 +33,6 @@ in
     my.profile.headless = (cfg.gui == "none");
     my.profile.workstation = !cfg.profile.headless;
 
-    my.wayland.enable = builtins.elem cfg.gui [ "gnome" "hyprland" "plasma" "sway" ];
+    my.wayland.enable = builtins.elem cfg.gui [ "cosmic" "gnome" "hyprland" "plasma" "sway" ];
   };
 }

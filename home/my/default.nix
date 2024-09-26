@@ -13,6 +13,7 @@ in
     my.gui = mkOption {
       type = with types; enum [
         "none"
+        "cosmic"
         "gnome"
         "hyprland"
         "pantheon"
@@ -37,7 +38,7 @@ in
 
   config = {
     my.preferQt = builtins.elem cfg.gui [ "plasma" ];
-    my.wayland.enable = builtins.elem cfg.gui [ "gnome" "hyprland" "plasma" "sway" ];
+    my.wayland.enable = builtins.elem cfg.gui [ "cosmic" "gnome" "hyprland" "plasma" "sway" ];
 
     my.profile.headless = (cfg.gui == "none");
     my.profile.workstation = !cfg.profile.headless;
