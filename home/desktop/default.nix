@@ -1,6 +1,6 @@
 {
   imports = [
-    ./gnome
+    ./gnome.nix
     ./sway.nix
   ];
 }
