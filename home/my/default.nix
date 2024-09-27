@@ -4,11 +4,6 @@ let
   cfg = config.my;
 in
 {
-  imports = [
-    ./wayland.nix
-    ./xdg.nix
-  ];
-
   options = {
     my.gui = mkOption {
       type = with types; enum [
@@ -41,5 +36,7 @@ in
 
     my.profile.headless = (cfg.gui == "none");
     my.profile.workstation = !cfg.profile.headless;
+
+    programs.wofi.enable = lib.mkDefault cfg.wayland.enable;
   };
 }

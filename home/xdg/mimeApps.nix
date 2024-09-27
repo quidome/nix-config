@@ -1,15 +1,11 @@
 { lib, config, ... }:
-with lib;
 let
-  cfg = config.my.xdg;
+  cfg = config.xdg.mimeApps;
 in
 {
-  options.my.xdg.enable = mkEnableOption "xdg";
-
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     xdg.configFile."mimeapps.list".force = true;
     xdg.mimeApps = {
-      enable = true;
       defaultApplications = {
         "application/pdf" = "org.pwmt.zathura.desktop";
         "application/x-extension-htm" = "firefox.desktop";

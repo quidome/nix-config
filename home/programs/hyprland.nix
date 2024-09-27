@@ -4,9 +4,7 @@ let
 in
 {
   config = lib.mkIf hyprlandEnabled {
-    my = {
-      xdg.enable = true;
-    };
+    xdg.mimeApps.enable = true;
 
     gtk = {
       enable = true;
