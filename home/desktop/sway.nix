@@ -5,7 +5,7 @@ let
 in
 {
   config = mkIf swayEnabled {
-    my.xdg.enable = true;
+    xdg.mimeApps.enable = true;
 
     home.sessionVariables = {
       NIXOS_OZONE_WL = "1";
