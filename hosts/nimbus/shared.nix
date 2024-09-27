@@ -1,3 +1,3 @@
 {
-  my.gui = "sway";
+  my.gui = "plasma";
 }
