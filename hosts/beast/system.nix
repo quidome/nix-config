@@ -13,9 +13,16 @@
   boot.kernelParams = [ "consoleblank=60" ];
 
   boot.initrd = {
+    availableKernelModules = [ "r8169" ];
     luks.devices.cryptroot = {
       device = "/dev/disk/by-uuid/345de9be-3f63-43e3-bfa8-eeaddbe8c2c0";
       preLVM = true;
+    };
+
+    clevis = {
+      enable = true;
+      useTang = true;
+      devices.cryptroot.secretFile = /etc/secrets/initrd/clevis-cryptroot.jwe;
     };
 
     network.enable = true;
@@ -30,6 +37,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    clevis
     heroic
     mangohud
     factorio-demo
