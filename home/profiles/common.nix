@@ -15,7 +15,6 @@
       wget
 
       # devops
-      git-crypt
       gitui
       go
       shellcheck
