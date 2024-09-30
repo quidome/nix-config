@@ -7,9 +7,9 @@ in
   options = {
     my.gui = mkOption {
       type = with types; enum [
+        "none"
         "gnome"
         "hyprland"
-        "none"
         "pantheon"
         "plasma"
         "sway"
