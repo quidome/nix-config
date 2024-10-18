@@ -1,3 +1,3 @@
 {
-  my.gui = "gnome";
+  my.gui = "plasma";
 }
