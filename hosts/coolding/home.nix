@@ -6,14 +6,13 @@ let
 in
 {
   imports = [
-    ../../home
     ./home-vars.nix
+    ./shared.nix
+    ../../home
   ];
 
-  my.gui = "plasma5";
-
   home = {
-    stateVersion = "22.11";
+    stateVersion = "24.05";
     packages = with pkgs; [
       # dev tools
       postgresql
@@ -22,8 +21,7 @@ in
       temurin-bin-21
       nodejs_20
       jetbrains.idea-community
-      rnix-lsp
-      rustup
+#      rustup
 
       # some tools
       cointop

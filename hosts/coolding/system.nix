@@ -1,12 +1,11 @@
 { pkgs, ... }:
 {
   imports = [
-    ./system-vars.nix
     ./hardware-configuration.nix
+    ./shared.nix
+    ./system-vars.nix
     ../../modules
   ];
-
-  my.gui = "plasma5";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
