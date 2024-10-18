@@ -5,6 +5,7 @@ with lib;
     git
     git-crypt
     home-manager
+    vim
   ];
 
   programs.gnupg.agent.enable = mkDefault true;
