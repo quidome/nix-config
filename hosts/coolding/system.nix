@@ -51,6 +51,8 @@
     printing.enable = true;
 
     logind.extraConfig = "HandlePowerKey=suspend";
+
+    tailscale.enable = true;
   };
 
 
