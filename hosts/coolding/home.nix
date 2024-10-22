@@ -27,13 +27,6 @@ in
       cointop
       discord
       blender
-
-      # office
-      libreoffice-qt
-      hunspell
-      hunspellDicts.nl_NL
-      hunspellDicts.en_US-large
-      hunspellDicts.en_GB-large
     ];
   };
 }
