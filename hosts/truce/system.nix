@@ -49,7 +49,6 @@
     };
   };
 
-  services.tailscale.enable = true;
   services.usbmuxd.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
