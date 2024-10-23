@@ -75,6 +75,7 @@
     libimobiledevice
     ifuse
     virt-manager
+    wireshark
   ];
 
   powerManagement.enable = true;
