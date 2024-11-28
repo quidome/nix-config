@@ -3,6 +3,7 @@
   imports = [
     ./shared.nix
     ./system-vars.nix
+    ./networking.nix
     ./hardware-configuration.nix
     ../../modules
   ];
@@ -13,26 +14,9 @@
   boot.kernelParams = [ "consoleblank=60" ];
 
   boot.initrd = {
-    availableKernelModules = [ "r8169" ];
     luks.devices.cryptroot = {
       device = "/dev/disk/by-uuid/345de9be-3f63-43e3-bfa8-eeaddbe8c2c0";
       preLVM = true;
-    };
-
-    clevis = {
-      enable = true;
-      useTang = true;
-      devices.cryptroot.secretFile = /etc/secrets/initrd/clevis-cryptroot.jwe;
-    };
-
-    network.enable = true;
-    network.udhcpc.enable = true;
-    network.flushBeforeStage2 = true;
-    network.ssh = {
-      enable = true;
-      hostKeys = [ "/etc/secrets/initrd/ssh_host_rsa_key" "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-      port = 2222;
-      shell = "/bin/cryptsetup-askpass";
     };
   };
 
@@ -43,9 +27,8 @@
     factorio-demo
   ];
 
-  networking.firewall.enable = true;
   networking.hostName = "beast";
-  networking.networkmanager.enable = true;
+  networking.firewall.enable = true;
 
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Amsterdam";
