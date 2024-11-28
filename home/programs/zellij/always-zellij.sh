@@ -1,5 +1,6 @@
 # some exceptions in which case zellij should not be used
 if  [ -n "$TMUX" ] ||
+    [ -n "$KATE_PID" ] ||
     [[ "$GIO_LAUNCHED_DESKTOP_FILE" == *"guake.desktop"* ]] ||
     [ "$__CFBundleIdentifier" = "io.lapce" ] ||
     [[ "$(tty)" =~ /dev/tty[0-9] ]] ||
@@ -21,5 +22,4 @@ if [[ $TERM != "screen-256color" && $TERM != "linux" && -z "$ZELLIJ" ]] ; then
     else
         zellij attach -c 'default-session'
     fi
-fi
 fi
