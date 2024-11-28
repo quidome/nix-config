@@ -7,7 +7,7 @@ let
 in
 {
   config = mkIf plasmaEnabled {
-    networking.networkmanager.enable = true;
+    networking.networkmanager.enable = mkDefault true;
 
     # services required for plasma
     services = {
