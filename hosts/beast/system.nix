@@ -40,8 +40,8 @@
     bluetooth.powerOnBoot = true;
     bluetooth.input.General.UserspaceHID = true;
 
-    opengl.driSupport32Bit = true;
-    opengl.extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
+    graphics.enable32Bit = true;
+    # graphics.extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
   };
 
   programs = {
