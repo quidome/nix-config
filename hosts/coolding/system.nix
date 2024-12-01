@@ -27,7 +27,7 @@
     bluetooth.input = {
       General.UserspaceHID = true;
     };
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         vaapiIntel
