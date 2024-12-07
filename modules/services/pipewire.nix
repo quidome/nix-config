@@ -1,7 +1,6 @@
 { lib, config, ... }:
 {
   config = lib.mkIf config.services.pipewire.enable {
-    sound.enable = true;
     hardware.pulseaudio.enable = false;
 
     security.rtkit.enable = true;
