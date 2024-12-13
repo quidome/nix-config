@@ -17,10 +17,15 @@ in
 
     programs = {
       alacritty.enable = true;
+      hyprlock.enable = true;
+      waybar.enable = true;
     };
+
+    settings.waybar.modules-left = [ "hyprland/workspaces" "hyprland/mode" ];
 
     services = {
       avizo.enable = true;
+      hypridle.enable = true;
       mako.enable = true;
     };
 
@@ -28,6 +33,5 @@ in
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
       "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
     ];
-
   };
 }

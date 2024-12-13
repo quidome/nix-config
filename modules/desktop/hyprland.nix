@@ -20,7 +20,7 @@ in
 
         # Theming
         glib
-        gnome.adwaita-icon-theme
+        adwaita-icon-theme
         gsettings-desktop-schemas
         gtk-engine-murrine
         gtk_engines
@@ -40,20 +40,16 @@ in
 
     programs.gnupg.agent.enableSSHSupport = true;
     programs.hyprland.enable = true;
+    programs.hyprland.withUWSM = true;
+    programs.hyprlock.enable = true;
     programs.thunar.enable = true;
 
     # for qt theming
     qt.platformTheme = "qt5ct";
 
-    services.auto-cpufreq.enable = true;
-    services.greetd = {
-      enable = true;
-      settings.default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd Hyprland";
-    };
+    security.pam.services.hyprlock = { };
 
-    xdg.portal = {
-      enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    };
+    services.auto-cpufreq.enable = true;
+    services.greetd.enable = true;
   };
 }

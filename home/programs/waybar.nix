@@ -4,6 +4,19 @@ let
   cfg = config.programs.waybar;
 in
 {
+  options = with types; {
+    settings.waybar.modules-left = mkOption {
+      default = [ "sway/workspaces" "sway/mode" ];
+      type = listOf str;
+    };
+
+    settings.waybar.modules-center = mkOption {
+      default = null;
+      type = nullOr (listOf str);
+    };
+
+  };
+
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       libappindicator-gtk3
@@ -16,7 +29,8 @@ in
       settings = [
         {
           height = 34;
-          modules-left = [ "sway/workspaces" "sway/mode" ];
+          modules-left = config.settings.waybar.modules-left;
+          modules-center = config.settings.waybar.modules-center;
           modules-right = [
             "pulseaudio"
             "idle_inhibitor"
@@ -123,6 +137,26 @@ in
               "9" = "";
               "10" = "";
             };
+          };
+
+          "hyprland/workspaces" = {
+            format = "{icon}";
+            format-icons = {
+              "1" = "";
+              "2" = "";
+              "3" = "";
+              "4" = "";
+              "5" = "";
+              "6" = "";
+              "7" = "";
+              "8" = "";
+              "9" = "";
+              "10" = "";
+            };
+          };
+
+          "hyprland/window" = {
+            "separate-output" = true;
           };
         }
       ];

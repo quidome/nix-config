@@ -4,6 +4,7 @@
     ./git.nix
     ./helix
     ./hyprland.nix
+    ./hyprlock.nix
     ./neovim.nix
     ./starship.nix
     ./swaylock.nix
