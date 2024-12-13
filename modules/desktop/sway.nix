@@ -12,7 +12,7 @@ in
         # gtk theming
         glib
         gtk-engine-murrine
-        gnome.adwaita-icon-theme
+        adwaita-icon-theme
         gtk_engines
         gsettings-desktop-schemas
         lxappearance
