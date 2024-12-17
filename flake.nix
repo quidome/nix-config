@@ -22,6 +22,22 @@
       };
       args = inputs;
 
+      mkFull = user: host: inputs.nixpkgs.lib.nixosSystem {
+        inherit pkgs;
+        modules = [
+          { _module.args = args; }
+          ./hosts/${host}/system.nix
+
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.${user} = import ./hosts/${host}/home.nix;
+          }
+        ];
+      };
+
       mkHost = host: inputs.nixpkgs.lib.nixosSystem {
         inherit pkgs;
         modules = [
@@ -54,7 +70,7 @@
       };
 
       nixosConfigurations = {
-        nimbus = mkHost "nimbus";
+        nimbus = mkFull "quidome" "nimbus";
         beast = mkHost "beast";
         coolding = mkHost "coolding";
         truce = mkHost "truce";
