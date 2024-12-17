@@ -4,6 +4,11 @@ let
 in
 {
   config = lib.mkIf hyprlandEnabled {
+
+    home.packages = with pkgs; [
+      playerctl
+    ];
+
     xdg.mimeApps.enable = true;
 
     gtk = {
