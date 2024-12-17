@@ -11,7 +11,7 @@ in
             after_sleep_cmd = "hyprctl dispatch dpms on";
             before_sleep_cmd = "loginctl lock-session";
             # ignore_dbus_inhibit = false;
-            lock_cmd = "pidof || hyprlock";
+            lock_cmd = "pidof hyprlock || hyprlock";
           };
 
           listener = [
