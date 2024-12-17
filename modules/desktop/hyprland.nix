@@ -51,5 +51,7 @@ in
 
     services.auto-cpufreq.enable = true;
     services.greetd.enable = true;
+
+    services.logind.extraConfig = "HandlePowerKey=suspend";
   };
 }
