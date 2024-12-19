@@ -1,3 +1,3 @@
 {
-  my.gui = "hyprland";
+  my.gui = "plasma";
 }
