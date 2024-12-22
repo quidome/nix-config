@@ -70,7 +70,6 @@
   programs.zellij.enable = lib.mkDefault true;
 
   programs.zoxide.enable = true;
-  programs.zoxide.options = [ "--cmd j" ];
 
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = true;
