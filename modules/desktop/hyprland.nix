@@ -17,6 +17,7 @@ in
         hypridle
         hyprpaper
         waybar
+        wdisplays
 
         # Theming
         glib
