@@ -1,14 +1,13 @@
 { pkgs, ... }:
 {
   imports = [
+    ./disk-config.nix
     ./hardware-configuration.nix
     ./shared.nix
     ./system-vars.nix
     ../../modules
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "vm.swappiness" = 1; };
   boot.extraModprobeConfig = ''
     options hid_apple swap_opt_cmd=1
