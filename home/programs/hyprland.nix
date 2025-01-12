@@ -31,6 +31,7 @@ in
     services = {
       avizo.enable = true;
       hypridle.enable = true;
+      kanshi.enable = true;
       mako.enable = true;
     };
 
