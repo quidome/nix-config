@@ -1,6 +1,6 @@
 {
   description = "My Nixos install images";
-  inputs.nixos.url = "nixpkgs/24.05";
+  inputs.nixos.url = "nixpkgs/nixos-24.11";
   outputs = { self, nixos }: {
     nixosConfigurations = {
       baseIso = nixos.lib.nixosSystem {
