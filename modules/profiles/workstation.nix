@@ -8,12 +8,16 @@ in
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
       bitwarden
+      discord
+      element-desktop
       obsidian
       logseq
       signal-desktop
       spotify
       thunderbird
       vscode
+      pandoc
+      plantuml
     ];
 
     services.flatpak.enable = mkDefault true;

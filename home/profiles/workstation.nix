@@ -8,10 +8,6 @@ in
 
     home = {
       packages = with pkgs; [
-        element-desktop
-        pandoc
-        plantuml
-
         # office
         (if config.my.preferQt then libreoffice-qt else libreoffice)
         hunspell
