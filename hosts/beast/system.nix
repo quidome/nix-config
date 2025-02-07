@@ -47,11 +47,16 @@
   programs = {
     gamescope.enable = true;
     steam.enable = true;
+    virt-manager.enable = true;
   };
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 
+  users.groups.libvirtd.members = [ "quidome" ];
+
   virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "23.11";
