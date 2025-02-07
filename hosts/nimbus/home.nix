@@ -15,15 +15,8 @@ in
   home = {
     stateVersion = "24.05";
     packages = with pkgs; [
-      httpie
-      ipcalc
-
       # dev tools
       jetbrains.idea-community
-      poetry
-      postgresql
-      temurin-bin-21
-      (python3.withPackages my-python-packages)
     ];
   };
 
