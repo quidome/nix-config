@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  hyprlandEnabled = (config.my.gui == "hyprland");
+  hyprlandEnabled = (config.settings.gui == "hyprland");
   networkmanagerEnabled = config.networking.networkmanager.enable;
   tailscaleEnabled = config.services.tailscale.enable;
 in
 {
-  config = lib.mkIf hyprlandEnabled {
+  config = mkIf hyprlandEnabled {
     environment = {
       systemPackages = with pkgs; [
         # hyprland deps

@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  config = lib.mkIf (config.my.gui == "gnome") {
+  config = lib.mkIf (config.settings.gui == "gnome") {
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         cursor-theme = "Adwaita";

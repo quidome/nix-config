@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  hyprlandEnabled = (config.my.gui == "hyprland");
+  hyprlandEnabled = (config.settings.gui == "hyprland");
 in
 {
   config = lib.mkIf hyprlandEnabled {

@@ -1,3 +1,3 @@
 {
-  my.gui = "gnome";
+  settings.gui = "gnome";
 }

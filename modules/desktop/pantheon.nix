@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
+with lib;
 let
-  pantheonEnabled = (config.my.gui == "pantheon");
+  pantheonEnabled = (config.settings.gui == "pantheon");
 in
 {
-  config = lib.mkIf pantheonEnabled {
+  config = mkIf pantheonEnabled {
     environment = {
       pantheon.excludePackages = with pkgs.pantheon; [
         epiphany

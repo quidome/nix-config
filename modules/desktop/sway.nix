@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  swayEnabled = (config.my.gui == "sway");
+  swayEnabled = (config.settings.gui == "sway");
   networkmanagerEnabled = config.networking.networkmanager.enable;
   tailscaleEnabled = config.services.tailscale.enable;
 in

@@ -1,3 +1,3 @@
 {
-  my.gui = "plasma";
+  settings.gui = "plasma";
 }

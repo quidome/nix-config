@@ -1,6 +1,7 @@
 {
   imports = [
-    ./my
+    ./settings.nix
+
     ./desktop
     ./profiles
     ./programs

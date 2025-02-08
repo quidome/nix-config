@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.my.profile;
+  cfg = config.settings.profile;
 in
 {
-  config = lib.mkIf cfg.workstation {
+  config = mkIf cfg.workstation {
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
       bitwarden

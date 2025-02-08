@@ -2,7 +2,8 @@
 with lib;
 {
   imports = [
-    ./my.nix
+    ./secrets.nix
+    ./settings.nix
 
     ./desktop
     ./profiles

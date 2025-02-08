@@ -20,7 +20,7 @@ in
     ];
   };
 
-  services.kanshi.settings = mkIf (builtins.elem config.my.gui [ "sway" "hyprland" ]) [
+  services.kanshi.settings = mkIf (builtins.elem config.settings.gui [ "sway" "hyprland" ]) [
     {
       profile.name = "undocked";
       profile.outputs = [{ criteria = "eDP-1"; status = "enable"; scale = 1.0; }];

@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
 let
-  gnomeEnabled = (config.my.gui == "gnome");
+  gnomeEnabled = (config.settings.gui == "gnome");
   tailscaleEnabled = config.services.tailscale.enable;
 in
 {

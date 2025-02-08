@@ -1,8 +1,7 @@
 { config, pkgs, lib, ... }:
 with lib;
-
 let
-  plasmaEnabled = (config.my.gui == "plasma");
+  plasmaEnabled = (config.settings.gui == "plasma");
   tailscaleEnabled = config.services.tailscale.enable;
 in
 {

@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  cfg = config.my.profile;
+  cfg = config.settings.profile;
 in
 {
   config = lib.mkIf cfg.headless { };
