@@ -11,14 +11,23 @@ in
       chromium
       discord
       element-desktop
-      obsidian
+      emacs
       logseq
+      obsidian
+      pandoc
+      plantuml
       signal-desktop
       spotify
       thunderbird
       vscode
-      pandoc
-      plantuml
+
+      # office
+      (if config.settings.preferQt then libreoffice-qt else libreoffice)
+      hunspell
+      hunspellDicts.nl_NL
+      hunspellDicts.en_US-large
+      hunspellDicts.en_GB-large
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
     ];
 
     services.flatpak.enable = mkDefault true;

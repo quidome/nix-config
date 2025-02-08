@@ -2,17 +2,13 @@
 with lib;
 {
   environment.systemPackages = with pkgs; [
-    git
-    git-crypt
-    home-manager
-    vim
-
     # system
     bottom
     fd
     fzf
     gnupg
     ripgrep
+    home-manager
 
     # network
     curl
@@ -20,17 +16,19 @@ with lib;
     wget
 
     # devops
+    git
+    git-crypt
     gitui
-    go
     shellcheck
     yq-go
 
     # tools
     bitwarden-cli
     gopass
+    helix
     jless
     jq
-    rcm
+    vim
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix

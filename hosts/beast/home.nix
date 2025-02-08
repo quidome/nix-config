@@ -16,7 +16,6 @@
         jetbrains.idea-community
         temurin-bin-21
         ktlint
-        emacs
       ];
     };
 
