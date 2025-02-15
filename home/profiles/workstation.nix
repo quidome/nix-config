@@ -4,6 +4,12 @@ let
 in
 {
   config = lib.mkIf cfg.workstation {
+    home = {
+      packages = with pkgs; [
+        (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+      ];
+    };
+
     fonts.fontconfig.enable = true;
 
     programs.alacritty.enable = true;
