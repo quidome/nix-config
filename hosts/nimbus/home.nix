@@ -1,10 +1,5 @@
 { config, lib, pkgs, ... }:
 with lib;
-let
-  my-python-packages = ps: with ps; [
-    pip
-  ];
-in
 {
   imports = [
     ./shared.nix
