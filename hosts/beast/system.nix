@@ -24,7 +24,6 @@
     clevis
     heroic
     mangohud
-    factorio-demo
   ];
 
   networking.hostName = "beast";
@@ -36,16 +35,24 @@
   i18n.defaultLocale = "en_IE.UTF-8";
 
   hardware = {
-    bluetooth.enable = true;
-    bluetooth.powerOnBoot = true;
-    bluetooth.input.General.UserspaceHID = true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      input.General.UserspaceHID = true;
+    };
 
-    graphics.enable32Bit = true;
-    # graphics.extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+
+    amdgpu.amdvlk = {
+      enable = true;
+      support32Bit.enable = true;
+    };
   };
 
   programs = {
-    gamescope.enable = true;
     steam.enable = true;
     virt-manager.enable = true;
   };
