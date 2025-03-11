@@ -8,8 +8,8 @@ in
   config = mkIf gnomeEnabled {
     # add extra packages to this desktop setup
     environment.systemPackages = (with pkgs; [
-    ]) ++ (with pkgs.gnome; [
       gnome-tweaks
+    ]) ++ (with pkgs.gnome; [
     ]) ++ (with pkgs.gnomeExtensions; [
       appindicator
       (mkIf tailscaleEnabled tailscale-status)
@@ -19,6 +19,6 @@ in
     services.xserver.desktopManager.gnome.enable = true;
     services.xserver.displayManager.gdm.enable = true;
 
-    services.udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
+    services.udev.packages = [ pkgs.gnome-settings-daemon ];
   };
 }
