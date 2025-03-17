@@ -11,10 +11,7 @@ in
     };
 
     fonts.fontconfig.enable = true;
-
-    programs.alacritty.enable = true;
     programs.firefox.enable = true;
-
     services.syncthing.enable = true;
   };
 }
