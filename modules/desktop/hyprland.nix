@@ -16,8 +16,10 @@ in
         hyprlock
         hypridle
         hyprpaper
+        libnotify
         waybar
         wdisplays
+        rofi-wayland
 
         # Theming
         glib
@@ -54,5 +56,8 @@ in
     services.greetd.enable = true;
 
     services.logind.extraConfig = "HandlePowerKey=suspend";
+
+    xdg.portal.enable = true;
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 }
