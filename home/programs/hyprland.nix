@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
+with lib;
 let
   hyprlandEnabled = (config.settings.gui == "hyprland");
 in
 {
-  config = lib.mkIf hyprlandEnabled {
+  config = mkIf hyprlandEnabled {
 
     home.packages = with pkgs; [
       playerctl
@@ -21,18 +22,20 @@ in
     };
 
     programs = {
-      alacritty.enable = true;
-      hyprlock.enable = true;
-      waybar.enable = true;
+      alacritty.enable = mkDefault false;
+      hyprlock.enable = mkDefault true;
+      kitty.enable = mkDefault true;
+      waybar.enable = mkDefault true;
+      wofi.enable = mkDefault true;
     };
 
     settings.waybar.modules-left = [ "hyprland/workspaces" "hyprland/mode" ];
 
     services = {
-      avizo.enable = true;
-      hypridle.enable = true;
-      kanshi.enable = true;
-      mako.enable = true;
+      avizo.enable = mkDefault true;
+      hypridle.enable = mkDefault true;
+      kanshi.enable = mkDefault true;
+      mako.enable = mkDefault true;
     };
 
     xdg.systemDirs.data = [
