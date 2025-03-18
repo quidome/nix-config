@@ -19,7 +19,6 @@ in
         libnotify
         waybar
         wdisplays
-        rofi-wayland
 
         # Theming
         glib
