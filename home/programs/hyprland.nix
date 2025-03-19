@@ -22,9 +22,9 @@ in
     };
 
     programs = {
-      alacritty.enable = mkDefault false;
+      alacritty.enable = mkDefault true;
       hyprlock.enable = mkDefault true;
-      kitty.enable = mkDefault true;
+      kitty.enable = mkDefault false;
       waybar.enable = mkDefault true;
       wofi.enable = mkDefault true;
     };
