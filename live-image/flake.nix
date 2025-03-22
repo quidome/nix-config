@@ -7,7 +7,7 @@
         system = "x86_64-linux";
         modules = [
           "${nixos}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          ./base.nix
+          ./iso/base.nix
         ];
       };
       bcachefs = nixos.lib.nixosSystem {
