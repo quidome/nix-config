@@ -82,18 +82,19 @@
 
   programs.steam.enable = true;
 
-  services.btrfs.autoScrub.enable = true;
-  services.btrfs.autoScrub.interval = "weekly";
+  services = {
+    btrfs.autoScrub.enable = true;
+    btrfs.autoScrub.interval = "weekly";
 
-  services.fprintd = {
-    enable = false;
-    tod.enable = true;
-    tod.driver = pkgs.libfprint-2-tod1-goodix;
+    fprintd = {
+      enable = true;
+      tod.enable = true;
+      tod.driver = pkgs.libfprint-2-tod1-goodix;
+    };
+
+    fwupd.enable = true;
+    usbmuxd.enable = true;
   };
-
-  services.fwupd.enable = true;
-
-  services.usbmuxd.enable = true;
 
   virtualisation = {
     containers.enable = true;
