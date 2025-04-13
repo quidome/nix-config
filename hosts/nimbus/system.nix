@@ -87,7 +87,7 @@
     btrfs.autoScrub.interval = "weekly";
 
     fprintd = {
-      enable = true;
+      # enable = true;
       tod.enable = true;
       tod.driver = pkgs.libfprint-2-tod1-goodix;
     };
