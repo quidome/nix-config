@@ -20,8 +20,10 @@ in
       signal-desktop
       spotify
       thunderbird
+      v4l-utils
       vlc
       vscode
+      zed-editor
 
       # office
       (if config.settings.preferQt then libreoffice-qt else libreoffice)

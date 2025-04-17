@@ -16,8 +16,6 @@
         jetbrains.idea-community
         temurin-bin-21
         ktlint
-        v4l-utils
-        zed-editor
       ];
     };
   };
