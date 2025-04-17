@@ -8,6 +8,7 @@ in
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
       bitwarden
+      cameractrls-gtk3
       chromium
       discord
       element-desktop
@@ -19,6 +20,7 @@ in
       signal-desktop
       spotify
       thunderbird
+      vlc
       vscode
 
       # office
