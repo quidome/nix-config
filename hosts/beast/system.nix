@@ -11,10 +11,20 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = { "vm.swappiness" = 1; };
-  boot.kernelParams = [ "consoleblank=60" ];
+  boot.kernelParams = [
+    "consoleblank=60"
+    "ip=:::::enp4s0:dhcp"
+  ];
 
   boot.initrd = {
-    luks.devices.cryptroot = {
+    # availableKernelModules = [ "r8169" ];
+    # network.enable = true;
+
+    # clevis.enable = true;
+    # clevis.useTang = true;
+    # clevis.devices."cryptroot" = /etc/secrets/initrd/clevis-cryptroot.jwe;
+
+    luks.devices."cryptroot" = {
       device = "/dev/disk/by-uuid/345de9be-3f63-43e3-bfa8-eeaddbe8c2c0";
       preLVM = true;
     };
@@ -22,6 +32,7 @@
 
   environment.systemPackages = with pkgs; [
     clevis
+    dracut
     heroic
     mangohud
   ];
