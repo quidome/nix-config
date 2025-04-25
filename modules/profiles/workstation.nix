@@ -9,7 +9,6 @@ in
       adoptopenjdk-icedtea-web
       bitwarden
       cameractrls-gtk3
-      chromium
       discord
       element-desktop
       emacs
