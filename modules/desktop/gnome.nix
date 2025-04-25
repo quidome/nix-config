@@ -1,23 +1,20 @@
 { config, pkgs, lib, ... }:
-with lib;
-let
-  gnomeEnabled = (config.settings.gui == "gnome");
-  tailscaleEnabled = config.services.tailscale.enable;
-in
 {
-  config = mkIf gnomeEnabled {
+  config = lib.mkIf (config.settings.gui == "gnome") {
     # add extra packages to this desktop setup
     environment.systemPackages = (with pkgs; [
       gnome-tweaks
-    ]) ++ (with pkgs.gnome; [
+      pavucontrol
+      # ]) ++ (with pkgs.gnome; [
     ]) ++ (with pkgs.gnomeExtensions; [
       appindicator
-      (mkIf tailscaleEnabled tailscale-status)
+      # sound-output-device-chooser
+      (lib.mkIf config.services.tailscale.enable tailscale-status)
     ]);
 
-    services.xserver.enable = true;
-    services.xserver.desktopManager.gnome.enable = true;
-    services.xserver.displayManager.gdm.enable = true;
+    services.xserver.enable = lib.mkDefault true;
+    services.xserver.desktopManager.gnome.enable = lib.mkDefault true;
+    services.xserver.displayManager.gdm.enable = lib.mkDefault true;
 
     services.udev.packages = [ pkgs.gnome-settings-daemon ];
   };
