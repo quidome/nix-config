@@ -12,6 +12,10 @@ with lib;
     packages = with pkgs; [
       # dev tools
       jetbrains.idea-community
+
+      # games
+      openttd
+      zeroad
     ];
   };
 }
