@@ -29,7 +29,7 @@ in
       wofi.enable = mkDefault true;
     };
 
-    settings.waybar.modules-left = [ "hyprland/workspaces" "hyprland/mode" ];
+    settings.waybar.modules-left = mkDefault [ "hyprland/workspaces" "hyprland/mode" ];
 
     services = {
       avizo.enable = mkDefault true;
