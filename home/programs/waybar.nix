@@ -172,7 +172,7 @@ in
         * {
             border: none;
             border-radius: 0;
-            font-family: FiraCode Nerd Font, Source Code Pro, Helvetica, Arial, sans-serif;
+            font-family: JetBrainsMono Nerd Font, Source Code Pro, Helvetica, Arial, sans-serif;
             font-size: 12pt;
             min-height: 0;
         }

@@ -5,8 +5,8 @@ in
 {
   config = lib.mkIf cfg.workstation {
     home = {
-      packages = with pkgs; [
-        (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
+      packages = [
+        (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
       ];
     };
 
