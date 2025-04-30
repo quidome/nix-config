@@ -29,8 +29,8 @@ with lib;
     {
       profile.name = "home-office";
       profile.outputs = [
-        { criteria = "Dell Inc. DELL P3424WE FB6Y6T3"; status = "enable"; scale = 1.0; }
-        { criteria = "eDP-1"; status = "enable"; scale = 1.0; position = "3440,240"; }
+        { criteria = "Dell Inc. DELL P3424WE FB6Y6T3"; status = "enable"; scale = 1.0; position = "0,0"; }
+        { criteria = "eDP-1"; status = "disable"; }
       ];
     }
   ];
