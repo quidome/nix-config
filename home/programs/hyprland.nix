@@ -5,6 +5,7 @@ let
 in
 {
   config = mkIf hyprlandEnabled {
+    wayland.windowManager.hyprland.enable = mkDefault true;
 
     home.packages = with pkgs; [
       playerctl

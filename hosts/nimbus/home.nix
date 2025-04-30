@@ -5,6 +5,7 @@ with lib;
     ./shared.nix
     ./home-vars.nix
     ../../home
+    ./hyprland.nix
   ];
 
   home = {
