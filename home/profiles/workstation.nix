@@ -5,8 +5,17 @@ in
 {
   config = lib.mkIf cfg.workstation {
     home = {
-      packages = [
-        (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      packages = with pkgs; [
+        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+
+        # devops
+        jetbrains.idea-community
+        temurin-bin-21
+        ktlint
+
+        # games
+        openttd
+        zeroad
       ];
     };
 

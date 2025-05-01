@@ -7,21 +7,11 @@
   ];
 
   config = {
-
-    home = {
-      stateVersion = "23.11";
-      packages = with pkgs; [
-        # dev tools
-        postgresql
-        jetbrains.idea-community
-        temurin-bin-21
-        ktlint
-
-        # gaming
-        openttd
-        zeroad
-      ];
-    };
+    home.stateVersion = "23.11";
+    home.packages = with pkgs; [
+      # dev tools
+      postgresql
+    ];
 
     wayland.windowManager.hyprland.settings.monitor = [
       ",preferred,auto,auto"

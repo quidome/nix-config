@@ -7,18 +7,7 @@ with lib;
     ../../home
   ];
 
-  home = {
-    stateVersion = "24.05";
-    packages = with pkgs; [
-      # dev tools
-      jetbrains.idea-community
-
-      # games
-      openttd
-      zeroad
-    ];
-  };
-
+  home.stateVersion = "24.05";
 
   services.kanshi.settings = mkIf (builtins.elem config.settings.gui [ "sway" "hyprland" ]) [
     {
