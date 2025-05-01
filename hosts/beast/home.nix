@@ -16,6 +16,10 @@
         jetbrains.idea-community
         temurin-bin-21
         ktlint
+
+        # gaming
+        openttd
+        zeroad
       ];
     };
 

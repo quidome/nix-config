@@ -24,6 +24,8 @@ in
       vscode
       zed-editor
 
+      openttd
+
       # office
       (if config.settings.preferQt then libreoffice-qt else libreoffice)
       hunspell
