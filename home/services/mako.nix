@@ -7,7 +7,7 @@ in
     anchor = "bottom-right";
     defaultTimeout = 10000;
 
-    font = "JetBrainsMono Nerd Font 11";
+    font = "FiraCode Nerd Font 11";
 
     borderRadius = 5;
     backgroundColor = "#282828ff";

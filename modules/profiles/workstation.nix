@@ -32,7 +32,7 @@ in
       hunspellDicts.nl_NL
       hunspellDicts.en_US-large
       hunspellDicts.en_GB-large
-      (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; })
     ];
 
     services.flatpak.enable = mkDefault true;

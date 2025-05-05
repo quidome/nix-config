@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   cfg = config.programs.alacritty;
-  font = "JetBrainsMono Nerd Font";
+  font = "FiraCode Nerd Font";
 in
 {
   config.programs.alacritty.settings = lib.mkIf cfg.enable {
