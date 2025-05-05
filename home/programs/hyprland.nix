@@ -5,7 +5,13 @@ let
 in
 {
   config = mkIf hyprlandEnabled {
-    home.packages = with pkgs; [ playerctl ];
+    home.packages = with pkgs; [
+      imv
+      grimblast
+      playerctl
+      pyprland
+      wev
+    ];
 
     xdg.mimeApps.enable = true;
 
@@ -43,10 +49,19 @@ in
     wayland.windowManager.hyprland.enable = mkDefault true;
     wayland.windowManager.hyprland.settings = {
       "$mod" = "SUPER";
+      "$launcher" = "uwsm app --";
+      "$terminal" = "alacritty";
+
+      "$scratchpad" = "class:^(scratchpad)$";
+      "$scratchpadsize" = "size 50% 50%";
 
       env = [
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
+      ];
+
+      exec-once = [
+        "$launcher pypr"
       ];
 
       animations.enabled = false;
@@ -79,7 +94,6 @@ in
         };
       };
 
-
       dwindle = {
         pseudotile = true;
         preserve_split = true;
@@ -90,7 +104,7 @@ in
       };
 
       misc = {
-        force_default_wallpaper = -1;
+        force_default_wallpaper = 2;
         disable_hyprland_logo = false;
       };
 
@@ -115,68 +129,78 @@ in
       };
 
       bind = [
-        "$mod, Return, exec, uwsm app -- alacritty"
-        "$mod, Space, exec, uwsm app -- $(wofi --show drun --define=drun-print_desktop_file=true)"
-        "$mod, C, killactive,"
-        "$mod SHIFT, Q, exit,"
-        "$mod, E, exec, uwsm app -- thunar"
-        "$mod, V, togglefloating,"
-        "$mod, D, exec, uwsm app -- $(wofi --show run --define=drun-print_desktop_file=true)"
+        "$mod, Space, exec, $launcher $(wofi --show drun --define=drun-print_desktop_file=true)"
+        "$mod, D, exec, $launcher $(wofi --show run --define=drun-print_desktop_file=true)"
+
+        "$mod, Return, exec, $launcher $terminal"
+        "$mod, E, exec, $launcher thunar"
+
         "$mod, P, pseudo, # dwindle"
         "$mod, J, togglesplit, # dwindle"
+
         "$mod, L, exec, hyprlock"
+        "$mod, V, togglefloating,"
+        "$mod, F, fullscreen"
+        "SHIFT $mod, C, exit,"
+        "SHIFT $mod, Q, killactive,"
 
         "$mod, left, movefocus, l"
         "$mod, right, movefocus, r"
         "$mod, up, movefocus, u"
         "$mod, down, movefocus, d"
 
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        "$mod, 5, workspace, 5"
-        "$mod, 6, workspace, 6"
-        "$mod, 7, workspace, 7"
-        "$mod, 8, workspace, 8"
-        "$mod, 9, workspace, 9"
-        "$mod, 0, workspace, 10"
-
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
-        "$mod SHIFT, 5, movetoworkspace, 5"
-        "$mod SHIFT, 6, movetoworkspace, 6"
-        "$mod SHIFT, 7, movetoworkspace, 7"
-        "$mod SHIFT, 8, movetoworkspace, 8"
-        "$mod SHIFT, 9, movetoworkspace, 9"
-        "$mod SHIFT, 0, movetoworkspace, 10"
+        "CTRL $mod, left, workspace, r-1"
+        "CTRL $mod, right, workspace, r+1"
 
         "$mod, S, togglespecialworkspace, magic"
-        "$mod SHIFT, S, movetoworkspace, special:magic"
+        "SHIFT $mod, S, movetoworkspace, special:magic"
 
-        "$mod, mouse_down, workspace, e+1"
-        "$mod, mouse_up, workspace, e-1"
+        "$mod, backslash, exec, pypr toggle term && hyprctl dispatch bringactivetotop"
 
+        ", XF86AudioPlay, exec, playerctl play-pause"
 
+        ", Print, exec, grimblast copysave area"
+        "SHIFT, Print, exec, grimblast copysave active"
+      ]
+      ++ (
+        # workspaces
+        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+        builtins.concatLists (builtins.genList
+          (i:
+            let ws = i + 1;
+            in [
+              "$mod, code:1${toString i}, workspace, ${toString ws}"
+              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+            ]
+          )
+          9)
+      );
+
+      bindl = [
+        ", XF86AudioMute, exec, volumectl toggle-mute"
+      ];
+
+      bindle = [
         ", XF86AudioRaiseVolume, exec, volumectl -u up"
         ", XF86AudioLowerVolume, exec, volumectl -u down"
-        ", XF86AudioMute, exec, volumectl toggle-mute"
-        ", XF86AudioPlay, exec, playerctl play-pause"
 
         ", XF86MonBrightnessDown, exec, lightctl down"
         ", XF86MonBrightnessUp, exec, lightctl up"
       ];
 
       bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
+        "SUPER, mouse:272, movewindow"
+        "SUPER, mouse:273, resizewindow"
       ];
 
       windowrulev2 = [
         "suppressevent maximize, class:.*"
         "float, class:org.pulseaudio.pavucontrol"
+
+        "float, $scratchpad"
+        "$scratchpadsize, $scratchpad"
+        "workspace special silent, $scratchpad"
+        "center, $scratchpad"
       ];
     };
 
