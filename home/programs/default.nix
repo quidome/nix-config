@@ -3,8 +3,8 @@
     ./alacritty.nix
     ./git.nix
     ./helix
-    ./hyprland.nix
     ./hyprlock.nix
+    ./kitty.nix
     ./neovim.nix
     ./starship.nix
     ./swaylock.nix
