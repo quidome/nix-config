@@ -2,6 +2,7 @@
 with lib;
 let
   hyprlandEnabled = (config.settings.gui == "hyprland");
+  terminal = "kitty";
 in
 {
   config = mkIf hyprlandEnabled {
@@ -25,9 +26,9 @@ in
     };
 
     programs = {
-      alacritty.enable = mkDefault true;
+      alacritty.enable = mkDefault (terminal == "alacritty");
+      kitty.enable = mkDefault (terminal == "kitty");
       hyprlock.enable = mkDefault true;
-      kitty.enable = mkDefault false;
       waybar.enable = mkDefault true;
       wofi.enable = mkDefault true;
     };
@@ -41,16 +42,26 @@ in
       mako.enable = mkDefault true;
     };
 
+    xdg.configFile."hypr/pyprland.json".text = builtins.toJSON {
+      pyprland.plugins = [ "scratchpads" ];
+      scratchpads.term = {
+        command = "NO_TMUX=1 uwsm app -- ${terminal} --class scratchpad";
+        margin = 50;
+      };
+    };
+
     xdg.systemDirs.data = [
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
       "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
     ];
 
+
+
     wayland.windowManager.hyprland.enable = mkDefault true;
     wayland.windowManager.hyprland.settings = {
       "$mod" = "SUPER";
       "$launcher" = "uwsm app --";
-      "$terminal" = "alacritty";
+      "$terminal" = terminal;
 
       "$scratchpad" = "class:^(scratchpad)$";
       "$scratchpadsize" = "size 50% 50%";

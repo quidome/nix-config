@@ -4,7 +4,11 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    font.name = "JetBrainsMono Nerd";
-    font.size = 12;
+    programs.kitty = {
+      font.name = "FiraCode Nerd Font";
+      font.size = 11;
+
+      themeFile = "gruvbox-dark";
+    };
   };
 }
