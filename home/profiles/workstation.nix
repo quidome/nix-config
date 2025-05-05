@@ -13,6 +13,9 @@ in
         temurin-bin-21
         ktlint
 
+        # multimedia
+        mpv
+
         # games
         openttd
         zeroad
