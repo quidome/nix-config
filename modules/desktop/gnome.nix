@@ -5,10 +5,8 @@
     environment.systemPackages = (with pkgs; [
       gnome-tweaks
       pavucontrol
-      # ]) ++ (with pkgs.gnome; [
     ]) ++ (with pkgs.gnomeExtensions; [
       appindicator
-      # sound-output-device-chooser
       (lib.mkIf config.services.tailscale.enable tailscale-status)
     ]);
 

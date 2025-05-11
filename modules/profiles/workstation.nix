@@ -12,6 +12,7 @@ in
       discord
       element-desktop
       emacs
+      firefox
       logseq
       obsidian
       pandoc
@@ -22,7 +23,6 @@ in
       v4l-utils
       vlc
       vscode
-      zed-editor
 
       openttd
 
