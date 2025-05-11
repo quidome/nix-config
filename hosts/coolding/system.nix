@@ -7,11 +7,15 @@
     ./system-vars.nix
     ../../modules
   ];
+  boot = {
+    extraModprobeConfig = "options hid_apple swap_opt_cmd=1";
 
-  boot.kernel.sysctl = { "vm.swappiness" = 1; };
-  boot.extraModprobeConfig = ''
-    options hid_apple swap_opt_cmd=1
-  '';
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+
+    kernel.sysctl = { "vm.swappiness" = 1; };
+    kernelParams = [ "consoleblank=60" ];
+  };
 
   networking.hostName = "coolding";
   networking.networkmanager.enable = true;
@@ -46,17 +50,8 @@
 
   programs.steam.enable = true;
 
-  services = {
-    printing.enable = true;
-
-    logind.extraConfig = "HandlePowerKey=suspend";
-  };
-
-  virtualisation.docker = {
-    enable = true;
-    autoPrune.enable = true;
-    autoPrune.dates = "weekly";
-  };
+  services.printing.enable = true;
+  services.logind.extraConfig = "HandlePowerKey=suspend";
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "24.11"; # Did you read the comment?

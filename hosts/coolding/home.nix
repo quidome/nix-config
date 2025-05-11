@@ -12,7 +12,7 @@ in
   ];
 
   home = {
-    stateVersion = "24.05";
+    stateVersion = "24.11";
     packages = with pkgs; [
       # dev tools
       postgresql
@@ -21,7 +21,7 @@ in
       temurin-bin-21
       nodejs_20
       jetbrains.idea-community
-#      rustup
+      #      rustup
 
       # some tools
       cointop

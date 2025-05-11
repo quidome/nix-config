@@ -12,7 +12,7 @@ in
   ];
 
   home = {
-    stateVersion = "22.11";
+    stateVersion = "24.11";
     packages = with pkgs; [
       wireguard-tools
       httpie
