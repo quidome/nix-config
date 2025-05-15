@@ -4,19 +4,6 @@ let
   cfg = config.programs.waybar;
 in
 {
-  options = with types; {
-    settings.waybar.modules-left = mkOption {
-      default = [ "sway/workspaces" "sway/mode" ];
-      type = listOf str;
-    };
-
-    settings.waybar.modules-center = mkOption {
-      default = null;
-      type = nullOr (listOf str);
-    };
-
-  };
-
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       libappindicator-gtk3
@@ -29,16 +16,18 @@ in
       settings = [
         {
           height = 34;
-          modules-left = config.settings.waybar.modules-left;
-          modules-center = config.settings.waybar.modules-center;
-          modules-right = [
+          modules-left = [
             "pulseaudio"
             "idle_inhibitor"
+            "backlight"
+            "hyprland/mode"
+          ];
+          modules-center = [ "hyprland/workspaces" ];
+          modules-right = [
             "network"
             "cpu"
             "memory"
             "temperature"
-            "backlight"
             "battery"
             "tray"
             "clock"
@@ -63,7 +52,9 @@ in
           };
 
           clock = {
-            tooltip-format = "<big>{: %Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+            tooltip = true;
+            format = "{:%H:%M}";
+            tooltip-format = "<tt><small>{calendar}</small></tt>";
             format-alt = "{:%Y-%m-%d}";
           };
 
@@ -108,7 +99,7 @@ in
               car = "";
               default = [ "" "" "" ];
             };
-            on-click = " pavucontrol ";
+            on-click = "pavucontrol";
           };
 
 
@@ -122,37 +113,13 @@ in
             spacing = 10;
           };
 
-          "sway/workspaces" = {
-            # all-outputs = true;
-            format = "{icon}";
-            format-icons = {
-              "1" = "";
-              "2" = "";
-              "3" = "";
-              "4" = "";
-              "5" = "";
-              "6" = "";
-              "7" = "";
-              "8" = "";
-              "9" = "";
-              "10" = "";
-            };
-          };
 
           "hyprland/workspaces" = {
-            format = "{icon}";
-            format-icons = {
-              "1" = "";
-              "2" = "";
-              "3" = "";
-              "4" = "";
-              "5" = "";
-              "6" = "";
-              "7" = "";
-              "8" = "";
-              "9" = "";
-              "10" = "";
-            };
+            # format = "{icon}";
+            on-click = "activate";
+            on-scroll-up = "hyprctl dispatch workspace e-1";
+            on-scroll-down = "hyprctl dispatch workspace e+1";
+            # format-icons = { active = ""; urgent = ""; default = ""; };
           };
 
           "hyprland/window" = {
@@ -168,12 +135,13 @@ in
         @define-color ok #34eb77;
         @define-color warning #ff832b;
         @define-color critical #ff2b2b;
+        @define-color blue #afcbff;
 
         * {
             border: none;
             border-radius: 0;
             font-family: FiraCode Nerd Font, Source Code Pro, Helvetica, Arial, sans-serif;
-            font-size: 12pt;
+            font-size: 13pt;
             min-height: 0;
         }
 
@@ -181,35 +149,38 @@ in
             background: transparent;
             color: @foreground;
         }
-
-        #workspaces {
-            background: @background;
-            margin: 2px 2px 0 2px;
-            border-radius: 5px;
+        .modules-left,
+        .modules-right,
+        .modules-center {
+          border-radius: 16px;
+          background: @background;
         }
 
-        #workspaces button {
-            padding: 0 10px 0 10px;
-            color: @foreground;
+        #workspaces button.active {
+          color: @background;
+          background: @foreground;
+          border-radius: 16px;
         }
 
-        #workspaces button.focused {
-            color: @background;
-            background: @foreground;
-            border-radius: 5px;
-        }
-
-        #custom-vpn, #idle_inhibitor, #tray, #clock, #temperature, #battery, #network, #pulseaudio, #backlight, #mode, #cpu, #memory {
-            background: @background;
-            padding: 5px 10px;
-            margin: 2px 0 0 0;
+        #workspaces button.urgent {
+          color: @background;
+          background: @warning;
+          border-radius: 16px;
         }
 
         #mode {
             color: white;
             background: @modebg;
-            margin: 2px 0 0 0;
-            border-radius: 5px;
+            margin: 10px 0 0 0;
+            border-radius: 6px;
+        }
+
+        #idle_inhibitor, #tray, #clock, #temperature, #battery, #network, #pulseaudio, #backlight, #mode, #cpu, #memory {
+            padding: 0 10px;
+        }
+
+        #backlight {
+          padding: 0 16px 0 10px;
         }
 
         #battery.critical:not(.charging) {
@@ -237,17 +208,13 @@ in
           color: @ok;
         }
 
-        #pulseaudio {
-            border-radius: 5px 0 0 5px;
-        }
-
         #pulseaudio.muted {
             color: @warning;
         }
 
         #clock {
             margin-right: 2px;
-            border-radius: 0 5px 5px 0;
+            color: @blue;
         }
 
       '';

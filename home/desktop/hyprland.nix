@@ -33,8 +33,6 @@ in
       wofi.enable = mkDefault true;
     };
 
-    settings.waybar.modules-left = mkDefault [ "hyprland/workspaces" "hyprland/mode" ];
-
     services = {
       avizo.enable = mkDefault true;
       hypridle.enable = mkDefault true;
@@ -172,6 +170,7 @@ in
 
         ", Print, exec, grimblast copysave area"
         "SHIFT, Print, exec, grimblast copysave active"
+        "SHIFT CTRL, Print, exec, grimblast copysave output"
       ]
       ++ (
         # workspaces
