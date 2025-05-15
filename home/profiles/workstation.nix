@@ -6,7 +6,7 @@ in
   config = lib.mkIf cfg.workstation {
     home = {
       packages = with pkgs; [
-        (nerdfonts.override { fonts = [ "FiraCode" ]; })
+        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
         # devops
         jetbrains.idea-community

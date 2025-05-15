@@ -102,7 +102,7 @@ in
         };
 
         fonts = {
-          names = [ "FiraCode Nerd Font" ];
+          names = [ "JetBrainsMono Nerd Font" ];
           size = 10.0;
         };
 

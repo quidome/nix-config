@@ -5,7 +5,7 @@ in
 {
   config = lib.mkIf cfg.enable {
     programs.kitty = {
-      font.name = "FiraCode Nerd Font";
+      font.name = "JetBrainsMono Nerd Font";
       font.size = 11;
 
       themeFile = "gruvbox-dark";
