@@ -29,7 +29,7 @@
         inherit pkgs;
         modules = [
           { _module.args = args; }
-          ./hosts/${host}/system.nix
+          ./hosts/${host}/configuration.nix
 
           inputs.home-manager.nixosModules.home-manager
           {
@@ -46,7 +46,7 @@
         modules = [
           inputs.disko.nixosModules.disko
           { _module.args = args; }
-          ./hosts/${host}/system.nix
+          ./hosts/${host}/configuration.nix
         ];
       };
 
