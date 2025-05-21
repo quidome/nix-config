@@ -4,22 +4,24 @@ let
 in
 {
   services.mako = lib.mkIf cfg.enable {
-    anchor = "bottom-right";
-    defaultTimeout = 10000;
+    settings = {
+      default-timeout = 10000;
 
-    font = "JetBrainsMono Nerd Font 11";
+      group-by = "summary";
+      anchor = "bottom-right";
 
-    borderRadius = 5;
-    backgroundColor = "#282828ff";
-    borderColor = "#161616ff";
-    textColor = "#a1a1a1";
+      font = "JetBrainsMono Nerd Font 11";
 
-    margin = "2,2";
+      border-radius = 5;
+      background-color = "#282828ff";
+      border-color = "#161616ff";
+      text-color = "#a1a1a1";
 
-    groupBy = "summary";
-    extraConfig = ''
-      [grouped]
-      format=<b>%s</b>\n%b
-    '';
+      margin = "2,2";
+
+      grouped = {
+        format = "<b>%s</b>\\n%bd";
+      };
+    };
   };
 }

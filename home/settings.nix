@@ -10,7 +10,6 @@ in
         "none"
         "gnome"
         "hyprland"
-        "pantheon"
         "plasma"
         "sway"
       ];
