@@ -40,5 +40,5 @@
 
   programs.zsh.enable = true;
   programs.zsh.enableCompletion = true;
-  programs.zsh.initExtraBeforeCompInit = "fpath+=($HOME/.zsh/completion/)";
+  programs.zsh.initContent = "fpath+=($HOME/.zsh/completion/)";
 }

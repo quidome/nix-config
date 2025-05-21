@@ -6,8 +6,6 @@ in
   config = lib.mkIf cfg.workstation {
     home = {
       packages = with pkgs; [
-        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-
         # devops
         jetbrains.idea-community
         temurin-bin-21

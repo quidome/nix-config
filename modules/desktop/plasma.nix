@@ -31,7 +31,6 @@ in
         aspellDicts.en
         aspellDicts.nl
         hunspell
-        kompare
         krename
 
         (mkIf tailscaleEnabled ktailctl)
@@ -40,6 +39,7 @@ in
         kcalc
         kcolorchooser
         kgpg
+        kompare
         # kipi-plugins # marked as broken atm
         qttools
       ]);
