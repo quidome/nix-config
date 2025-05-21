@@ -2,7 +2,7 @@
 {
   imports = [
     ./shared.nix
-    ./system-vars.nix
+    ./vars.nix
     ./hardware-configuration.nix
     ../../modules
   ];

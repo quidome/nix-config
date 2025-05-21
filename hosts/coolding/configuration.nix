@@ -4,7 +4,7 @@
     ./disk-config.nix
     ./hardware-configuration.nix
     ./shared.nix
-    ./system-vars.nix
+    ./vars.nix
     ../../modules
   ];
   boot = {
