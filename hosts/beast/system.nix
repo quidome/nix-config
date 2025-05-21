@@ -10,19 +10,8 @@
 
   boot.loader.systemd-boot = {
     enable = true;
-    windows = {
-      "windows" =
-        let
-          boot-drive = "FS0";
-        in
-        {
-          title = "Windows";
-          efiDeviceHandle = boot-drive;
-          sortKey = "y_windows";
-        };
-    };
-    edk2-uefi-shell.enable = true;
-    edk2-uefi-shell.sortKey = "z_edk2";
+    configurationLimit = 7;
+    windows."11".efiDeviceHandle = "FS0";
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
