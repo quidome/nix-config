@@ -36,7 +36,7 @@ in
     services = {
       avizo.enable = mkDefault true;
       hypridle.enable = mkDefault true;
-      kanshi.enable = mkDefault true;
+      kanshi.enable = mkDefault false;
       mako.enable = mkDefault true;
     };
 
@@ -112,6 +112,10 @@ in
         new_status = "master";
       };
 
+      monitor = [
+        ", preferred, auto-left, 1"
+      ];
+
       misc = {
         force_default_wallpaper = 2;
         disable_hyprland_logo = false;
@@ -147,6 +151,7 @@ in
         "$mod, P, pseudo, # dwindle"
         "$mod, J, togglesplit, # dwindle"
 
+        "$mod, R, exec, hyprctl reload,"
         "$mod, L, exec, hyprlock"
         "$mod, V, togglefloating,"
         "$mod, F, fullscreen"
