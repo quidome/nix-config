@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 let
   shikaneOutputDefaults = { enable = true; scale = 1.0; transform = "normal"; };
   shikaneDefaultOutput = ({ position = { x = 0; y = 0; }; } // shikaneOutputDefaults);
@@ -10,15 +10,13 @@ in
     ../../home
   ];
 
-  home.stateVersion = "24.05";
-  home.packages = with pkgs; [ shikane ];
+  home.stateVersion = "25.05";
 
   wayland.windowManager.hyprland.settings.bindl = [
     "SHIFT, code:133, exec, shikanectl switch disable-external"
   ];
 
   services.shikane = {
-    enable = true;
     settings.profile = [
       {
         name = "home";

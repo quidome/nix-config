@@ -11,6 +11,7 @@ in
       grimblast
       playerctl
       pyprland
+      shikane
       wev
     ];
 
@@ -36,8 +37,8 @@ in
     services = {
       avizo.enable = mkDefault true;
       hypridle.enable = mkDefault true;
-      kanshi.enable = mkDefault false;
       mako.enable = mkDefault true;
+      shikane.enable = mkDefault true;
     };
 
     xdg.configFile."hypr/pyprland.json".text = builtins.toJSON {
