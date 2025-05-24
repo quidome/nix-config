@@ -28,6 +28,7 @@
       mkFull = user: host: inputs.nixpkgs.lib.nixosSystem {
         inherit pkgs;
         modules = [
+          inputs.disko.nixosModules.disko
           { _module.args = args; }
           ./hosts/${host}/configuration.nix
 
