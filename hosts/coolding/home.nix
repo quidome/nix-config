@@ -8,7 +8,6 @@ in
   imports = [
     ./home-vars.nix
     ./shared.nix
-    ../../home
   ];
 
   home = {

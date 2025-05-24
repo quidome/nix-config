@@ -41,6 +41,7 @@
         modules = [
           { _module.args = args; }
           ./shared
+          ./home
           ./hosts/${host}/home.nix
           {
             home = {
