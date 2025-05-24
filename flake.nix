@@ -42,7 +42,7 @@
         ];
       };
 
-      mkHost = host: inputs.nixpkgs.lib.nixosSystem {
+      mkNixos = host: inputs.nixpkgs.lib.nixosSystem {
         inherit pkgs;
         modules = [
           inputs.disko.nixosModules.disko
@@ -74,9 +74,9 @@
 
       nixosConfigurations = {
         beast = mkFull "quidome" "beast";
-        coolding = mkHost "coolding";
-        nimbus = mkHost "nimbus";
-        truce = mkHost "truce";
+        coolding = mkNixos "coolding";
+        nimbus = mkNixos "nimbus";
+        truce = mkNixos "truce";
       };
     };
 }
