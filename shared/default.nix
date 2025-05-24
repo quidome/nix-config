@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 with lib;
 let
   cfg = config.settings;
@@ -18,9 +18,8 @@ in
         Which gui to use. Gnome or Plasma will install the entire desktop environment. Sway will install the bare minumum. 
         Defaults to `none`, which makes the system headless.
       '';
-      example = "sway";
+      example = "plasma";
     };
-
     preferQt = mkOption {
       default = false;
       description = ''
@@ -42,7 +41,5 @@ in
     settings.profile.headless = (cfg.gui == "none");
     settings.profile.workstation = !cfg.profile.headless;
     settings.wayland.enable = builtins.elem cfg.gui [ "gnome" "hyprland" "plasma" "sway" ];
-
-    programs.wofi.enable = lib.mkDefault cfg.wayland.enable;
   };
 }

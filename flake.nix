@@ -30,6 +30,7 @@
         modules = [
           inputs.disko.nixosModules.disko
           { _module.args = args; }
+          ./shared
           ./hosts/${host}/configuration.nix
         ];
       };
@@ -38,6 +39,7 @@
         inherit pkgs;
         modules = [
           { _module.args = args; }
+          ./shared
           ./hosts/${host}/home.nix
           {
             home = {

@@ -21,7 +21,10 @@ in
     };
 
     fonts.fontconfig.enable = true;
+
     programs.firefox.enable = true;
+    programs.wofi.enable = lib.mkDefault config.settings.wayland.enable;
+
     services.syncthing.enable = true;
   };
 }
