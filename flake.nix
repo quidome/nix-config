@@ -64,18 +64,18 @@
           }
         ];
       };
-
     in
     {
       homeConfigurations = {
         "quidome@coolding" = mkHome "quidome" "coolding";
         "quidome@truce" = mkHome "quidome" "truce";
+        "quidome@nimbus" = mkHome "quidome" "nimbus";
       };
 
       nixosConfigurations = {
-        nimbus = mkFull "quidome" "nimbus";
         beast = mkFull "quidome" "beast";
         coolding = mkHost "coolding";
+        nimbus = mkHost "nimbus";
         truce = mkHost "truce";
       };
     };
