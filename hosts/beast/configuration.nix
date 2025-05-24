@@ -5,7 +5,6 @@
     ./vars.nix
     ./networking.nix
     ./hardware-configuration.nix
-    ../../modules
   ];
 
   boot.loader.systemd-boot = {

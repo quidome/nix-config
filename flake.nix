@@ -31,6 +31,7 @@
           inputs.disko.nixosModules.disko
           { _module.args = args; }
           ./shared
+          ./nixos
           ./hosts/${host}/configuration.nix
         ];
       };

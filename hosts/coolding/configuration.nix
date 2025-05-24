@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
     ./shared.nix
     ./vars.nix
-    ../../modules
   ];
   boot = {
     extraModprobeConfig = "options hid_apple swap_opt_cmd=1";
