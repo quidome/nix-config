@@ -67,13 +67,14 @@
     in
     {
       homeConfigurations = {
+        "quidome@beast" = mkHome "quidome" "beast";
         "quidome@coolding" = mkHome "quidome" "coolding";
-        "quidome@truce" = mkHome "quidome" "truce";
         "quidome@nimbus" = mkHome "quidome" "nimbus";
+        "quidome@truce" = mkHome "quidome" "truce";
       };
 
       nixosConfigurations = {
-        beast = mkFull "quidome" "beast";
+        beast = mkNixos "beast";
         coolding = mkNixos "coolding";
         nimbus = mkNixos "nimbus";
         truce = mkNixos "truce";
