@@ -14,6 +14,7 @@
 
   outputs = { self, ... }@inputs:
     let
+      args = inputs;
       system = "x86_64-linux";
 
       pkgs = import inputs.nixpkgs {
@@ -22,24 +23,6 @@
           allowUnfree = true;
           permittedInsecurePackages = [ "electron-27.3.11" ];
         };
-      };
-      args = inputs;
-
-      mkFull = user: host: inputs.nixpkgs.lib.nixosSystem {
-        inherit pkgs;
-        modules = [
-          inputs.disko.nixosModules.disko
-          { _module.args = args; }
-          ./hosts/${host}/configuration.nix
-
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.users.${user} = import ./hosts/${host}/home.nix;
-          }
-        ];
       };
 
       mkNixos = host: inputs.nixpkgs.lib.nixosSystem {
@@ -64,6 +47,7 @@
           }
         ];
       };
+
     in
     {
       homeConfigurations = {
