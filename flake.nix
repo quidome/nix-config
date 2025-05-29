@@ -66,6 +66,15 @@
         coolding = mkNixos "coolding";
         nimbus = mkNixos "nimbus";
         truce = mkNixos "truce";
+
+        # Bootable images
+        baseIso = inputs.nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+            ./live-image/iso/base.nix
+          ];
+        };
       };
     };
 }
