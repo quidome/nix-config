@@ -3,7 +3,7 @@
     disk = {
       root = {
         type = "disk";
-        device = "/dev/sda";
+        device = "/dev/disk/by-id/nvme-eui.00000000000000018ce38e050049c88b";
         content = {
           type = "gpt";
           partitions = {
