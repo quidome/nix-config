@@ -1,6 +1,7 @@
 { lib, pkgs, ... }:
 {
   imports = [
+    ./disk-config.nix
     ./shared.nix
     ./vars.nix
     ./hardware-configuration.nix
@@ -12,15 +13,6 @@
 
     kernel.sysctl = { "vm.swappiness" = 1; };
     kernelParams = [ "consoleblank=60" ];
-
-    initrd.postDeviceCommands = lib.mkAfter ''
-      mkdir /mnt
-      mount -t btrfs /dev/mapper/enc /mnt
-      btrfs subvolume delete /mnt/root
-      btrfs subvolume snapshot /mnt/root-blank /mnt/root
-    '';
-
-    supportedFilesystems = [ "btrfs" ];
   };
 
   time.timeZone = "Europe/Amsterdam";
@@ -34,6 +26,7 @@
   };
 
   networking = {
+    hostId = "5e7f8bc2";
     hostName = "nimbus";
     firewall.enable = true;
     networkmanager.enable = true;
@@ -82,9 +75,6 @@
   programs.steam.enable = true;
 
   services = {
-    btrfs.autoScrub.enable = true;
-    btrfs.autoScrub.interval = "weekly";
-
     fprintd = {
       enable = true;
       tod.enable = true;
@@ -93,6 +83,10 @@
 
     fwupd.enable = true;
     usbmuxd.enable = true;
+
+    zfs.autoScrub.enable = true;
+    zfs.autoSnapshot.enable = true;
+    zfs.trim.enable = true;
   };
 
   virtualisation = {
@@ -103,5 +97,5 @@
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  system.stateVersion = "24.05"; # Did you read the comment?
+  system.stateVersion = "25.05";
 }
