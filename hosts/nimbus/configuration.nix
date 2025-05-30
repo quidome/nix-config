@@ -93,7 +93,7 @@
     containers.enable = true;
 
     docker.enable = true;
-    docker.storageDriver = "btrfs";
+    docker.storageDriver = "zfs";
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
