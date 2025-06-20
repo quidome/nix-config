@@ -6,6 +6,7 @@ if  [ -n "$TMUX" ] ||
     [[ "$(tty)" =~ /dev/tty[0-9] ]] ||
     [[ "$TERM" == screen* ]] ||
     [[ "$TERM" == "" ]] ||
+    [ "$ZED_TERM" = "true" ] ||
     [ "$TERM_PROGRAM" = "vscode" ] ||
     [ "$TERMINAL_EMULATOR" = "JetBrains-JediTerm" ] ||
     [ "$NO_TMUX" = "1" ] ||

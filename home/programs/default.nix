@@ -12,6 +12,7 @@
     ./vscode.nix
     ./waybar.nix
     ./wofi.nix
+    ./zed-editor.nix
     ./zellij
     ./zsh.nix
   ];
