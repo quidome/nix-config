@@ -17,6 +17,10 @@ in
         # games
         openttd
         zeroad
+
+        # printing
+        blender
+        orca-slicer
       ];
     };
 
