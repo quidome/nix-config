@@ -6,8 +6,7 @@ lib.mkIf config.programs.helix.enable {
     gopls
     delve
     marksman # markdown lsp
-    nil # nix lsp
-    nixpkgs-fmt # nix formatter
+      nixd
     nodePackages.bash-language-server
     nodePackages.dockerfile-language-server-nodejs
     nodePackages.prettier # json formatter
@@ -37,11 +36,8 @@ lib.mkIf config.programs.helix.enable {
       {
         name = "nix";
         auto-format = true;
-        formatter.command = lib.getExe nixpkgs-fmt;
-        language-servers = [
-          "nil"
-          "buffer-language-server"
-        ];
+          formatter.command = lib.getExe alejandra;
+          language-servers = ["nixd"];
       }
 
 
