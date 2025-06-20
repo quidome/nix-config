@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.programs.kitty;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.programs.kitty;
+in {
   config = lib.mkIf cfg.enable {
     programs.kitty = {
       font.name = "JetBrainsMono Nerd Font";

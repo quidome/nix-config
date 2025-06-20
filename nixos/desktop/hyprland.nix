@@ -1,11 +1,14 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let
-  hyprlandEnabled = (config.settings.gui == "hyprland");
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  hyprlandEnabled = config.settings.gui == "hyprland";
   networkmanagerEnabled = config.networking.networkmanager.enable;
   tailscaleEnabled = config.services.tailscale.enable;
-in
-{
+in {
   config = mkIf hyprlandEnabled {
     environment = {
       systemPackages = with pkgs; [
@@ -49,7 +52,7 @@ in
     # for qt theming
     qt.platformTheme = "qt5ct";
 
-    security.pam.services.hyprlock = { };
+    security.pam.services.hyprlock = {};
 
     services.auto-cpufreq.enable = true;
     services.greetd.enable = true;
@@ -57,6 +60,6 @@ in
     services.logind.extraConfig = "HandlePowerKey=suspend";
 
     xdg.portal.enable = true;
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 }

@@ -1,8 +1,11 @@
-{ pkgs, config, lib, ... }:
-let
-  cfg = config.programs.neovim;
-in
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.programs.neovim;
+in {
   config = lib.mkIf cfg.enable {
     home.sessionVariables = {
       EDITOR = "nvim";

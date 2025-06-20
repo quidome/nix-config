@@ -1,6 +1,5 @@
-{ lib, ... }:
-with lib;
-{
+{lib, ...}:
+with lib; {
   imports = [
     ./secrets.nix
     ./settings.nix

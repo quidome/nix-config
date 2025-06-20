@@ -1,8 +1,11 @@
-{ config, pkgs, lib, ... }:
-let
-  cfg = config.programs.vscode;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.programs.vscode;
+in {
   programs.vscode = lib.mkIf cfg.enable {
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = true;

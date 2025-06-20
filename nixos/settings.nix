@@ -1,9 +1,8 @@
-{ lib, ... }:
-with lib;
-{
+{lib, ...}:
+with lib; {
   options.settings = {
     authorizedKeys = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       example = [
         "ssh-ed25519 AAAAC3 ....."

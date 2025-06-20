@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.programs.hyprlock;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.programs.hyprlock;
+in {
   config = lib.mkIf cfg.enable {
     programs.hyprlock = {
       settings = {

@@ -1,8 +1,11 @@
-{ config, pkgs, lib, ... }:
-let
-  cfg = config.settings.profile;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.settings.profile;
+in {
   config = lib.mkIf cfg.workstation {
     home = {
       packages = with pkgs; [

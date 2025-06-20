@@ -1,7 +1,6 @@
-{ config, ... }:
-let cfg = config.xdg;
-in
-{
+{config, ...}: let
+  cfg = config.xdg;
+in {
   imports = [
     ./mimeApps.nix
   ];

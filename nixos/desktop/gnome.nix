@@ -1,19 +1,25 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   config = lib.mkIf (config.settings.gui == "gnome") {
     # add extra packages to this desktop setup
-    environment.systemPackages = (with pkgs; [
-      gnome-tweaks
-      pavucontrol
-    ]) ++ (with pkgs.gnomeExtensions; [
-      appindicator
-      (lib.mkIf config.services.tailscale.enable tailscale-status)
-    ]);
+    environment.systemPackages =
+      (with pkgs; [
+        gnome-tweaks
+        pavucontrol
+      ])
+      ++ (with pkgs.gnomeExtensions; [
+        appindicator
+        (lib.mkIf config.services.tailscale.enable tailscale-status)
+      ]);
 
     services.xserver.enable = lib.mkDefault true;
     services.xserver.desktopManager.gnome.enable = lib.mkDefault true;
     services.xserver.displayManager.gdm.enable = lib.mkDefault true;
 
-    services.udev.packages = [ pkgs.gnome-settings-daemon ];
+    services.udev.packages = [pkgs.gnome-settings-daemon];
   };
 }

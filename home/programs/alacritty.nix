@@ -1,9 +1,11 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.programs.alacritty;
   font = "JetBrainsMono Nerd Font";
-in
-{
+in {
   config.programs.alacritty.settings = lib.mkIf cfg.enable {
     selection.save_to_clipboard = true;
     cursor.style = "beam";

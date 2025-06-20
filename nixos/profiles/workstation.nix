@@ -1,9 +1,12 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let
-  cfg = config.settings.profile;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.settings.profile;
+in {
   config = mkIf cfg.workstation {
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
@@ -27,7 +30,11 @@ in
       openttd
 
       # office
-      (if config.settings.preferQt then libreoffice-qt else libreoffice)
+      (
+        if config.settings.preferQt
+        then libreoffice-qt
+        else libreoffice
+      )
       hunspell
       hunspellDicts.nl_NL
       hunspellDicts.en_US-large
@@ -36,7 +43,6 @@ in
 
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
-
     ];
 
     services.flatpak.enable = mkDefault true;

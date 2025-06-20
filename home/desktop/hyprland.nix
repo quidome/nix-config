@@ -1,10 +1,13 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let
-  hyprlandEnabled = (config.settings.gui == "hyprland");
-  terminal = "kitty";
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  hyprlandEnabled = config.settings.gui == "hyprland";
+  terminal = "kitty";
+in {
   config = mkIf hyprlandEnabled {
     home.packages = with pkgs; [
       imv
@@ -42,7 +45,7 @@ in
     };
 
     xdg.configFile."hypr/pyprland.json".text = builtins.toJSON {
-      pyprland.plugins = [ "scratchpads" ];
+      pyprland.plugins = ["scratchpads"];
       scratchpads.term = {
         command = "NO_TMUX=1 uwsm app -- ${terminal} --class scratchpad";
         margin = 50;
@@ -53,8 +56,6 @@ in
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
       "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
     ];
-
-
 
     wayland.windowManager.hyprland.enable = mkDefault true;
     wayland.windowManager.hyprland.settings = {
@@ -122,18 +123,17 @@ in
         disable_hyprland_logo = false;
       };
 
-      input =
-        {
-          kb_layout = "us";
+      input = {
+        kb_layout = "us";
 
-          follow_mouse = 1;
-          natural_scroll = true;
-          left_handed = true;
+        follow_mouse = 1;
+        natural_scroll = true;
+        left_handed = true;
 
-          sensitivity = 0;
+        sensitivity = 0;
 
-          touchpad.natural_scroll = true;
-        };
+        touchpad.natural_scroll = true;
+      };
 
       gestures.workspace_swipe = false;
 
@@ -142,55 +142,57 @@ in
         sensitivity = -0.5;
       };
 
-      bind = [
-        "$mod, Space, exec, $launcher $(wofi --show drun --define=drun-print_desktop_file=true)"
-        "$mod, D, exec, $launcher $(wofi --show run --define=drun-print_desktop_file=true)"
+      bind =
+        [
+          "$mod, Space, exec, $launcher $(wofi --show drun --define=drun-print_desktop_file=true)"
+          "$mod, D, exec, $launcher $(wofi --show run --define=drun-print_desktop_file=true)"
 
-        "$mod, Return, exec, $launcher $terminal"
-        "$mod, E, exec, $launcher thunar"
+          "$mod, Return, exec, $launcher $terminal"
+          "$mod, E, exec, $launcher thunar"
 
-        "$mod, P, pseudo, # dwindle"
-        "$mod, J, togglesplit, # dwindle"
+          "$mod, P, pseudo, # dwindle"
+          "$mod, J, togglesplit, # dwindle"
 
-        "$mod, R, exec, hyprctl reload,"
-        "$mod, L, exec, hyprlock"
-        "$mod, V, togglefloating,"
-        "$mod, F, fullscreen"
-        "SHIFT $mod, C, exit,"
-        "SHIFT $mod, Q, killactive,"
+          "$mod, R, exec, hyprctl reload,"
+          "$mod, L, exec, hyprlock"
+          "$mod, V, togglefloating,"
+          "$mod, F, fullscreen"
+          "SHIFT $mod, C, exit,"
+          "SHIFT $mod, Q, killactive,"
 
-        "$mod, left, movefocus, l"
-        "$mod, right, movefocus, r"
-        "$mod, up, movefocus, u"
-        "$mod, down, movefocus, d"
+          "$mod, left, movefocus, l"
+          "$mod, right, movefocus, r"
+          "$mod, up, movefocus, u"
+          "$mod, down, movefocus, d"
 
-        "CTRL $mod, left, workspace, r-1"
-        "CTRL $mod, right, workspace, r+1"
+          "CTRL $mod, left, workspace, r-1"
+          "CTRL $mod, right, workspace, r+1"
 
-        "$mod, S, togglespecialworkspace, magic"
-        "SHIFT $mod, S, movetoworkspace, special:magic"
+          "$mod, S, togglespecialworkspace, magic"
+          "SHIFT $mod, S, movetoworkspace, special:magic"
 
-        "$mod, backslash, exec, pypr toggle term && hyprctl dispatch bringactivetotop"
+          "$mod, backslash, exec, pypr toggle term && hyprctl dispatch bringactivetotop"
 
-        ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioPlay, exec, playerctl play-pause"
 
-        ", Print, exec, grimblast copysave area"
-        "SHIFT, Print, exec, grimblast copysave active"
-        "SHIFT CTRL, Print, exec, grimblast copysave output"
-      ]
-      ++ (
-        # workspaces
-        # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
-        builtins.concatLists (builtins.genList
-          (i:
-            let ws = i + 1;
-            in [
-              "$mod, code:1${toString i}, workspace, ${toString ws}"
-              "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-            ]
-          )
-          9)
-      );
+          ", Print, exec, grimblast copysave area"
+          "SHIFT, Print, exec, grimblast copysave active"
+          "SHIFT CTRL, Print, exec, grimblast copysave output"
+        ]
+        ++ (
+          # workspaces
+          # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+          builtins.concatLists (builtins.genList
+            (
+              i: let
+                ws = i + 1;
+              in [
+                "$mod, code:1${toString i}, workspace, ${toString ws}"
+                "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+              ]
+            )
+            9)
+        );
 
       bindl = [
         ", XF86AudioMute, exec, volumectl toggle-mute"
@@ -219,6 +221,5 @@ in
         "center, $scratchpad"
       ];
     };
-
   };
 }

@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-let
-  cfg = config.programs.helix;
-in
 {
-  imports = [ ./languages.nix ];
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.programs.helix;
+in {
+  imports = [./languages.nix];
 
   config = lib.mkIf cfg.enable {
     programs.helix = {
@@ -27,9 +29,9 @@ in
           bufferline = "always";
           soft-wrap.enable = true;
           statusline = {
-            left = [ "mode" "spacer" "spinner" "spacer" "version-control" ];
-            center = [ "file-name" "file-modification-indicator" "spacer" "diagnostics" ];
-            right = [ "position" "total-line-numbers" ];
+            left = ["mode" "spacer" "spinner" "spacer" "version-control"];
+            center = ["file-name" "file-modification-indicator" "spacer" "diagnostics"];
+            right = ["position" "total-line-numbers"];
             separator = "|";
             mode.normal = "NORMAL";
             mode.insert = "INSERT";

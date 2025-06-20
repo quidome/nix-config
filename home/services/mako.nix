@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.services.mako;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.services.mako;
+in {
   services.mako = lib.mkIf cfg.enable {
     settings = {
       default-timeout = 10000;

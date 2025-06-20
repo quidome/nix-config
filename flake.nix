@@ -12,34 +12,35 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, ... }@inputs:
-    let
-      args = inputs;
-      system = "x86_64-linux";
+  outputs = {self, ...} @ inputs: let
+    args = inputs;
+    system = "x86_64-linux";
 
-      pkgs = import inputs.nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages = [ "electron-27.3.11" ];
-        };
+    pkgs = import inputs.nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = ["electron-27.3.11"];
       };
+    };
 
-      mkNixos = host: inputs.nixpkgs.lib.nixosSystem {
+    mkNixos = host:
+      inputs.nixpkgs.lib.nixosSystem {
         inherit pkgs;
         modules = [
           inputs.disko.nixosModules.disko
-          { _module.args = args; }
+          {_module.args = args;}
           ./shared
           ./nixos
           ./hosts/${host}/configuration.nix
         ];
       };
 
-      mkHome = user: host: inputs.home-manager.lib.homeManagerConfiguration {
+    mkHome = user: host:
+      inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
-          { _module.args = args; }
+          {_module.args = args;}
           ./shared
           ./home
           ./hosts/${host}/home.nix
@@ -51,32 +52,30 @@
           }
         ];
       };
+  in {
+    homeConfigurations = {
+      "quidome@beast" = mkHome "quidome" "beast";
+      "quidome@coolding" = mkHome "quidome" "coolding";
+      "quidome@nimbus" = mkHome "quidome" "nimbus";
+      "quidome@truce" = mkHome "quidome" "truce";
+    };
 
-    in
-    {
-      homeConfigurations = {
-        "quidome@beast" = mkHome "quidome" "beast";
-        "quidome@coolding" = mkHome "quidome" "coolding";
-        "quidome@nimbus" = mkHome "quidome" "nimbus";
-        "quidome@truce" = mkHome "quidome" "truce";
-      };
+    nixosConfigurations = {
+      beast = mkNixos "beast";
+      coolding = mkNixos "coolding";
+      nimbus = mkNixos "nimbus";
+      truce = mkNixos "truce";
 
-      nixosConfigurations = {
-        beast = mkNixos "beast";
-        coolding = mkNixos "coolding";
-        nimbus = mkNixos "nimbus";
-        truce = mkNixos "truce";
-
-        # Bootable images
-        baseIso = inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-            ./nixos/settings.nix
-            ./nixos/secrets.nix
-            ./live-image/base.nix
-          ];
-        };
+      # Bootable images
+      baseIso = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          ./nixos/settings.nix
+          ./nixos/secrets.nix
+          ./live-image/base.nix
+        ];
       };
     };
+  };
 }

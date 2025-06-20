@@ -14,7 +14,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = [ "umask=0077" ];
+                mountOptions = ["umask=0077"];
               };
             };
             luks = {
@@ -28,30 +28,30 @@
                   "--perf-no_read_workqueue"
                   "--perf-no_write_workqueue"
                 ];
-                settings = { allowDiscards = true; };
+                settings = {allowDiscards = true;};
                 content = {
                   type = "btrfs";
-                  extraArgs = [ "-L" "nixos" "-f" ];
+                  extraArgs = ["-L" "nixos" "-f"];
                   subvolumes = {
                     "/root" = {
                       mountpoint = "/";
-                      mountOptions = [ "subvol=root" "compress=zstd" "noatime" ];
+                      mountOptions = ["subvol=root" "compress=zstd" "noatime"];
                     };
                     "/home" = {
                       mountpoint = "/home";
-                      mountOptions = [ "subvol=home" "compress=zstd" "noatime" ];
+                      mountOptions = ["subvol=home" "compress=zstd" "noatime"];
                     };
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [ "subvol=nix" "compress=zstd" "noatime" ];
+                      mountOptions = ["subvol=nix" "compress=zstd" "noatime"];
                     };
                     "/persist" = {
                       mountpoint = "/persist";
-                      mountOptions = [ "subvol=persist" "compress=zstd" "noatime" ];
+                      mountOptions = ["subvol=persist" "compress=zstd" "noatime"];
                     };
                     "/log" = {
                       mountpoint = "/var/log";
-                      mountOptions = [ "subvol=log" "compress=zstd" "noatime" ];
+                      mountOptions = ["subvol=log" "compress=zstd" "noatime"];
                     };
                     "/swap" = {
                       mountpoint = "/swap";

@@ -1,21 +1,23 @@
-{ config, lib, pkgs, ... }:
-let
-  cfg = config.programs.zellij;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.programs.zellij;
+in {
   config = lib.mkIf cfg.enable {
     programs.zellij = {
       settings = {
         keybinds = {
           unbind = "Ctrl b";
           shared_except = {
-            _args = [ "locked" ];
+            _args = ["locked"];
             bind = {
-              _args = [ "Ctrl q" ];
+              _args = ["Ctrl q"];
               "" = "Detach";
             };
           };
-
         };
         scrollback_editor = lib.mkIf config.programs.helix.enable (lib.getExe pkgs.helix);
         pane_frames = false;

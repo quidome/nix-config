@@ -1,5 +1,8 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  ...
+}: {
   config = lib.mkIf config.services.pipewire.enable {
     services.pulseaudio.enable = false;
 

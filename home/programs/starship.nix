@@ -1,8 +1,10 @@
-{ lib, config, ... }:
-let
-  cfg = config.programs.starship;
-in
 {
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.programs.starship;
+in {
   config.programs.starship = lib.mkIf cfg.enable {
     settings = {
       format = "$hostname$directory$nix_shell$git_branch$git_commit$git_status$fill$golang$java$kotlin$nodejs$php$python$ruby$rust$kubernetes$line_break$status$character";

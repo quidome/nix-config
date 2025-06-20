@@ -1,9 +1,12 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let
-  swayEnabled = (config.settings.gui == "sway");
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  swayEnabled = config.settings.gui == "sway";
+in {
   config = mkIf swayEnabled {
     xdg.mimeApps.enable = true;
 
@@ -62,22 +65,22 @@ in
         ExecStartPost = "${pkgs.systemd}/bin/systemctl --user set-environment DBUS_SESSION_BUS_ADDRESS=unix:path=%t/bus";
       };
       Install = {
-        WantedBy = [ "sockets.target" ];
-        Also = [ "dbus.service" ];
+        WantedBy = ["sockets.target"];
+        Also = ["dbus.service"];
       };
     };
 
     systemd.user.services.dbus = {
       Unit = {
         Description = "D-Bus User Message Bus";
-        Requires = [ "dbus.socket" ];
+        Requires = ["dbus.socket"];
       };
       Service = {
         ExecStart = "${pkgs.dbus}/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile --systemd-activation";
         ExecReload = "${pkgs.dbus}/bin/dbus-send --print-reply --session --type=method_call --dest=org.freedesktop.DBus / org.freedesktop.DBus.ReloadConfig";
       };
       Install = {
-        Also = [ "dbus.socket" ];
+        Also = ["dbus.socket"];
       };
     };
 
@@ -86,7 +89,7 @@ in
       checkConfig = false;
 
       config = {
-        bars = [ ];
+        bars = [];
 
         defaultWorkspace = "workspace number 1";
 
@@ -94,15 +97,21 @@ in
           border = 0;
           titlebar = false;
           criteria = [
-            { class = "^Pinentry$"; }
-            { app_id = "pavucontrol"; }
-            { app_id = "^firefox$"; title = "^Extension:"; }
-            { app_id = "^firefox$"; title = "^Library$"; }
+            {class = "^Pinentry$";}
+            {app_id = "pavucontrol";}
+            {
+              app_id = "^firefox$";
+              title = "^Extension:";
+            }
+            {
+              app_id = "^firefox$";
+              title = "^Library$";
+            }
           ];
         };
 
         fonts = {
-          names = [ "JetBrainsMono Nerd Font" ];
+          names = ["JetBrainsMono Nerd Font"];
           size = 10.0;
         };
 
@@ -112,18 +121,20 @@ in
         };
 
         input = {
-          "1133:49242:Logitech_USB_Optical_Mouse" = { left_handed = "enabled"; };
-          "type:keyboard" = { xkb_options = "caps:none"; };
-          "type:mouse" = { natural_scroll = "enabled"; };
-          "type:pointer" = { natural_scroll = "enabled"; };
-          "type:tablet_tool" = { tool_mode = "* relative"; };
-          "type:touchpad" = { natural_scroll = "enabled"; tap = "enabled"; };
+          "1133:49242:Logitech_USB_Optical_Mouse" = {left_handed = "enabled";};
+          "type:keyboard" = {xkb_options = "caps:none";};
+          "type:mouse" = {natural_scroll = "enabled";};
+          "type:pointer" = {natural_scroll = "enabled";};
+          "type:tablet_tool" = {tool_mode = "* relative";};
+          "type:touchpad" = {
+            natural_scroll = "enabled";
+            tap = "enabled";
+          };
         };
 
-        keybindings =
-          let
-            modifier = config.wayland.windowManager.sway.config.modifier;
-          in
+        keybindings = let
+          modifier = config.wayland.windowManager.sway.config.modifier;
+        in
           mkOptionDefault {
             "${modifier}+Ctrl+Right" = "workspace next";
             "${modifier}+Ctrl+Left" = "workspace prev";
@@ -195,24 +206,25 @@ in
         output."*".bg = "~/Pictures/Wallpapers/digital-art-15.jpg fill";
         menu = "wofi --show run | xargs swaymsg exec --";
 
-        startup =
-          let
-            lock = "swaylock -f";
-          in
-          [
-            { command = "systemctl --user restart kanshi.service"; always = true; }
-            { command = "~/bin/import-gsettings"; }
-            { command = "NO_TMUX=1 alacritty --class alacritty_sp"; }
-            {
-              command = ''
-                swayidle -w \
-                  timeout 300 '${lock}' \
-                  timeout 600 'swaymsg "output * dpms off"' \
-                  resume 'swaymsg "output * dpms on"' \
-                  before-sleep '${lock}'
-              '';
-            }
-          ];
+        startup = let
+          lock = "swaylock -f";
+        in [
+          {
+            command = "systemctl --user restart kanshi.service";
+            always = true;
+          }
+          {command = "~/bin/import-gsettings";}
+          {command = "NO_TMUX=1 alacritty --class alacritty_sp";}
+          {
+            command = ''
+              swayidle -w \
+                timeout 300 '${lock}' \
+                timeout 600 'swaymsg "output * dpms off"' \
+                resume 'swaymsg "output * dpms on"' \
+                before-sleep '${lock}'
+            '';
+          }
+        ];
 
         terminal = "alacritty";
 
@@ -223,12 +235,11 @@ in
 
           commands = [
             {
-              criteria = { app_id = "^alacritty_sp$"; };
+              criteria = {app_id = "^alacritty_sp$";};
               command = "move scratchpad";
             }
           ];
         };
-
       };
 
       extraSessionCommands = ''

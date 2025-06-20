@@ -1,9 +1,11 @@
-{ config, lib, ... }:
-with lib;
-let
-  cfg = config.programs.zsh;
-in
 {
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.programs.zsh;
+in {
   config = mkIf cfg.enable {
     home.file.".env.d/70-dev.sh".source = ./zsh/dev.sh;
 
@@ -48,7 +50,7 @@ in
             wget -q -N https://github.com/nix-community/nix-index-database/releases/latest/download/$filename
             ln -f $filename files
           )
-        }      
+        }
       '';
     };
   };

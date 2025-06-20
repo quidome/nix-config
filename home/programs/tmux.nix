@@ -1,8 +1,10 @@
-{ lib, config, ... }:
-let
-  cfg = config.programs.tmux;
-in
 {
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.programs.tmux;
+in {
   config.programs.tmux = lib.mkIf cfg.enable {
     historyLimit = 30000;
     baseIndex = 1;

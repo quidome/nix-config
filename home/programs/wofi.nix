@@ -1,8 +1,11 @@
-{ lib, pkgs, config, ... }:
-let
-  cfg = config.programs.wofi;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
+  cfg = config.programs.wofi;
+in {
   config = lib.mkIf cfg.enable {
     programs.wofi.settings = {
       width = 600;
@@ -68,6 +71,5 @@ in
         padding: 5px;
       }
     '';
-
   };
 }

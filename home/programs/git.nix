@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  cfg = config.programs.git;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.programs.git;
+in {
   config.programs.git = lib.mkIf cfg.enable {
     delta.enable = true;
     extraConfig = {

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./shared.nix
     ./vars.nix
@@ -14,7 +13,7 @@
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernel.sysctl = { "vm.swappiness" = 1; };
+  boot.kernel.sysctl = {"vm.swappiness" = 1;};
   boot.kernelParams = [
     "consoleblank=60"
     "ip=:::::enp4s0:dhcp"
@@ -61,7 +60,6 @@
       enable = true;
       enable32Bit = true;
     };
-
   };
 
   programs = {
@@ -69,14 +67,14 @@
     virt-manager.enable = true;
   };
 
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver.videoDrivers = ["amdgpu"];
 
-  users.groups.libvirtd.members = [ "quidome" ];
+  users.groups.libvirtd.members = ["quidome"];
 
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "23.11";
 }

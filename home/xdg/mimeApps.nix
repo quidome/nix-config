@@ -1,8 +1,10 @@
-{ lib, config, ... }:
-let
-  cfg = config.xdg.mimeApps;
-in
 {
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.xdg.mimeApps;
+in {
   config = lib.mkIf cfg.enable {
     xdg.configFile."mimeapps.list".force = true;
     xdg.mimeApps = {

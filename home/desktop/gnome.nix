@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   config = lib.mkIf (config.settings.gui == "gnome") {
     programs.zellij.settings.copy_command = "wl-copy";
     dconf.settings = {

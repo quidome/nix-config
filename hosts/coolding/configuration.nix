@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./disk-config.nix
     ./hardware-configuration.nix
@@ -12,8 +11,8 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
 
-    kernel.sysctl = { "vm.swappiness" = 1; };
-    kernelParams = [ "consoleblank=60" ];
+    kernel.sysctl = {"vm.swappiness" = 1;};
+    kernelParams = ["consoleblank=60"];
   };
 
   networking.hostName = "coolding";
@@ -52,6 +51,6 @@
   services.printing.enable = true;
   services.logind.extraConfig = "HandlePowerKey=suspend";
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "24.11"; # Did you read the comment?
 }

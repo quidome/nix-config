@@ -1,8 +1,11 @@
-{ config, lib, pkgs, ... }:
-let
-  cfg = config.services.greetd;
-in
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.services.greetd;
+in {
   services.greetd = lib.mkIf cfg.enable {
     settings = {
       default_session = {

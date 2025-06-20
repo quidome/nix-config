@@ -1,7 +1,11 @@
-{ config, lib, pkgs, ... }:
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   home = {
-    packages = with pkgs; [ alejandra ];
+    packages = with pkgs; [alejandra];
 
     sessionPath = [
       "${config.home.homeDirectory}/bin"

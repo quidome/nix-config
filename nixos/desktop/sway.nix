@@ -1,11 +1,14 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let
-  swayEnabled = (config.settings.gui == "sway");
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  swayEnabled = config.settings.gui == "sway";
   networkmanagerEnabled = config.networking.networkmanager.enable;
   tailscaleEnabled = config.services.tailscale.enable;
-in
-{
+in {
   config = mkIf swayEnabled {
     environment = {
       systemPackages = with pkgs; [
@@ -42,7 +45,7 @@ in
 
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
     };
   };
 }

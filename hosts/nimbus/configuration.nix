@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./disk-config.nix
     ./shared.nix
@@ -11,8 +14,8 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
 
-    kernel.sysctl = { "vm.swappiness" = 1; };
-    kernelParams = [ "consoleblank=60" ];
+    kernel.sysctl = {"vm.swappiness" = 1;};
+    kernelParams = ["consoleblank=60"];
   };
 
   time.timeZone = "Europe/Amsterdam";
@@ -37,15 +40,15 @@
 
     wg-quick.interfaces.wg0 = {
       autostart = false;
-      address = [ "172.16.41.14/32" ];
-      dns = [ "172.16.41.1" "lan.balti.casa" "balti.casa" "quido.me" ];
+      address = ["172.16.41.14/32"];
+      dns = ["172.16.41.1" "lan.balti.casa" "balti.casa" "quido.me"];
       listenPort = 51820;
       privateKeyFile = "/etc/secrets/wg0-private";
 
       peers = [
         {
           publicKey = "YkOAj87heEGLFgM8h1VhsBfBp1qYgpcpTAz9NUOTTQU=";
-          allowedIPs = [ "0.0.0.0/0" ];
+          allowedIPs = ["0.0.0.0/0"];
           endpoint = "wg.quido.me:51232";
         }
       ];
@@ -100,6 +103,6 @@
     docker.storageDriver = "zfs";
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.05";
 }

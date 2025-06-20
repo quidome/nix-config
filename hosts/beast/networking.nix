@@ -1,13 +1,15 @@
-{ config, lib, ... }:
-let
-  cfg = config.networking.networkmanager;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.networking.networkmanager;
+in {
   config = lib.mkIf (!cfg.enable) {
     systemd.network = {
       enable = true;
 
-      netdevs = { };
+      netdevs = {};
 
       networks = {
         "10-enp4s0" = {

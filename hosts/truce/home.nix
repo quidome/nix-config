@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-let
-  my-python-packages = ps: with ps; [
-    pip
-  ];
-in
-{
+{pkgs, ...}: let
+  my-python-packages = ps:
+    with ps; [
+      pip
+    ];
+in {
   imports = [
     ./shared.nix
     ./home-vars.nix

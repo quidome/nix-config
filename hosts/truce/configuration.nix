@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./disk-config.nix
     ./shared.nix
@@ -11,8 +10,8 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
 
-    kernel.sysctl = { "vm.swappiness" = 1; };
-    kernelParams = [ "consoleblank=60" ];
+    kernel.sysctl = {"vm.swappiness" = 1;};
+    kernelParams = ["consoleblank=60"];
   };
 
   time.timeZone = "Europe/Amsterdam";
@@ -30,6 +29,6 @@
     networkmanager.enable = true;
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "24.11"; # Did you read the comment?
 }

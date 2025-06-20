@@ -1,10 +1,13 @@
-{ config, pkgs, lib, ... }:
-with lib;
-let
-  plasmaEnabled = (config.settings.gui == "plasma");
-  tailscaleEnabled = config.services.tailscale.enable;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
+  plasmaEnabled = config.settings.gui == "plasma";
+  tailscaleEnabled = config.services.tailscale.enable;
+in {
   config = mkIf plasmaEnabled {
     networking.networkmanager.enable = mkDefault true;
 
@@ -26,24 +29,26 @@ in
 
     # packages to add with kde/plasma
     environment = {
-      systemPackages = (with pkgs; [
-        aspell
-        aspellDicts.en
-        aspellDicts.nl
-        hunspell
-        krename
+      systemPackages =
+        (with pkgs; [
+          aspell
+          aspellDicts.en
+          aspellDicts.nl
+          hunspell
+          krename
 
-        (mkIf tailscaleEnabled ktailctl)
-      ]) ++ (with pkgs.kdePackages; [
-        discover
-        kcalc
-        kcolorchooser
-        kgpg
-        kompare
-        krdc
-        # kipi-plugins # marked as broken atm
-        qttools
-      ]);
+          (mkIf tailscaleEnabled ktailctl)
+        ])
+        ++ (with pkgs.kdePackages; [
+          discover
+          kcalc
+          kcolorchooser
+          kgpg
+          kompare
+          krdc
+          # kipi-plugins # marked as broken atm
+          qttools
+        ]);
     };
 
     programs.gnupg.agent.enableSSHSupport = true;

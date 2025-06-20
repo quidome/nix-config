@@ -1,9 +1,12 @@
-{ lib, pkgs, config, ... }:
-with lib;
-let
-  cfg = config.programs.waybar;
-in
 {
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib; let
+  cfg = config.programs.waybar;
+in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       libappindicator-gtk3
@@ -22,7 +25,7 @@ in
             "backlight"
             "hyprland/mode"
           ];
-          modules-center = [ "hyprland/workspaces" ];
+          modules-center = ["hyprland/workspaces"];
           modules-right = [
             "network"
             "cpu"
@@ -35,7 +38,7 @@ in
 
           backlight = {
             format = "{percent}% {icon}";
-            format-icons = [ "" "" ];
+            format-icons = ["" ""];
           };
 
           battery = {
@@ -48,7 +51,7 @@ in
             format-charging = "{capacity}% ";
             format-plugged = "{capacity}% ";
             format-alt = "{time} {icon}";
-            format-icons = [ "" "" "" "" "" ];
+            format-icons = ["" "" "" "" ""];
           };
 
           clock = {
@@ -97,11 +100,10 @@ in
               phone = "";
               portable = "";
               car = "";
-              default = [ "" "" "" ];
+              default = ["" "" ""];
             };
             on-click = "pavucontrol";
           };
-
 
           temperature = {
             critical-threshold = 80;
@@ -112,7 +114,6 @@ in
             icon-size = 21;
             spacing = 10;
           };
-
 
           "hyprland/workspaces" = {
             # format = "{icon}";
@@ -191,7 +192,7 @@ in
         #battery.warning:not(.charging) {
             color: @warning;
         }
- 
+
         #battery.charging {
             color: @ok;
         }
