@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 {
   home = {
+    packages = with pkgs; [ alejandra ];
+
     sessionPath = [
       "${config.home.homeDirectory}/bin"
       "${config.home.homeDirectory}/go/bin"
