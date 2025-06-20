@@ -40,6 +40,7 @@ in
         kcolorchooser
         kgpg
         kompare
+        krdc
         # kipi-plugins # marked as broken atm
         qttools
       ]);
