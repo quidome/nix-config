@@ -10,6 +10,7 @@ in
   ];
 
   home.stateVersion = "25.05";
+  home.packages = with pkgs; [ kdePackages.kdenlive ];
 
   wayland.windowManager.hyprland.settings.bindl = [
     "SHIFT, code:133, exec, shikanectl switch disable-external"

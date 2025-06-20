@@ -23,6 +23,10 @@
     bluetooth.enable = true;
     bluetooth.powerOnBoot = true;
     cpu.intel.updateMicrocode = true;
+    graphics.enable = true;
+    graphics.extraPackages = with pkgs; [
+      intel-media-driver
+    ];
   };
 
   networking = {
