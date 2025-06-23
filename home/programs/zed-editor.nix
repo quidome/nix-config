@@ -7,41 +7,30 @@
   cfg = config.programs.zed-editor;
 in {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [alejandra];
+    home.packages = with pkgs; [nixd];
 
     programs.zed-editor = {
-      extensions = ["nix"];
+      extensions = ["nix" "rust" "toml"];
 
-      extraPackages = with pkgs; [
-        nixd
-      ];
+      extraPackages = with pkgs; [nixd];
 
       userSettings = {
-        features = {
-          copilot = false;
-        };
-        telemetry = {
-          metrics = false;
-        };
+        assistant.enabled = false;
+        auto_install_extensions = true;
+        auto_update = false;
+        features.copilot = false;
+        telemetry.metrics = false;
+
         vim_mode = false;
         ui_font_size = 16;
         buffer_font_size = 16;
-        auto_install_extensions = true;
-
-        assistant.enabled = false;
-        auto_update = false;
 
         # File syntax highlighting
-        file_types = {
-          JSON = [
-            "json"
-            "jsonc"
-            "*.code-snippets"
-          ];
-        };
+        file_types = {JSON = ["json" "jsonc" "*.code-snippets"];};
 
         languages = {
           Nix.language_servers = ["nixd" "!nil"];
+          # Since I cannot get this to work via the LSP, formatting is arranged here.
           Nix.formatter.external = {
             command = lib.getExe pkgs.alejandra;
             arguments = ["--quiet" "--"];
@@ -50,12 +39,6 @@ in {
 
         lsp = {
           nix.binary.path_lookup = true;
-
-          "nixd" = {
-            initialization_options = {
-              formatting.command = ["alejandra" "--quiet" "--"];
-            };
-          };
 
           # This is for other LSP servers, keep it separate
           settings.dialyzerEnabled = true;
