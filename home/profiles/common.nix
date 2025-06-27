@@ -5,7 +5,10 @@
   ...
 }: {
   home = {
-    packages = with pkgs; [alejandra];
+    packages = with pkgs; [
+      alejandra
+      rename
+    ];
 
     sessionPath = [
       "${config.home.homeDirectory}/bin"
