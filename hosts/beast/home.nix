@@ -25,6 +25,8 @@
       orca-slicer
     ];
 
+    services.shikane.enable = false;
+
     wayland.windowManager.hyprland.settings.monitor = [
       ",preferred,auto,auto"
       "DP-1, disable"
