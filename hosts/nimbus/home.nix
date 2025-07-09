@@ -27,6 +27,8 @@ in {
 
     # multimedia
     kdePackages.kdenlive
+    krita
+    digikam
 
     # games
     openttd
