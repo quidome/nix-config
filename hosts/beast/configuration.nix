@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   imports = [
+    ./disk-config.nix
     ./shared.nix
     ./vars.nix
     ./networking.nix
@@ -19,18 +20,10 @@
     "ip=:::::enp4s0:dhcp"
   ];
 
-  boot.initrd = {
-    # availableKernelModules = [ "r8169" ];
-    # network.enable = true;
-
-    # clevis.enable = true;
-    # clevis.useTang = true;
-    # clevis.devices."cryptroot" = /etc/secrets/initrd/clevis-cryptroot.jwe;
-
-    luks.devices."cryptroot" = {
-      device = "/dev/disk/by-uuid/345de9be-3f63-43e3-bfa8-eeaddbe8c2c0";
-      preLVM = true;
-    };
+  boot.initrd.clevis = {
+    enable = true;
+    useTang = true;
+    devices."zroot".secretFile = secrets/clevis-zfs.jwe;
   };
 
   environment.systemPackages = with pkgs; [
@@ -76,5 +69,5 @@
   virtualisation.spiceUSBRedirection.enable = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  system.stateVersion = "23.11";
+  system.stateVersion = "25.05";
 }
