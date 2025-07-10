@@ -20,14 +20,17 @@
     "ip=:::::enp4s0:dhcp"
   ];
 
+  boot.initrd.network.enable = true;
+  boot.initrd.network.flushBeforeStage2 = true;
   boot.initrd.clevis = {
     enable = true;
     useTang = true;
-    devices."zroot".secretFile = secrets/clevis-zfs.jwe;
+    devices."zroot".secretFile = /etc/secrets/initrd/clevis-zfs.jwe;
   };
 
   environment.systemPackages = with pkgs; [
     clevis
+    tang
     dracut
     heroic
     mangohud
