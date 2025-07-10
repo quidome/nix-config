@@ -34,6 +34,7 @@
   ];
 
   networking.hostName = "beast";
+  networking.hostId = "8425e349";
   networking.firewall.enable = true;
   networking.networkmanager.enable = true;
 

@@ -8,7 +8,7 @@
           type = "gpt";
           partitions = {
             ESP = {
-              size = "1G";
+              size = "512M";
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -32,52 +32,79 @@
       zroot = {
         type = "zpool";
         rootFsOptions = {
-          mountpoint = "none";
-          compression = "zstd";
-          encryption = "aes-256-gcm";
-          keylocation = "prompt";
-          keyformat = "passphrase";
           acltype = "posixacl";
           xattr = "sa";
-          "com.sun:auto-snapshot" = "true";
+          mountpoint = "none";
+          encryption = "aes-256-gcm";
+          keyformat = "passphrase";
+          keylocation = "prompt";
+          compression = "lz4";
+          "com.sun:auto-snapshot" = "false";
         };
-        options.ashift = "12";
+        options = {
+          ashift = "12";
+          autotrim = "on";
+        };
+
         datasets = {
-          "root" = {
+          local = {
+            type = "zfs_fs";
+            options.mountpoint = "none";
+          };
+          safe = {
+            type = "zfs_fs";
+            options.mountpoint = "none";
+          };
+          "local/reserved" = {
+            type = "zfs_fs";
+            options = {
+              mountpoint = "none";
+              reservation = "5GiB";
+            };
+          };
+          "local/root" = {
             type = "zfs_fs";
             mountpoint = "/";
+            options.mountpoint = "legacy";
+            postCreateHook = ''
+              zfs snapshot zroot/local/root@blank
+            '';
           };
-
-          "root/home" = {
+          "local/nix" = {
+            type = "zfs_fs";
+            mountpoint = "/nix";
+            options = {
+              atime = "off";
+              canmount = "on";
+              mountpoint = "legacy";
+              "com.sun:auto-snapshot" = "true";
+            };
+          };
+          "local/log" = {
+            type = "zfs_fs";
+            mountpoint = "/var/log";
+            options = {
+              mountpoint = "legacy";
+              "com.sun:auto-snapshot" = "true";
+            };
+          };
+          "safe/home" = {
             type = "zfs_fs";
             mountpoint = "/home";
-          };
-
-          "root/nix" = {
-            type = "zfs_fs";
-            options.mountpoint = "/nix";
-            options."com.sun:auto-snapshot" = false;
-            mountpoint = "/nix";
-          };
-
-          # README MORE: https://wiki.archlinux.org/title/ZFS#Swap_volume
-          "root/swap" = {
-            type = "zfs_volume";
-            size = "10M";
-            content = {
-              type = "swap";
-            };
             options = {
-              volblocksize = "4096";
-              compression = "zle";
-              logbias = "throughput";
-              sync = "always";
-              primarycache = "metadata";
-              secondarycache = "none";
-              "com.sun:auto-snapshot" = "false";
+              mountpoint = "legacy";
+              "com.sun:auto-snapshot" = "true";
             };
           };
-        };
+          "safe/persistent" = {
+            type = "zfs_fs";
+            mountpoint = "/persistent";
+            options = {
+              mountpoint = "legacy";
+              "com.sun:auto-snapshot" = "true";
+            };
+          };
+        }; # datasets
       };
     };
   };
