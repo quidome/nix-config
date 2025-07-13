@@ -24,6 +24,11 @@ in {
     jetbrains.idea-community
     temurin-bin-21
     ktlint
+    kubectl
+    kubernetes-helm
+    cilium-cli
+    k9s
+    kustomize
 
     # multimedia
     kdePackages.kdenlive
@@ -38,6 +43,10 @@ in {
     blender
     orca-slicer
   ];
+
+  programs.zsh.shellAliases = {
+    "k" = "kubectl";
+  };
 
   wayland.windowManager.hyprland.settings.bindl = [
     "SHIFT, code:133, exec, shikanectl switch disable-external"
