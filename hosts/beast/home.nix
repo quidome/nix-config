@@ -12,6 +12,11 @@
       ktlint
       postgresql
       temurin-bin-21
+      kubectl
+      kustomize
+      kubernetes-helm
+      cilium-cli
+      k9s
 
       # multimedia
       kdePackages.kdenlive
