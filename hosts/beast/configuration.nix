@@ -21,7 +21,6 @@
   ];
 
   boot.initrd.network.enable = true;
-  boot.initrd.network.flushBeforeStage2 = true;
   boot.initrd.clevis = {
     enable = true;
     useTang = true;

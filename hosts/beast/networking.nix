@@ -21,6 +21,11 @@ in {
           networkConfig.DHCP = "no";
           linkConfig.RequiredForOnline = "no";
         };
+        "12-enp47s0f3u4u3" = {
+          matchConfig.Name = "enp47s0f3u4u3";
+          networkConfig.DHCP = "no";
+          linkConfig.RequiredForOnline = "no";
+        };
       };
     };
 
