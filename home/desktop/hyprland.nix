@@ -6,7 +6,7 @@
 }:
 with lib; let
   hyprlandEnabled = config.settings.gui == "hyprland";
-  terminal = "kitty";
+  terminal = "alacritty";
 in {
   config = mkIf hyprlandEnabled {
     home.packages = with pkgs; [
