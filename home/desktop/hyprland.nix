@@ -217,9 +217,16 @@ in {
         "SUPER, mouse:273, resizewindow"
       ];
 
+      windowrule = [
+        "float       , class:^(org.kde.polkit-kde-authentication-agent-1)$"
+        "size 741 288, class:^(org.kde.polkit-kde-authentication-agent-1)$"
+        "center      , class:^(org.kde.polkit-kde-authentication-agent-1)$"
+      ];
+
       windowrulev2 = [
         "suppressevent maximize, class:.*"
         "float, class:org.pulseaudio.pavucontrol"
+        "float, class:nm-connection-editor"
 
         "float, $scratchpad"
         "$scratchpadsize, $scratchpad"
