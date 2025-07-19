@@ -16,7 +16,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = {"vm.swappiness" = 1;};
   boot.kernelParams = [
-    "consoleblank=60"
+    "consoleblank=180"
     "ip=:::::enp4s0:dhcp"
   ];
 
