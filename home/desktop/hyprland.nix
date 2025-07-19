@@ -225,6 +225,10 @@ in {
         "$scratchpadsize, $scratchpad"
         "workspace special silent, $scratchpad"
         "center, $scratchpad"
+
+        "workspace 4 silent, class:(Element)"
+        "workspace 4 silent, class:(Signal)"
+        "workspace 5 silent, class:(Spotify)"
       ];
     };
   };
