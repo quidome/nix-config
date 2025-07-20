@@ -8,6 +8,7 @@
     packages = with pkgs; [
       alejandra
       cilium-cli
+      httpie
       k9s
       kubectl
       kubernetes-helm
