@@ -12,6 +12,7 @@
       k9s
       kubectl
       kubernetes-helm
+      helmfile
       kustomize
       rename
     ];

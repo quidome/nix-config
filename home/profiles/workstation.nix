@@ -9,7 +9,7 @@ in {
   config = lib.mkIf cfg.workstation {
     home = {
       packages = with pkgs; [
-        # multimedia
+        lens
         mpv
       ];
     };
