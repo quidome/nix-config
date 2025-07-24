@@ -9,8 +9,10 @@
       alejandra
       cilium-cli
       httpie
+      ipcalc
       k9s
       kubectl
+      kubectx
       kubernetes-helm
       helmfile
       kustomize
@@ -36,6 +38,10 @@
 
   programs.eza.enable = true;
   programs.eza.enableZshIntegration = true;
+  programs.eza.extraOptions = [
+    "--group-directories-first"
+    "--header"
+  ];
 
   programs.git.enable = true;
 
@@ -58,5 +64,7 @@
   programs.zsh.initContent = "fpath+=($HOME/.zsh/completion/)";
   programs.zsh.shellAliases = {
     "k" = "kubectl";
+    "kc" = "kubectx";
+    "kn" = "kubens";
   };
 }
