@@ -6,6 +6,7 @@
 }:
 with lib; let
   swayEnabled = config.settings.gui == "sway";
+  font = config.settings.terminalFont;
 in {
   config = mkIf swayEnabled {
     xdg.mimeApps.enable = true;
@@ -111,7 +112,7 @@ in {
         };
 
         fonts = {
-          names = ["JetBrainsMono Nerd Font"];
+          names = [font.name];
           size = 10.0;
         };
 

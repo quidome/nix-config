@@ -4,6 +4,7 @@
   ...
 }: let
   cfg = config.services.mako;
+  font = config.settings.terminalFont;
 in {
   services.mako = lib.mkIf cfg.enable {
     settings = {
@@ -12,7 +13,7 @@ in {
       group-by = "summary";
       anchor = "bottom-right";
 
-      font = "JetBrainsMono Nerd Font 11";
+      font = "${font.name} ${toString font.size}";
 
       border-radius = 5;
       background-color = "#282828ff";

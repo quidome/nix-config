@@ -7,17 +7,16 @@
   cfg = config.settings.profile;
 in {
   config = lib.mkIf cfg.workstation {
-    home = {
-      packages = with pkgs; [
-        mpv
-      ];
-    };
+    home.packages = with pkgs; [mpv];
 
     fonts.fontconfig.enable = true;
 
     programs.firefox.enable = true;
+    programs.wezterm.enable = true;
     programs.wofi.enable = lib.mkDefault config.settings.wayland.enable;
     programs.zed-editor.enable = true;
+
+    settings.terminalFont.name = "JetBrainsMono Nerd Font";
 
     services.syncthing.enable = true;
   };

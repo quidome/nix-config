@@ -11,6 +11,7 @@
     ./tmux.nix
     ./vscode.nix
     ./waybar.nix
+    ./wezterm.nix
     ./wofi.nix
     ./zed-editor.nix
     ./zellij

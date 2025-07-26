@@ -4,22 +4,22 @@
   ...
 }: let
   cfg = config.programs.alacritty;
-  font = "JetBrainsMono Nerd Font";
+  font = config.settings.terminalFont;
 in {
   config.programs.alacritty.settings = lib.mkIf cfg.enable {
     selection.save_to_clipboard = true;
     cursor.style = "beam";
 
     font = {
-      size = 11;
+      size = font.size;
 
-      normal.family = font;
+      normal.family = font.name;
       normal.style = "Regular";
-      bold.family = font;
+      bold.family = font.name;
       bold.style = "Bold";
-      italic.family = font;
+      italic.family = font.name;
       italic.style = "Italic";
-      bold_italic.family = font;
+      bold_italic.family = font.name;
       bold_italic.style = "Bold Italic";
     };
 

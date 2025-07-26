@@ -6,6 +6,7 @@
 }:
 with lib; let
   cfg = config.programs.waybar;
+  font = config.settings.terminalFont;
 in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
@@ -141,7 +142,7 @@ in {
         * {
             border: none;
             border-radius: 0;
-            font-family: JetBrainsMono Nerd Font, Source Code Pro, Helvetica, Arial, sans-serif;
+            font-family: ${font.name}, Source Code Pro, Helvetica, Arial, sans-serif;
             font-size: 13pt;
             min-height: 0;
         }

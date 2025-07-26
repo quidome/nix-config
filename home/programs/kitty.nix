@@ -4,11 +4,11 @@
   ...
 }: let
   cfg = config.programs.kitty;
+  font = config.settings.terminalFont;
 in {
   config = lib.mkIf cfg.enable {
     programs.kitty = {
-      font.name = "JetBrainsMono Nerd Font";
-      font.size = 11;
+      inherit font;
 
       themeFile = "gruvbox-dark";
     };

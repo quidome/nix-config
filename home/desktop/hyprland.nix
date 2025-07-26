@@ -6,7 +6,7 @@
 }:
 with lib; let
   hyprlandEnabled = config.settings.gui == "hyprland";
-  terminal = "alacritty";
+  terminal = "wezterm";
 in {
   config = mkIf hyprlandEnabled {
     home.packages = with pkgs; [
@@ -35,6 +35,7 @@ in {
       hyprlock.enable = mkDefault true;
       waybar.enable = mkDefault true;
       wofi.enable = mkDefault true;
+      wezterm.enable = mkDefault (terminal == "term");
     };
 
     services = {

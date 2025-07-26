@@ -4,6 +4,7 @@
     ./profiles
     ./programs
     ./services
+    ./settings.nix
     ./xdg
   ];
 }
