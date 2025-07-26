@@ -17,6 +17,7 @@ in {
     programs.zed-editor.enable = true;
 
     settings.terminalFont.name = "JetBrainsMono Nerd Font";
+    settings.terminalFont.size = 12;
 
     services.syncthing.enable = true;
   };
