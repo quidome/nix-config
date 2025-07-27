@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.programs.zed-editor;
+  font = config.settings.terminalFont;
 in {
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [nixd];
@@ -23,7 +24,8 @@ in {
 
         vim_mode = false;
         ui_font_size = 16;
-        buffer_font_size = 16;
+        buffer_font_size = font.size + 3;
+        buffer_font_family = font.name;
 
         # File syntax highlighting
         file_types = {JSON = ["json" "jsonc" "*.code-snippets"];};
