@@ -17,6 +17,7 @@
       helmfile
       kustomize
       rename
+      stern
     ];
 
     sessionPath = [
