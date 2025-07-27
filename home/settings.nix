@@ -9,7 +9,7 @@ with lib; {
     };
 
     terminalFont.size = mkOption {
-      default = 12;
+      default = 11;
       type = types.int;
       example = 42;
       description = "Font size for graphical terminals";
