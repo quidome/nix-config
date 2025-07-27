@@ -5,6 +5,8 @@
   ];
 
   config = {
+    settings.terminalFont.size = 10;
+
     home.stateVersion = "25.05";
     home.packages = with pkgs; [
       # devops

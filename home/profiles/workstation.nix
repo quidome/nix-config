@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+with lib; let
   cfg = config.settings.profile;
 in {
   config = lib.mkIf cfg.workstation {
@@ -17,7 +18,6 @@ in {
     programs.zed-editor.enable = true;
 
     settings.terminalFont.name = "JetBrainsMono Nerd Font";
-    settings.terminalFont.size = 12;
 
     services.syncthing.enable = true;
   };
