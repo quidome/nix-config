@@ -10,15 +10,15 @@ in {
   config = lib.mkIf cfg.workstation {
     home.packages = with pkgs; [mpv];
 
-    fonts.fontconfig.enable = true;
+    fonts.fontconfig.enable = mkDefault true;
 
-    programs.firefox.enable = true;
-    programs.wezterm.enable = true;
-    programs.wofi.enable = lib.mkDefault config.settings.wayland.enable;
-    programs.zed-editor.enable = true;
+    programs.firefox.enable = mkDefault true;
+    programs.wezterm.enable = mkDefault true;
+    programs.wofi.enable = mkDefault config.settings.wayland.enable;
+    programs.zed-editor.enable = mkDefault true;
 
-    settings.terminalFont.name = "JetBrainsMono Nerd Font";
+    settings.terminalFont.name = mkDefault "JetBrainsMono Nerd Font";
 
-    services.syncthing.enable = true;
+    services.syncthing.enable = mkDefault true;
   };
 }
