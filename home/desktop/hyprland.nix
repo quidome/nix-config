@@ -35,7 +35,7 @@ in {
       hyprlock.enable = mkDefault true;
       waybar.enable = mkDefault true;
       wofi.enable = mkDefault true;
-      wezterm.enable = mkDefault (terminal == "term");
+      wezterm.enable = mkDefault (terminal == "wezterm");
     };
 
     services = {
