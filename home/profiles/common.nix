@@ -8,13 +8,14 @@
     packages = with pkgs; [
       alejandra
       cilium-cli
+      helmfile
       httpie
       ipcalc
       k9s
       kubectl
       kubectx
       kubernetes-helm
-      helmfile
+      kubeseal
       kustomize
       rename
       stern
@@ -67,5 +68,6 @@
     "k" = "kubectl";
     "kc" = "kubectx";
     "kn" = "kubens";
+    "kseal" = "kubeseal --controller-namespace kube-system --controller-name sealed-secrets";
   };
 }
