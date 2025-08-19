@@ -47,10 +47,11 @@ in {
     programs = {
       alacritty.enable = mkDefault (terminal == "alacritty");
       kitty.enable = mkDefault (terminal == "kitty");
+      wezterm.enable = mkDefault (terminal == "wezterm");
+
       hyprlock.enable = mkDefault true;
       waybar.enable = mkDefault true;
       wofi.enable = mkDefault true;
-      wezterm.enable = mkDefault (terminal == "wezterm");
     };
 
     services = {
