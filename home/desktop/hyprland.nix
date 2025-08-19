@@ -20,13 +20,29 @@ in {
 
     xdg.mimeApps.enable = true;
 
+    dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
+
     gtk = {
       enable = true;
       font.name = "Noto Sans";
-      theme.name = "Adwaita";
+      theme.name = "Adwaita Dark";
+      theme.package = pkgs.gnome-themes-extra;
       gtk3.extraConfig = {
         gtk-application-prefer-dark-theme = true;
       };
+      gtk4.extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+      };
+    };
+
+    qt = {
+      enable = true;
+      platformTheme.name = "adwaita";
+      style.name = "adwaita-dark";
     };
 
     programs = {
