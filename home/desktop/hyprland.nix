@@ -13,7 +13,6 @@ in {
       imv
       grimblast
       playerctl
-      pyprland
       shikane
       wev
     ];
@@ -61,14 +60,6 @@ in {
       shikane.enable = mkDefault true;
     };
 
-    xdg.configFile."hypr/pyprland.json".text = builtins.toJSON {
-      pyprland.plugins = ["scratchpads"];
-      scratchpads.term = {
-        command = "NO_TMUX=1 uwsm app -- ${terminal} --class scratchpad";
-        margin = 50;
-      };
-    };
-
     xdg.systemDirs.data = [
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
       "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
@@ -80,16 +71,9 @@ in {
       "$launcher" = "uwsm app --";
       "$terminal" = terminal;
 
-      "$scratchpad" = "class:^(scratchpad)$";
-      "$scratchpadsize" = "size 50% 50%";
-
       env = [
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
-      ];
-
-      exec-once = [
-        "$launcher pypr"
       ];
 
       animations.enabled = false;
@@ -194,8 +178,6 @@ in {
           "$mod, S, togglespecialworkspace, magic"
           "SHIFT $mod, S, movetoworkspace, special:magic"
 
-          "$mod, backslash, exec, pypr toggle term && hyprctl dispatch bringactivetotop"
-
           ", XF86AudioPlay, exec, playerctl play-pause"
 
           ", Print, exec, grimblast copysave area"
@@ -244,11 +226,6 @@ in {
         "suppressevent maximize, class:.*"
         "float, class:org.pulseaudio.pavucontrol"
         "float, class:nm-connection-editor"
-
-        "float, $scratchpad"
-        "$scratchpadsize, $scratchpad"
-        "workspace special silent, $scratchpad"
-        "center, $scratchpad"
 
         "workspace 4 silent, class:(Element)"
         "workspace 4 silent, class:(Signal)"
