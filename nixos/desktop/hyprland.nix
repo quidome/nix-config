@@ -23,19 +23,6 @@ in {
         waybar
         wdisplays
 
-        # Theming
-        glib
-        adwaita-icon-theme
-        gsettings-desktop-schemas
-        gtk-engine-murrine
-        gtk_engines
-        lxappearance
-
-        # qt theming
-        adwaita-qt
-        libsForQt5.breeze-qt5
-        libsForQt5.qt5ct
-
         kdePackages.polkit-kde-agent-1
 
         (mkIf networkmanagerEnabled networkmanagerapplet)
@@ -48,9 +35,6 @@ in {
     programs.hyprland.withUWSM = true;
     programs.hyprlock.enable = true;
     programs.thunar.enable = true;
-
-    # for qt theming
-    qt.platformTheme = "qt5ct";
 
     security.pam.services.hyprlock = {};
 
