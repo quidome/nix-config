@@ -37,7 +37,7 @@
     wg-quick.interfaces.wg0 = {
       autostart = false;
       address = ["172.16.41.14/32"];
-      dns = ["172.16.40.53" "lan.balti.casa"];
+      dns = ["172.16.40.1" "lan.balti.casa"];
       listenPort = 51820;
       privateKeyFile = "/etc/secrets/wg0-private";
 
