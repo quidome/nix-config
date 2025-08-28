@@ -15,23 +15,9 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = {"vm.swappiness" = 1;};
-  boot.kernelParams = [
-    "consoleblank=180"
-    # "ip=:::::enp4s0:dhcp"
-  ];
-
-  # boot.initrd.network.enable = true;
-  # boot.initrd.clevis = {
-  #   enable = true;
-  #   useTang = true;
-  #   devices."zroot".secretFile = /etc/secrets/initrd/clevis-zfs.jwe;
-  # };
+  boot.kernelParams = ["consoleblank=180"];
 
   environment.systemPackages = with pkgs; [
-    # clevis
-    # tang
-    dracut
-
     heroic
     mangohud
     lutris
@@ -40,7 +26,6 @@
   ];
 
   networking.hostName = "beast";
-  # networking.hostId = "8425e349";
   networking.firewall.enable = true;
   networking.networkmanager.enable = true;
 
