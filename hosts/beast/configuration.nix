@@ -17,19 +17,19 @@
   boot.kernel.sysctl = {"vm.swappiness" = 1;};
   boot.kernelParams = [
     "consoleblank=180"
-    "ip=:::::enp4s0:dhcp"
+    # "ip=:::::enp4s0:dhcp"
   ];
 
-  boot.initrd.network.enable = true;
-  boot.initrd.clevis = {
-    enable = true;
-    useTang = true;
-    devices."zroot".secretFile = /etc/secrets/initrd/clevis-zfs.jwe;
-  };
+  # boot.initrd.network.enable = true;
+  # boot.initrd.clevis = {
+  #   enable = true;
+  #   useTang = true;
+  #   devices."zroot".secretFile = /etc/secrets/initrd/clevis-zfs.jwe;
+  # };
 
   environment.systemPackages = with pkgs; [
-    clevis
-    tang
+    # clevis
+    # tang
     dracut
 
     heroic
@@ -40,7 +40,7 @@
   ];
 
   networking.hostName = "beast";
-  networking.hostId = "8425e349";
+  # networking.hostId = "8425e349";
   networking.firewall.enable = true;
   networking.networkmanager.enable = true;
 
@@ -83,6 +83,7 @@
   users.groups.libvirtd.members = ["quidome"];
 
   virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
