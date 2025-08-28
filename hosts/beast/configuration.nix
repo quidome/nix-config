@@ -31,8 +31,12 @@
     clevis
     tang
     dracut
+
     heroic
     mangohud
+    lutris
+    gogdl
+    itch
   ];
 
   networking.hostName = "beast";
@@ -56,13 +60,24 @@
       enable = true;
       enable32Bit = true;
     };
+
+    amdgpu.amdvlk = {
+      enable = true;
+      support32Bit.enable = true;
+    };
   };
 
-  programs = {
-    steam.enable = true;
-    virt-manager.enable = true;
-  };
+  programs.appimage.enable = true;
 
+  programs.steam = {
+    enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
+  };
+  programs.virt-manager.enable = true;
+
+  services.flatpak.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
 
   users.groups.libvirtd.members = ["quidome"];
