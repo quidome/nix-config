@@ -51,6 +51,10 @@ in {
 
     # Enable printing and printer discovery
     services.printing.enable = mkDefault true;
+    services.printing.drivers = with pkgs; [
+      cups-filters
+      cups-browsed
+    ];
     services.avahi = {
       enable = mkDefault true;
       nssmdns4 = mkDefault true;
