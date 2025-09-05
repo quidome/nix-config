@@ -47,7 +47,7 @@ in {
 
     services.flatpak.enable = mkDefault true;
     services.pipewire.enable = mkDefault true;
-    services.tailscale.enable = mkDefault true;
+    # services.tailscale.enable = mkDefault true;
 
     # Enable printing and printer discovery
     services.printing.enable = mkDefault true;
