@@ -16,6 +16,8 @@ with lib; {
     # network
     curl
     dogdns
+    httpie
+    tcpdump
     wget
 
     # devops
