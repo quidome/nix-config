@@ -29,7 +29,6 @@
   };
 
   networking = {
-    hostId = "5e7f8bc2";
     hostName = "nimbus";
     firewall.enable = true;
     networkmanager.enable = true;
@@ -86,17 +85,13 @@
 
     fwupd.enable = true;
     usbmuxd.enable = true;
-
-    zfs.autoScrub.enable = true;
-    zfs.autoSnapshot.enable = true;
-    zfs.trim.enable = true;
   };
 
   virtualisation = {
     containers.enable = true;
 
     docker.enable = true;
-    docker.storageDriver = "zfs";
+    docker.storageDriver = "btrfs";
   };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
