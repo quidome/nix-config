@@ -14,98 +14,57 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = ["nofail"];
+                mountOptions = ["nofail" "umask=0077"];
               };
             };
-            zfs = {
+            luks = {
               size = "100%";
               content = {
-                type = "zfs";
-                pool = "zroot";
-              };
-            };
-          };
-        };
-      };
-    };
-    zpool = {
-      zroot = {
-        type = "zpool";
-        rootFsOptions = {
-          acltype = "posixacl";
-          xattr = "sa";
-          mountpoint = "none";
-          encryption = "aes-256-gcm";
-          keyformat = "passphrase";
-          keylocation = "prompt";
-          compression = "lz4";
-          "com.sun:auto-snapshot" = "false";
-        };
-        options = {
-          ashift = "12";
-          autotrim = "on";
-        };
-
-        datasets = {
-          local = {
-            type = "zfs_fs";
-            options.mountpoint = "none";
-          };
-          safe = {
-            type = "zfs_fs";
-            options.mountpoint = "none";
-          };
-          "local/reserved" = {
-            type = "zfs_fs";
-            options = {
-              mountpoint = "none";
-              reservation = "5GiB";
-            };
-          };
-          "local/root" = {
-            type = "zfs_fs";
-            mountpoint = "/";
-            options.mountpoint = "legacy";
-            postCreateHook = ''
-              zfs snapshot zroot/local/root@blank
-            '';
-          };
-          "local/nix" = {
-            type = "zfs_fs";
-            mountpoint = "/nix";
-            options = {
-              atime = "off";
-              canmount = "on";
-              mountpoint = "legacy";
-              "com.sun:auto-snapshot" = "true";
-            };
-          };
-          "local/log" = {
-            type = "zfs_fs";
-            mountpoint = "/var/log";
-            options = {
-              mountpoint = "legacy";
-              "com.sun:auto-snapshot" = "true";
-            };
-          };
-          "safe/home" = {
-            type = "zfs_fs";
-            mountpoint = "/home";
-            options = {
-              mountpoint = "legacy";
-              "com.sun:auto-snapshot" = "true";
-            };
-          };
-          "safe/persistent" = {
-            type = "zfs_fs";
-            mountpoint = "/persistent";
-            options = {
-              mountpoint = "legacy";
-              "com.sun:auto-snapshot" = "true";
-            };
-          };
-        }; # datasets
-      };
-    };
+                type = "luks";
+                name = "crypted";
+                extraOpenArgs = [
+                  "--allow-discards"
+                  "--perf-no_read_workqueue"
+                  "--perf-no_write_workqueue"
+                ];
+                settings.allowDiscards = true;
+                content = {
+                  type = "btrfs";
+                  extraArgs = ["-L" "nixos" "-f"];
+                  subvolumes = {
+                    "/root" = {
+                      mountpoint = "/";
+                      mountOptions = ["subvol=root" "compress=zstd" "noatime"];
+                    };
+                    "/home" = {
+                      mountpoint = "/home";
+                      mountOptions = ["subvol=home" "compress=zstd" "noatime"];
+                    };
+                    "/nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = ["subvol=nix" "compress=zstd" "noatime"];
+                    };
+                    "/persist" = {
+                      mountpoint = "/persist";
+                      mountOptions = ["subvol=persist" "compress=zstd" "noatime"];
+                    };
+                    "/log" = {
+                      mountpoint = "/var/log";
+                      mountOptions = ["subvol=log" "compress=zstd" "noatime"];
+                    };
+                    "/swap" = {
+                      mountpoint = "/swap";
+                      swap.swapfile.size = "16G";
+                    };
+                  };
+                };
+              }; # content
+            }; # luks
+          }; # partitions
+        }; # content
+      }; # root
+    }; # disk
   };
+  fileSystems."/persist".neededForBoot = true;
+  fileSystems."/var/log".neededForBoot = true;
 }
