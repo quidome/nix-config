@@ -23,6 +23,13 @@
     lutris
     gogdl
     itch
+    glxinfo
+    vulkan-tools
+    clinfo
+    libva-utils
+    lact
+    amdgpu_top
+    nvtopPackages.amd
   ];
 
   networking.hostName = "beast";
@@ -34,25 +41,25 @@
 
   i18n.defaultLocale = "en_IE.UTF-8";
 
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-      input.General.UserspaceHID = true;
-    };
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    input.General.UserspaceHID = true;
+  };
 
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
+  services.flatpak.enable = true;
 
-    amdgpu.amdvlk = {
-      enable = true;
-      support32Bit.enable = true;
-    };
+  # gaming / gpu setup
+  services.xserver.videoDrivers = ["amdgpu"];
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
   };
 
   programs.appimage.enable = true;
+
+  programs.gamemode.enable = true;
 
   programs.steam = {
     enable = true;
@@ -60,17 +67,10 @@
       proton-ge-bin
     ];
   };
-  programs.virt-manager.enable = true;
 
-  services.flatpak.enable = true;
-  services.xserver.videoDrivers = ["amdgpu"];
-
-  users.groups.libvirtd.members = ["quidome"];
-
+  # Virtualization docker
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.05";
