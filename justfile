@@ -5,7 +5,7 @@ default:
     @just --list
 
 # Do a complete cleanup and update run
-all: update-flake collect-garbage build update-nixpkgs-cache-index
+all: update gc build
 
 # Build system and home
 build: build-system build-home
@@ -18,13 +18,16 @@ build-system:
 build-home:
     home-manager --flake . switch
 
-# Collect garbage   
-collect-garbage:
+# Nix garbage collection   
+gc:
     nix-collect-garbage -d
     sudo nix-collect-garbage -d
 
-# Download Nixpkgs cache index
-update-nixpkgs-cache-index:
+# Update flake.lock and package cache
+update: update-flake update-pkgs-cache
+
+# Update nixpkgs cache index (for comma)
+update-pkgs-cache:
     #!/usr/bin/env bash
     location=~/.cache/nix-index
     filename="index-$(uname -m | sed 's/^arm64$/aarch64/')-$(uname | tr '[:upper:]' '[:lower:]')"
