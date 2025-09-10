@@ -1,8 +1,6 @@
-# justfile
-
-# Default recipe (runs when just is called without arguments)
+# Default recipe
 default:
-    @just --list
+    @just --list | grep -v '# Default recipe'
 
 # Do a complete cleanup and update run
 all: update gc build
