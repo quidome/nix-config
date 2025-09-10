@@ -33,6 +33,7 @@ with lib; {
     helix
     jless
     jq
+    just
     vim
 
     # Useful nix related tools
