@@ -37,9 +37,17 @@ update-pkgs-cache:
 
 # Update flake and commit changes
 update-flake:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
     nix flake update || just _error "Failed to update flake"
-    git commit -m 'update flake.lock' flake.lock
-    git push || echo "Failed to push flake.lock update"
+
+    if git diff --quiet --exit-code flake.lock; then
+        echo "No changes to flake.lock"
+    else
+        git add flake.lock
+        git commit -m 'update flake.lock' && git push || echo "Failed to push flake.lock update"
+    fi
 
 # Error handling function
 _error:
