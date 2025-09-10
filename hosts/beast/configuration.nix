@@ -58,14 +58,13 @@
   };
 
   programs.appimage.enable = true;
-
-  programs.gamemode.enable = true;
+  programs.appimage.binfmt = true;
+  programs.java.enable = true;
 
   programs.steam = {
     enable = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-    ];
+    extraPackages = with pkgs; [jdk];
+    extraCompatPackages = with pkgs; [proton-ge-bin];
   };
 
   # Virtualization docker
