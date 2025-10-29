@@ -15,6 +15,7 @@ in {
           "hyprland"
           "plasma"
           "sway"
+          "cosmic"
         ];
       default = "none";
       description = ''
@@ -43,6 +44,6 @@ in {
     settings.preferQt = builtins.elem cfg.gui ["plasma"];
     settings.profile.headless = cfg.gui == "none";
     settings.profile.workstation = !cfg.profile.headless;
-    settings.wayland.enable = builtins.elem cfg.gui ["gnome" "hyprland" "plasma" "sway"];
+    settings.wayland.enable = builtins.elem cfg.gui ["cosmic" "gnome" "hyprland" "plasma" "sway"];
   };
 }
