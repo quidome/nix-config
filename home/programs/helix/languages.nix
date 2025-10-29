@@ -11,8 +11,8 @@ with pkgs;
       delve
       marksman # markdown lsp
       nixd
+      dockerfile-language-server
       nodePackages.bash-language-server
-      nodePackages.dockerfile-language-server-nodejs
       nodePackages.prettier # json formatter
       nodePackages.typescript-language-server
       nodePackages.vscode-json-languageserver

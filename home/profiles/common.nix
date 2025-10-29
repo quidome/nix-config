@@ -35,6 +35,9 @@
   programs.bat.config.theme = "DarkNeon";
   programs.bat.config.style = "header,snip";
 
+  programs.delta.enable = true;
+  programs.delta.enableGitIntegration = true;
+
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
@@ -55,7 +58,19 @@
   programs.htop.settings.show_program_path = true;
 
   programs.ssh.enable = true;
-  programs.ssh.extraConfig = "AddKeysToAgent yes";
+  programs.ssh.enableDefaultConfig = false;
+  programs.ssh.matchBlocks."*" = {
+    addKeysToAgent = "yes";
+    compression = false;
+    controlMaster = "no";
+    controlPath = "~/.ssh/master-%r@%n:%p";
+    controlPersist = "no";
+    forwardAgent = true;
+    hashKnownHosts = false;
+    serverAliveCountMax = 3;
+    serverAliveInterval = 0;
+    userKnownHostsFile = "~/.ssh/known_hosts";
+  };
 
   programs.zellij.enable = lib.mkDefault true;
 
