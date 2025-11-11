@@ -3,23 +3,28 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+with lib; let
   authorizedKeys = config.settings.authorizedKeys;
 in {
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  options.settings.authorizedKeys = mkOption {type = types.listOf types.str;};
 
-  environment.systemPackages = with pkgs; [
-    fd
-    git
-    helix
-    htop
-  ];
+  config = {
+    nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  networking.networkmanager.enable = true; # nmtui for wi-fi
-  networking.wireless.enable = lib.mkForce false;
+    environment.systemPackages = with pkgs; [
+      fd
+      git
+      helix
+      htop
+    ];
 
-  systemd.services.sshd.wantedBy = lib.mkForce ["multi-user.target"];
+    networking.networkmanager.enable = true; # nmtui for wi-fi
+    networking.wireless.enable = lib.mkForce false;
 
-  users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
-  users.users.nixos.openssh.authorizedKeys.keys = authorizedKeys;
+    systemd.services.sshd.wantedBy = lib.mkForce ["multi-user.target"];
+
+    users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
+    users.users.nixos.openssh.authorizedKeys.keys = authorizedKeys;
+  };
 }

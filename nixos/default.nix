@@ -1,7 +1,6 @@
 {
   imports = [
     ./secrets.nix
-    ./settings.nix
 
     ./desktop
     ./profiles

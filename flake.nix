@@ -71,8 +71,7 @@
         system = "x86_64-linux";
         modules = [
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          ./nixos/settings.nix
-          ./nixos/secrets.nix
+          ./shared/secrets.nix
           ./live-image/base.nix
         ];
       };
