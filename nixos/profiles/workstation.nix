@@ -43,6 +43,7 @@ in {
 
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
+      nerd-fonts.roboto-mono
     ];
 
     services.flatpak.enable = mkDefault true;
