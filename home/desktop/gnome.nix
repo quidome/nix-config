@@ -8,8 +8,20 @@
     programs.zellij.settings.copy_command = "wl-copy";
     dconf.settings = {
       "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
         cursor-theme = "Adwaita";
+        enable-hot-corners = false;
         icon-theme = "Adwaita";
+      };
+
+      "org/gnome/desktop/peripherals/mouse" = {
+        left-handed = true;
+        natural-scroll = true;
+      };
+
+      "org/gnome/desktop/peripherals/touchpad" = {
+        tap-to-click = true;
+        two-finger-scrolling-enabled = true;
       };
 
       "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -23,6 +35,8 @@
         command = lib.getExe pkgs.gnome-console;
         name = "Launch Terminal";
       };
+
+      "org/gnome/tweaks".show-extensions-notice = false;
     };
 
     services.gpg-agent = {
