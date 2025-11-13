@@ -5,6 +5,9 @@ default:
 # Do a complete cleanup and update run
 all: update gc build
 
+# Git pull, GC and build
+pull-gc-build: _git-pull gc build
+
 # Build system and home
 build: build-system build-home
 
@@ -20,6 +23,9 @@ build-home:
 gc:
     nix-collect-garbage -d
     sudo nix-collect-garbage -d
+
+_git-pull:
+    git pull
 
 # Update flake.lock and package cache
 update: update-flake update-pkgs-cache
