@@ -24,6 +24,8 @@
         two-finger-scrolling-enabled = true;
       };
 
+      "org/gnome/desktop/wm/preferences".focus-mode = "mouse";
+
       "org/gnome/settings-daemon/plugins/media-keys" = {
         custom-keybindings = [
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
