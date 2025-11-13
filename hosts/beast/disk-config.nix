@@ -1,4 +1,13 @@
-{
+let
+  btrfs_mount_options = [
+    "compress=lzo"
+    "discard=async"
+    "noatime"
+    "rw"
+    "space_cache=v2"
+    "ssd"
+  ];
+in {
   disko.devices = {
     disk = {
       root = {
@@ -8,7 +17,7 @@
           type = "gpt";
           partitions = {
             ESP = {
-              size = "512M";
+              size = "1G";
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -19,9 +28,18 @@
             };
             luks = {
               size = "100%";
+              label = "luks";
               content = {
                 type = "luks";
                 name = "crypted";
+                extraFormatArgs = [
+                  "--cipher=aes-xts-plain64"
+                  "--hash=sha256"
+                  "--iter-time=1000"
+                  "--key-size=256"
+                  "--pbkdf-memory=1048576"
+                  "--sector-size=4096"
+                ];
                 extraOpenArgs = [
                   "--allow-discards"
                   "--perf-no_read_workqueue"
@@ -34,23 +52,23 @@
                   subvolumes = {
                     "/root" = {
                       mountpoint = "/";
-                      mountOptions = ["subvol=root" "compress=zstd" "noatime"];
+                      mountOptions = btrfs_mount_options ++ ["subvol=root"];
                     };
                     "/home" = {
                       mountpoint = "/home";
-                      mountOptions = ["subvol=home" "compress=zstd" "noatime"];
+                      mountOptions = btrfs_mount_options ++ ["subvol=home"];
                     };
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = ["subvol=nix" "compress=zstd" "noatime"];
+                      mountOptions = btrfs_mount_options ++ ["subvol=nix"];
                     };
                     "/persist" = {
                       mountpoint = "/persist";
-                      mountOptions = ["subvol=persist" "compress=zstd" "noatime"];
+                      mountOptions = btrfs_mount_options ++ ["subvol=persist"];
                     };
                     "/log" = {
                       mountpoint = "/var/log";
-                      mountOptions = ["subvol=log" "compress=zstd" "noatime"];
+                      mountOptions = btrfs_mount_options ++ ["subvol=log"];
                     };
                     "/swap" = {
                       mountpoint = "/swap";
@@ -58,12 +76,12 @@
                     };
                   };
                 };
-              }; # content
-            }; # luks
-          }; # partitions
-        }; # content
-      }; # root
-    }; # disk
+              };
+            };
+          };
+        };
+      };
+    };
   };
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
