@@ -12,7 +12,7 @@ in {
     disk = {
       root = {
         type = "disk";
-        device = "/dev/sda";
+        device = "/dev/disk/by-id/ata-RTNTE256PCA8EADL_sd0l82501r1sz71306zb";
         content = {
           type = "gpt";
           partitions = {
