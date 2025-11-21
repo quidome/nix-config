@@ -11,7 +11,6 @@ with lib; {
     fzf
     gnupg
     ripgrep
-    home-manager
 
     # network
     curl

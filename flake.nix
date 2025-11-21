@@ -52,6 +52,36 @@
           }
         ];
       };
+
+    mkHost = user: host:
+      inputs.nixpkgs.lib.nixosSystem {
+        inherit pkgs;
+        modules = [
+          inputs.disko.nixosModules.disko
+          {_module.args = args;}
+          ./shared
+          ./nixos
+          ./hosts/${host}/configuration.nix
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.${user} = {...}: {
+                imports = [
+                  ./shared
+                  ./home
+                  ./hosts/${host}/home.nix
+                ];
+                home = {
+                  username = user;
+                  homeDirectory = "/home/${user}";
+                };
+              };
+            };
+          }
+        ];
+      };
   in {
     homeConfigurations = {
       "quidome@beast" = mkHome "quidome" "beast";
@@ -63,8 +93,10 @@
     nixosConfigurations = {
       beast = mkNixos "beast";
       coolding = mkNixos "coolding";
-      nimbus = mkNixos "nimbus";
+      nimbus = mkHost "quidome" "nimbus";
       truce = mkNixos "truce";
+
+      new = mkHost "quidome" "nimbus";
 
       # Bootable images
       baseIso = inputs.nixpkgs.lib.nixosSystem {
