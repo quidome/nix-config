@@ -39,6 +39,8 @@ in {
     orca-slicer
   ];
 
+  programs.wezterm.enable = true;
+
   wayland.windowManager.hyprland.settings.bindl = [
     "SHIFT, code:133, exec, shikanectl switch disable-external"
   ];
