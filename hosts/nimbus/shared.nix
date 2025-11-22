@@ -1,3 +1,3 @@
 {
-  settings.gui = "gnome";
+  settings.gui = "hyprland";
 }

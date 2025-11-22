@@ -77,6 +77,8 @@ in {
         "HYPRCURSOR_SIZE,24"
       ];
 
+      ecosystem.no_update_news = true;
+
       animations.enabled = false;
 
       general = {
