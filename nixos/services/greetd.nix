@@ -1,25 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   ...
-}: let
-  cfg = config.services.greetd;
-in {
-  services.greetd = lib.mkIf cfg.enable {
-    settings = {
-      default_session = {
-        user = "greeter";
-        command = lib.mkDefault "${pkgs.greetd.tuigreet}/bin/tuigreet --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
-      };
-    };
-  };
-
+}: {
   # this is a life saver.
   # literally no documentation about this anywhere.
   # might be good to write about this...
   # https://www.reddit.com/r/NixOS/comments/u0cdpi/tuigreet_with_xmonad_how/
-  systemd.services.greetd.serviceConfig = lib.mkIf cfg.enable {
+  systemd.services.greetd.serviceConfig = lib.mkIf config.services.greetd.enable {
     Type = "idle";
     StandardInput = "tty";
     StandardOutput = "tty";

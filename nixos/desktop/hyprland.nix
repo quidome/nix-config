@@ -20,6 +20,8 @@ in {
         hypridle
         hyprpaper
         libnotify
+        libsecret
+        seahorse
         waybar
         wdisplays
 
@@ -36,10 +38,20 @@ in {
     programs.hyprlock.enable = true;
     programs.thunar.enable = true;
 
+    security.pam.services.greetd.enableGnomeKeyring = true;
+
     security.pam.services.hyprlock = {};
 
     services.auto-cpufreq.enable = true;
-    services.greetd.enable = true;
+    services.greetd = {
+      enable = true;
+      settings.default_session = {
+        user = "greeter";
+        command = lib.mkDefault "${pkgs.greetd.tuigreet}/bin/tuigreet --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
+      };
+    };
+
+    services.gnome.gnome-keyring.enable = true;
 
     services.logind.extraConfig = "HandlePowerKey=suspend";
 
