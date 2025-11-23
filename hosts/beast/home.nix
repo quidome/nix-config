@@ -5,7 +5,7 @@
   ];
 
   config = {
-    settings.terminalFont.size = 10;
+    settings.terminalFont.size = 11;
 
     home.stateVersion = "25.05";
     home.packages = with pkgs; [
