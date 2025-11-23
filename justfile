@@ -8,11 +8,8 @@ all: update gc build
 # Git pull, GC and build
 pull-gc-build: _git-pull gc build
 
-# Build system and home
-build: build-system build-home
-
 # Build system
-build-system:
+build:
     sudo nixos-rebuild --flake . switch
 
 # Build home
