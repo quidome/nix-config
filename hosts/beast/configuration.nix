@@ -34,7 +34,6 @@
 
   networking.hostName = "beast";
   networking.firewall.enable = true;
-  networking.networkmanager.enable = true;
 
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Amsterdam";
