@@ -12,6 +12,7 @@
         cursor-theme = "Adwaita";
         enable-hot-corners = false;
         icon-theme = "Adwaita";
+        monospace-font-name = "JetBrainsMono Nerd Font Light 11";
       };
 
       "org/gnome/desktop/peripherals/mouse" = {
