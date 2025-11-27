@@ -22,6 +22,7 @@ with lib; {
     # devops
     git
     git-crypt
+    git-repo-updater
     gitui
     shellcheck
     yq-go
