@@ -14,6 +14,9 @@ in {
         font_size = ${toString font.size},
         color_scheme = "Monokai Remastered",
 
+        initial_cols = 120,
+        initial_rows = 40,
+
         -- Window
         window_padding = {
           left = 10,
