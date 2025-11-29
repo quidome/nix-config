@@ -12,7 +12,5 @@
       enable = true;
       source = ../dotfiles/Monokai_Remastered.colorscheme;
     };
-
-    programs.zellij.settings.copy_command = lib.mkIf (! config.programs.wezterm.enable) "wl-copy";
   };
 }
