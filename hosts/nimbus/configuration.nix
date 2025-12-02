@@ -24,7 +24,7 @@
     cpu.intel.updateMicrocode = true;
     graphics.enable = true;
     graphics.extraPackages = with pkgs; [
-      vaapiIntel
+      intel-media-driver
       vpl-gpu-rt
     ];
   };

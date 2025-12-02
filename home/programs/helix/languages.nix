@@ -12,7 +12,7 @@ with pkgs;
       marksman # markdown lsp
       nixd
       nodePackages.bash-language-server
-      nodePackages.dockerfile-language-server-nodejs
+      dockerfile-language-server
       nodePackages.prettier # json formatter
       nodePackages.typescript-language-server
       nodePackages.vscode-json-languageserver
