@@ -32,7 +32,7 @@
       orca-slicer
     ];
 
-    programs.ghostty.enable = true;
+    programs.wezterm.enable = true;
     services.shikane.enable = false;
 
     wayland.windowManager.hyprland.settings.monitor = [
