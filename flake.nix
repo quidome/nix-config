@@ -95,7 +95,7 @@
       beast = mkHost "quidome" "beast";
       coolding = mkNixos "coolding";
       nimbus = mkHost "quidome" "nimbus";
-      truce = mkNixos "truce";
+      truce = mkHost "quidome" "truce";
 
       # Bootable images
       baseIso = inputs.nixpkgs.lib.nixosSystem {
