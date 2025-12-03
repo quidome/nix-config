@@ -93,7 +93,7 @@
 
     nixosConfigurations = {
       beast = mkHost "quidome" "beast";
-      coolding = mkNixos "coolding";
+      coolding = mkHost "quidome" "coolding";
       nimbus = mkHost "quidome" "nimbus";
       truce = mkHost "quidome" "truce";
 
