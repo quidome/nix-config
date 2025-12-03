@@ -23,7 +23,7 @@
     lutris
     gogdl
     itch
-    glxinfo
+    mesa-demos
     vulkan-tools
     clinfo
     libva-utils
