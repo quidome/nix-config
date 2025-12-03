@@ -17,8 +17,8 @@
       ]);
 
     services.xserver.enable = lib.mkDefault true;
-    services.xserver.desktopManager.gnome.enable = lib.mkDefault true;
-    services.xserver.displayManager.gdm.enable = lib.mkDefault true;
+    services.desktopManager.gnome.enable = lib.mkDefault true;
+    services.displayManager.gdm.enable = lib.mkDefault true;
 
     services.udev.packages = [pkgs.gnome-settings-daemon];
   };
