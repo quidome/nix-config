@@ -31,8 +31,8 @@
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        vaapiIntel
-        vaapiVdpau
+        intel-vaapi-driver
+        libva-vdpau-driver
         libvdpau-va-gl
         intel-media-driver
       ];
@@ -49,7 +49,7 @@
   programs.steam.enable = true;
 
   services.printing.enable = true;
-  services.logind.extraConfig = "HandlePowerKey=suspend";
+  services.logind.settings.Login = {HandlePowerKey = "suspend";};
   services.xserver.videoDrivers = ["intel"];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
