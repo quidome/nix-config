@@ -47,13 +47,13 @@ in {
       enable = true;
       settings.default_session = {
         user = "greeter";
-        command = lib.mkDefault "${pkgs.greetd.tuigreet}/bin/tuigreet --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
+        command = lib.mkDefault "${pkgs.tuigreet}/bin/tuigreet --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
       };
     };
 
     services.gnome.gnome-keyring.enable = true;
 
-    services.logind.extraConfig = "HandlePowerKey=suspend";
+    services.logind.settings.Login = {HandlePowerKey = "suspend";};
 
     xdg.portal.enable = true;
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];

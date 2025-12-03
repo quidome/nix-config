@@ -10,7 +10,7 @@ in {
   config = mkIf cfg.workstation {
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
-      bitwarden
+      bitwarden-desktop
       cameractrls-gtk3
       discord
       element-desktop

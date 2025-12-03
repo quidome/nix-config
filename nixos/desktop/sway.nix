@@ -41,7 +41,7 @@ in {
     services.dbus.enable = true;
 
     services.greetd.enable = true;
-    services.greetd.settings.default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd sway";
+    services.greetd.settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd sway";
 
     xdg.portal = {
       enable = true;
