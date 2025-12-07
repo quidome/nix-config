@@ -24,6 +24,7 @@ in {
       type = with types;
         enum [
           "none"
+          "cosmic"
           "gnome"
           "hyprland"
           "plasma"
