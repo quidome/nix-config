@@ -5,6 +5,5 @@
     ./desktop
     ./profiles
     ./services
-    ./wayland.nix
   ];
 }

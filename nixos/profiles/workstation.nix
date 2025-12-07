@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.settings.profile;
+  isWorkstation = config.settings.gui != "none";
 in {
-  config = mkIf cfg.workstation {
+  config = mkIf isWorkstation {
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
       bitwarden-desktop
@@ -26,6 +26,7 @@ in {
       v4l-utils
       vlc
       vscode
+      wl-clipboard
 
       openttd
 

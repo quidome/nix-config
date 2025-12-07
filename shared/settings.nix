@@ -46,11 +46,6 @@ in {
       '';
       type = types.bool;
     };
-
-    profile.headless = mkEnableOption "headless";
-    profile.workstation = mkEnableOption "workstation";
-
-    wayland.enable = mkEnableOption "wayland";
   };
 
   #############################################################################
@@ -58,8 +53,5 @@ in {
   #############################################################################
   config.settings = {
     preferQt = builtins.elem cfg.gui ["plasma"];
-    profile.headless = cfg.gui == "none";
-    profile.workstation = !cfg.profile.headless;
-    wayland.enable = builtins.elem cfg.gui ["gnome" "hyprland" "plasma" "sway"];
   };
 }
