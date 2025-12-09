@@ -106,6 +106,14 @@
           ./live-image/base.nix
         ];
       };
+      bcachefsIso = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix"
+          ./shared/secrets.nix
+          ./live-image/bcachefs.nix
+        ];
+      };
     };
   };
 }
