@@ -24,35 +24,6 @@
       };
     };
 
-    mkNixos = host:
-      inputs.nixpkgs.lib.nixosSystem {
-        inherit pkgs;
-        modules = [
-          inputs.disko.nixosModules.disko
-          {_module.args = args;}
-          ./shared
-          ./nixos
-          ./hosts/${host}/configuration.nix
-        ];
-      };
-
-    mkHome = user: host:
-      inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          {_module.args = args;}
-          ./shared
-          ./home
-          ./hosts/${host}/home.nix
-          {
-            home = {
-              username = user;
-              homeDirectory = "/home/${user}";
-            };
-          }
-        ];
-      };
-
     mkHost = user: host:
       inputs.nixpkgs.lib.nixosSystem {
         inherit pkgs;
@@ -84,13 +55,6 @@
         ];
       };
   in {
-    homeConfigurations = {
-      "quidome@beast" = mkHome "quidome" "beast";
-      "quidome@coolding" = mkHome "quidome" "coolding";
-      "quidome@nimbus" = mkHome "quidome" "nimbus";
-      "quidome@truce" = mkHome "quidome" "truce";
-    };
-
     nixosConfigurations = {
       beast = mkHost "quidome" "beast";
       coolding = mkHost "quidome" "coolding";
