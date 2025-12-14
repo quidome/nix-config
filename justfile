@@ -3,7 +3,7 @@ default:
     @just --list | grep -v '# Default recipe'
 
 # Do a complete cleanup and update run
-all: update gc build-all
+all: update gc build
 
 # Git pull, GC and build
 pull-gc-build: _git-pull gc build-all
