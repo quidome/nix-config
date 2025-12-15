@@ -57,11 +57,7 @@
 
     # gaming
     discord
-    factorio-demo
-    freeciv
     openttd
-    unciv
-    wesnoth
 
     docker-compose
     lazydocker
@@ -73,8 +69,6 @@
   ];
 
   powerManagement.enable = true;
-
-  programs.steam.enable = true;
 
   services = {
     fprintd = {
