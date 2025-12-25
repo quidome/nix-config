@@ -2,11 +2,16 @@
   config,
   lib,
   ...
-}: {
+}:
+with lib; let
+  fontConfig = config.settings.terminalFont;
+in {
   programs.ghostty.settings = lib.mkIf config.programs.ghostty.enable {
-    font-size = config.settings.terminalFont.size;
-    window-width = 120;
-    window-height = 40;
-    copy-on-select = "clipboard";
+    font-size = mkDefault fontConfig.size;
+    font-family = mkDefault fontConfig.name;
+    window-width = mkDefault 120;
+    window-height = mkDefault 40;
+    copy-on-select = mkDefault "clipboard";
+    theme = mkDefault "light:Gruvbox Light Hard,dark:Gruvbox Dark Hard";
   };
 }
