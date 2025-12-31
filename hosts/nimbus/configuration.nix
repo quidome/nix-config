@@ -11,7 +11,13 @@
     loader.efi.canTouchEfiVariables = true;
 
     kernel.sysctl = {"vm.swappiness" = 1;};
-    kernelParams = ["consoleblank=60"];
+    kernelParams = [
+      "consoleblank=60"
+      "zswap.enabled=1"
+      "zswap.compression=zstd"
+      "zswap.zpool=zsmalloc"
+      "zswap.max_pool_percent=50"
+    ];
   };
 
   time.timeZone = "Europe/Amsterdam";
