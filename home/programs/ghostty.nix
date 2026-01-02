@@ -12,6 +12,6 @@ in {
     window-width = mkDefault 120;
     window-height = mkDefault 40;
     copy-on-select = mkDefault "clipboard";
-    theme = mkDefault "light:Gruvbox Light Hard,dark:Gruvbox Dark Hard";
+    theme = mkDefault "light:TokyoNight Day,dark:TokyoNight";
   };
 }
