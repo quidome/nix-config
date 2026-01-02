@@ -5,7 +5,7 @@
   ...
 }: {
   config = lib.mkIf (config.settings.gui == "gnome") {
-    programs.zellij.settings.copy_command = "wl-copy";
+    programs.ghostty.enable = true;
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
