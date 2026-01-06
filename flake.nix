@@ -10,6 +10,8 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    opencode.url = "github:sst/opencode";
   };
 
   outputs = {self, ...} @ inputs: let
@@ -22,6 +24,11 @@
         allowUnfree = true;
         permittedInsecurePackages = ["electron-27.3.11"];
       };
+      overlays = [
+        (final: prev: {
+          opencode = inputs.opencode.packages.${system}.default;
+        })
+      ];
     };
 
     mkHost = user: host:

@@ -24,6 +24,7 @@ with lib; {
     git-crypt
     git-repo-updater
     gitui
+    opencode
     shellcheck
     yq-go
 
