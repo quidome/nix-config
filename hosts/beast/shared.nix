@@ -1,3 +1,0 @@
-{
-  settings.gui = "plasma";
-}
