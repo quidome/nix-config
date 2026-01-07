@@ -47,13 +47,8 @@ in {
   # install packages unique for this host
   environment.systemPackages = with pkgs; [
     # dev tools
-    postgresql
     poetry
     (python3.withPackages my-python-packages)
-    temurin-bin-21
-    nodejs_20
-    jetbrains.idea-community
-    #      rustup
 
     # some tools
     cointop
@@ -64,8 +59,6 @@ in {
   ];
 
   powerManagement.enable = true;
-
-  programs.steam.enable = true;
 
   services.printing.enable = true;
   services.logind.settings.Login = {HandlePowerKey = "suspend";};
