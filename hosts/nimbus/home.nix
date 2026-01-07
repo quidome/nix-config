@@ -1,4 +1,4 @@
-{pkgs, ...}: let
+{...}: let
   shikaneOutputDefaults = {
     enable = true;
     scale = 1.0;
@@ -19,25 +19,6 @@ in {
   ];
 
   home.stateVersion = "25.11";
-  home.packages = with pkgs; [
-    # devops
-    jetbrains.idea-community
-    temurin-bin-21
-    ktlint
-
-    # multimedia
-    kdePackages.kdenlive
-    krita
-    digikam
-
-    # games
-    openttd
-    zeroad
-
-    # printing
-    blender
-    orca-slicer
-  ];
 
   wayland.windowManager.hyprland.settings.bindl = [
     "SHIFT, code:133, exec, shikanectl switch disable-external"

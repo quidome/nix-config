@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   imports = [
     ./shared.nix
     ./home-vars.nix
@@ -8,29 +8,6 @@
     settings.terminalFont.size = 11;
 
     home.stateVersion = "25.11";
-    home.packages = with pkgs; [
-      # devops
-      jetbrains.idea-community
-      ktlint
-      postgresql
-      temurin-bin-21
-      kubectl
-      kustomize
-      kubernetes-helm
-      cilium-cli
-      k9s
-
-      # multimedia
-      kdePackages.kdenlive
-
-      # games
-      openttd
-      zeroad
-
-      # printing
-      blender
-      orca-slicer
-    ];
 
     services.shikane.enable = false;
 

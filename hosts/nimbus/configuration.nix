@@ -58,6 +58,24 @@
   };
 
   environment.systemPackages = with pkgs; [
+    # devops
+    jetbrains.idea-community
+    temurin-bin-21
+    ktlint
+
+    # multimedia
+    kdePackages.kdenlive
+    krita
+    digikam
+
+    # games
+    openttd
+    zeroad
+
+    # printing
+    blender
+    orca-slicer
+
     calibre
     gimp
 

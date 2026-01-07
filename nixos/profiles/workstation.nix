@@ -17,8 +17,10 @@ in {
       emacs
       firefox
       logseq
+      mpv
       obsidian
       pandoc
+      pavucontrol
       plantuml
       signal-desktop
       spotify

@@ -9,14 +9,6 @@ with lib; let
   terminal = "wezterm";
 in {
   config = mkIf hyprlandEnabled {
-    home.packages = with pkgs; [
-      imv
-      grimblast
-      playerctl
-      shikane
-      wev
-    ];
-
     xdg.mimeApps.enable = true;
 
     dconf.settings = {

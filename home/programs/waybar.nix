@@ -9,14 +9,10 @@ with lib; let
   font = config.settings.terminalFont;
 in {
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      libappindicator-gtk3
-      pavucontrol
-    ];
+    home.packages = with pkgs; [libappindicator-gtk3];
 
     programs.waybar = {
       systemd.enable = true;
-
       settings = [
         {
           height = 34;

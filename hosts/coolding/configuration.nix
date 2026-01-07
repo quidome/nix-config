@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  my-python-packages = ps:
+    with ps; [
+      pip
+    ];
+in {
   imports = [
     ./disk-config.nix
     ./hardware-configuration.nix
@@ -41,6 +46,20 @@
 
   # install packages unique for this host
   environment.systemPackages = with pkgs; [
+    # dev tools
+    postgresql
+    poetry
+    (python3.withPackages my-python-packages)
+    temurin-bin-21
+    nodejs_20
+    jetbrains.idea-community
+    #      rustup
+
+    # some tools
+    cointop
+    discord
+    blender
+
     libva-utils
   ];
 

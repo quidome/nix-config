@@ -1,26 +1,9 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: {
   home = {
-    packages = with pkgs; [
-      alejandra
-      cilium-cli
-      helmfile
-      httpie
-      ipcalc
-      k9s
-      kubectl
-      kubectx
-      kubernetes-helm
-      kubeseal
-      kustomize
-      rename
-      stern
-    ];
-
     sessionPath = [
       "${config.home.homeDirectory}/bin"
       "${config.home.homeDirectory}/go/bin"

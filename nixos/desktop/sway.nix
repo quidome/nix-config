@@ -12,6 +12,17 @@ in {
   config = mkIf swayEnabled {
     environment = {
       systemPackages = with pkgs; [
+        # desktop tools
+        brightnessctl
+        grim
+        imv
+        pamixer
+        playerctl
+        slurp
+        swayidle
+        wdisplays
+        xorg.xlsclients
+
         # gtk theming
         glib
         gtk-engine-murrine

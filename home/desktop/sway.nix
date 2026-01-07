@@ -16,25 +16,6 @@ in {
       XDG_CURRENT_DESKTOP = "sway";
     };
 
-    # extra packages for my sway config
-    home.packages = with pkgs; [
-      swayidle
-
-      brightnessctl
-      grim
-      imv
-      pamixer
-      playerctl
-      slurp
-      wdisplays
-      xorg.xlsclients
-
-      # theming
-      gtk-engine-murrine
-      gtk_engines
-      gsettings-desktop-schemas
-    ];
-
     gtk = {
       enable = true;
       font.name = "Noto Sans";

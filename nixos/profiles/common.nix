@@ -35,7 +35,22 @@ with lib; {
     jless
     jq
     just
+    rename
     vim
+
+    # devops tooling
+    alejandra
+    cilium-cli
+    helmfile
+    httpie
+    ipcalc
+    k9s
+    kubectl
+    kubectx
+    kubernetes-helm
+    kubeseal
+    kustomize
+    stern
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix

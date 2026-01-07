@@ -25,6 +25,12 @@ in {
         waybar
         wdisplays
 
+        imv
+        grimblast
+        playerctl
+        shikane
+        wev
+
         kdePackages.polkit-kde-agent-1
 
         (mkIf networkmanagerEnabled networkmanagerapplet)

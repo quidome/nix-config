@@ -18,6 +18,28 @@
   boot.kernelParams = ["consoleblank=180"];
 
   environment.systemPackages = with pkgs; [
+    # devops
+    jetbrains.idea-community
+    ktlint
+    postgresql
+    temurin-bin-21
+    kubectl
+    kustomize
+    kubernetes-helm
+    cilium-cli
+    k9s
+
+    # multimedia
+    kdePackages.kdenlive
+
+    # games
+    openttd
+    zeroad
+
+    # printing
+    blender
+    orca-slicer
+
     heroic
     mangohud
     lutris
