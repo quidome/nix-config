@@ -20,8 +20,11 @@ in {
     kernelParams = ["consoleblank=60"];
   };
 
-  networking.hostName = "coolding";
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "coolding";
+    networkmanager.enable = true;
+    enableB43Firmware = true;
+  };
 
   time.timeZone = "Europe/Amsterdam";
 
