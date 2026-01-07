@@ -12,7 +12,7 @@ in {
     disk = {
       root = {
         type = "disk";
-        device = "/dev/sda";
+        device = "/dev/disk/by-id/wwn-0x500a075110e408e1";
         content = {
           type = "gpt";
           partitions = {
