@@ -32,7 +32,7 @@
     nvtopPackages.amd
   ];
 
-  networking.hostName = "beast";
+  networking.hostName = "bea";
   networking.firewall.enable = true;
 
   time.hardwareClockInLocalTime = true;

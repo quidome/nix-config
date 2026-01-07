@@ -16,7 +16,7 @@ build:
 build-all:
     #!/usr/bin/env bash
     set -euo pipefail
-    hosts="beast coolding nimbus truce"
+    hosts="bea coolding nimbus truce"
     for host in $hosts; do
         echo "Building NixOS configuration for host: $host"
         nixos-rebuild --flake .#$host build
@@ -28,7 +28,7 @@ build-all:
 check-all:
     #!/usr/bin/env bash
     set -euo pipefail
-    hosts="beast coolding nimbus truce"
+    hosts="bea coolding nimbus truce"
     for host in $hosts; do
         echo "Checking configuration for host: $host"
         nix build .#nixosConfigurations.$host.config.system.build.toplevel --dry-run
