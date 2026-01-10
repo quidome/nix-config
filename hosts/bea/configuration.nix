@@ -17,6 +17,10 @@
   boot.kernel.sysctl = {"vm.swappiness" = 1;};
   boot.kernelParams = ["consoleblank=180"];
 
+  # ZFS settings
+  boot.zfs.extraPools = ["zroot"];
+  # boot.zfs.extraPoolOptions.zfs_arc_max = "4G";
+
   environment.systemPackages = with pkgs; [
     # devops
     jetbrains.idea-community
@@ -67,12 +71,6 @@
     powerOnBoot = true;
     input.General.UserspaceHID = true;
   };
-
-  services.flatpak.enable = true;
-
-  # gaming / gpu setup
-  services.xserver.videoDrivers = ["amdgpu"];
-
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -81,16 +79,29 @@
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
   programs.java.enable = true;
-
   programs.steam = {
     enable = true;
     extraPackages = with pkgs; [jdk];
     extraCompatPackages = with pkgs; [proton-ge-bin];
   };
 
+  services.flatpak.enable = true;
+  services.xserver.videoDrivers = ["amdgpu"];
+
+  services.zfs.trim.enable = true;
+  services.zfs.autoScrub.enable = true;
+  services.zfs.autoSnapshot = {
+    enable = true;
+    frequent = 4;
+    hourly = 24;
+    daily = 7;
+    weekly = 8;
+    monthly = 12;
+  };
+
   # Virtualization docker
   virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
+  virtualisation.docker.storageDriver = "zfs";
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.11";
