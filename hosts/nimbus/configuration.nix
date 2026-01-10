@@ -95,6 +95,12 @@
   powerManagement.enable = true;
 
   services = {
+    btrfs = {
+      autoScrub.enable = true;
+      autoScrub.fileSystems = ["/"];
+      autoScrub.interval = "monthly";
+    };
+
     fprintd = {
       enable = true;
       tod.enable = true;
