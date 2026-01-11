@@ -27,6 +27,7 @@ in {
           "cosmic"
           "gnome"
           "hyprland"
+          "niri"
           "plasma"
           "sway"
         ];
