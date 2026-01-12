@@ -36,20 +36,17 @@ in {
     };
 
     programs = {
-      alacritty.enable = mkDefault (terminal == "alacritty");
-      kitty.enable = mkDefault (terminal == "kitty");
-      wezterm.enable = mkDefault (terminal == "wezterm");
-
+      ghostty.enable = true;
+      swaylock.enable = true;
       waybar.enable = mkDefault true;
-      # wofi.enable = mkDefault true;
     };
 
-    # services = {
-    # avizo.enable = mkDefault true;
-    # hypridle.enable = mkDefault true;
-    # mako.enable = mkDefault true;
-    # shikane.enable = mkDefault true;
-    # };
+    services = {
+      avizo.enable = mkDefault true;
+      # hypridle.enable = mkDefault true;
+      mako.enable = mkDefault true;
+      # shikane.enable = mkDefault true;
+    };
 
     xdg.systemDirs.data = [
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
