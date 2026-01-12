@@ -6,7 +6,7 @@
 }:
 with lib; let
   hyprlandEnabled = config.settings.gui == "hyprland";
-  terminal = "wezterm";
+  terminal = "ghostty";
 in {
   config = mkIf hyprlandEnabled {
     xdg.mimeApps.enable = true;
@@ -37,10 +37,7 @@ in {
     };
 
     programs = {
-      alacritty.enable = mkDefault (terminal == "alacritty");
-      kitty.enable = mkDefault (terminal == "kitty");
-      wezterm.enable = mkDefault (terminal == "wezterm");
-
+      ghostty.enable = mkDefault true;
       hyprlock.enable = mkDefault true;
       waybar.enable = mkDefault true;
       wofi.enable = mkDefault true;

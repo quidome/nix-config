@@ -6,7 +6,6 @@
 }:
 with lib; let
   niriEnabled = config.settings.gui == "niri";
-  terminal = "wezterm";
 in {
   config = mkIf niriEnabled {
     xdg.mimeApps.enable = true;
