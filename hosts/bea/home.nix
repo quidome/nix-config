@@ -13,7 +13,7 @@
 
     wayland.windowManager.hyprland.settings.monitor = [
       ",preferred,auto,auto"
-      "DP-1, disable"
+      "desc:Samsung Electric Company LC32G5xT HK2W200965, disable"
     ];
   };
 }
