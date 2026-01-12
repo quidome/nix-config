@@ -45,10 +45,10 @@ in {
     programs.thunar.enable = true;
 
     security.pam.services.greetd.enableGnomeKeyring = true;
-
     security.pam.services.hyprlock = {};
 
     services.auto-cpufreq.enable = true;
+    services.gnome.gnome-keyring.enable = true;
     services.greetd = {
       enable = true;
       settings.default_session = {
@@ -56,9 +56,6 @@ in {
         command = lib.mkDefault "${pkgs.tuigreet}/bin/tuigreet --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
       };
     };
-
-    services.gnome.gnome-keyring.enable = true;
-
     services.logind.settings.Login = {HandlePowerKey = "suspend";};
 
     xdg.portal.enable = true;
