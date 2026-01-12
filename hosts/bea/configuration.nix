@@ -59,6 +59,7 @@
 
   networking.hostName = "bea";
   networking.firewall.enable = true;
+  networking.networkmanager.enable = false;
 
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Amsterdam";
