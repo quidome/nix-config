@@ -12,7 +12,7 @@ in {
     home.packages = with pkgs; [libappindicator-gtk3];
 
     programs.waybar = {
-      systemd.enable = true;
+      systemd.enable = mkDefault true;
       settings = [
         {
           height = 34;
