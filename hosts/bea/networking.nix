@@ -6,6 +6,8 @@
   cfg = config.networking.networkmanager;
 in {
   config = lib.mkIf (!cfg.enable) {
+    networking.useDHCP = false;
+
     systemd.network = {
       enable = true;
 
@@ -23,8 +25,8 @@ in {
           dhcpV4Config.RouteMetric = 2048;
           linkConfig.RequiredForOnline = "no";
         };
-        "12-enp47s0f3u4u3" = {
-          matchConfig.Name = "enp47s0f3u4u3";
+        "12-enp47s0f3u3u3" = {
+          matchConfig.Name = "enp47s0f3u3u3";
           networkConfig.DHCP = "yes";
           dhcpV4Config.RouteMetric = 3072;
           linkConfig.RequiredForOnline = "no";
