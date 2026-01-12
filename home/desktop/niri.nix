@@ -6,6 +6,7 @@
 }:
 with lib; let
   niriEnabled = config.settings.gui == "niri";
+  steamOverride = pkgs.steam.override {extraArgs = "-system-composer";};
 in {
   config = mkIf niriEnabled {
     xdg.mimeApps.enable = true;
@@ -35,17 +36,18 @@ in {
       style.name = "adwaita-dark";
     };
 
+    programs.steam.package = mkIf config.programs.steam.enable steamOverride;
+
     programs = {
-      ghostty.enable = true;
-      swaylock.enable = true;
+      ghostty.enable = mkDefault true;
+      swaylock.enable = mkDefault true;
       waybar.enable = mkDefault true;
     };
 
     services = {
       avizo.enable = mkDefault true;
-      # hypridle.enable = mkDefault true;
       mako.enable = mkDefault true;
-      # shikane.enable = mkDefault true;
+      shikane.enable = mkDefault true;
     };
 
     xdg.systemDirs.data = [
