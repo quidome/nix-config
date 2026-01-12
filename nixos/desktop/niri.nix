@@ -19,6 +19,7 @@ in {
       unstable.noctalia-shell
       swaybg
 
+      xwayland-satellite
       kdePackages.polkit-kde-agent-1
 
       (mkIf networkmanagerEnabled networkmanagerapplet)
