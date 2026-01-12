@@ -6,7 +6,6 @@
 }:
 with lib; let
   niriEnabled = config.settings.gui == "niri";
-  steamOverride = pkgs.steam.override {extraArgs = "-system-composer";};
 in {
   config = mkIf niriEnabled {
     xdg.mimeApps.enable = true;
@@ -35,8 +34,6 @@ in {
       platformTheme.name = "adwaita";
       style.name = "adwaita-dark";
     };
-
-    programs.steam.package = mkIf config.programs.steam.enable steamOverride;
 
     programs = {
       ghostty.enable = mkDefault true;
