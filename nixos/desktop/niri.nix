@@ -16,6 +16,8 @@ in {
       swaylock
       mako
       swayidle
+      unstable.noctalia-shell
+      swaybg
 
       kdePackages.polkit-kde-agent-1
 

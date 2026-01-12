@@ -24,9 +24,19 @@
         allowUnfree = true;
         permittedInsecurePackages = ["electron-27.3.11"];
       };
+
+      unstable = import inputs.nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
       overlays = [
         (final: prev: {
           opencode = inputs.opencode.packages.${system}.default;
+          unstable = import inputs.nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
         })
       ];
     };
