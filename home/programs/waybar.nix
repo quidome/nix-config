@@ -20,9 +20,9 @@ in {
             "pulseaudio"
             "idle_inhibitor"
             "backlight"
-            "hyprland/mode"
+            "niri/mode"
           ];
-          modules-center = ["hyprland/workspaces"];
+          modules-center = ["niri/workspaces"];
           modules-right = [
             "network"
             "cpu"
@@ -112,7 +112,7 @@ in {
             spacing = 10;
           };
 
-          "hyprland/workspaces" = {
+          "niri/workspaces" = {
             # format = "{icon}";
             on-click = "activate";
             on-scroll-up = "hyprctl dispatch workspace e-1";
@@ -120,7 +120,7 @@ in {
             # format-icons = { active = ""; urgent = ""; default = ""; };
           };
 
-          "hyprland/window" = {
+          "niri/window" = {
             "separate-output" = true;
           };
         }
