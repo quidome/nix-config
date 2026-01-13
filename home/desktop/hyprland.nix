@@ -9,8 +9,6 @@ with lib; let
   terminal = "ghostty";
 in {
   config = mkIf hyprlandEnabled {
-    xdg.mimeApps.enable = true;
-
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
@@ -50,6 +48,7 @@ in {
       shikane.enable = mkDefault true;
     };
 
+    xdg.mimeApps.enable = true;
     xdg.systemDirs.data = [
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
       "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
