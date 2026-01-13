@@ -83,7 +83,7 @@ hotkey-overlay {
 
 prefer-no-csd
 
-spawn-at-startup "noctalia-shell"
+// spawn-at-startup "noctalia-shell"
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 

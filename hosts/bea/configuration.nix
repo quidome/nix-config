@@ -76,11 +76,11 @@
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
   programs.java.enable = true;
-  # programs.steam = {
-  #   enable = true;
-  #   extraPackages = with pkgs; [jdk];
-  #   extraCompatPackages = with pkgs; [proton-ge-bin];
-  # };
+  programs.steam = {
+    enable = true;
+    extraPackages = with pkgs; [jdk];
+    extraCompatPackages = with pkgs; [proton-ge-bin];
+  };
 
   services.flatpak.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];

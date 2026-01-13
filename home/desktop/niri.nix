@@ -7,7 +7,14 @@
 with lib; let
   niriEnabled = config.settings.gui == "niri";
 in {
+  options.qm.desktop.niri.noctaliaEnabled = mkEnableOption "noctalia";
+
   config = mkIf niriEnabled {
+    home.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      XDG_CURRENT_DESKTOP = "niri";
+    };
+
     xdg.mimeApps.enable = true;
 
     dconf.settings = {
@@ -38,7 +45,15 @@ in {
     programs = {
       ghostty.enable = mkDefault true;
       niri.enable = mkDefault true;
-      noctalia.enable = mkDefault true;
+      noctalia.enable = config.qm.desktop.niri.noctaliaEnabled;
+      swaylock.enable = mkDefault (!config.qm.desktop.niri.noctaliaEnabled);
+      waybar.enable = mkDefault (!config.qm.desktop.niri.noctaliaEnabled);
+    };
+
+    services = {
+      avizo.enable = mkDefault (!config.qm.desktop.niri.noctaliaEnabled);
+      mako.enable = mkDefault (!config.qm.desktop.niri.noctaliaEnabled);
+      kanshi.enable = mkDefault true;
     };
 
     xdg.systemDirs.data = [
