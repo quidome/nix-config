@@ -1,12 +1,14 @@
 {
   imports = [
     ./alacritty.nix
+    ./ghostty.nix
     ./git.nix
     ./helix
     ./hyprlock.nix
-    ./ghostty.nix
     ./kitty.nix
     ./neovim.nix
+    ./niri
+    ./noctalia
     ./starship.nix
     ./swaylock.nix
     ./tmux.nix
