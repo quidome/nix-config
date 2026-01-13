@@ -19,6 +19,7 @@
 
   # ZFS settings
   boot.zfs.extraPools = ["zroot"];
+  # boot.zfs.extraPoolOptions.zfs_arc_max = "4G";
 
   environment.systemPackages = with pkgs; [
     # devops

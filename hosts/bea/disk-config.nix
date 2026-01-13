@@ -24,19 +24,10 @@
                 pool = "zroot";
               };
             };
-            encryptedSwap = {
-              size = "16G";
-              content = {
-                type = "swap";
-                randomEncryption = true;
-                priority = 100; # prefer to encrypt as long as we have space for it
-              };
-            };
           };
         };
       };
     };
-
     zpool = {
       zroot = {
         type = "zpool";
@@ -85,8 +76,20 @@
             type = "zfs_fs";
             mountpoint = "/persist";
           };
+
+          "swap" = {
+            type = "zfs_volume";
+            size = "8G";
+            options = {
+              compression = "lz4";
+              sync = "disabled";
+              primarycache = "metadata";
+              secondarycache = "none";
+            };
+          };
         };
       };
     };
   };
+  swapDevices = [{device = "/dev/zvol/zroot/swap";}];
 }
