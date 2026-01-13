@@ -37,14 +37,8 @@ in {
 
     programs = {
       ghostty.enable = mkDefault true;
-      swaylock.enable = mkDefault true;
-      waybar.enable = mkDefault true;
-    };
-
-    services = {
-      avizo.enable = mkDefault true;
-      mako.enable = mkDefault true;
-      shikane.enable = mkDefault true;
+      niri.enable = mkDefault true;
+      noctalia.enable = mkDefault true;
     };
 
     xdg.systemDirs.data = [

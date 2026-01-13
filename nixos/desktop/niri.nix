@@ -28,6 +28,8 @@ in {
       (mkIf tailscaleEnabled tailscale-systray)
     ];
 
+    hardware.bluetooth.enable = mkDefault true;
+
     programs.gnupg.agent.enableSSHSupport = true;
     programs.niri.enable = true;
     programs.thunar.enable = true;
@@ -36,11 +38,12 @@ in {
     security.pam.services.greetd.enableGnomeKeyring = true;
     security.pam.services.swaylock = {};
 
-    services.auto-cpufreq.enable = true;
     services.gnome.gnome-keyring.enable = true; # secret service
     services.greetd.enable = true;
     services.greetd.settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F' --cmd niri-session";
     services.logind.settings.Login = {HandlePowerKey = "suspend";};
+    services.power-profiles-daemon.enable = true;
+    services.upower.enable = true;
 
     xdg.portal.enable = true;
     xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
