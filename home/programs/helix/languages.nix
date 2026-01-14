@@ -17,7 +17,7 @@ with pkgs;
       nodePackages.typescript-language-server
       nodePackages.vscode-json-languageserver
       nodePackages.yaml-language-server
-      python311Packages.python-lsp-server
+      python313Packages.python-lsp-server
 
       rustfmt
       rust-analyzer
