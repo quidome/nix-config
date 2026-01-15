@@ -53,7 +53,13 @@ in {
   #############################################################################
   # CONFIGURATION
   #############################################################################
-  config.settings = {
-    preferQt = builtins.elem cfg.gui ["plasma"];
+  config = {
+    settings = {
+      preferQt = builtins.elem cfg.gui ["plasma"];
+    };
+
+    qm = {
+      home.desktop.niri.enable = cfg.gui == "niri";
+    };
   };
 }

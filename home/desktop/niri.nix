@@ -5,11 +5,14 @@
   ...
 }:
 with lib; let
-  niriEnabled = config.settings.gui == "niri";
+  cfg = config.qm.home.desktop.niri;
 in {
-  options.qm.desktop.niri.noctaliaEnabled = mkEnableOption "noctalia";
+  options.qm.home.desktop.niri = {
+    enable = mkEnableOption "niri";
+    noctaliaEnabled = mkEnableOption "noctalia";
+  };
 
-  config = mkIf niriEnabled {
+  config = mkIf cfg.enable {
     home.sessionVariables = {
       NIXOS_OZONE_WL = "1";
       XDG_CURRENT_DESKTOP = "niri";
@@ -42,17 +45,18 @@ in {
       style.name = "adwaita-dark";
     };
 
+    qm.programs.niri.enable = mkDefault true;
+
     programs = {
       ghostty.enable = mkDefault true;
-      niri.enable = mkDefault true;
-      noctalia.enable = config.qm.desktop.niri.noctaliaEnabled;
-      swaylock.enable = mkDefault (!config.qm.desktop.niri.noctaliaEnabled);
-      waybar.enable = mkDefault (!config.qm.desktop.niri.noctaliaEnabled);
+      noctalia.enable = config.qm.home.desktop.niri.noctaliaEnabled;
+      swaylock.enable = mkDefault (!config.qm.home.desktop.niri.noctaliaEnabled);
+      waybar.enable = mkDefault (!config.qm.home.desktop.niri.noctaliaEnabled);
     };
 
     services = {
-      avizo.enable = mkDefault (!config.qm.desktop.niri.noctaliaEnabled);
-      mako.enable = mkDefault (!config.qm.desktop.niri.noctaliaEnabled);
+      avizo.enable = mkDefault (!config.qm.home.desktop.niri.noctaliaEnabled);
+      mako.enable = mkDefault (!config.qm.home.desktop.niri.noctaliaEnabled);
       kanshi.enable = mkDefault true;
     };
 

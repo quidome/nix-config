@@ -5,11 +5,15 @@
   ...
 }:
 with lib; let
-  niriEnabled = config.settings.gui == "niri";
+  cfg = config.qm.home.desktop.niri;
   networkmanagerEnabled = config.networking.networkmanager.enable;
   tailscaleEnabled = config.services.tailscale.enable;
 in {
-  config = mkIf niriEnabled {
+  options.qm.home.desktop.niri = {
+    enable = mkEnableOption "niri";
+  };
+
+  config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       alacritty
       fuzzel
