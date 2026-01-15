@@ -5,11 +5,11 @@
   ...
 }:
 with lib; let
-  cfg = config.qm.home.desktop.niri;
+  cfg = config.settings.desktop.niri;
 in {
-  options.qm.home.desktop.niri = {
+  options.settings.desktop.niri = {
     enable = mkEnableOption "niri";
-    noctaliaEnabled = mkEnableOption "noctalia";
+    noctalia.enable = mkEnableOption "noctalia";
   };
 
   config = mkIf cfg.enable {
@@ -45,18 +45,18 @@ in {
       style.name = "adwaita-dark";
     };
 
-    qm.programs.niri.enable = mkDefault true;
+    programs.niri.enable = mkDefault true;
 
     programs = {
       ghostty.enable = mkDefault true;
-      noctalia.enable = config.qm.home.desktop.niri.noctaliaEnabled;
-      swaylock.enable = mkDefault (!config.qm.home.desktop.niri.noctaliaEnabled);
-      waybar.enable = mkDefault (!config.qm.home.desktop.niri.noctaliaEnabled);
+      noctalia.enable = cfg.noctalia.enable;
+      swaylock.enable = mkDefault (!cfg.noctalia.enable);
+      waybar.enable = mkDefault (!cfg.noctalia.enable);
     };
 
     services = {
-      avizo.enable = mkDefault (!config.qm.home.desktop.niri.noctaliaEnabled);
-      mako.enable = mkDefault (!config.qm.home.desktop.niri.noctaliaEnabled);
+      avizo.enable = mkDefault (!cfg.noctalia.enable);
+      mako.enable = mkDefault (!cfg.noctalia.enable);
       kanshi.enable = mkDefault true;
     };
 

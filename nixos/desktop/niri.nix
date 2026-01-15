@@ -5,11 +5,11 @@
   ...
 }:
 with lib; let
-  cfg = config.qm.home.desktop.niri;
+  cfg = config.settings.desktop.niri;
   networkmanagerEnabled = config.networking.networkmanager.enable;
   tailscaleEnabled = config.services.tailscale.enable;
 in {
-  options.qm.home.desktop.niri = {
+  options.settings.desktop.niri = {
     enable = mkEnableOption "niri";
   };
 
