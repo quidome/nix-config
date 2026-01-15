@@ -13,6 +13,11 @@ in {
   };
 
   config = mkIf cfg.enable {
+    home.packages = lib.optionals noctalia.enable [
+      pkgs.brightnessctl
+      pkgs.playerctl
+    ];
+
     home.file.".config/niri/config.kdl".text = let
       lockCommand =
         if noctalia.enable
