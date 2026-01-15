@@ -9,56 +9,62 @@
   services.kanshi = {
     enable = true;
     settings = [
+      # Matches profiles are activated in other of their definition in the configuration file
+      # For this machine the order is:
+      # - Internal only, nothing connected
+      # - External screen only on attic
+      # - External screen on the left (manual trigger)
+      # - Internal only, disable all other screens
       {
-        profile.name = "laptop-only";
+        profile.name = "internal";
         profile.outputs = [
           {
-            criteria = "Sharp Corporation 0x14F9 Unknown";
+            criteria = "eDP-1";
             status = "enable";
             scale = 1.15;
           }
         ];
       }
       {
-        profile.name = "attic-external-left";
+        profile.name = "external-only";
         profile.outputs = [
           {
-            criteria = "Sharp Corporation 0x14F9 Unknown";
+            criteria = "eDP-1";
+            status = "disable";
+          }
+          {
+            criteria = "DP-1";
+            status = "enable";
+          }
+        ];
+      }
+      {
+        profile.name = "external-left";
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
             status = "enable";
             scale = 1.15;
             position = "3440,395";
           }
           {
-            criteria = "Dell Inc. DELL P3424WE FB6Y6T3";
+            criteria = "DP-1";
             status = "enable";
             position = "0,0";
           }
         ];
       }
       {
-        profile.name = "attic-internal-only";
+        profile.name = "internal-only";
         profile.outputs = [
           {
-            criteria = "Sharp Corporation 0x14F9 Unknown";
+            criteria = "eDP-1";
             status = "enable";
             scale = 1.15;
           }
           {
-            criteria = "Dell Inc. DELL P3424WE FB6Y6T3";
+            criteria = "*";
             status = "disable";
-          }
-        ];
-      }
-      {
-        profile.name = "attic-external-only";
-        profile.outputs = [
-          {
-            criteria = "Sharp Corporation 0x14F9 Unknown";
-            status = "disable";
-          }
-          {
-            criteria = "Dell Inc. DELL P3424WE FB6Y6T3";
-            status = "enable";
           }
         ];
       }
