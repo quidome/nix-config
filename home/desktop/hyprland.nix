@@ -56,6 +56,9 @@ in {
 
     wayland.windowManager.hyprland.enable = mkDefault true;
     wayland.windowManager.hyprland.settings = {
+      "debug:disable_scale_checks" = true;
+      ecosystem.no_update_news = true;
+
       "$mod" = "SUPER";
       "$launcher" = "uwsm app --";
       "$terminal" = terminal;
@@ -64,8 +67,6 @@ in {
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
       ];
-
-      ecosystem.no_update_news = true;
 
       animations.enabled = false;
 
