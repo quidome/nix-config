@@ -5,14 +5,33 @@
   ...
 }:
 with lib; let
-  cfg = config.qm.programs.niri;
+  cfg = config.programs.niri;
+  noctalia = config.programs.noctalia;
 in {
-  options.qm.programs.niri = {
+  options.programs.niri = {
     enable = mkEnableOption "niri";
   };
 
   config = mkIf cfg.enable {
-    home.file.".config/niri/config.kdl".text = ''
+    home.file.".config/niri/config.kdl".text = let
+      lockCommand =
+        if noctalia.enable
+        then ''spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"''
+        else ''spawn "swaylock" "-f"'';
+      raiseVolume =
+        if noctalia.enable
+        then ''spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" "-l" "1.0"''
+        else ''spawn "volumectl" "-u" "up"'';
+      lowerVolume =
+        if noctalia.enable
+        then ''spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"''
+        else ''spawn "volumectl" "-u" "down"'';
+      toggleMute =
+        if noctalia.enable
+        then ''spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"''
+        else ''spawn "volumectl" "toggle-mute"'';
+      spawnNoctalia = optionalString noctalia.enable "spawn-at-startup \"noctalia-shell\"\n";
+    in ''
       environment {
           ELECTRON_OZONE_PLATFORM_HINT "auto"
       }
@@ -85,8 +104,7 @@ in {
           struts {}
       }
 
-      spawn-at-startup "noctalia-shell"
-
+      ${spawnNoctalia}
       hotkey-overlay {
           skip-at-startup
       }
@@ -112,19 +130,19 @@ in {
 
           Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
           Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-          Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn-sh "swaylock -f"; }
+          Super+Alt+L hotkey-overlay-title="Lock the Screen" { ${lockCommand}; }
 
-          XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "volumectl -u up"; }
-          XF86AudioLowerVolume allow-when-locked=true { spawn-sh "volumectl -u down"; }
-          XF86AudioMute        allow-when-locked=true { spawn-sh "volumectl toggle-mute"; }
+          XF86AudioRaiseVolume allow-when-locked=true { ${raiseVolume}; }
+          XF86AudioLowerVolume allow-when-locked=true { ${lowerVolume}; }
+          XF86AudioMute        allow-when-locked=true { ${toggleMute}; }
 
-          XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-          XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
-          XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
-          XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+          XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
+          XF86AudioStop        allow-when-locked=true { spawn "playerctl" "stop"; }
+          XF86AudioPrev        allow-when-locked=true { spawn "playerctl" "previous"; }
+          XF86AudioNext        allow-when-locked=true { spawn "playerctl" "next"; }
 
-          XF86MonBrightnessUp allow-when-locked=true { spawn "lightctl" "+10%"; }
-          XF86MonBrightnessDown allow-when-locked=true { spawn "lightctl" "-10%"; }
+          XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "10%+"; }
+          XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "10%-"; }
 
           Mod+O repeat=false { toggle-overview; }
 
