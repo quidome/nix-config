@@ -15,8 +15,50 @@
           {
             criteria = "Sharp Corporation 0x14F9 Unknown";
             status = "enable";
-            mode = "1920x1200@59.950";
             scale = 1.15;
+          }
+        ];
+      }
+      {
+        profile.name = "attic-external-left";
+        profile.outputs = [
+          {
+            criteria = "Sharp Corporation 0x14F9 Unknown";
+            status = "enable";
+            scale = 1.15;
+            position = "3440,395";
+          }
+          {
+            criteria = "Dell Inc. DELL P3424WE FB6Y6T3";
+            status = "enable";
+            position = "0,0";
+          }
+        ];
+      }
+      {
+        profile.name = "attic-internal-only";
+        profile.outputs = [
+          {
+            criteria = "Sharp Corporation 0x14F9 Unknown";
+            status = "enable";
+            scale = 1.15;
+          }
+          {
+            criteria = "Dell Inc. DELL P3424WE FB6Y6T3";
+            status = "disable";
+          }
+        ];
+      }
+      {
+        profile.name = "attic-external-only";
+        profile.outputs = [
+          {
+            criteria = "Sharp Corporation 0x14F9 Unknown";
+            status = "disable";
+          }
+          {
+            criteria = "Dell Inc. DELL P3424WE FB6Y6T3";
+            status = "enable";
           }
         ];
       }
