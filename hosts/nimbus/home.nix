@@ -6,6 +6,7 @@
 
   home.stateVersion = "25.11";
 
+  qm.home.desktop.niri.noctaliaEnabled = true;
   services.kanshi = {
     enable = true;
     settings = [
