@@ -6,7 +6,10 @@
 
   home.stateVersion = "25.11";
 
-  settings.desktop.niri.noctalia.enable = true;
+  settings = {
+    desktop.niri.noctalia.enable = true;
+    services.swayidle.lockTimeout = 180;
+  };
 
   services.kanshi = {
     enable = true;
