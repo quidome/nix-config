@@ -6,6 +6,8 @@
 
   home.stateVersion = "25.11";
 
+  settings.desktop.niri.noctalia.enable = true;
+
   services.kanshi = {
     enable = true;
     settings = [
