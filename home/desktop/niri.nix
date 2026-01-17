@@ -58,7 +58,6 @@ in {
       avizo.enable = mkDefault (!cfg.noctalia.enable);
       mako.enable = mkDefault (!cfg.noctalia.enable);
       kanshi.enable = mkDefault true;
-      swayidle.enable = true;
     };
 
     settings.services.swayidle.enable = true;
