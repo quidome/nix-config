@@ -58,7 +58,10 @@ in {
       avizo.enable = mkDefault (!cfg.noctalia.enable);
       mako.enable = mkDefault (!cfg.noctalia.enable);
       kanshi.enable = mkDefault true;
+      swayidle.enable = true;
     };
+
+    settings.services.swayidle.enable = true;
 
     xdg.systemDirs.data = [
       "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
