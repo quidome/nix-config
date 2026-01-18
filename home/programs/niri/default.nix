@@ -35,7 +35,15 @@ in {
         if noctalia.enable
         then ''spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"''
         else ''spawn "volumectl" "toggle-mute"'';
-      spawnNoctalia = optionalString noctalia.enable "spawn-at-startup \"noctalia-shell\"\n";
+
+      # Noctalia setup
+      noctaliaShell = optionalString noctalia.enable "${pkgs.unstable.noctalia-shell}/bin/noctalia-shell";
+      spawnNoctalia = optionalString noctalia.enable ''spawn-at-startup "${noctaliaShell}"'';
+      noctaliaIPCCall = optionalString noctalia.enable ''"${noctaliaShell}" "ipc" "call" '';
+      noctaliaKeybinds = optionalString noctalia.enable removeSuffix "\n" ''
+        Mod+Alt+S hotkey-overlay-title="Toggle noctalia settings" { spawn ${noctaliaIPCCall} "settings" "toggle"; }
+        Alt+Space hotkey-overlay-title="Toggle noctalia launcher" { spawn ${noctaliaIPCCall} "launcher" "toggle"; }
+      '';
     in ''
       environment {
           ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -133,9 +141,10 @@ in {
       binds {
           Mod+Shift+Slash { show-hotkey-overlay; }
 
-          Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
+          Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
           Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-          Super+Alt+L hotkey-overlay-title="Lock the Screen" { ${lockCommand}; }
+          Mod+Alt+L hotkey-overlay-title="Lock the Screen" { ${lockCommand}; }
+          ${noctaliaKeybinds}
 
           XF86AudioRaiseVolume allow-when-locked=true { ${raiseVolume}; }
           XF86AudioLowerVolume allow-when-locked=true { ${lowerVolume}; }
