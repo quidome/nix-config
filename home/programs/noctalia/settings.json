@@ -87,7 +87,7 @@
                 },
                 {
                     "compactMode": false,
-                   "compactShowAlbumArt": true,
+                    "compactShowAlbumArt": true,
                     "compactShowVisualizer": false,
                     "hideMode": "hidden",
                     "hideWhenIdle": false,
@@ -116,7 +116,7 @@
                     ]
                 },
                 {
-                    "hideWhenZero": true,
+                    "hideWhenZero": false,
                     "id": "NotificationHistory",
                     "showUnreadBadge": true
                 },
@@ -131,8 +131,16 @@
                 },
                 {
                     "displayMode": "onhover",
+                    "id": "Bluetooth"
+                },
+                {
+                    "displayMode": "onhover",
                     "id": "Volume",
                     "middleClickCommand": "pwvucontrol || pavucontrol"
+                },
+                {
+                    "displayMode": "onhover",
+                    "id": "Network"
                 },
                 {
                     "displayMode": "onhover",
@@ -221,7 +229,10 @@
         "shortcuts": {
             "left": [
                 {
-                    "id": "WiFi"
+                    "id": "Network"
+                },
+                {
+                    "id": "Bluetooth"
                 },
                 {
                     "id": "WallpaperSelector"
