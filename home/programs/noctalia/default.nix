@@ -15,7 +15,7 @@ in {
       ".config/noctalia/colors.json" = {
         source = config.lib.file.mkOutOfStoreSymlink ./colors.json;
       };
-      ".config/noctalia/settings.json" = {
+      ".config/noctalia/settings-generated.json" = {
         source = config.lib.file.mkOutOfStoreSymlink ./settings.json;
       };
     };
