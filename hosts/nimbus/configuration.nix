@@ -59,7 +59,7 @@
 
   environment.systemPackages = with pkgs; [
     # devops
-    jetbrains.idea-community
+    jetbrains.idea-oss
     temurin-bin-21
     ktlint
 

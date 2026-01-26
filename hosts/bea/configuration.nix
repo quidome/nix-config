@@ -19,7 +19,7 @@
 
   environment.systemPackages = with pkgs; [
     # devops
-    jetbrains.idea-community
+    jetbrains.idea-oss
     ktlint
     postgresql
     temurin-bin-21
