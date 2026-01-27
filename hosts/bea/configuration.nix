@@ -22,7 +22,8 @@
     zfs
 
     # devops
-    jetbrains.idea-oss
+    # don't install jetbrains.ide at this moment as the install never seems to end
+    # jetbrains.idea-oss
     ktlint
     postgresql
     temurin-bin-21

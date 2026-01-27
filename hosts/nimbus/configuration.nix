@@ -59,7 +59,8 @@
 
   environment.systemPackages = with pkgs; [
     # devops
-    jetbrains.idea-oss
+    # don't install jetbrains.ide at this moment as the install never seems to end
+    # jetbrains.idea-oss
     temurin-bin-21
     ktlint
 
