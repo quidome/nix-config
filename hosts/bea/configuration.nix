@@ -16,8 +16,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = {"vm.swappiness" = 1;};
   boot.kernelParams = ["consoleblank=180"];
+  boot.supportedFilesystems.zfs = true;
 
   environment.systemPackages = with pkgs; [
+    zfs
+
     # devops
     jetbrains.idea-oss
     ktlint
