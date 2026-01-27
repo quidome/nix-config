@@ -40,6 +40,11 @@ in {
       noctaliaShell = optionalString noctalia.enable "${pkgs.unstable.noctalia-shell}/bin/noctalia-shell";
       spawnNoctalia = optionalString noctalia.enable ''spawn-at-startup "${noctaliaShell}"'';
       noctaliaIPCCall = optionalString noctalia.enable ''"${noctaliaShell}" "ipc" "call" '';
+      ctrlAltDeleteAction =
+        if noctalia.enable
+        then ''spawn ${noctaliaIPCCall} "sessionMenu" "toggle"''
+        else "quit";
+      ctrlAltDeleteBind = ''Ctrl+Alt+Delete { ${ctrlAltDeleteAction}; }'';
       noctaliaKeybinds = optionalString noctalia.enable removeSuffix "\n" ''
         Mod+Alt+S hotkey-overlay-title="Toggle noctalia settings" { spawn ${noctaliaIPCCall} "settings" "toggle"; }
         Alt+Space hotkey-overlay-title="Toggle noctalia launcher" { spawn ${noctaliaIPCCall} "launcher" "toggle"; }
@@ -287,7 +292,7 @@ in {
           Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
           Mod+Shift+E { quit; }
-          Ctrl+Alt+Delete { quit; }
+          ${ctrlAltDeleteBind}
 
           Mod+Shift+P { power-off-monitors; }
       }
