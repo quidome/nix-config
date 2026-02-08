@@ -504,9 +504,9 @@ in {
                   "telegram": false,
                   "vicinae": false,
                   "walker": false,
-                  "wezterm": false,
+                  "wezterm": true,
                   "yazi": false,
-                  "zed": false,
+                  "zed": true,
                   "zenBrowser": false
               },
               "ui": {
