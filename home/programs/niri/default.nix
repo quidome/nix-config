@@ -10,6 +10,12 @@ with lib; let
 in {
   options.programs.niri = {
     enable = mkEnableOption "niri";
+    terminal = mkOption {
+      type = types.str;
+      default = "wezterm";
+      description = "Terminal emulator to launch with Mod+Return";
+      example = "wezterm";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -146,7 +152,7 @@ in {
       binds {
           Mod+Shift+Slash { show-hotkey-overlay; }
 
-          Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
+          Mod+Return hotkey-overlay-title="Open a Terminal: ${cfg.terminal}" { spawn "${cfg.terminal}"; }
           Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
           Mod+Alt+L hotkey-overlay-title="Lock the Screen" { ${lockCommand}; }
           ${noctaliaKeybinds}
