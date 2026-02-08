@@ -50,6 +50,7 @@ with lib; {
     kubernetes-helm
     kubeseal
     kustomize
+    python3
     stern
 
     # Useful nix related tools
