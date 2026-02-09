@@ -12,6 +12,10 @@ pull-gc-build: _git-pull gc build-all
 build:
     sudo nixos-rebuild --flake . switch
 
+# Nixos rebuild boot
+rebuild-boot:
+    sudo nixos-rebuild --flake . boot
+
 # Build all host configurations
 build-all:
     #!/usr/bin/env bash
