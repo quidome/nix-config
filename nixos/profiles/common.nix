@@ -41,6 +41,7 @@ with lib; {
     # devops tooling
     alejandra
     cilium-cli
+    claude-code
     helmfile
     httpie
     ipcalc
