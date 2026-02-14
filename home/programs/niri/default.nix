@@ -133,8 +133,10 @@ in {
           skip-at-startup
       }
 
-      corner-actions {
-          top-left "none"
+      gestures {
+          hot-corners {
+              off
+          }
       }
 
       prefer-no-csd
