@@ -133,6 +133,10 @@ in {
           skip-at-startup
       }
 
+      corner-actions {
+          top-left "none"
+      }
+
       prefer-no-csd
 
       screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
