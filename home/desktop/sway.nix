@@ -7,6 +7,7 @@
 with lib; let
   swayEnabled = config.settings.gui == "sway";
   font = config.settings.terminalFont;
+  terminal = config.settings.terminal;
 in {
   config = mkIf swayEnabled {
     xdg.mimeApps.enable = true;
@@ -25,7 +26,7 @@ in {
       };
     };
 
-    programs.alacritty.enable = true;
+    programs.${terminal}.enable = true;
     programs.swaylock.enable = true;
     programs.waybar.enable = true;
 
@@ -208,7 +209,7 @@ in {
           }
         ];
 
-        terminal = "alacritty";
+        terminal = terminal;
 
         window = {
           border = 0;

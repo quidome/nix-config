@@ -3,9 +3,13 @@
   lib,
   pkgs,
   ...
-}: {
-  config = lib.mkIf (config.settings.gui == "gnome") {
-    programs.ghostty.enable = true;
+}:
+with lib; let
+  gnomeEnabled = config.settings.gui == "gnome";
+  terminal = config.settings.terminal;
+in {
+  config = mkIf gnomeEnabled {
+    programs.${terminal}.enable = true;
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
@@ -35,7 +39,7 @@
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
         binding = "<Super>Return";
-        command = lib.getExe pkgs.gnome-console;
+        command = terminal;
         name = "Launch Terminal";
       };
 

@@ -12,7 +12,7 @@ in {
     window-width = mkDefault 120;
     window-height = mkDefault 40;
     copy-on-select = mkDefault "clipboard";
-    shell-integration-features = mkDefault "ssh-terminfo";
+    shell-integration-features = mkDefault "ssh-env";
     theme = mkDefault "light:TokyoNight Day,dark:TokyoNight";
   };
 }

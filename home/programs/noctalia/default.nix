@@ -47,7 +47,7 @@ in {
                   "showCategories": false,
                   "showIconBackground": true,
                   "sortByMostUsed": true,
-                  "terminalCommand": "ghostty",
+                  "terminalCommand": "${config.settings.terminal}",
                   "useApp2Unit": false,
                   "viewMode": "list"
               },

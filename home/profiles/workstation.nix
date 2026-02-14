@@ -10,7 +10,6 @@ in {
     fonts.fontconfig.enable = mkDefault true;
 
     programs.firefox.enable = mkDefault true;
-    programs.wezterm.enable = mkDefault true;
     programs.wofi.enable = mkDefault true;
     programs.zed-editor.enable = mkDefault true;
 

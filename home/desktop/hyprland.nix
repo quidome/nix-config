@@ -6,7 +6,7 @@
 }:
 with lib; let
   hyprlandEnabled = config.settings.gui == "hyprland";
-  terminal = "ghostty";
+  terminal = config.settings.terminal;
 in {
   config = mkIf hyprlandEnabled {
     dconf.settings = {
@@ -35,7 +35,7 @@ in {
     };
 
     programs = {
-      ghostty.enable = mkDefault true;
+      ${terminal}.enable = mkDefault true;
       hyprlock.enable = mkDefault true;
       waybar.enable = mkDefault true;
       wofi.enable = mkDefault true;

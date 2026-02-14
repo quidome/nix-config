@@ -48,7 +48,7 @@ in {
     programs.niri.enable = mkDefault true;
 
     programs = {
-      ghostty.enable = mkDefault false;
+      ${config.settings.terminal}.enable = mkDefault true;
       noctalia.enable = cfg.noctalia.enable;
       swaylock.enable = mkDefault (!cfg.noctalia.enable);
       waybar.enable = mkDefault (!cfg.noctalia.enable);

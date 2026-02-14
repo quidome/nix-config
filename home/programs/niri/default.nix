@@ -12,7 +12,7 @@ in {
     enable = mkEnableOption "niri";
     terminal = mkOption {
       type = types.str;
-      default = "wezterm";
+      default = config.settings.terminal;
       description = "Terminal emulator to launch with Mod+Return";
       example = "wezterm";
     };
