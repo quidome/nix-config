@@ -27,7 +27,6 @@ in {
       thunderbird
       v4l-utils
       vlc
-      vscode
       wl-clipboard
 
       openttd

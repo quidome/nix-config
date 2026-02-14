@@ -3,21 +3,24 @@
   pkgs,
   lib,
   ...
-}: let
-  cfg = config.programs.vscode;
-in {
-  programs.vscode = lib.mkIf cfg.enable {
-    enableUpdateCheck = false;
-    enableExtensionUpdateCheck = true;
+}:
+with lib; {
+  config = mkIf (config.settings.gui != "none") {
+    programs.vscode = {
+      enable = true;
+      package = pkgs.vscode.fhs; # Use FHS-compatible version for extensions with native binaries
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = true;
 
-    extensions = with pkgs.vscode-extensions; [
-      arrterian.nix-env-selector
-      jnoortheen.nix-ide
-    ];
+      extensions = with pkgs.vscode-extensions; [
+        arrterian.nix-env-selector
+        jnoortheen.nix-ide
+      ];
 
-    userSettings = {
-      "git.autofetch" = true;
-      "update.mode" = "none";
+      userSettings = {
+        "git.autofetch" = true;
+        "update.mode" = "none";
+      };
     };
   };
 }
