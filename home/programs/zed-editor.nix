@@ -37,6 +37,10 @@ in {
             command = lib.getExe pkgs.alejandra;
             arguments = ["--quiet" "--"];
           };
+
+          # Disable auto-formatting for YAML and Go templates
+          YAML.format_on_save = "off";
+          "Go Template".format_on_save = "off";
         };
 
         lsp = {
