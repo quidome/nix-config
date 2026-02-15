@@ -12,6 +12,7 @@ in {
     programs.firefox.enable = mkDefault true;
     programs.wofi.enable = mkDefault true;
     programs.zed-editor.enable = mkDefault true;
+    programs.${config.settings.terminal}.enable = mkDefault true;
 
     settings.terminalFont.name = mkDefault "JetBrainsMono Nerd Font";
 
