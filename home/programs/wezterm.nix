@@ -9,7 +9,7 @@ in {
   programs.wezterm = lib.mkIf cfg.enable {
     extraConfig = ''
       return {
-        enable_tab_bar = false,
+        hide_tab_bar_if_only_one_tab = true,
         font = wezterm.font('${font.name}', { weight = 'Light'}),
         font_size = ${toString font.size},
         color_scheme = "Monokai Remastered",
