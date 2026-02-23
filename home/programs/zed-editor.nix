@@ -24,8 +24,7 @@ in {
         telemetry.diagnostics = false;
 
         # Set Claude as default agent
-        assistant = {
-          version = "2";
+        agent = {
           default_model = {
             provider = "anthropic";
             model = "claude-sonnet-4.5";
