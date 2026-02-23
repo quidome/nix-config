@@ -8,24 +8,40 @@
   font = config.settings.terminalFont;
 in {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [nixd];
-
     programs.zed-editor = {
-      extensions = ["nix" "rust" "toml"];
-
+      extensions = [
+        "nix"
+        "rust"
+        "toml"
+      ];
       extraPackages = with pkgs; [nixd];
-
       userSettings = {
-        assistant.enabled = false;
         auto_install_extensions = true;
         auto_update = false;
+
         features.copilot = false;
         telemetry.metrics = false;
+        telemetry.diagnostics = false;
+
+        # Set Claude as default agent
+        assistant = {
+          version = "2";
+          default_model = {
+            provider = "anthropic";
+            model = "claude-sonnet-4.5";
+          };
+          button = true;
+        };
 
         vim_mode = false;
         ui_font_size = 16;
         buffer_font_size = font.size + 3;
         buffer_font_family = font.name;
+
+        # Editor preferences
+        format_on_save = "on";
+        tab_size = 2;
+        soft_wrap = "editor_width";
 
         # File syntax highlighting
         file_types = {JSON = ["json" "jsonc" "*.code-snippets"];};
@@ -46,8 +62,8 @@ in {
         lsp = {
           nix.binary.path_lookup = true;
 
-          # This is for other LSP servers, keep it separate
-          settings.dialyzerEnabled = true;
+          # Elixir/Erlang LSP settings
+          elixir-ls.settings.dialyzerEnabled = true;
         };
       };
     };
