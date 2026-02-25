@@ -36,6 +36,9 @@
   programs.htop.enable = true;
   programs.htop.settings.show_program_path = true;
 
+  programs.jujutsu.enable = true;
+  programs.jujutsu.ediff = true;
+
   programs.ssh.enable = true;
   programs.ssh.enableDefaultConfig = false;
   programs.ssh.matchBlocks."*" = {
