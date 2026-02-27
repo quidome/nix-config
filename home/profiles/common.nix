@@ -13,6 +13,7 @@
 
     sessionVariables = {
       DEV_PATH = "${config.home.homeDirectory}/dev";
+      GOBIN = "${config.home.homeDirectory}/.local/bin";
     };
   };
   programs.bat.enable = true;
