@@ -37,6 +37,8 @@
   programs.htop.enable = true;
   programs.htop.settings.show_program_path = true;
 
+  programs.neovim.enable = true;
+
   programs.jujutsu.enable = true;
   programs.jujutsu.ediff = true;
 

@@ -98,7 +98,7 @@ filetype plugin on    " Enable filetype-specific plugins
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-" Favo colors, gruvbox dark ftw
+" Favo colors, tokyonight
 if $TERM_BG == "light"
   set background=light
 else
@@ -106,7 +106,7 @@ else
 endif
 
 try
-   colorscheme tender
+   colorscheme tokyonight
 catch /^Vim\%((\a\+)\)\=:E185/
   colorscheme default
 endtry
@@ -155,7 +155,6 @@ set listchars=tab:»·,trail:·
 set nocompatible      " We're running Vim, not Vi!
 set noshowmode
 set number
-set pastetoggle=<F10>
 set relativenumber
 set scrolloff=3 " don't scroll any closer to top/bottom
 set secure

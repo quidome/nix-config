@@ -7,11 +7,6 @@
   cfg = config.programs.neovim;
 in {
   config = lib.mkIf cfg.enable {
-    home.sessionVariables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-    };
-
     programs.neovim = {
       viAlias = true;
       vimAlias = true;
@@ -22,6 +17,7 @@ in {
         tender-vim
         vim-nix
         gruvbox
+        tokyonight-nvim
         nerdtree
         rainbow
         vim-gitgutter
