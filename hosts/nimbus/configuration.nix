@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./disk-config.nix
     ./shared.nix
@@ -110,6 +114,13 @@
 
     fwupd.enable = true;
     usbmuxd.enable = true;
+  };
+
+  # Enable fingerprint authentication for login and system dialogs
+  security.pam.services = {
+    sddm.fprintAuth = lib.mkForce true; # Display manager login
+    sudo.fprintAuth = lib.mkForce true; # sudo commands
+    polkit-1.fprintAuth = lib.mkForce true; # PolicyKit dialogs
   };
 
   virtualisation = {
