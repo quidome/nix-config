@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
@@ -21,6 +22,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    home.packages = [pkgs.unstable.noctalia-shell];
+
     home.file = {
       ".config/noctalia/colors.json" = {
         source = config.lib.file.mkOutOfStoreSymlink ./colors.json;

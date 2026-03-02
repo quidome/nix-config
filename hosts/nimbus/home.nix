@@ -7,7 +7,7 @@
   home.stateVersion = "25.11";
 
   settings = {
-    desktop.niri.noctalia.enable = true;
+    desktop.hyprland.noctalia.enable = true;
     services.swayidle.lockTimeout = 180;
   };
 

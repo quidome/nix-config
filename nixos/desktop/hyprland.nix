@@ -5,11 +5,15 @@
   ...
 }:
 with lib; let
-  hyprlandEnabled = config.settings.gui == "hyprland";
+  cfg = config.settings.desktop.hyprland;
   networkmanagerEnabled = config.networking.networkmanager.enable;
   tailscaleEnabled = config.services.tailscale.enable;
 in {
-  config = mkIf hyprlandEnabled {
+  options.settings.desktop.hyprland = {
+    enable = mkEnableOption "hyprland";
+  };
+
+  config = mkIf cfg.enable {
     environment = {
       systemPackages = with pkgs; [
         # hyprland deps

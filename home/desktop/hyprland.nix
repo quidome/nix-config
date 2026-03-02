@@ -5,10 +5,15 @@
   ...
 }:
 with lib; let
-  hyprlandEnabled = config.settings.gui == "hyprland";
+  cfg = config.settings.desktop.hyprland;
   terminal = config.settings.terminal;
 in {
-  config = mkIf hyprlandEnabled {
+  options.settings.desktop.hyprland = {
+    enable = mkEnableOption "hyprland";
+    noctalia.enable = mkEnableOption "noctalia";
+  };
+
+  config = mkIf cfg.enable {
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
@@ -37,15 +42,16 @@ in {
     programs = {
       ${terminal}.enable = mkDefault true;
       hyprlock.enable = mkDefault true;
-      waybar.enable = mkDefault true;
+      noctalia.enable = cfg.noctalia.enable;
+      waybar.enable = mkDefault (!cfg.noctalia.enable);
       wofi.enable = mkDefault true;
     };
 
     services = {
-      avizo.enable = mkDefault true;
+      avizo.enable = mkDefault (!cfg.noctalia.enable);
+      mako.enable = mkDefault (!cfg.noctalia.enable);
       hypridle.enable = mkDefault true;
-      mako.enable = mkDefault true;
-      shikane.enable = mkDefault true;
+      kanshi.enable = mkDefault true;
     };
 
     xdg.mimeApps.enable = true;
@@ -68,11 +74,18 @@ in {
         "HYPRCURSOR_SIZE,24"
       ];
 
+      exec-once = mkIf cfg.noctalia.enable [
+        "noctalia-shell"
+      ];
+
       animations.enabled = false;
 
       general = {
         gaps_in = 5;
-        gaps_out = 5;
+        gaps_out =
+          if cfg.noctalia.enable
+          then 10
+          else 5;
 
         border_size = 2;
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
@@ -84,15 +97,28 @@ in {
       };
 
       decoration = {
-        rounding = 3;
+        rounding =
+          if cfg.noctalia.enable
+          then 20
+          else 3;
 
         active_opacity = 1.0;
         inactive_opacity = 1.0;
 
+        shadow = mkIf cfg.noctalia.enable {
+          enabled = true;
+          range = 4;
+          render_power = 3;
+          color = "rgba(1a1a1aee)";
+        };
+
         blur = {
           enabled = true;
           size = 3;
-          passes = 1;
+          passes =
+            if cfg.noctalia.enable
+            then 2
+            else 1;
 
           vibrancy = 0.1696;
         };
@@ -220,6 +246,11 @@ in {
         "workspace 4 silent, class:(Element)"
         "workspace 4 silent, class:(Signal)"
         "workspace 5 silent, class:(Spotify)"
+      ];
+
+      layerrule = mkIf cfg.noctalia.enable [
+        "blur, noctalia-background-.*"
+        "ignorealpha 0.5, noctalia-background-.*"
       ];
     };
   };

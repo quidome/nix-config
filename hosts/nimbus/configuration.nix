@@ -118,9 +118,9 @@
 
   # Enable fingerprint authentication for login and system dialogs
   security.pam.services = {
-    sddm.fprintAuth = lib.mkForce true; # Display manager login
-    sudo.fprintAuth = lib.mkForce true; # sudo commands
-    polkit-1.fprintAuth = lib.mkForce true; # PolicyKit dialogs
+    greetd.fprintAuth = true;
+    sudo.fprintAuth = true;
+    polkit-1.fprintAuth = true;
   };
 
   virtualisation = {

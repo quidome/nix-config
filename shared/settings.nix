@@ -57,6 +57,7 @@ in {
     settings = {
       preferQt = builtins.elem cfg.gui ["plasma"];
       desktop.niri.enable = cfg.gui == "niri";
+      desktop.hyprland.enable = cfg.gui == "hyprland";
     };
   };
 }
