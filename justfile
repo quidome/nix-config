@@ -1,73 +1,87 @@
-# Default recipe
+# Variables
+hosts := `ls hosts 2>/dev/null || echo ""`
+
+# Show available recipes
 default:
-    @just --list | grep -v '# Default recipe'
+    @just --list
 
-# Do a complete cleanup and update run
-all: update gc build
+# === System Management ===
 
-# Git pull, GC and build
-pull-gc-build: _git-pull gc build-all
-
-# Build system
-build:
+# Build and switch current system
+switch:
     sudo nixos-rebuild --flake . switch
 
-# Nixos rebuild boot
-rebuild-boot:
+# Show what would change without building
+diff:
+    nixos-rebuild --flake . build --dry-run 2>&1 | grep -E "^\s*(will be|would be)"
+
+# Build for next boot (doesn't activate immediately)
+boot:
     sudo nixos-rebuild --flake . boot
 
-# Build all host configurations
-build-all:
+# Rollback to previous generation
+rollback:
+    sudo nixos-rebuild --flake . --rollback switch
+
+# List system generations
+generations:
+    sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+
+# === Host Configuration Testing ===
+
+# Build all host configurations (for testing)
+test-hosts:
     #!/usr/bin/env bash
     set -euo pipefail
-    hosts="bea coolding nimbus truce"
-    for host in $hosts; do
+    for host in {{hosts}}; do
         echo "Building NixOS configuration for host: $host"
         nixos-rebuild --flake .#$host build
         echo "✅ $host build completed successfully"
         echo "---"
     done
 
-# Check all host configurations (dry run)
-check-all:
+# Check all host configurations without building
+check-hosts:
     #!/usr/bin/env bash
     set -euo pipefail
-    hosts="bea coolding nimbus truce"
-    for host in $hosts; do
+    for host in {{hosts}}; do
         echo "Checking configuration for host: $host"
         nix build .#nixosConfigurations.$host.config.system.build.toplevel --dry-run
         echo "✅ $host check passed"
         echo "---"
     done
 
-# Nix garbage collection
-gc:
-    nix-collect-garbage -d
-    sudo nix-collect-garbage -d
+# Build configuration for specific host
+build-host HOST:
+    nixos-rebuild --flake .#{{HOST}} build
 
-# Git operations
-_git-pull:
-    git pull
+# === Updates and Maintenance ===
 
-# Update operations
-update: update-flake update-pkgs-cache
+# Complete system refresh (update, clean, rebuild)
+refresh: update clean switch
 
-# Update flake.lock and package cache
+# Pull latest changes, clean, and rebuild all hosts
+sync: _git-pull clean test-hosts
+
+# Update flake.lock and nix-index cache
+update: update-flake update-index
+
+# Update flake.lock
 update-flake:
     #!/usr/bin/env bash
     set -euo pipefail
-
-    nix flake update || just _error "Failed to update flake"
-
+    nix flake update
     if git diff --quiet --exit-code flake.lock; then
         echo "No changes to flake.lock"
     else
         git add flake.lock
-        git commit -m 'update flake.lock' && git push || echo "Failed to push flake.lock update"
+        if git commit -m 'update flake.lock'; then
+            git push || echo "⚠️  Failed to push flake.lock update"
+        fi
     fi
 
-# Update nixpkgs cache index (for comma)
-update-pkgs-cache:
+# Update nix-index cache (for comma command)
+update-index:
     #!/usr/bin/env bash
     location=~/.cache/nix-index
     filename="index-$(uname -m | sed 's/^arm64$/aarch64/')-$(uname | tr '[:upper:]' '[:lower:]')"
@@ -75,19 +89,47 @@ update-pkgs-cache:
     wget -P "$location" -q -N "https://github.com/nix-community/nix-index-database/releases/latest/download/$filename"
     ln -f "$location/$filename" "$location/files"
 
-# Security operations
+# Garbage collect old generations
+clean:
+    nix-collect-garbage -d
+    sudo nix-collect-garbage -d
+
+# === Validation ===
+
+# Quick syntax check of flake
+validate:
+    nix flake check
+
+# Format Nix files with alejandra
+format:
+    find . -name '*.nix' -not -path '*/.*' -exec alejandra {} +
+
+# Check git-crypt encryption status
 check-secrets:
     #!/usr/bin/env bash
     echo "Checking git-crypt status..."
-    if ! git-crypt status | grep -q "encrypted: 0"; then
-        echo "WARNING: Some files may not be properly encrypted!"
+    if git-crypt status | grep -q "not encrypted"; then
+        echo "⚠️  WARNING: Some files may not be properly encrypted!"
         git-crypt status
+        exit 1
     else
-        echo "All encrypted files are secure"
+        echo "✅ All encrypted files are secure"
     fi
 
-# Error handling function
-_error:
-    #!/usr/bin/env bash
-    echo "Error: $1" >&2
-    exit 1
+# === Live Images ===
+
+# Build base ISO image
+iso-base:
+    nix build .#nixosConfigurations.baseIso.config.system.build.isoImage
+    @echo "ISO created at: result/iso/"
+
+# Build bcachefs ISO image
+iso-bcachefs:
+    nix build .#nixosConfigurations.bcachefsIso.config.system.build.isoImage
+    @echo "ISO created at: result/iso/"
+
+# === Internal Recipes ===
+
+# Pull latest changes from git
+_git-pull:
+    git pull
