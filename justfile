@@ -33,7 +33,7 @@ generations:
 test-hosts:
     #!/usr/bin/env bash
     set -euo pipefail
-    for host in {{hosts}}; do
+    for host in $(ls hosts); do
         echo "Building NixOS configuration for host: $host"
         nixos-rebuild --flake .#$host build
         echo "✅ $host build completed successfully"
@@ -44,7 +44,7 @@ test-hosts:
 check-hosts:
     #!/usr/bin/env bash
     set -euo pipefail
-    for host in {{hosts}}; do
+    for host in $(ls hosts); do
         echo "Checking configuration for host: $host"
         nix build .#nixosConfigurations.$host.config.system.build.toplevel --dry-run
         echo "✅ $host check passed"
