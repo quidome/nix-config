@@ -1,3 +1,3 @@
 {
-  settings.gui = "hyprland";
+  settings.gui = "plasma";
 }
