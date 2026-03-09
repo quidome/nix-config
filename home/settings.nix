@@ -34,6 +34,6 @@ with lib; {
   config.settings.terminal = mkDefault (
     if config.settings.gui == "niri"
     then "ghostty"
-    else "wezterm"
+    else "alacritty"
   );
 }
