@@ -1,7 +1,7 @@
 # Variables
 hosts := `ls hosts 2>/dev/null || echo ""`
 
-# Show available recipes
+# Default recipe - shows available commands
 default:
     @just --list
 
@@ -30,23 +30,23 @@ generations:
 # === Host Configuration Testing ===
 
 # Build all host configurations (for testing)
-test-hosts:
+build-hosts:
     #!/usr/bin/env bash
     set -euo pipefail
     for host in $(ls hosts); do
         echo "Building NixOS configuration for host: $host"
-        nixos-rebuild --flake .#$host build
+        nixos-rebuild --flake .#$host build || just _error "Failed to build $host"
         echo "✅ $host build completed successfully"
         echo "---"
     done
 
-# Check all host configurations without building
-check-hosts:
+# Verify all host configurations without building
+verify-hosts:
     #!/usr/bin/env bash
     set -euo pipefail
     for host in $(ls hosts); do
         echo "Checking configuration for host: $host"
-        nix build .#nixosConfigurations.$host.config.system.build.toplevel --dry-run
+        nix build .#nixosConfigurations.$host.config.system.build.toplevel --dry-run || just _error "Failed to verify $host"
         echo "✅ $host check passed"
         echo "---"
     done
@@ -61,7 +61,7 @@ build-host HOST:
 refresh: update clean switch
 
 # Pull latest changes, clean, and rebuild all hosts
-sync: _git-pull clean test-hosts
+sync: _git-pull clean build-hosts
 
 # Update flake.lock and nix-index cache
 update: update-flake update-index
@@ -70,7 +70,7 @@ update: update-flake update-index
 update-flake:
     #!/usr/bin/env bash
     set -euo pipefail
-    nix flake update
+    nix flake update || just _error "Failed to update flake"
     if git diff --quiet --exit-code flake.lock; then
         echo "No changes to flake.lock"
     else
@@ -132,4 +132,12 @@ iso-bcachefs:
 
 # Pull latest changes from git
 _git-pull:
-    git pull
+    #!/usr/bin/env bash
+    set -euo pipefail
+    git pull || just _error "Failed to git pull"
+
+# Error handling function
+_error:
+    #!/usr/bin/env bash
+    echo "Error: $1" >&2
+    exit 1
