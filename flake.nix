@@ -47,8 +47,8 @@
         modules = [
           inputs.disko.nixosModules.disko
           {_module.args = args;}
-          ./shared
-          ./nixos
+          ./modules/shared
+          ./modules/system
           ./hosts/${host}/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
@@ -58,8 +58,8 @@
               useUserPackages = true;
               users.${user} = {...}: {
                 imports = [
-                  ./shared
-                  ./home
+                  ./modules/shared
+                  ./modules/home
                   ./hosts/${host}/home.nix
                 ];
                 home = {
@@ -83,7 +83,7 @@
         system = "x86_64-linux";
         modules = [
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          ./shared/secrets.nix
+          ./modules/shared/secrets.nix
           ./live-image/base.nix
         ];
       };
@@ -91,7 +91,7 @@
         system = "x86_64-linux";
         modules = [
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix"
-          ./shared/secrets.nix
+          ./modules/shared/secrets.nix
           ./live-image/bcachefs.nix
         ];
       };

@@ -93,7 +93,7 @@ What could go wrong, migration concerns.
 - NEVER read or display encrypted files (see .gitattributes)
 - Reference existing patterns in this repository
 - Consider the mkHost architecture in flake.nix
-- Consider the settings system in shared/settings.nix and home/settings.nix
+- Consider the settings system in modules/shared/settings.nix and modules/home/settings.nix
 - Keep recommendations practical and incremental
 - Focus on refactoring, not new features
 

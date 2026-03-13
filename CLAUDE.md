@@ -74,14 +74,14 @@ nix run github:nix-community/nixos-anywhere -- \
 
 The flake.nix uses a `mkHost` function that creates NixOS systems with integrated home-manager. Each host configuration automatically includes:
 - Disko module for declarative disk management
-- Shared modules from `./shared`
-- NixOS modules from `./nixos`
+- Shared modules from `./modules/shared`
+- System modules from `./modules/system`
 - Host-specific configuration from `./hosts/${host}/configuration.nix`
 - Home-manager configuration from `./hosts/${host}/home.nix`
 
 **Key Details:**
 - Home-manager runs as a NixOS module (not standalone)
-- All configurations inherit from `./shared` which provides common settings
+- All configurations inherit from `./modules/shared` which provides common settings
 - The flake uses nixpkgs 25.11 (stable) and nixpkgs-unstable via overlay
 - Unstable packages accessible via `pkgs.unstable.<package>`
 
@@ -90,19 +90,20 @@ The flake.nix uses a `mkHost` function that creates NixOS systems with integrate
 ```
 .
 ├── flake.nix                # Main entry point with mkHost function
-├── shared/                  # Common settings shared by NixOS and home-manager
-│   ├── settings.nix        # Global options (gui, preferQt, authorizedKeys)
-│   └── secrets.nix         # Encrypted secrets (git-crypt)
-├── nixos/                   # System-level NixOS modules
-│   ├── desktop/            # Desktop environment configs (cosmic, gnome, hyprland, niri, plasma, sway)
-│   ├── profiles/           # System profiles (common, workstation)
-│   └── services/           # System services
-├── home/                    # User-level home-manager modules
-│   ├── desktop/            # Desktop-specific home configs
-│   ├── profiles/           # User profiles (common, workstation)
-│   ├── programs/           # Application configurations
-│   ├── services/           # User services
-│   └── settings.nix        # User settings (terminalFont)
+├── modules/                 # Reusable NixOS and home-manager modules
+│   ├── shared/             # Common settings shared by NixOS and home-manager
+│   │   ├── settings.nix    # Global options (gui, preferQt, authorizedKeys)
+│   │   └── secrets.nix     # Encrypted secrets (git-crypt)
+│   ├── system/             # System-level NixOS modules
+│   │   ├── desktop/        # Desktop environment configs (cosmic, gnome, hyprland, niri, plasma, sway)
+│   │   ├── profiles/       # System profiles (common, workstation)
+│   │   └── services/       # System services
+│   └── home/               # User-level home-manager modules
+│       ├── desktop/        # Desktop-specific home configs
+│       ├── profiles/       # User profiles (common, workstation)
+│       ├── programs/       # Application configurations
+│       ├── services/       # User services
+│       └── settings.nix    # User settings (terminalFont)
 ├── hosts/                   # Host-specific configurations
 │   └── ${hostname}/
 │       ├── configuration.nix       # NixOS config
@@ -117,7 +118,7 @@ The flake.nix uses a `mkHost` function that creates NixOS systems with integrate
 
 ### Settings System
 
-The repository uses a custom settings system defined in `shared/settings.nix` and `home/settings.nix`:
+The repository uses a custom settings system defined in `modules/shared/settings.nix` and `modules/home/settings.nix`:
 
 **Global Settings** (`config.settings.*`):
 - `gui`: Which desktop environment to use (none, cosmic, gnome, hyprland, niri, plasma, sway)
@@ -135,8 +136,8 @@ These settings are accessible in both NixOS and home-manager modules, allowing c
 ### Module Import Pattern
 
 All module directories use `default.nix` to aggregate imports:
-- `nixos/default.nix` imports all NixOS-level modules
-- `home/default.nix` imports all home-manager modules
+- `modules/system/default.nix` imports all system-level modules
+- `modules/home/default.nix` imports all home-manager modules
 - Each host's configuration imports its specific files plus shared modules
 
 ## Security - CRITICAL

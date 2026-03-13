@@ -58,7 +58,7 @@ When Architecture Advisor is writing a spec, provide:
 Reference these when advising:
 
 - `mkHost` function in flake.nix for host creation
-- Settings system in `shared/settings.nix` and `home/settings.nix`
+- Settings system in `modules/shared/settings.nix` and `modules/home/settings.nix`
 - Module aggregation via `default.nix` files
 - Unstable packages via `pkgs.unstable.<package>`
 

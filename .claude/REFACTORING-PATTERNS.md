@@ -6,14 +6,14 @@ Common refactoring patterns for this repository, aligned with the code style gui
 
 ### Before (in multiple modules)
 ```nix
-# nixos/desktop/plasma/default.nix
+# modules/system/desktop/plasma/default.nix
 environment.systemPackages = with pkgs; [
   kate
   konsole
   okular
 ];
 
-# home/desktop/plasma/default.nix
+# modules/home/desktop/plasma/default.nix
 home.packages = with pkgs; [
   kate
   okular
@@ -22,7 +22,7 @@ home.packages = with pkgs; [
 
 ### After
 ```nix
-# shared/packages.nix (new file)
+# modules/shared/packages.nix (new file)
 { lib, ... }:
 {
   options.settings.packages = {
@@ -38,12 +38,12 @@ home.packages = with pkgs; [
   ];
 }
 
-# nixos/desktop/plasma/default.nix
+# modules/system/desktop/plasma/default.nix
 environment.systemPackages = config.settings.packages.plasma.common ++ (with pkgs; [
   konsole  # system-only package
 ]);
 
-# home/desktop/plasma/default.nix
+# modules/home/desktop/plasma/default.nix
 home.packages = config.settings.packages.plasma.common;
 ```
 
@@ -65,7 +65,7 @@ programs.kitty.settings = {
 
 ### After
 ```nix
-# Already exists: home/settings.nix defines terminalFont
+# Already exists: modules/home/settings.nix defines terminalFont
 # Use it consistently:
 
 programs.alacritty.settings.font = {
@@ -83,7 +83,7 @@ programs.kitty.settings = {
 
 ### Before (300+ line module)
 ```nix
-# nixos/desktop/gnome/default.nix
+# modules/system/desktop/gnome/default.nix
 { config, lib, pkgs, ... }:
 {
   # 50 lines of options
@@ -102,7 +102,7 @@ programs.kitty.settings = {
 
 ### After (split into multiple modules)
 ```nix
-# nixos/desktop/gnome/default.nix
+# modules/system/desktop/gnome/default.nix
 { ... }:
 {
   imports = [
@@ -115,8 +115,8 @@ programs.kitty.settings = {
   # Core options and config only (50 lines)
 }
 
-# nixos/desktop/gnome/extensions.nix
-# nixos/desktop/gnome/keybindings.nix
+# modules/system/desktop/gnome/extensions.nix
+# modules/system/desktop/gnome/keybindings.nix
 # etc.
 ```
 
@@ -191,7 +191,7 @@ in
 
 ### After
 ```nix
-# If truly shared, consider extracting to shared/
+# If truly shared, consider extracting to modules/shared/
 # Otherwise, ensure consistent naming across modules
 let
   cfg = config.programs.myapp;  # Consistent pattern
@@ -227,7 +227,7 @@ users.users.myuser.openssh.authorizedKeys.keys = [
 
 ### After
 ```nix
-# Already using shared/settings.nix:
+# Already using modules/shared/settings.nix:
 # config.settings.authorizedKeys is defined globally
 
 users.users.myuser.openssh.authorizedKeys.keys =
@@ -246,7 +246,7 @@ config = lib.mkIf (config.settings.gui == "niri") {
 
 ### After
 ```nix
-# shared/settings.nix already has:
+# modules/shared/settings.nix already has:
 # config.settings.desktop.niri.enable = config.settings.gui == "niri";
 
 # Use the derived setting:
@@ -286,7 +286,7 @@ with pkgs;
 
 ### Don't Hardcode Values That Vary
 - Use the settings system for values that differ per host/user
-- Extract to shared/ for truly common values
+- Extract to modules/shared/ for truly common values
 - Consider host-specific vars.nix for host-unique values (encrypted)
 
 ## Validation Checklist
