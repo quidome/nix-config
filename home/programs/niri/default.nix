@@ -51,10 +51,10 @@ in {
         then ''spawn ${noctaliaIPCCall} "sessionMenu" "toggle"''
         else "quit";
       ctrlAltDeleteBind = ''Ctrl+Alt+Delete { ${ctrlAltDeleteAction}; }'';
-      noctaliaKeybinds = optionalString noctalia.enable removeSuffix "\n" ''
+      noctaliaKeybinds = optionalString noctalia.enable (removeSuffix "\n" ''
         Mod+Alt+S hotkey-overlay-title="Toggle noctalia settings" { spawn ${noctaliaIPCCall} "settings" "toggle"; }
         Alt+Space hotkey-overlay-title="Toggle noctalia launcher" { spawn ${noctaliaIPCCall} "launcher" "toggle"; }
-      '';
+      '');
     in ''
       environment {
           ELECTRON_OZONE_PLATFORM_HINT "auto"
