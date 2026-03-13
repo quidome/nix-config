@@ -53,8 +53,11 @@ in {
       ctrlAltDeleteBind = ''Ctrl+Alt+Delete { ${ctrlAltDeleteAction}; }'';
       noctaliaKeybinds = optionalString noctalia.enable (removeSuffix "\n" ''
         Mod+Alt+S hotkey-overlay-title="Toggle noctalia settings" { spawn ${noctaliaIPCCall} "settings" "toggle"; }
-        Alt+Space hotkey-overlay-title="Toggle noctalia launcher" { spawn ${noctaliaIPCCall} "launcher" "toggle"; }
       '');
+      launcherKeybind =
+        if noctalia.enable
+        then ''Alt+Space hotkey-overlay-title="Toggle noctalia launcher" { spawn ${noctaliaIPCCall} "launcher" "toggle"; }''
+        else ''Alt+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }'';
     in ''
       environment {
           ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -162,6 +165,7 @@ in {
           Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
           Mod+Alt+L hotkey-overlay-title="Lock the Screen" { ${lockCommand}; }
           ${noctaliaKeybinds}
+          ${launcherKeybind}
 
           XF86AudioRaiseVolume allow-when-locked=true { ${raiseVolume}; }
           XF86AudioLowerVolume allow-when-locked=true { ${lowerVolume}; }
