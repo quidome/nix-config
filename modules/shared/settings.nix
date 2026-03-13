@@ -24,16 +24,15 @@ in {
       type = with types;
         enum [
           "none"
-          "cosmic"
           "gnome"
           "hyprland"
           "niri"
           "plasma"
-          "sway"
         ];
       default = "none";
       description = ''
-        Which gui to use. Gnome or Plasma will install the entire desktop environment. Sway will install the bare minumum.
+        Which gui to use. Gnome or Plasma will install the entire desktop environment.
+        Hyprland and Niri are tiling window managers.
         Defaults to `none`, which makes the system headless.
       '';
       example = "plasma";
