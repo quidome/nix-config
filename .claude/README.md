@@ -2,6 +2,27 @@
 
 This directory contains custom slash commands designed to help refactor this NixOS configuration repository systematically and safely.
 
+## Expert Advisors
+
+Consult these specialists for refactoring guidance. They can consult each other and produce specs.
+
+| Command | Role | Focus |
+|---------|------|-------|
+| `/arch` | Architecture Advisor | Structure, organization, module boundaries |
+| `/nix` | Nix Specialist | Nix language, module system, implementation |
+| `/review` | Code Reviewer | Style, conventions, readability |
+
+### Workflow
+
+1. Raise a refactoring concern with any expert (usually `/arch` first)
+2. Expert analyzes and may consult others
+3. When solution is agreed, Architecture Advisor writes a spec
+4. Specs are stored in `.claude/specs/YYYY-MM-DD-<topic>.md`
+
+### Spec Format
+
+Specs contain: Problem, Solution, Rationale, Files Affected, Implementation Steps, Quality Criteria, Risks.
+
 ## Available Commands
 
 ### Planning & Analysis
