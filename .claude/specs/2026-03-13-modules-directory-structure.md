@@ -1,7 +1,7 @@
 # Modules Directory Structure
 
 **Date:** 2026-03-13
-**Status:** Draft
+**Status:** Completed
 **Experts consulted:** Arch, Nix, Review
 
 ## Problem
@@ -85,8 +85,8 @@ modules/
 
 ## Review Checklist
 
-- [ ] All `nix flake check` passes
-- [ ] `just build` succeeds for at least one host
-- [ ] No orphaned references to old paths (`nixos/`, `home/`, `shared/`)
-- [ ] Documentation accurately reflects new structure
-- [ ] Git history preserved for moved files
+- [x] All `nix flake check` passes
+- [x] `just build` succeeds for at least one host
+- [x] No orphaned references to old paths (`nixos/`, `home/`, `shared/`)
+- [x] Documentation accurately reflects new structure
+- [x] Git history preserved for moved files
