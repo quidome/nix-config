@@ -118,20 +118,58 @@ The flake.nix uses a `mkHost` function that creates NixOS systems with integrate
 
 ### Settings System
 
-The repository uses a custom settings system defined in `modules/shared/settings.nix` and `modules/home/settings.nix`:
+The repository uses a custom `settings.*` namespace for options that NixOS/home-manager don't provide.
 
-**Global Settings** (`config.settings.*`):
-- `gui`: Which desktop environment to use (none, cosmic, gnome, hyprland, niri, plasma, sway)
-- `preferQt`: Whether to prefer Qt over GTK (auto-set for plasma)
-- `authorizedKeys`: SSH public keys for all hosts
-- `desktop.niri.enable`: Automatically set based on gui choice
+**Principle:** `settings.*` extends HM/NixOS with custom options. The namespace mirrors the module structure.
 
-**Home Settings** (`config.settings.*`):
-- `terminal`: Which terminal emulator to use (defaults: niri→ghostty, others→wezterm)
-- `terminalFont.name`: Font for graphical terminals
-- `terminalFont.size`: Font size for terminals
+| Scenario | Approach |
+|----------|----------|
+| HM/NixOS has the option | Use it directly (e.g., `programs.git.enable`) |
+| HM/NixOS lacks the option | Add under `settings.*` mirroring the path |
 
-These settings are accessible in both NixOS and home-manager modules, allowing centralized configuration decisions to influence both system and user setups.
+**Options stay co-located** - each module defines its own `options.settings.*` rather than centralizing everything in `settings.nix`.
+
+**Namespace Structure:**
+```
+settings.
+├── gui                          # (shared) which desktop: none|gnome|hyprland|niri|plasma
+├── preferQt                     # (shared) prefer Qt over GTK
+├── authorizedKeys               # (shared) SSH public keys
+├── terminal                     # (home) which terminal emulator
+├── terminalFont.name            # (home) font name
+├── terminalFont.size            # (home) font size
+├── desktop.
+│   ├── niri.enable              # desktop integration options
+│   └── hyprland.enable
+├── programs.
+│   └── noctalia.                # custom options for programs HM doesn't have
+│       ├── enable
+│       └── enableBrightnessWidget
+└── services.
+    └── swayidle.                # custom options HM's swayidle lacks
+        ├── enable
+        └── lockTimeout
+```
+
+**Example - Adding custom options:**
+```nix
+# In modules/home/programs/myprogram/default.nix
+options.settings.programs.myprogram = {
+  customOption = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Option that HM doesn't provide";
+  };
+};
+
+config = mkIf config.settings.programs.myprogram.customOption {
+  # Configure HM's actual options based on our custom setting
+  programs.myprogram.settings = { ... };
+};
+```
+
+**Global settings** are defined in `modules/shared/settings.nix` (available to both NixOS and home-manager).
+**Home settings** are defined in `modules/home/settings.nix` or co-located in program/service modules.
 
 ### Module Import Pattern
 
