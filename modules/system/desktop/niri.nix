@@ -18,7 +18,6 @@ in {
       alacritty
       fuzzel
       swaylock
-      mako
       swayidle
       unstable.noctalia-shell
       swaybg
