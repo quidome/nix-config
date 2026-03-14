@@ -13,7 +13,6 @@ in {
       bitwarden-desktop
       cameractrls-gtk3
       discord
-      element-desktop
       emacs
       firefox
       logseq
@@ -22,7 +21,6 @@ in {
       pandoc
       pavucontrol
       plantuml
-      signal-desktop
       spotify
       thunderbird
       v4l-utils
