@@ -6,10 +6,7 @@
 
   home.stateVersion = "25.11";
 
-  settings = {
-    programs.noctalia.enable = true;
-    services.swayidle.lockTimeout = 180;
-  };
+  settings.services.swayidle.lockTimeout = 180;
 
   services.kanshi = {
     enable = true;

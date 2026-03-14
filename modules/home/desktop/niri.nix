@@ -46,6 +46,7 @@ in {
     };
 
     settings.programs.niri.enable = mkDefault true;
+    settings.programs.noctalia.enable = mkDefault true;
 
     programs = {
       ${config.settings.terminal}.enable = mkDefault true;

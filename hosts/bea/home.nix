@@ -8,7 +8,6 @@
 
   settings = {
     programs.noctalia = {
-      enable = true;
       enableNetworkWidget = false;
       enableBrightnessWidget = false;
     };
