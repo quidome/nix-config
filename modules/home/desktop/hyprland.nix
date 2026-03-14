@@ -7,10 +7,10 @@
 with lib; let
   cfg = config.settings.desktop.hyprland;
   terminal = config.settings.terminal;
+  noctalia = config.settings.programs.noctalia;
 in {
   options.settings.desktop.hyprland = {
     enable = mkEnableOption "hyprland";
-    noctalia.enable = mkEnableOption "noctalia";
   };
 
   config = mkIf cfg.enable {
@@ -42,14 +42,13 @@ in {
     programs = {
       ${terminal}.enable = mkDefault true;
       hyprlock.enable = mkDefault true;
-      noctalia.enable = cfg.noctalia.enable;
-      waybar.enable = mkDefault (!cfg.noctalia.enable);
+      waybar.enable = mkDefault (!noctalia.enable);
       wofi.enable = mkDefault true;
     };
 
     services = {
-      avizo.enable = mkDefault (!cfg.noctalia.enable);
-      mako.enable = mkDefault (!cfg.noctalia.enable);
+      avizo.enable = mkDefault (!noctalia.enable);
+      mako.enable = mkDefault (!noctalia.enable);
       hypridle.enable = mkDefault true;
       kanshi.enable = mkDefault true;
     };
@@ -74,7 +73,7 @@ in {
         "HYPRCURSOR_SIZE,24"
       ];
 
-      exec-once = mkIf cfg.noctalia.enable [
+      exec-once = mkIf noctalia.enable [
         "noctalia-shell"
       ];
 
@@ -83,7 +82,7 @@ in {
       general = {
         gaps_in = 5;
         gaps_out =
-          if cfg.noctalia.enable
+          if noctalia.enable
           then 10
           else 5;
 
@@ -98,14 +97,14 @@ in {
 
       decoration = {
         rounding =
-          if cfg.noctalia.enable
+          if noctalia.enable
           then 20
           else 3;
 
         active_opacity = 1.0;
         inactive_opacity = 1.0;
 
-        shadow = mkIf cfg.noctalia.enable {
+        shadow = mkIf noctalia.enable {
           enabled = true;
           range = 4;
           render_power = 3;
@@ -116,7 +115,7 @@ in {
           enabled = true;
           size = 3;
           passes =
-            if cfg.noctalia.enable
+            if noctalia.enable
             then 2
             else 1;
 
@@ -248,7 +247,7 @@ in {
         "workspace 5 silent, class:(Spotify)"
       ];
 
-      layerrule = mkIf cfg.noctalia.enable [
+      layerrule = mkIf noctalia.enable [
         "blur, noctalia-background-.*"
         "ignorealpha 0.5, noctalia-background-.*"
       ];

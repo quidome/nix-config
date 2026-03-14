@@ -8,6 +8,6 @@
 
   settings = {
     terminal = "alacritty";
-    desktop.niri.noctalia.enable = true;
+    programs.noctalia.enable = true;
   };
 }

@@ -5,10 +5,10 @@
   ...
 }:
 with lib; let
-  cfg = config.programs.niri;
-  noctalia = config.programs.noctalia;
+  cfg = config.settings.programs.niri;
+  noctalia = config.settings.programs.noctalia;
 in {
-  options.programs.niri = {
+  options.settings.programs.niri = {
     enable = mkEnableOption "niri";
     terminal = mkOption {
       type = types.str;

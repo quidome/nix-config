@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.settings.services.swayidle;
-  noctalia = config.programs.noctalia;
+  noctalia = config.settings.programs.noctalia;
 in {
   options.settings.services.swayidle = {
     enable = mkEnableOption "swayidle for idle screen locking";

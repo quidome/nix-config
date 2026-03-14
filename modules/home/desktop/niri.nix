@@ -6,10 +6,10 @@
 }:
 with lib; let
   cfg = config.settings.desktop.niri;
+  noctalia = config.settings.programs.noctalia;
 in {
   options.settings.desktop.niri = {
     enable = mkEnableOption "niri";
-    noctalia.enable = mkEnableOption "noctalia";
   };
 
   config = mkIf cfg.enable {
@@ -45,18 +45,17 @@ in {
       style.name = "adwaita-dark";
     };
 
-    programs.niri.enable = mkDefault true;
+    settings.programs.niri.enable = mkDefault true;
 
     programs = {
       ${config.settings.terminal}.enable = mkDefault true;
-      noctalia.enable = cfg.noctalia.enable;
-      swaylock.enable = mkDefault (!cfg.noctalia.enable);
-      waybar.enable = mkDefault (!cfg.noctalia.enable);
+      swaylock.enable = mkDefault (!noctalia.enable);
+      waybar.enable = mkDefault (!noctalia.enable);
     };
 
     services = {
-      avizo.enable = mkDefault (!cfg.noctalia.enable);
-      mako.enable = mkDefault (!cfg.noctalia.enable);
+      avizo.enable = mkDefault (!noctalia.enable);
+      mako.enable = mkDefault (!noctalia.enable);
       kanshi.enable = mkDefault true;
     };
 

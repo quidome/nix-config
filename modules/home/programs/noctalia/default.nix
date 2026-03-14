@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.programs.noctalia;
+  cfg = config.settings.programs.noctalia;
 in {
-  options.programs.noctalia = {
+  options.settings.programs.noctalia = {
     enable = mkEnableOption "noctalia";
     enableBrightnessWidget = mkOption {
       type = lib.types.bool;

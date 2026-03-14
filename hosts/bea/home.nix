@@ -6,13 +6,12 @@
 
   home.stateVersion = "25.11";
 
-  programs.noctalia = {
-    enableNetworkWidget = false;
-    enableBrightnessWidget = false;
-  };
-
   settings = {
-    desktop.niri.noctalia.enable = true;
+    programs.noctalia = {
+      enable = true;
+      enableNetworkWidget = false;
+      enableBrightnessWidget = false;
+    };
     services.swayidle.lockTimeout = 1800;
     terminalFont.size = 11;
   };
