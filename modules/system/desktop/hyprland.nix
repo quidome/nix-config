@@ -42,7 +42,6 @@ in {
       ];
     };
 
-    programs.gnupg.agent.enableSSHSupport = true;
     programs.hyprland.enable = true;
     programs.hyprland.withUWSM = true;
     programs.hyprlock.enable = true;

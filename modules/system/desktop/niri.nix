@@ -33,7 +33,6 @@ in {
 
     hardware.bluetooth.enable = mkDefault true;
 
-    programs.gnupg.agent.enableSSHSupport = true;
     programs.niri.enable = true;
     programs.thunar.enable = true;
 

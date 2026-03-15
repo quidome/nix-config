@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   home = {
@@ -70,5 +71,13 @@
     "kc" = "kubectx";
     "kn" = "kubens";
     "kseal" = "kubeseal --controller-namespace kube-system --controller-name sealed-secrets";
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = lib.mkDefault true;
+    defaultCacheTtl = 3600;
+    maxCacheTtl = 14400;
+    pinentry.package = lib.mkDefault pkgs.pinentry-curses;
   };
 }

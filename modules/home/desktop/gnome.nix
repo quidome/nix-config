@@ -47,7 +47,7 @@ in {
     };
 
     services.gpg-agent = {
-      enableSshSupport = false;
+      enableSshSupport = false; # GNOME uses gnome-keyring for SSH
       pinentry.package = pkgs.pinentry-gnome3;
     };
   };

@@ -14,6 +14,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
+
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";

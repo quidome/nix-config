@@ -51,6 +51,8 @@ in {
         ]);
     };
 
-    programs.gnupg.agent.enableSSHSupport = true;
+    # Native SSH agent with KWallet integration
+    programs.ssh.startAgent = true;
+    programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
 }

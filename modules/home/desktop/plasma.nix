@@ -29,5 +29,10 @@ in {
       enable = true;
       source = ../dotfiles/Monokai_Remastered.colorscheme;
     };
+
+    services.gpg-agent = {
+      enableSshSupport = false; # Plasma uses ssh-agent + ksshaskpass + KWallet
+      pinentry.package = pkgs.pinentry-qt;
+    };
   };
 }

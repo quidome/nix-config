@@ -13,6 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
+
     home.sessionVariables = {
       NIXOS_OZONE_WL = "1";
       XDG_CURRENT_DESKTOP = "niri";
