@@ -12,16 +12,13 @@ in {
       adoptopenjdk-icedtea-web
       bitwarden-desktop
       cameractrls-gtk3
-      discord
       emacs
       firefox
       logseq
       mpv
-      obsidian
       pandoc
       pavucontrol
       plantuml
-      spotify
       thunderbird
       v4l-utils
       vlc

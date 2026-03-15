@@ -55,7 +55,6 @@ in {
 
     # some tools
     cointop
-    discord
     blender
 
     libva-utils

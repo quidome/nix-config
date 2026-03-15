@@ -85,7 +85,6 @@
     gimp
 
     # gaming
-    discord
     openttd
 
     docker-compose
