@@ -12,7 +12,6 @@
     ./starship.nix
     ./swaylock.nix
     ./tmux.nix
-    ./vscode.nix
     ./waybar.nix
     ./wezterm.nix
     ./wofi.nix

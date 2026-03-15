@@ -20,10 +20,7 @@
 
     pkgs = import inputs.nixpkgs {
       inherit system;
-      config = {
-        allowUnfree = true;
-        permittedInsecurePackages = ["electron-27.3.11"];
-      };
+      config.allowUnfree = true;
 
       unstable = import inputs.nixpkgs-unstable {
         inherit system;
