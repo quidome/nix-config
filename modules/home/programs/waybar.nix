@@ -126,14 +126,7 @@ in {
         }
       ];
       style = ''
-        @define-color foreground #a1a1a1; /* #aaaaaa; */
-        @define-color background #282828; /* #24283b; */
-        @define-color modebg @warning;
-        @define-color border #ffffff;
-        @define-color ok #34eb77;
-        @define-color warning #ff832b;
-        @define-color critical #ff2b2b;
-        @define-color blue #afcbff;
+        /* Catppuccin colors are injected via catppuccin module */
 
         * {
             border: none;
@@ -145,30 +138,30 @@ in {
 
         window#waybar {
             background: transparent;
-            color: @foreground;
+            color: @text;
         }
         .modules-left,
         .modules-right,
         .modules-center {
           border-radius: 16px;
-          background: @background;
+          background: @base;
         }
 
         #workspaces button.active {
-          color: @background;
-          background: @foreground;
+          color: @base;
+          background: @text;
           border-radius: 16px;
         }
 
         #workspaces button.urgent {
-          color: @background;
-          background: @warning;
+          color: @base;
+          background: @peach;
           border-radius: 16px;
         }
 
         #mode {
-            color: white;
-            background: @modebg;
+            color: @base;
+            background: @peach;
             margin: 10px 0 0 0;
             border-radius: 6px;
         }
@@ -182,32 +175,32 @@ in {
         }
 
         #battery.critical:not(.charging) {
-            background: @critical;
-            color: @foreground;
+            background: @red;
+            color: @base;
         }
 
         #battery.warning:not(.charging) {
-            color: @warning;
+            color: @peach;
         }
 
         #battery.charging {
-            color: @ok;
+            color: @green;
         }
 
         #idle_inhibitor.activated {
-            color: @warning;
+            color: @peach;
         }
 
         #network.disconnected {
-            color: @critical;
+            color: @red;
         }
 
         #custom-vpn.connected {
-          color: @ok;
+          color: @green;
         }
 
         #pulseaudio.muted {
-            color: @warning;
+            color: @peach;
         }
 
         #clock {

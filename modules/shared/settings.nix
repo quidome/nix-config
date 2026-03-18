@@ -47,6 +47,39 @@ in {
       '';
       type = types.bool;
     };
+
+    theme = mkOption {
+      type = types.enum ["light" "dark"];
+      default = "dark";
+      description = ''
+        Which color theme to use. Maps to catppuccin flavors:
+        - light -> latte
+        - dark -> mocha
+      '';
+      example = "light";
+    };
+
+    catppuccinAccent = mkOption {
+      type = types.enum [
+        "blue"
+        "flamingo"
+        "green"
+        "lavender"
+        "maroon"
+        "mauve"
+        "peach"
+        "pink"
+        "red"
+        "rosewater"
+        "sapphire"
+        "sky"
+        "teal"
+        "yellow"
+      ];
+      default = "lavender";
+      description = "Accent color for catppuccin theme.";
+      example = "blue";
+    };
   };
 
   #############################################################################

@@ -53,7 +53,7 @@ endif
 let g:airline_symbols.space = "\ua0"
 
 "
-let g:airline_theme='tender'
+let g:airline_theme='catppuccin'
 "let g:airline_theme='sol'
 " nerdtree
 "Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -98,18 +98,8 @@ filetype plugin on    " Enable filetype-specific plugins
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-" Favo colors, tokyonight
-if $TERM_BG == "light"
-  set background=light
-else
-  set background=dark
-endif
-
-try
-   colorscheme tokyonight
-catch /^Vim\%((\a\+)\)\=:E185/
-  colorscheme default
-endtry
+" Use catppuccin colorscheme (configured via home-manager)
+colorscheme catppuccin
 
 " If you have vim >=8.0 or Neovim >= 0.1.5
 if (has("termguicolors"))

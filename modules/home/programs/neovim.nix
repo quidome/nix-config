@@ -7,6 +7,8 @@
   cfg = config.programs.neovim;
 in {
   config = lib.mkIf cfg.enable {
+    catppuccin.nvim.enable = true;
+
     programs.neovim = {
       viAlias = true;
       vimAlias = true;
@@ -14,10 +16,7 @@ in {
       extraConfig = builtins.readFile ./neovim/extraConfig.vim;
 
       plugins = with pkgs.vimPlugins; [
-        tender-vim
         vim-nix
-        gruvbox
-        tokyonight-nvim
         nerdtree
         rainbow
         vim-gitgutter

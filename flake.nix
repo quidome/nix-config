@@ -5,6 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    catppuccin.url = "github:catppuccin/nix/release-25.11";
+
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -55,6 +57,7 @@
               useUserPackages = true;
               users.${user} = {...}: {
                 imports = [
+                  inputs.catppuccin.homeModules.catppuccin
                   ./modules/shared
                   ./modules/home
                   ./hosts/${host}/home.nix

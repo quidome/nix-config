@@ -16,9 +16,6 @@ in {
       font = "${font.name} ${toString font.size}";
 
       border-radius = 5;
-      background-color = "#282828ff";
-      border-color = "#161616ff";
-      text-color = "#a1a1a1";
 
       margin = "2,2";
 

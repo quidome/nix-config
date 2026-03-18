@@ -11,7 +11,6 @@ in {
     programs.helix = {
       defaultEditor = true;
       settings = {
-        theme = "molokai";
         editor = {
           file-picker.hidden = false;
           line-number = "relative";

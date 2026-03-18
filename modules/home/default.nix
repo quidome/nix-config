@@ -5,6 +5,7 @@
     ./programs
     ./services
     ./settings.nix
+    ./theme
     ./xdg
   ];
 }

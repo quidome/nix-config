@@ -9,8 +9,6 @@ in {
   config = lib.mkIf cfg.enable {
     programs.kitty = {
       inherit font;
-
-      themeFile = "gruvbox-dark";
     };
   };
 }

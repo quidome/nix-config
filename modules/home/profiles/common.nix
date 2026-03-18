@@ -18,7 +18,6 @@
     };
   };
   programs.bat.enable = true;
-  programs.bat.config.theme = "DarkNeon";
   programs.bat.config.style = "header,snip";
 
   programs.direnv.enable = true;

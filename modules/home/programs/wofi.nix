@@ -5,6 +5,27 @@
   ...
 }: let
   cfg = config.programs.wofi;
+
+  # Catppuccin Latte colors
+  latteColors = {
+    base = "rgba(239, 241, 245, 0.9)";
+    text = "#4c4f69";
+    surface0 = "#ccd0da";
+    overlay0 = "#9ca0b0";
+  };
+
+  # Catppuccin Mocha colors
+  mochaColors = {
+    base = "rgba(30, 30, 46, 0.9)";
+    text = "#cdd6f4";
+    surface0 = "#313244";
+    overlay0 = "#6c7086";
+  };
+
+  colors =
+    if config.settings.theme == "light"
+    then latteColors
+    else mochaColors;
 in {
   config = lib.mkIf cfg.enable {
     programs.wofi.settings = {
@@ -13,9 +34,9 @@ in {
     };
 
     xdg.configFile."wofi/style.css".text = ''
-      @define-color foreground #b1b1b1;
-      @define-color background rgba (40, 40, 40, 0.85);
-      @define-color border @foreground;
+      @define-color foreground ${colors.text};
+      @define-color background ${colors.base};
+      @define-color border ${colors.overlay0};
 
       #window {
         padding: 2px;
@@ -43,7 +64,7 @@ in {
       }
 
       #inner-box {
-        color: #d8dee9;
+        color: @foreground;
         border-radius: 5px;
         padding: 2px;
         background-color: @background;
