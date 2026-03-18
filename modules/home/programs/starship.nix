@@ -28,7 +28,7 @@ in {
 
       directory = {
         style = "bold blue";
-        repo_root_style = "bold fg:220";
+        repo_root_style = "bold mauve";
       };
 
       git_status = {
