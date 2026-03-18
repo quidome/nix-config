@@ -13,6 +13,10 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    plasma-manager.url = "github:nix-community/plasma-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.inputs.home-manager.follows = "home-manager";
+
     opencode.url = "github:sst/opencode";
   };
 
@@ -58,6 +62,7 @@
               users.${user} = {...}: {
                 imports = [
                   inputs.catppuccin.homeModules.catppuccin
+                  inputs.plasma-manager.homeManagerModules.plasma-manager
                   ./modules/shared
                   ./modules/home
                   ./hosts/${host}/home.nix

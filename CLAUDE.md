@@ -11,7 +11,7 @@ This is a flake-based NixOS configuration repository managing multiple hosts wit
 ### System Management
 ```bash
 # Build and switch NixOS configuration
-just build
+just switch
 # or manually:
 sudo nixos-rebuild --flake . switch
 
