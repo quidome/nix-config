@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
@@ -28,6 +29,16 @@ in {
       hyprlock.enable = config.programs.hyprlock.enable;
       waybar.enable = config.programs.waybar.enable;
       zed.enable = config.programs.zed-editor.enable;
+
+      # Kvantum for Qt theming (useful for Plasma)
+      kvantum.enable = cfg.preferQt;
+    };
+
+    # Configure Qt to use Kvantum when preferQt is enabled
+    qt = mkIf cfg.preferQt {
+      enable = true;
+      style.name = "kvantum";
+      platformTheme.name = "kvantum";
     };
   };
 }

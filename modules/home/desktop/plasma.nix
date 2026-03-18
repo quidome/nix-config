@@ -6,15 +6,20 @@
 }:
 with lib; let
   plasmaEnabled = config.settings.gui == "plasma";
+  konsoleColorscheme =
+    if config.settings.theme == "light"
+    then "Catppuccin-Latte"
+    else "Catppuccin-Mocha";
 in {
   config = mkIf plasmaEnabled {
-    home.file.".local/share/konsole/Molokai.colorscheme" = {
+    # Catppuccin Konsole colorschemes
+    home.file.".local/share/konsole/Catppuccin-Mocha.colorscheme" = {
       enable = true;
-      source = ../dotfiles/Molokai.colorscheme;
+      source = ../dotfiles/Catppuccin-Mocha.colorscheme;
     };
-    home.file.".local/share/konsole/Monokai Remastered.colorscheme" = {
+    home.file.".local/share/konsole/Catppuccin-Latte.colorscheme" = {
       enable = true;
-      source = ../dotfiles/Monokai_Remastered.colorscheme;
+      source = ../dotfiles/Catppuccin-Latte.colorscheme;
     };
 
     services.gpg-agent = {

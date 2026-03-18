@@ -1,3 +1,4 @@
 {
-  settings.gui = "gnome";
+  settings.gui = "plasma";
+  settings.theme = "light";
 }
