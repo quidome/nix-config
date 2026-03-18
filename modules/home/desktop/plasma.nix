@@ -48,7 +48,8 @@ in {
       enable = true;
 
       workspace = {
-        inherit colorScheme cursorTheme;
+        inherit colorScheme;
+        cursor.theme = cursorTheme;
         lookAndFeel = "Catppuccin-${flavorCap}-${accentCap}";
       };
 

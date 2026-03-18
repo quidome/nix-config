@@ -62,7 +62,7 @@
               users.${user} = {...}: {
                 imports = [
                   inputs.catppuccin.homeModules.catppuccin
-                  inputs.plasma-manager.homeManagerModules.plasma-manager
+                  inputs.plasma-manager.homeModules.plasma-manager
                   ./modules/shared
                   ./modules/home
                   ./hosts/${host}/home.nix
