@@ -54,5 +54,10 @@ in {
     # Native SSH agent with KWallet integration
     programs.ssh.startAgent = true;
     programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+
+    # Ensure GUI password prompts are used
+    environment.sessionVariables = {
+      SSH_ASKPASS_REQUIRE = "prefer";
+    };
   };
 }

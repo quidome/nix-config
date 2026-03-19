@@ -46,7 +46,7 @@
   programs.ssh.enableDefaultConfig = false;
   programs.ssh.matchBlocks."*" = {
     forwardAgent = false;
-    addKeysToAgent = "no";
+    addKeysToAgent = "yes";
     compression = false;
     serverAliveInterval = 0;
     serverAliveCountMax = 3;
@@ -56,7 +56,6 @@
     controlPath = "~/.ssh/master-%r@%n:%p";
     controlPersist = "no";
   };
-  programs.ssh.extraConfig = "AddKeysToAgent yes";
 
   programs.zellij.enable = lib.mkDefault true;
 
