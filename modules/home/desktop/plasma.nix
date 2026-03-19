@@ -79,6 +79,8 @@ in {
       [General]
       Name=Catppuccin
       Parent=FALLBACK/
+      TerminalColumns=120
+      TerminalRows=40
     '';
 
     services.gpg-agent = {

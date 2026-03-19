@@ -13,7 +13,7 @@
       enableBrightnessWidget = false;
     };
     services.swayidle.lockTimeout = 1800;
-    terminalFont.size = 11;
+    terminalFont.size = 10;
   };
 
   services.kanshi = {
