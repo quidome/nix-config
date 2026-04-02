@@ -13,6 +13,7 @@ in {
   config = lib.mkIf isWorkstation {
     fonts.fontconfig.enable = mkDefault true;
 
+    programs.emacs.enable = mkDefault true;
     programs.firefox.enable = mkDefault true;
     programs.wofi.enable = mkDefault true;
     programs.zed-editor.enable = mkDefault true;

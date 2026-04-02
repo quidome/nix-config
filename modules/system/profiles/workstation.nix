@@ -12,7 +12,6 @@ in {
       adoptopenjdk-icedtea-web
       bitwarden-desktop
       cameractrls-gtk3
-      emacs
       firefox
       logseq
       mpv
