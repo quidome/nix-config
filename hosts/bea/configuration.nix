@@ -61,6 +61,10 @@
   networking.hostName = "bea";
   networking.firewall.enable = true;
 
+  # Disable secondary interface to prevent IPv6 routing conflicts
+  networking.interfaces.enp47s0f3u3u3.useDHCP = false;
+  networking.networkmanager.unmanaged = [ "enp47s0f3u3u3" ];
+
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Europe/Amsterdam";
 
