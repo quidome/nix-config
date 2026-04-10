@@ -18,5 +18,8 @@ with lib; {
         STOP_CHARGE_THRESH_BAT0 = 80;
       };
     };
+
+    # TLP conflicts with power-profiles-daemon (enabled by default in GNOME and Plasma)
+    services.power-profiles-daemon.enable = mkForce false;
   };
 }
