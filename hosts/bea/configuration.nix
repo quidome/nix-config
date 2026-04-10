@@ -8,13 +8,10 @@
   ];
 
   boot.loader.systemd-boot = {
-    enable = true;
     configurationLimit = 7;
     windows."11".efiDeviceHandle = "FS0";
   };
 
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernel.sysctl = {"vm.swappiness" = 1;};
   boot.kernelParams = ["consoleblank=180"];
   boot.supportedFilesystems.zfs = true;
 
@@ -27,11 +24,6 @@
     ktlint
     postgresql
     temurin-bin-21
-    kubectl
-    kustomize
-    kubernetes-helm
-    cilium-cli
-    k9s
 
     # multimedia
     kdePackages.kdenlive
@@ -60,21 +52,14 @@
 
   networking.hostName = "bea";
   networking.firewall.enable = true;
+  networking.networkmanager.enable = true;
 
   # Disable secondary interface to prevent IPv6 routing conflicts
   networking.interfaces.enp47s0f3u3u3.useDHCP = false;
-  networking.networkmanager.unmanaged = [ "enp47s0f3u3u3" ];
+  networking.networkmanager.unmanaged = ["enp47s0f3u3u3"];
 
   time.hardwareClockInLocalTime = true;
-  time.timeZone = "Europe/Amsterdam";
 
-  i18n.defaultLocale = "en_IE.UTF-8";
-
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    input.General.UserspaceHID = true;
-  };
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -89,12 +74,10 @@
     extraCompatPackages = with pkgs; [proton-ge-bin];
   };
 
-  services.flatpak.enable = true;
   services.xserver.videoDrivers = ["amdgpu"];
 
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.11";
 }

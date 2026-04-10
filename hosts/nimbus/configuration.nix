@@ -10,27 +10,15 @@
     ./hardware-configuration.nix
   ];
 
-  boot = {
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
-
-    kernel.sysctl = {"vm.swappiness" = 1;};
-    kernelParams = [
-      "consoleblank=60"
-      "zswap.enabled=1"
-      "zswap.compression=zstd"
-      "zswap.zpool=zsmalloc"
-      "zswap.max_pool_percent=50"
-    ];
-  };
-
-  time.timeZone = "Europe/Amsterdam";
-
-  i18n.defaultLocale = "en_IE.UTF-8";
+  boot.kernelParams = [
+    "consoleblank=60"
+    "zswap.enabled=1"
+    "zswap.compression=zstd"
+    "zswap.zpool=zsmalloc"
+    "zswap.max_pool_percent=50"
+  ];
 
   hardware = {
-    bluetooth.enable = true;
-    bluetooth.powerOnBoot = true;
     cpu.intel.updateMicrocode = true;
     graphics.enable = true;
     graphics.extraPackages = with pkgs; [
@@ -84,9 +72,6 @@
     calibre
     gimp
 
-    # gaming
-    openttd
-
     docker-compose
     lazydocker
 
@@ -129,6 +114,5 @@
     docker.storageDriver = "btrfs";
   };
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.11";
 }
