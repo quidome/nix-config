@@ -5,6 +5,9 @@
   ...
 }: {
   config = lib.mkIf (config.settings.gui == "gnome") {
+    # TLP conflicts with power-profiles-daemon; disable it on laptop GNOME hosts
+    services.power-profiles-daemon.enable = lib.mkIf config.laptop.enable (lib.mkForce false);
+
     # add extra packages to this desktop setup
     environment.systemPackages =
       (with pkgs; [

@@ -45,6 +45,7 @@ in {
     libva-utils
   ];
 
+  laptop.enable = true;
   powerManagement.enable = true;
 
   services.logind.settings.Login = {HandlePowerKey = "suspend";};

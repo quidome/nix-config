@@ -81,6 +81,7 @@
     wireshark
   ];
 
+  laptop.enable = true;
   powerManagement.enable = true;
 
   services = {
