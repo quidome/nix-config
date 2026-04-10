@@ -4,6 +4,23 @@
   ...
 }:
 with lib; {
+  boot = {
+    loader.systemd-boot.enable = mkDefault true;
+    loader.efi.canTouchEfiVariables = mkDefault true;
+    kernel.sysctl = {"vm.swappiness" = mkDefault 1;};
+  };
+
+  time.timeZone = mkDefault "Europe/Amsterdam";
+
+  i18n.defaultLocale = mkDefault "en_IE.UTF-8";
+
+  hardware.bluetooth = {
+    enable = mkDefault true;
+    powerOnBoot = mkDefault true;
+  };
+
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   environment.systemPackages = with pkgs; [
     # system
     bottom

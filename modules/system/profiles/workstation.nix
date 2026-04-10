@@ -8,6 +8,8 @@ with lib; let
   isWorkstation = config.settings.gui != "none";
 in {
   config = mkIf isWorkstation {
+    hardware.bluetooth.input.General.UserspaceHID = mkDefault true;
+
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
       bitwarden-desktop
