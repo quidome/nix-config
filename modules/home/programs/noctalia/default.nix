@@ -230,9 +230,18 @@ with lib; let
     };
     calendar = {
       cards = [
-        {enabled = true; id = "calendar-header-card";}
-        {enabled = true; id = "calendar-month-card";}
-        {enabled = true; id = "weather-card";}
+        {
+          enabled = true;
+          id = "calendar-header-card";
+        }
+        {
+          enabled = true;
+          id = "calendar-month-card";
+        }
+        {
+          enabled = true;
+          id = "weather-card";
+        }
       ];
     };
     colorSchemes = {
@@ -247,12 +256,30 @@ with lib; let
     };
     controlCenter = {
       cards = [
-        {enabled = true; id = "profile-card";}
-        {enabled = true; id = "shortcuts-card";}
-        {enabled = true; id = "audio-card";}
-        {enabled = false; id = "brightness-card";}
-        {enabled = true; id = "weather-card";}
-        {enabled = true; id = "media-sysmon-card";}
+        {
+          enabled = true;
+          id = "profile-card";
+        }
+        {
+          enabled = true;
+          id = "shortcuts-card";
+        }
+        {
+          enabled = true;
+          id = "audio-card";
+        }
+        {
+          enabled = false;
+          id = "brightness-card";
+        }
+        {
+          enabled = true;
+          id = "weather-card";
+        }
+        {
+          enabled = true;
+          id = "media-sysmon-card";
+        }
       ];
       diskPath = "/";
       position = "close_to_bar_button";
@@ -434,13 +461,55 @@ with lib; let
       largeButtonsStyle = true;
       position = "center";
       powerOptions = [
-        {action = "lock"; command = ""; countdownEnabled = true; enabled = true; keybind = "1";}
-        {action = "suspend"; command = ""; countdownEnabled = true; enabled = true; keybind = "2";}
-        {action = "hibernate"; command = ""; countdownEnabled = true; enabled = false; keybind = "3";}
-        {action = "reboot"; command = ""; countdownEnabled = true; enabled = true; keybind = "4";}
-        {action = "logout"; command = ""; countdownEnabled = true; enabled = true; keybind = "5";}
-        {action = "shutdown"; command = ""; countdownEnabled = true; enabled = true; keybind = "6";}
-        {action = "rebootToUefi"; command = ""; countdownEnabled = true; enabled = false; keybind = "";}
+        {
+          action = "lock";
+          command = "";
+          countdownEnabled = true;
+          enabled = true;
+          keybind = "1";
+        }
+        {
+          action = "suspend";
+          command = "";
+          countdownEnabled = true;
+          enabled = true;
+          keybind = "2";
+        }
+        {
+          action = "hibernate";
+          command = "";
+          countdownEnabled = true;
+          enabled = false;
+          keybind = "3";
+        }
+        {
+          action = "reboot";
+          command = "";
+          countdownEnabled = true;
+          enabled = true;
+          keybind = "4";
+        }
+        {
+          action = "logout";
+          command = "";
+          countdownEnabled = true;
+          enabled = true;
+          keybind = "5";
+        }
+        {
+          action = "shutdown";
+          command = "";
+          countdownEnabled = true;
+          enabled = true;
+          keybind = "6";
+        }
+        {
+          action = "rebootToUefi";
+          command = "";
+          countdownEnabled = true;
+          enabled = false;
+          keybind = "";
+        }
       ];
       showHeader = true;
       showKeybinds = true;
