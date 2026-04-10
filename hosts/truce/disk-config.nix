@@ -1,6 +1,6 @@
 let
   btrfs_mount_options = [
-    "compress=lzo"
+    "compress=zstd"
     "discard=async"
     "noatime"
     "rw"
