@@ -7,10 +7,9 @@
 with lib; let
   gnomeEnabled = config.settings.gui == "gnome";
   terminal = config.settings.terminal;
-  colorScheme =
-    if config.settings.theme == "light"
-    then "prefer-light"
-    else "prefer-dark";
+  isLight = config.settings.theme == "light";
+  colorScheme = if isLight then "prefer-light" else "prefer-dark";
+  gtkTheme = if isLight then "Adwaita" else "Adwaita Dark";
 in {
   config = mkIf gnomeEnabled {
     programs.${terminal}.enable = true;
@@ -26,9 +25,16 @@ in {
         color-scheme = colorScheme;
         cursor-theme = "Adwaita";
         enable-hot-corners = false;
+        font-name = "Noto Sans 10";
+        document-font-name = "Noto Sans 10";
+        gtk-theme = gtkTheme;
         icon-theme = "Adwaita";
         monospace-font-name = "JetBrainsMono Nerd Font Light 11";
       };
+
+      "org/gnome/desktop/input-sources".sources = [
+        (lib.hm.gvariant.mkTuple ["xkb" "us"])
+      ];
 
       "org/gnome/desktop/peripherals/mouse" = {
         natural-scroll = true;
@@ -39,7 +45,12 @@ in {
         two-finger-scrolling-enabled = true;
       };
 
-      "org/gnome/desktop/wm/preferences".focus-mode = "mouse";
+      "org/gnome/desktop/sound".theme-name = "ocean";
+
+      "org/gnome/desktop/wm/preferences" = {
+        button-layout = "icon:minimize,maximize,close";
+        focus-mode = "mouse";
+      };
 
       "org/gnome/settings-daemon/plugins/media-keys" = {
         custom-keybindings = [
