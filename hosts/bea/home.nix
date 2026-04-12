@@ -67,6 +67,14 @@
     ];
   };
 
+  dconf.settings."org/gnome/desktop/peripherals/mice/045e:0800" = {
+    natural-scroll = false;
+  };
+
+  dconf.settings."org/gnome/desktop/peripherals/mice/046d:c05a" = {
+    left-handed = true;
+  };
+
   wayland.windowManager.hyprland.settings.monitor = [
     ",preferred,auto,auto"
     "desc:Samsung Electric Company LC32G5xT HK2W200965, disable"
