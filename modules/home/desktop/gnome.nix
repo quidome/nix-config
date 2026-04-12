@@ -7,12 +7,16 @@
 with lib; let
   gnomeEnabled = config.settings.gui == "gnome";
   terminal = config.settings.terminal;
+  colorScheme =
+    if config.settings.theme == "light"
+    then "prefer-light"
+    else "prefer-dark";
 in {
   config = mkIf gnomeEnabled {
     programs.${terminal}.enable = true;
     dconf.settings = {
       "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
+        color-scheme = colorScheme;
         cursor-theme = "Adwaita";
         enable-hot-corners = false;
         icon-theme = "Adwaita";
@@ -42,6 +46,8 @@ in {
         command = terminal;
         name = "Launch Terminal";
       };
+
+      "org/gnome/Console".theme = "auto";
 
       "org/gnome/tweaks".show-extensions-notice = false;
     };
