@@ -32,8 +32,10 @@ with lib; {
   };
 
   config.settings.terminal = mkDefault (
-    if config.settings.gui == "niri"
+    if config.settings.gui == "niri" || config.settings.gui == "gnome"
     then "ghostty"
+    else if config.settings.gui == "plasma"
+    then "konsole"
     else "alacritty"
   );
 }
