@@ -24,7 +24,6 @@ in {
       };
 
       "org/gnome/desktop/peripherals/mouse" = {
-        left-handed = true;
         natural-scroll = true;
       };
 
