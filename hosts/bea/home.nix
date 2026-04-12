@@ -7,7 +7,6 @@
   home.stateVersion = "25.11";
 
   settings = {
-    terminal = "konsole";
     programs.noctalia = {
       enableNetworkWidget = false;
       enableBrightnessWidget = false;

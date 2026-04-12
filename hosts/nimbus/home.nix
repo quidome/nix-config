@@ -6,7 +6,6 @@
 
   home.stateVersion = "25.11";
 
-  settings.terminal = "konsole";
   settings.services.swayidle.lockTimeout = 180;
 
   services.kanshi = {
