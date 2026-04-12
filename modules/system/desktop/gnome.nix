@@ -13,6 +13,7 @@
       ])
       ++ (with pkgs.gnomeExtensions; [
         appindicator
+        display-configuration-switcher
         (lib.mkIf config.services.tailscale.enable tailscale-status)
       ]);
 

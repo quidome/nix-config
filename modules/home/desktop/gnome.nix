@@ -15,6 +15,13 @@ in {
   config = mkIf gnomeEnabled {
     programs.${terminal}.enable = true;
     dconf.settings = {
+      "org/gnome/shell" = {
+        enabled-extensions = [
+          "appindicatorsupport@rgcjonas.gmail.com"
+          "display-configuration-switcher@knokelmaat.gitlab.com"
+        ];
+      };
+
       "org/gnome/desktop/interface" = {
         color-scheme = colorScheme;
         cursor-theme = "Adwaita";
