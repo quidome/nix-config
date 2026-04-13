@@ -33,6 +33,7 @@ in {
 
     hardware.bluetooth.enable = mkDefault true;
 
+    programs.light.enable = true;
     programs.niri.enable = true;
     programs.thunar.enable = true;
 

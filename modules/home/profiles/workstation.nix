@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -13,8 +12,6 @@ with lib; let
 in {
   config = lib.mkIf isWorkstation {
     fonts.fontconfig.enable = mkDefault true;
-
-    home.packages = with pkgs; [wl-clipboard];
 
     programs.emacs.enable = mkDefault true;
     programs.firefox.enable = mkDefault true;

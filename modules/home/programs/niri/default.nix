@@ -47,14 +47,8 @@ in {
         if noctalia.enable
         then ''spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"''
         else ''spawn "volumectl" "toggle-mute"'';
-      raiseBrightness =
-        if noctalia.enable
-        then ''spawn "brightnessctl" "set" "10%+"''
-        else ''spawn "lightctl" "up"'';
-      lowerBrightness =
-        if noctalia.enable
-        then ''spawn "brightnessctl" "set" "10%-"''
-        else ''spawn "lightctl" "down"'';
+      raiseBrightness = ''spawn "lightctl" "up"'';
+      lowerBrightness = ''spawn "lightctl" "down"'';
 
       # Noctalia setup
       noctaliaShell = optionalString noctalia.enable "${pkgs.unstable.noctalia-shell}/bin/noctalia-shell";
