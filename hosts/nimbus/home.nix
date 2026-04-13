@@ -7,6 +7,7 @@
   home.stateVersion = "25.11";
 
   settings.services.swayidle.lockTimeout = 180;
+  settings.programs.niri.wallpaper = "/home/quidome/Pictures/Wallpapers/digital-art-15.jpg";
 
   services.kanshi = {
     enable = true;

@@ -1,4 +1,4 @@
 {
-  settings.gui = "gnome";
+  settings.gui = "niri";
   settings.theme = "light";
 }
