@@ -90,58 +90,62 @@ with lib; let
     };
   };
 
-  niriConfig = sharedModules // {
-    height = 34;
-    modules-left = [
-      "pulseaudio"
-      "idle_inhibitor"
-      "backlight"
-    ];
-    modules-center = ["niri/workspaces"];
-    modules-right = [
-      "network"
-      "cpu"
-      "memory"
-      "temperature"
-      "battery"
-      "tray"
-      "clock"
-    ];
+  niriConfig =
+    sharedModules
+    // {
+      height = 34;
+      modules-left = [
+        "pulseaudio"
+        "idle_inhibitor"
+        "backlight"
+      ];
+      modules-center = ["niri/workspaces"];
+      modules-right = [
+        "network"
+        "cpu"
+        "memory"
+        "temperature"
+        "battery"
+        "tray"
+        "clock"
+      ];
 
-    "niri/workspaces" = {
-      on-click = "activate";
-    };
-  };
-
-  hyprlandConfig = sharedModules // {
-    height = 34;
-    modules-left = [
-      "pulseaudio"
-      "idle_inhibitor"
-      "backlight"
-      "hyprland/mode"
-    ];
-    modules-center = ["hyprland/workspaces"];
-    modules-right = [
-      "network"
-      "cpu"
-      "memory"
-      "temperature"
-      "battery"
-      "tray"
-      "clock"
-    ];
-
-    "hyprland/workspaces" = {
-      on-click = "activate";
-      on-scroll-up = "hyprctl dispatch workspace e-1";
-      on-scroll-down = "hyprctl dispatch workspace e+1";
+      "niri/workspaces" = {
+        on-click = "activate";
+      };
     };
 
-    "hyprland/window" = {
-      "separate-output" = true;
+  hyprlandConfig =
+    sharedModules
+    // {
+      height = 34;
+      modules-left = [
+        "pulseaudio"
+        "idle_inhibitor"
+        "backlight"
+        "hyprland/mode"
+      ];
+      modules-center = ["hyprland/workspaces"];
+      modules-right = [
+        "network"
+        "cpu"
+        "memory"
+        "temperature"
+        "battery"
+        "tray"
+        "clock"
+      ];
+
+      "hyprland/workspaces" = {
+        on-click = "activate";
+        on-scroll-up = "hyprctl dispatch workspace e-1";
+        on-scroll-down = "hyprctl dispatch workspace e+1";
+      };
+
+      "hyprland/window" = {
+        "separate-output" = true;
+      };
     };
-  };
 in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [libappindicator-gtk3];
@@ -149,7 +153,11 @@ in {
     programs.waybar = {
       systemd.enable = mkDefault true;
       settings = [
-        (if isNiri then niriConfig else hyprlandConfig)
+        (
+          if isNiri
+          then niriConfig
+          else hyprlandConfig
+        )
       ];
       style = ''
         /* Catppuccin colors are injected via catppuccin module */

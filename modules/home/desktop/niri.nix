@@ -8,8 +8,14 @@ with lib; let
   cfg = config.settings.desktop.niri;
   noctalia = config.settings.programs.noctalia;
   isLight = config.settings.theme == "light";
-  colorScheme = if isLight then "prefer-light" else "prefer-dark";
-  gtkTheme = if isLight then "Adwaita" else "Adwaita Dark";
+  colorScheme =
+    if isLight
+    then "prefer-light"
+    else "prefer-dark";
+  gtkTheme =
+    if isLight
+    then "Adwaita"
+    else "Adwaita Dark";
   preferDark = !isLight;
 in {
   options.settings.desktop.niri = {
@@ -48,7 +54,10 @@ in {
     qt = {
       enable = true;
       platformTheme.name = "adwaita";
-      style.name = if isLight then "adwaita" else "adwaita-dark";
+      style.name =
+        if isLight
+        then "adwaita"
+        else "adwaita-dark";
     };
 
     settings.programs.niri.enable = mkDefault true;

@@ -8,8 +8,14 @@ with lib; let
   gnomeEnabled = config.settings.gui == "gnome";
   terminal = config.settings.terminal;
   isLight = config.settings.theme == "light";
-  colorScheme = if isLight then "prefer-light" else "prefer-dark";
-  gtkTheme = if isLight then "Adwaita" else "Adwaita Dark";
+  colorScheme =
+    if isLight
+    then "prefer-light"
+    else "prefer-dark";
+  gtkTheme =
+    if isLight
+    then "Adwaita"
+    else "Adwaita Dark";
 in {
   config = mkIf gnomeEnabled {
     programs.${terminal}.enable = true;
