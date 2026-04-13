@@ -7,6 +7,10 @@
 with lib; let
   cfg = config.settings.desktop.niri;
   noctalia = config.settings.programs.noctalia;
+  isLight = config.settings.theme == "light";
+  colorScheme = if isLight then "prefer-light" else "prefer-dark";
+  gtkTheme = if isLight then "Adwaita" else "Adwaita Dark";
+  preferDark = !isLight;
 in {
   options.settings.desktop.niri = {
     enable = mkEnableOption "niri";
@@ -24,31 +28,31 @@ in {
 
     dconf.settings = {
       "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
+        color-scheme = colorScheme;
       };
     };
 
     gtk = {
       enable = true;
       font.name = "Noto Sans";
-      theme.name = "Adwaita Dark";
+      theme.name = gtkTheme;
       theme.package = pkgs.gnome-themes-extra;
       gtk3.extraConfig = {
-        gtk-application-prefer-dark-theme = true;
+        gtk-application-prefer-dark-theme = preferDark;
       };
       gtk4.extraConfig = {
-        gtk-application-prefer-dark-theme = true;
+        gtk-application-prefer-dark-theme = preferDark;
       };
     };
 
     qt = {
       enable = true;
       platformTheme.name = "adwaita";
-      style.name = "adwaita-dark";
+      style.name = if isLight then "adwaita" else "adwaita-dark";
     };
 
     settings.programs.niri.enable = mkDefault true;
-    settings.programs.noctalia.enable = mkDefault true;
+    settings.programs.noctalia.enable = mkDefault false;
 
     programs = {
       ${config.settings.terminal}.enable = mkDefault true;

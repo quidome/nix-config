@@ -6,6 +6,7 @@
 }:
 with lib; let
   cfg = config.settings.programs.noctalia;
+  isLight = config.settings.theme == "light";
   settingsGenerated = "$HOME/.config/noctalia/settings-generated.json";
   settingsFile = "$HOME/.config/noctalia/settings.json";
 
@@ -245,7 +246,7 @@ with lib; let
       ];
     };
     colorSchemes = {
-      darkMode = true;
+      darkMode = !isLight;
       generationMethod = "tonal-spot";
       manualSunrise = "06:30";
       manualSunset = "18:30";
