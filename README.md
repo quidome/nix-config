@@ -3,20 +3,18 @@
 In this repository I keep my flake based nixos and home-manager configurations.
 Next to that, there is a configuration to build live-cds.
 
-## Nixos
+## NixOS
 
-Just stand in the root of this repository and run nixos-rebuild.
+Home-manager runs as a NixOS module, so a single rebuild applies both system and user configuration.
 
 ```sh
 sudo nixos-rebuild --flake . switch
 ```
 
-## Home manager
-
-Home manager is not used as a module and should be ran seperately.
+Or using the justfile shorthand:
 
 ```sh
-home-manager --flake . switch
+just switch
 ```
 
 ## Live cd
@@ -42,3 +40,30 @@ The live iso contains ssh public keys, has sshd running and contains nmtui to se
 ```sh
 nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --generate-hardware-config nixos-generate-config hosts/${TARGET_HOST}/hardware-configuration.nix --target-host root@${TARGET_HOST_IP}
 ```
+
+## Desktop environments
+
+Four desktops are supported via `settings.gui`: `hyprland`, `niri`, `gnome`, `plasma`.
+
+The table below maps core desktop functionality to how each environment provides it. "built-in" means the desktop handles it natively with no extra tooling required.
+
+| Requirement | Hyprland | Niri | GNOME | Plasma |
+|---|---|---|---|---|
+| **Status bar** | waybar / noctalia | waybar / noctalia | built-in | built-in |
+| **App launcher** | wofi | fuzzel | Activities overlay | Kickoff |
+| **Notifications** | mako / noctalia | mako / noctalia | built-in | built-in |
+| **Screen lock** | hyprlock / noctalia | swaylock / noctalia | built-in | built-in |
+| **Idle / sleep** | hypridle | swayidle | built-in | built-in |
+| **Volume / OSD** | avizo (`volumectl`) / noctalia | avizo (`volumectl`) / noctalia | built-in | built-in |
+| **Brightness / OSD** | avizo (`lightctl`) / noctalia | avizo (`lightctl`) / noctalia | built-in | built-in |
+| **Wallpaper** | hyprpaper / noctalia | swaybg (`settings.programs.niri.wallpaper`) / noctalia | built-in | built-in |
+| **Network management** | nm-applet | nm-applet | built-in | built-in |
+| **Bluetooth management** | bluetoothctl (CLI) / noctalia | bluetoothctl (CLI) / noctalia | built-in | built-in |
+| **Display layout** | kanshi | kanshi | built-in + display-configuration-switcher ext | built-in |
+| **System tray** | waybar tray / noctalia | waybar tray / noctalia | appindicator extension | built-in |
+| **Polkit agent** | polkit-kde-agent-1 | polkit-kde-agent-1 | built-in | built-in |
+| **Screenshot** | grimblast (Print binds) | niri built-in (Print binds) | built-in | Spectacle |
+| **Clipboard** | wl-clipboard | wl-clipboard | built-in | built-in |
+| **XDG portals** | xdg-desktop-portal-gtk | xdg-desktop-portal-gtk | built-in | built-in |
+| **Color scheme** | GTK/Qt Adwaita Dark | GTK/Qt Adwaita (light/dark) | dconf color-scheme | KDE theming |
+| **Secret storage** | gnome-keyring | gnome-keyring | gnome-keyring | KWallet |
