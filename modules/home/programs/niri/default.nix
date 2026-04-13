@@ -16,11 +16,17 @@ in {
       description = "Terminal emulator to launch with Mod+Return";
       example = "wezterm";
     };
+    wallpaper = mkOption {
+      type = types.str;
+      default = "";
+      description = "Path to wallpaper image for swaybg (used when noctalia is disabled)";
+      example = "/home/user/Pictures/Wallpapers/wall.jpg";
+    };
   };
 
   config = mkIf cfg.enable {
-    home.packages = lib.optionals noctalia.enable [
-      pkgs.brightnessctl
+    home.packages = [
+      pkgs.light
       pkgs.playerctl
     ];
 
@@ -41,10 +47,19 @@ in {
         if noctalia.enable
         then ''spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"''
         else ''spawn "volumectl" "toggle-mute"'';
+      raiseBrightness =
+        if noctalia.enable
+        then ''spawn "brightnessctl" "set" "10%+"''
+        else ''spawn "lightctl" "up"'';
+      lowerBrightness =
+        if noctalia.enable
+        then ''spawn "brightnessctl" "set" "10%-"''
+        else ''spawn "lightctl" "down"'';
 
       # Noctalia setup
       noctaliaShell = optionalString noctalia.enable "${pkgs.unstable.noctalia-shell}/bin/noctalia-shell";
       spawnNoctalia = optionalString noctalia.enable ''spawn-at-startup "${noctaliaShell}"'';
+      spawnSwaybg = optionalString (!noctalia.enable && cfg.wallpaper != "") ''spawn-at-startup "swaybg" "-i" "${cfg.wallpaper}" "-m" "fill"'';
       noctaliaIPCCall = optionalString noctalia.enable ''"${noctaliaShell}" "ipc" "call" '';
       ctrlAltDeleteAction =
         if noctalia.enable
@@ -132,6 +147,7 @@ in {
       }
 
       ${spawnNoctalia}
+      ${spawnSwaybg}
       hotkey-overlay {
           skip-at-startup
       }
@@ -176,8 +192,8 @@ in {
           XF86AudioPrev        allow-when-locked=true { spawn "playerctl" "previous"; }
           XF86AudioNext        allow-when-locked=true { spawn "playerctl" "next"; }
 
-          XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "10%+"; }
-          XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "10%-"; }
+          XF86MonBrightnessUp allow-when-locked=true { ${raiseBrightness}; }
+          XF86MonBrightnessDown allow-when-locked=true { ${lowerBrightness}; }
 
           Mod+O repeat=false { toggle-overview; }
 
