@@ -15,6 +15,7 @@ in {
       bitwarden-desktop
       cameractrls-gtk3
       firefox
+      freecad
       logseq
       mpv
       pandoc
