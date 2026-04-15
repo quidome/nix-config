@@ -17,6 +17,7 @@ in {
       firefox
       freecad
       logseq
+      mani
       mpv
       pandoc
       pavucontrol
