@@ -35,7 +35,7 @@ in {
         shikane
         wev
 
-        kdePackages.polkit-kde-agent-1
+        polkit_gnome
 
         (mkIf networkmanagerEnabled networkmanagerapplet)
         (mkIf tailscaleEnabled tailscale-systray)

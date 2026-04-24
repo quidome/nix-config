@@ -25,7 +25,7 @@ in {
       wdisplays
 
       xwayland-satellite
-      kdePackages.polkit-kde-agent-1
+      polkit_gnome
 
       (mkIf networkmanagerEnabled networkmanagerapplet)
       (mkIf tailscaleEnabled tailscale-systray)

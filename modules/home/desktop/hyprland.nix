@@ -234,9 +234,9 @@ in {
       ];
 
       windowrule = [
-        "float       , class:^(org.kde.polkit-kde-authentication-agent-1)$"
-        "size 741 288, class:^(org.kde.polkit-kde-authentication-agent-1)$"
-        "center      , class:^(org.kde.polkit-kde-authentication-agent-1)$"
+        "float       , class:^(polkit-gnome-authentication-agent-1)$"
+        "size 741 288, class:^(polkit-gnome-authentication-agent-1)$"
+        "center      , class:^(polkit-gnome-authentication-agent-1)$"
       ];
 
       windowrulev2 = [
