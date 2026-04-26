@@ -1,4 +1,4 @@
 {
-  settings.gui = "plasma";
+  settings.gui = "niri";
   settings.theme = "light";
 }
