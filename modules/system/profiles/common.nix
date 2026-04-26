@@ -52,6 +52,7 @@ with lib; {
     jq
     just
     rename
+    rtk
     vim
 
     # devops tooling
