@@ -28,6 +28,7 @@ with lib; {
     fzf
     gnupg
     ripgrep
+    tree
 
     # network
     curl
