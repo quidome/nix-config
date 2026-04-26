@@ -39,19 +39,6 @@
         (final: prev: {
           opencode = inputs.opencode.packages.${system}.default;
           pi = inputs.llm-agents.packages.${system}.pi;
-          rtk = final.rustPlatform.buildRustPackage rec {
-            pname = "rtk";
-            version = "0.37.2";
-
-            src = final.fetchFromGitHub {
-              owner = "rtk-ai";
-              repo = "rtk";
-              rev = "v${version}";
-              hash = "sha256-rNuu8B5TnKZHrbVSV8HkcTeTdcol26259GGJEPEMPZY=";
-            };
-
-            cargoHash = "sha256-61+PNuVF8H5+9PHc3MBt8V80ieBBi8HzSC9Gc/WUSzM=";
-          };
           unstable = import inputs.nixpkgs-unstable {
             inherit system;
             config.allowUnfree = true;

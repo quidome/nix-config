@@ -59,7 +59,6 @@ with lib; {
     cilium-cli
     claude-code
     pi
-    rtk
     helmfile
     httpie
     ipcalc
