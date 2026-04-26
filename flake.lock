@@ -309,7 +309,24 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "opencode": "opencode",
-        "plasma-manager": "plasma-manager"
+        "plasma-manager": "plasma-manager",
+        "rtk-src": "rtk-src"
+      }
+    },
+    "rtk-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1776707821,
+        "narHash": "sha256-rNuu8B5TnKZHrbVSV8HkcTeTdcol26259GGJEPEMPZY=",
+        "owner": "rtk-ai",
+        "repo": "rtk",
+        "rev": "80a6fe606f73b19e52b0b330d242e62a6c07be42",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rtk-ai",
+        "repo": "rtk",
+        "type": "github"
       }
     },
     "systems": {
