@@ -19,7 +19,6 @@
 
     llm-agents.url = "github:numtide/llm-agents.nix";
 
-    opencode.url = "github:sst/opencode";
 
     # Update with: nix flake lock --update-input rtk-nix
     rtk-nix.url = "github:hypervideo/rtk-nix";
@@ -42,7 +41,6 @@
       overlays = [
         inputs.rtk-nix.overlays.default
         (final: prev: {
-          opencode = inputs.opencode.packages.${system}.default;
           pi = inputs.llm-agents.packages.${system}.pi;
           unstable = import inputs.nixpkgs-unstable {
             inherit system;
