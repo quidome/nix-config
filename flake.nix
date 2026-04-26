@@ -21,10 +21,9 @@
 
     opencode.url = "github:sst/opencode";
 
-    rtk-src = {
-      url = "github:rtk-ai/rtk";
-      flake = false;
-    };
+    # Update with: nix flake lock --update-input rtk-nix
+    rtk-nix.url = "github:hypervideo/rtk-nix";
+    rtk-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {self, ...} @ inputs: let
@@ -41,22 +40,10 @@
       };
 
       overlays = [
+        inputs.rtk-nix.overlays.default
         (final: prev: {
           opencode = inputs.opencode.packages.${system}.default;
           pi = inputs.llm-agents.packages.${system}.pi;
-          rtk = prev.rustPlatform.buildRustPackage rec {
-            pname = "rtk";
-            version = "unstable";
-            src = inputs.rtk-src;
-            cargoLock = {
-              lockFile = "${src}/Cargo.lock";
-            };
-            doCheck = false;
-            meta = {
-              homepage = "https://github.com/rtk-ai/rtk";
-              mainProgram = "rtk";
-            };
-          };
           unstable = import inputs.nixpkgs-unstable {
             inherit system;
             config.allowUnfree = true;
