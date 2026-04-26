@@ -67,6 +67,14 @@ Specs contain: Problem, Solution, Rationale, Files Affected, Implementation Step
   - Verifies security (encrypted files unchanged)
   - Confirms style compliance
 
+### Workflow
+
+- **`/commit [optional message]`** - Create clean, well-scoped commits
+  - Analyzes changed files
+  - Splits unrelated changes into multiple commits
+  - Uses Conventional Commit messages
+  - Blocks commits if encrypted/protected files are involved
+
 ## Recommended Workflow
 
 ### 1. Create a Plan
