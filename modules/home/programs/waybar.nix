@@ -114,7 +114,7 @@ with lib; let
       ];
       modules-center = ["niri/workspaces"];
       modules-right =
-        (optional useNetworkManager "network")
+        (optional (!useNetworkManager) "network")
         ++ [
           "cpu"
           "memory"
@@ -142,7 +142,7 @@ with lib; let
       ];
       modules-center = ["hyprland/workspaces"];
       modules-right =
-        (optional useNetworkManager "network")
+        (optional (!useNetworkManager) "network")
         ++ [
           "cpu"
           "memory"
