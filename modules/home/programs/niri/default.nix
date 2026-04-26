@@ -22,6 +22,35 @@ in {
       description = "Path to wallpaper image for swaybg (used when noctalia is disabled)";
       example = "/home/user/Pictures/Wallpapers/wall.jpg";
     };
+    outputs = mkOption {
+      type = types.attrsOf (types.submodule {
+        options = {
+          mode = mkOption {
+            type = types.str;
+            description = "Output mode (resolution and refresh rate)";
+            example = "1920x1200@59.950";
+          };
+          scale = mkOption {
+            type = types.float;
+            default = 1.0;
+            description = "Output scale factor";
+          };
+          transform = mkOption {
+            type = types.str;
+            default = "normal";
+            description = "Output transform (normal, 90, 180, 270, flipped, etc.)";
+          };
+        };
+      });
+      default = {};
+      description = "Per-output configuration keyed by output name (e.g. eDP-1)";
+      example = {
+        "eDP-1" = {
+          mode = "1920x1200@59.950";
+          scale = 1.15;
+        };
+      };
+    };
   };
 
   config = mkIf cfg.enable {

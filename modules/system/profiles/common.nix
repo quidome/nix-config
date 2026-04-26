@@ -58,6 +58,7 @@ with lib; {
     alejandra
     cilium-cli
     claude-code
+    pi
     helmfile
     httpie
     ipcalc

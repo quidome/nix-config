@@ -17,6 +17,8 @@
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
     plasma-manager.inputs.home-manager.follows = "home-manager";
 
+    llm-agents.url = "github:numtide/llm-agents.nix";
+
     opencode.url = "github:sst/opencode";
   };
 
@@ -36,6 +38,7 @@
       overlays = [
         (final: prev: {
           opencode = inputs.opencode.packages.${system}.default;
+          pi = inputs.llm-agents.packages.${system}.pi;
           unstable = import inputs.nixpkgs-unstable {
             inherit system;
             config.allowUnfree = true;

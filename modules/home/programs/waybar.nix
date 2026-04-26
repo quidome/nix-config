@@ -2,17 +2,20 @@
   lib,
   pkgs,
   config,
+  osConfig,
   ...
 }:
 with lib; let
   cfg = config.programs.waybar;
   font = config.settings.terminalFont;
   isNiri = config.settings.gui == "niri";
+  useNetworkManager = osConfig.networking.networkmanager.enable;
 
   sharedModules = {
     backlight = {
-      format = "{percent}% {icon}";
+      format = "{icon}";
       format-icons = ["" ""];
+      tooltip = true;
     };
 
     battery = {
@@ -21,11 +24,11 @@ with lib; let
         critical = 10;
       };
       design-capacity = false;
-      format = "{capacity}% {icon}";
-      format-charging = "{capacity}% ";
-      format-plugged = "{capacity}% ";
-      format-alt = "{time} {icon}";
+      format = "{icon}";
+      format-charging = "󰂄";
+      format-plugged = "";
       format-icons = ["" "" "" "" ""];
+      tooltip-format = "{capacity}% — {timeTo}";
     };
 
     clock = {
@@ -53,18 +56,18 @@ with lib; let
     };
 
     network = {
-      format-wifi = "{essid} ({signalStrength}%) ";
-      format-ethernet = "{ifname}: {ipaddr}/{cidr} 󱘖";
-      format-linked = "{ifname} (No IP) 󱘖";
-      format-disconnected = "Disconnected ⚠";
-      format-alt = "{ifname}: {ipaddr}/{cidr}";
+      format-wifi = "";
+      format-ethernet = "󱘖";
+      format-linked = "󱘖";
+      format-disconnected = "⚠";
+      tooltip-format-wifi = "{essid} ({signalStrength}%)";
     };
 
     pulseaudio = {
-      format = "{volume}% {icon} {format_source}";
-      format-bluetooth = "{volume}% {icon} {format_source}";
-      format-bluetooth-muted = "{icon} {format_source}";
-      format-muted = " {format_source}";
+      format = "{icon}";
+      format-bluetooth = " {icon}";
+      format-bluetooth-muted = " ";
+      format-muted = "";
       format-source = "{volume}% ";
       format-source-muted = "";
       format-icons = {
@@ -76,7 +79,16 @@ with lib; let
         car = "";
         default = ["" "" ""];
       };
+      tooltip-format = "{volume}% — {format_source}";
       on-click = "pavucontrol";
+    };
+
+    "custom/mic" = {
+      exec = "${pkgs.pulseaudio}/bin/pactl get-source-mute @DEFAULT_SOURCE@ | grep -q yes && echo '{\"text\":\"\",\"class\":\"muted\"}' || echo '{\"text\":\"\",\"class\":\"active\"}'";
+      return-type = "json";
+      interval = 2;
+      on-click = "${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+      tooltip = false;
     };
 
     temperature = {
@@ -96,19 +108,21 @@ with lib; let
       height = 34;
       modules-left = [
         "pulseaudio"
+        "custom/mic"
         "idle_inhibitor"
         "backlight"
       ];
       modules-center = ["niri/workspaces"];
-      modules-right = [
-        "network"
-        "cpu"
-        "memory"
-        "temperature"
-        "battery"
-        "tray"
-        "clock"
-      ];
+      modules-right =
+        (optional useNetworkManager "network")
+        ++ [
+          "cpu"
+          "memory"
+          "temperature"
+          "battery"
+          "tray"
+          "clock"
+        ];
 
       "niri/workspaces" = {
         on-click = "activate";
@@ -121,20 +135,22 @@ with lib; let
       height = 34;
       modules-left = [
         "pulseaudio"
+        "custom/mic"
         "idle_inhibitor"
         "backlight"
         "hyprland/mode"
       ];
       modules-center = ["hyprland/workspaces"];
-      modules-right = [
-        "network"
-        "cpu"
-        "memory"
-        "temperature"
-        "battery"
-        "tray"
-        "clock"
-      ];
+      modules-right =
+        (optional useNetworkManager "network")
+        ++ [
+          "cpu"
+          "memory"
+          "temperature"
+          "battery"
+          "tray"
+          "clock"
+        ];
 
       "hyprland/workspaces" = {
         on-click = "activate";
@@ -200,7 +216,7 @@ in {
             border-radius: 6px;
         }
 
-        #idle_inhibitor, #tray, #clock, #temperature, #battery, #network, #pulseaudio, #backlight, #mode, #cpu, #memory {
+        #idle_inhibitor, #tray, #clock, #temperature, #battery, #network, #pulseaudio, #custom-mic, #backlight, #mode, #cpu, #memory {
             padding: 0 10px;
         }
 
@@ -234,6 +250,10 @@ in {
         }
 
         #pulseaudio.muted {
+            color: @peach;
+        }
+
+        #custom-mic.muted {
             color: @peach;
         }
 

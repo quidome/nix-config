@@ -1,14 +1,12 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./disk-config.nix
     ./shared.nix
     ./vars.nix
     ./hardware-configuration.nix
   ];
+
+  time.timeZone = "Europe/Athens";
 
   boot.kernelParams = [
     "consoleblank=60"
