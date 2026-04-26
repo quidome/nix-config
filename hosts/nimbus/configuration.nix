@@ -6,8 +6,6 @@
     ./hardware-configuration.nix
   ];
 
-  time.timeZone = "Europe/Athens";
-
   boot.kernelParams = [
     "consoleblank=60"
     "zswap.enabled=1"
