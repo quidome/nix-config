@@ -11,8 +11,7 @@ with lib; {
       description = lib.mdDoc ''
         Terminal emulator to use across desktop environments.
 
-        Defaults to wezterm for most desktops, but uses ghostty
-        for niri due to compatibility issues.
+        Defaults to wezterm for most desktops.
       '';
     };
 
@@ -32,7 +31,7 @@ with lib; {
   };
 
   config.settings.terminal = mkDefault (
-    if config.settings.gui == "niri" || config.settings.gui == "gnome"
+    if config.settings.gui == "gnome"
     then "ghostty"
     else if config.settings.gui == "plasma"
     then "konsole"

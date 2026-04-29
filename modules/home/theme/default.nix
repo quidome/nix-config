@@ -25,9 +25,6 @@ in {
       starship.enable = config.programs.starship.enable;
       tmux.enable = config.programs.tmux.enable;
       mako.enable = config.services.mako.enable;
-      swaylock.enable = config.programs.swaylock.enable;
-      hyprlock.enable = config.programs.hyprlock.enable;
-      waybar.enable = config.programs.waybar.enable;
       zed.enable = config.programs.zed-editor.enable;
 
       # Kvantum for Qt theming (useful for Plasma)

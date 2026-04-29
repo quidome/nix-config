@@ -5,15 +5,10 @@
     ./ghostty.nix
     ./git.nix
     ./helix
-    ./hyprlock.nix
     ./kitty.nix
     ./neovim.nix
-    ./niri
-    ./noctalia
     ./starship.nix
-    ./swaylock.nix
     ./tmux.nix
-    ./waybar.nix
     ./wezterm.nix
     ./wofi.nix
     ./zed-editor.nix
