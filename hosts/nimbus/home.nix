@@ -1,4 +1,10 @@
 {
+  config,
+  lib,
+  ...
+}: let
+  isPlasma = config.settings.gui == "plasma";
+in {
   imports = [
     ./shared.nix
     ./home-vars.nix
@@ -6,11 +12,10 @@
 
   home.stateVersion = "25.11";
 
-  # Keep lock timeout preference on Plasma as well
-  settings.services.swayidle.lockTimeout = 180;
-  settings.programs.niri.wallpaper = "/home/quidome/Pictures/Wallpapers/digital-art-15.jpg";
+  settings.services.swayidle.lockTimeout = lib.mkIf (!isPlasma) 180;
+  settings.programs.niri.wallpaper = lib.mkIf (config.settings.gui == "niri") "/home/quidome/Pictures/Wallpapers/digital-art-15.jpg";
 
-  services.kanshi = {
+  services.kanshi = lib.mkIf (!isPlasma) {
     enable = true;
     settings = [
       # Matches profiles are activated in other of their definition in the configuration file
@@ -75,7 +80,7 @@
     ];
   };
 
-  wayland.windowManager.hyprland.settings.bindl = [
+  wayland.windowManager.hyprland.settings.bindl = lib.mkIf (config.settings.gui == "hyprland") [
     "SHIFT, code:133, exec, shikanectl switch disable-external"
   ];
 }

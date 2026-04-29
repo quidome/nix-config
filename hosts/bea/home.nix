@@ -2,7 +2,9 @@
   config,
   lib,
   ...
-}: {
+}: let
+  isPlasma = config.settings.gui == "plasma";
+in {
   imports = [
     ./shared.nix
     ./home-vars.nix
@@ -11,13 +13,15 @@
   home.stateVersion = "25.11";
 
   settings = {
-    programs.noctalia = {
-      enableNetworkWidget = false;
-      enableBrightnessWidget = false;
-    };
-    services.swayidle.lockTimeout = 1800;
     terminalFont.size = 10;
   };
+
+  settings.programs.noctalia = lib.mkIf (!isPlasma) {
+    enableNetworkWidget = false;
+    enableBrightnessWidget = false;
+  };
+
+  settings.services.swayidle.lockTimeout = lib.mkIf (!isPlasma) 1800;
 
   services.kanshi = lib.mkIf (config.settings.gui != "plasma") {
     enable = true;
@@ -78,7 +82,7 @@
     left-handed = true;
   };
 
-  wayland.windowManager.hyprland.settings.monitor = [
+  wayland.windowManager.hyprland.settings.monitor = lib.mkIf (config.settings.gui == "hyprland") [
     ",preferred,auto,auto"
     "desc:Samsung Electric Company LC32G5xT HK2W200965, disable"
   ];
