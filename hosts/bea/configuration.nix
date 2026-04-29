@@ -67,11 +67,26 @@
 
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
+  programs.gamemode = {
+    enable = true;
+    enableRenice = true;
+  };
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+  };
   programs.java.enable = true;
   programs.steam = {
     enable = true;
-    extraPackages = with pkgs; [jdk];
+    extraPackages = with pkgs; [
+      gamescope
+      gamemode
+      jdk
+      mangohud
+    ];
     extraCompatPackages = with pkgs; [proton-ge-bin];
+    gamescopeSession.enable = true;
+    protontricks.enable = true;
   };
 
   services.xserver.videoDrivers = ["amdgpu"];
