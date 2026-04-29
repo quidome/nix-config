@@ -14,8 +14,10 @@
       ++ (with pkgs.gnomeExtensions; [
         appindicator
         display-configuration-switcher
-        (lib.mkIf config.services.tailscale.enable tailscale-status)
-      ]);
+      ])
+      ++ lib.optionals config.services.tailscale.enable [
+        pkgs.gnomeExtensions.tailscale-status
+      ];
 
     services.xserver.enable = lib.mkDefault true;
     services.desktopManager.gnome.enable = lib.mkDefault true;

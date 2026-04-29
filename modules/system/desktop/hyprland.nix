@@ -15,31 +15,35 @@ in {
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = with pkgs; [
-        # hyprland deps
-        avizo
-        hyprpicker
-        hyprcursor
-        hyprlock
-        hypridle
-        hyprpaper
-        libnotify
-        libsecret
-        seahorse
-        waybar
-        wdisplays
+      systemPackages =
+        (with pkgs; [
+          # hyprland deps
+          avizo
+          hyprpicker
+          hyprcursor
+          hyprlock
+          hypridle
+          hyprpaper
+          libnotify
+          libsecret
+          seahorse
+          waybar
+          wdisplays
 
-        imv
-        grimblast
-        playerctl
-        shikane
-        wev
+          imv
+          grimblast
+          playerctl
+          shikane
+          wev
 
-        polkit_gnome
-
-        (mkIf networkmanagerEnabled networkmanagerapplet)
-        (mkIf tailscaleEnabled tailscale-systray)
-      ];
+          polkit_gnome
+        ])
+        ++ optionals networkmanagerEnabled [
+          pkgs.networkmanagerapplet
+        ]
+        ++ optionals tailscaleEnabled [
+          pkgs.tailscale-systray
+        ];
     };
 
     programs.hyprland.enable = true;

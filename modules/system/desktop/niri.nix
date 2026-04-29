@@ -14,22 +14,26 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      alacritty
-      fuzzel
-      swaylock
-      swayidle
-      unstable.noctalia-shell
-      swaybg
-      waybar
-      wdisplays
+    environment.systemPackages =
+      (with pkgs; [
+        alacritty
+        fuzzel
+        swaylock
+        swayidle
+        unstable.noctalia-shell
+        swaybg
+        waybar
+        wdisplays
 
-      xwayland-satellite
-      polkit_gnome
-
-      (mkIf networkmanagerEnabled networkmanagerapplet)
-      (mkIf tailscaleEnabled tailscale-systray)
-    ];
+        xwayland-satellite
+        polkit_gnome
+      ])
+      ++ optionals networkmanagerEnabled [
+        pkgs.networkmanagerapplet
+      ]
+      ++ optionals tailscaleEnabled [
+        pkgs.tailscale-systray
+      ];
 
     hardware.bluetooth.enable = mkDefault true;
 

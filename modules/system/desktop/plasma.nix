@@ -13,12 +13,12 @@ in {
 
     # services required for plasma
     services = {
-      xserver.enable = true;
+      xserver.enable = mkDefault true;
 
-      desktopManager.plasma6.enable = true;
+      desktopManager.plasma6.enable = mkDefault true;
 
       displayManager.sddm = {
-        enable = true;
+        enable = mkDefault true;
         settings.Users = {
           MaximumUid = 99999;
           MinimumUid = 99999;
@@ -37,7 +37,9 @@ in {
           hunspell
           krename
 
-          (mkIf tailscaleEnabled ktailctl)
+        ]
+        ++ optionals tailscaleEnabled [
+          ktailctl
         ])
         ++ (with pkgs.kdePackages; [
           discover
