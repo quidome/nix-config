@@ -41,6 +41,9 @@
     lutris
     gogdl
     itch
+    (writeShellScriptBin "the-finals-gamescope" ''
+      exec gamescope -f -e --force-grab-cursor -- mangohud gamemoderun "$@"
+    '')
     mesa-demos
     vulkan-tools
     clinfo
