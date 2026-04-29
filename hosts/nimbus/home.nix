@@ -6,6 +6,7 @@
 
   home.stateVersion = "25.11";
 
+  # Keep lock timeout preference on Plasma as well
   settings.services.swayidle.lockTimeout = 180;
   settings.programs.niri.wallpaper = "/home/quidome/Pictures/Wallpapers/digital-art-15.jpg";
 
