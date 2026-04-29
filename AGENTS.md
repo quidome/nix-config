@@ -75,6 +75,13 @@ grep -E "(hardware-configuration|home-vars|secrets|system-vars|vars)\.nix" .gita
 
 Remember: **Encrypted files are like passwords** - treat them with the same security level.
 
+## Commit Workflow
+- If the user asks about committing, requests a commit, or after making code changes, automatically read and follow `.claude/commands/commit.md`.
+- Treat `.claude/commands/commit.md` as the default commit playbook for this repository.
+- Before any commit flow, run `git-crypt status` and stop if protected/encrypted files are included.
+- Show planned commit groups and ask for confirmation before `git commit`, unless the user explicitly asks to proceed immediately.
+- Use Conventional Commit messages (`feat(...)`, `fix(...)`, `refactor(...)`, `chore(...)`).
+
 ## Testing
 No formal test framework. Validate configurations with:
 - `nix flake check` - Validate flake syntax
