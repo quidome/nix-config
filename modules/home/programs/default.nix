@@ -1,7 +1,6 @@
 {
   imports = [
     ./emacs.nix
-    ./ghostty.nix
     ./git.nix
     ./helix
     ./neovim.nix

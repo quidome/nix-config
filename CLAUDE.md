@@ -48,23 +48,6 @@ just pull-gc-build
 nix flake check
 ```
 
-### Finding Unmanaged GNOME Settings
-
-After configuring GNOME via the UI, use this script to find dconf keys that aren't yet captured in home-manager:
-
-```bash
-./scripts/dconf-unmanaged.sh
-# or with explicit args:
-./scripts/dconf-unmanaged.sh <hostname> <username>
-```
-
-The script compares the live dconf database against `modules/home/desktop/gnome.nix` and prints keys with their current values. Transient state (window sizes, app picker layout, recently-used files, etc.) is filtered out automatically.
-
-When the output shows something worth keeping:
-- Add it to `dconf.settings` in `modules/home/desktop/gnome.nix` for all GNOME hosts
-- Or add it to `hosts/<hostname>/home.nix` for host-specific settings
-- If it's pure noise, add the path prefix to `EXCLUDE_PATTERNS` in the script
-
 ### Live Image Building
 ```bash
 # Build base ISO
@@ -112,14 +95,13 @@ The flake.nix uses a `mkHost` function that creates NixOS systems with integrate
 │   │   ├── settings.nix    # Global options (gui, preferQt, authorizedKeys)
 │   │   └── secrets.nix     # Encrypted secrets (git-crypt)
 │   ├── system/             # System-level NixOS modules
-│   │   ├── desktop/        # Desktop environment configs (gnome, plasma)
+│   │   ├── desktop/        # Desktop environment configs (plasma)
 │   │   ├── profiles/       # System profiles (common, workstation)
 │   │   └── services/       # System services
 │   └── home/               # User-level home-manager modules
 │       ├── desktop/        # Desktop-specific home configs
 │       ├── profiles/       # User profiles (common, workstation)
 │       ├── programs/       # Application configurations
-│       ├── services/       # User services
 │       └── settings.nix    # User settings (terminalFont)
 ├── hosts/                   # Host-specific configurations
 │   └── ${hostname}/
@@ -149,7 +131,7 @@ The repository uses a custom `settings.*` namespace for options that NixOS/home-
 **Namespace Structure:**
 ```
 settings.
-├── gui                          # (shared) which desktop: none|gnome|plasma
+├── gui                          # (shared) which desktop: none|plasma
 ├── preferQt                     # (shared) prefer Qt over GTK
 ├── authorizedKeys               # (shared) SSH public keys
 ├── terminal                     # (home) which terminal emulator

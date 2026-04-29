@@ -33,7 +33,7 @@
 - Use relative imports from flake root: `./modules/shared` `./modules/system` `./modules/home` `./hosts/${host}`
 
 ## Desktop Environments
-- Officially supported desktop environments: **GNOME** and **Plasma (KDE)**
+- Officially supported desktop environments: **Plasma (KDE)**
 - These desktops are defined through shared system and home modules
 - Any existing host can be configured to use any of these desktop environments by switching the selected desktop modules
 - Host-specific desktop overrides in `hosts/*/home.nix` should be gated with `lib.mkIf` on `config.settings.gui` unless they are desktop-agnostic

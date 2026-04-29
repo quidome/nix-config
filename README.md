@@ -43,33 +43,33 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Desktop environments
 
-Two desktops are supported via `settings.gui`: `gnome`, `plasma`.
+One desktop is supported via `settings.gui`: `plasma`.
 
-The table below maps core desktop functionality to how each environment provides it. "built-in" means the desktop handles it natively with no extra tooling required.
+The table below maps core desktop functionality to how this environment provides it.
 
-| Requirement | GNOME | Plasma |
-|---|---|---|
-| **Status bar** | built-in | built-in |
-| **App launcher** | Activities overlay | Kickoff |
-| **Notifications** | built-in | built-in |
-| **Screen lock** | built-in | built-in |
-| **Idle / sleep** | built-in | built-in |
-| **Volume / OSD** | built-in | built-in |
-| **Brightness / OSD** | built-in | built-in |
-| **Wallpaper** | built-in | built-in |
-| **Network management** | built-in | built-in |
-| **Bluetooth management** | built-in | built-in |
-| **Display layout** | built-in + display-configuration-switcher ext | built-in |
-| **System tray** | appindicator extension | built-in |
-| **Polkit agent** | built-in | built-in |
-| **Screenshot** | built-in | Spectacle |
-| **Clipboard** | built-in | built-in |
-| **XDG portals** | built-in | built-in |
-| **Color scheme** | dconf color-scheme | KDE theming |
-| **Secret storage** | gnome-keyring | KWallet |
+| Requirement | Plasma |
+|---|---|
+| **Status bar** | built-in |
+| **App launcher** | Kickoff |
+| **Notifications** | built-in |
+| **Screen lock** | built-in |
+| **Idle / sleep** | built-in |
+| **Volume / OSD** | built-in |
+| **Brightness / OSD** | built-in |
+| **Wallpaper** | built-in |
+| **Network management** | built-in |
+| **Bluetooth management** | built-in |
+| **Display layout** | built-in |
+| **System tray** | built-in |
+| **Polkit agent** | built-in |
+| **Screenshot** | Spectacle |
+| **Clipboard** | built-in |
+| **XDG portals** | built-in |
+| **Color scheme** | KDE theming |
+| **Secret storage** | KWallet |
 
 ## Laptop power policy
 
 Battery charge thresholds are managed in BIOS/firmware (vendor power settings), not in NixOS services.
 
-This keeps charging behavior consistent regardless of OS state. Desktop session power behavior remains handled by the active desktop environment (GNOME or Plasma).
+This keeps charging behavior consistent regardless of OS state. Desktop session power behavior remains handled by Plasma.

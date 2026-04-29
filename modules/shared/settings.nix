@@ -24,12 +24,11 @@ in {
       type = with types;
         enum [
           "none"
-          "gnome"
           "plasma"
         ];
       default = "none";
       description = ''
-        Which gui to use. Gnome or Plasma will install the entire desktop environment.
+        Which gui to use. Plasma installs the desktop environment.
         Defaults to `none`, which makes the system headless.
       '';
       example = "plasma";

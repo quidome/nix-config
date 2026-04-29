@@ -4,8 +4,6 @@
   pkgs,
   ...
 }: let
-  nativeCopyPrograms = ["ghostty"];
-  nativeCopySupport = lib.any (prog: config.programs.${prog}.enable) nativeCopyPrograms;
   cfg = config.programs.zellij;
 in {
   config = lib.mkIf cfg.enable {
@@ -25,7 +23,7 @@ in {
         pane_frames = false;
         default_layout = "layout";
         show_startup_tips = false;
-        copy_command = lib.mkIf (!nativeCopySupport) "wl-copy";
+        copy_command = "wl-copy";
       };
     };
 
