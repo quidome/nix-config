@@ -22,6 +22,12 @@ in {
       description = "Path to wallpaper image for swaybg (used when noctalia is disabled)";
       example = "/home/user/Pictures/Wallpapers/wall.jpg";
     };
+    screenshotPath = mkOption {
+      type = types.str;
+      default = "~/Pictures/Screenshots/screenshot-%Y-%m-%d_%H-%M-%S.png";
+      description = "Screenshot filename pattern used by niri";
+      example = "~/Pictures/Screenshots/%Y/%m/%d/screenshot-%H-%M-%S.png";
+    };
     outputs = mkOption {
       type = types.attrsOf (types.submodule {
         options = {
@@ -183,7 +189,7 @@ in {
 
       prefer-no-csd
 
-      screenshot-path "~/Pictures/Screenshots/screenshot-%Y-%m-%d_%H-%M-%S.png"
+      screenshot-path "${cfg.screenshotPath}"
 
       animations {}
 
