@@ -96,6 +96,7 @@ in {
         if noctalia.enable
         then ''Alt+Space hotkey-overlay-title="Toggle noctalia launcher" { spawn ${noctaliaIPCCall} "launcher" "toggle"; }''
         else ''Alt+Space hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }'';
+      screenshotWindowKeybind = optionalString (!noctalia.enable) ''Mod+Alt+S { screenshot-window; }'';
     in ''
       environment {
           ELECTRON_OZONE_PLATFORM_HINT "auto"
@@ -116,7 +117,6 @@ in {
 
           mouse {
               natural-scroll
-              left-handed
           }
 
           trackpoint {
@@ -183,7 +183,7 @@ in {
 
       prefer-no-csd
 
-      screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+      screenshot-path "~/Pictures/Screenshots/screenshot-%Y-%m-%d_%H-%M-%S.png"
 
       animations {}
 
@@ -343,6 +343,9 @@ in {
           Print { screenshot; }
           Ctrl+Print { screenshot-screen; }
           Alt+Print { screenshot-window; }
+          Mod+S { screenshot; }
+          Mod+Ctrl+S { screenshot-screen; }
+          ${screenshotWindowKeybind}
 
           Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
