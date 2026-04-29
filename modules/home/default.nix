@@ -6,6 +6,5 @@
     ./services
     ./settings.nix
     ./theme
-    ./xdg
   ];
 }

@@ -11,7 +11,7 @@ with lib; {
       description = lib.mdDoc ''
         Terminal emulator to use across desktop environments.
 
-        Defaults to wezterm for most desktops.
+        Defaults to ghostty on GNOME and konsole on Plasma.
       '';
     };
 
@@ -33,8 +33,6 @@ with lib; {
   config.settings.terminal = mkDefault (
     if config.settings.gui == "gnome"
     then "ghostty"
-    else if config.settings.gui == "plasma"
-    then "konsole"
-    else "alacritty"
+    else "konsole"
   );
 }
