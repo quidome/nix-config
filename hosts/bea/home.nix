@@ -1,4 +1,8 @@
 {
+  config,
+  lib,
+  ...
+}: {
   imports = [
     ./shared.nix
     ./home-vars.nix
@@ -15,7 +19,7 @@
     terminalFont.size = 10;
   };
 
-  services.kanshi = {
+  services.kanshi = lib.mkIf (config.settings.gui != "plasma") {
     enable = true;
     settings = [
       {
