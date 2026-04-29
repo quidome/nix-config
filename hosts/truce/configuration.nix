@@ -14,7 +14,6 @@
     networkmanager.enable = true;
   };
 
-  laptop.enable = true;
   powerManagement.enable = true;
 
   system.stateVersion = "25.11";

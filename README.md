@@ -70,6 +70,6 @@ The table below maps core desktop functionality to how each environment provides
 
 ## Laptop power policy
 
-On hosts with `laptop.enable = true`, this repo intentionally uses `services.tlp` for laptop power tuning and charge thresholds, and forces `services.power-profiles-daemon.enable = false`.
+Battery charge thresholds are managed in BIOS/firmware (vendor power settings), not in NixOS services.
 
-This is a deliberate policy choice to keep battery threshold behavior deterministic across laptop hosts, including Plasma systems where PowerDevil remains responsible for session-level power behavior.
+This keeps charging behavior consistent regardless of OS state. Desktop session power behavior remains handled by the active desktop environment (GNOME or Plasma).
