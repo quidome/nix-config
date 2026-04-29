@@ -67,3 +67,9 @@ The table below maps core desktop functionality to how each environment provides
 | **XDG portals** | xdg-desktop-portal-gtk | xdg-desktop-portal-gtk | built-in | built-in |
 | **Color scheme** | GTK/Qt Adwaita Dark | GTK/Qt Adwaita (light/dark) | dconf color-scheme | KDE theming |
 | **Secret storage** | gnome-keyring | gnome-keyring | gnome-keyring | KWallet |
+
+## Laptop power policy
+
+On hosts with `laptop.enable = true`, this repo intentionally uses `services.tlp` for laptop power tuning and charge thresholds, and forces `services.power-profiles-daemon.enable = false`.
+
+This is a deliberate policy choice to keep battery threshold behavior deterministic across laptop hosts, including Plasma systems where PowerDevil remains responsible for session-level power behavior.

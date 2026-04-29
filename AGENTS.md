@@ -1,11 +1,15 @@
 # Nix Configuration Repository
 
 ## Build Commands
-- `just build` - Build and switch NixOS system configuration
-- `just build-home` - Build and switch home-manager configuration
+- `just switch` - Build and switch current NixOS + home-manager configuration
+- `just boot` - Build configuration for next boot (no immediate activation)
+- `just build-host HOST` - Build configuration for a specific host
+- `just build-hosts` - Build all host configurations
+- `just verify-hosts` - Dry-run verify all host configurations
+- `just validate` - Run `nix flake check`
 - `just update` - Update flake.lock and nix-index package cache
-- `just gc` - Run Nix garbage collection for user and system
-- `just all` - Complete update, GC, and build cycle
+- `just clean` - Run Nix garbage collection for user and system
+- `just refresh` - Update, clean, and switch current system
 
 ## Code Style Guidelines
 - Use 2-space indentation throughout
@@ -21,11 +25,19 @@
 
 ## Repository Structure
 - `flake.nix` - Main entry point with inputs and outputs
-- `shared/` - Common NixOS and home-manager modules
-- `hosts/{host}/` - Host-specific configurations
-- `home/` - Home-manager program and service configurations
-- `nixos/` - NixOS system-level configurations
-- Use relative imports from flake root: `./shared` `./hosts/${host}`
+- `modules/shared/` - Shared options and encrypted/shared secrets wiring
+- `modules/system/` - NixOS modules (desktop, profiles, services)
+- `modules/home/` - Home-manager modules (desktop, programs, services, theme)
+- `hosts/{host}/` - Host-specific system/home overrides and selections
+- `live-image/` - Live ISO configurations
+- Use relative imports from flake root: `./modules/shared` `./modules/system` `./modules/home` `./hosts/${host}`
+
+## Desktop Environments
+- Officially supported desktop environments: **GNOME**, **Hyprland**, **Niri**, and **Plasma (KDE)**
+- These desktops are defined through shared system and home modules
+- Any existing host can be configured to use any of these desktop environments by switching the selected desktop modules
+- Host-specific desktop overrides in `hosts/*/home.nix` should be gated with `lib.mkIf` on `config.settings.gui` unless they are desktop-agnostic
+- Laptop power policy for desktop hosts is documented in `README.md` under **Laptop power policy**
 
 ## Security & Privacy
 **CRITICAL**: Files listed in `.gitattributes` are encrypted with git-crypt and must NEVER be:
