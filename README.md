@@ -43,30 +43,30 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Desktop environments
 
-Four desktops are supported via `settings.gui`: `hyprland`, `niri`, `gnome`, `plasma`.
+Two desktops are supported via `settings.gui`: `gnome`, `plasma`.
 
 The table below maps core desktop functionality to how each environment provides it. "built-in" means the desktop handles it natively with no extra tooling required.
 
-| Requirement | Hyprland | Niri | GNOME | Plasma |
-|---|---|---|---|---|
-| **Status bar** | waybar / noctalia | waybar / noctalia | built-in | built-in |
-| **App launcher** | wofi | fuzzel | Activities overlay | Kickoff |
-| **Notifications** | mako / noctalia | mako / noctalia | built-in | built-in |
-| **Screen lock** | hyprlock / noctalia | swaylock / noctalia | built-in | built-in |
-| **Idle / sleep** | hypridle | swayidle | built-in | built-in |
-| **Volume / OSD** | avizo (`volumectl`) / noctalia | avizo (`volumectl`) / noctalia | built-in | built-in |
-| **Brightness / OSD** | avizo (`lightctl`) / noctalia | avizo (`lightctl`) / noctalia | built-in | built-in |
-| **Wallpaper** | hyprpaper / noctalia | swaybg (`settings.programs.niri.wallpaper`) / noctalia | built-in | built-in |
-| **Network management** | nm-applet | nm-applet | built-in | built-in |
-| **Bluetooth management** | bluetoothctl (CLI) / noctalia | bluetoothctl (CLI) / noctalia | built-in | built-in |
-| **Display layout** | kanshi | kanshi | built-in + display-configuration-switcher ext | built-in |
-| **System tray** | waybar tray / noctalia | waybar tray / noctalia | appindicator extension | built-in |
-| **Polkit agent** | polkit-kde-agent-1 | polkit-kde-agent-1 | built-in | built-in |
-| **Screenshot** | grimblast (Print binds) | niri built-in (Print binds) | built-in | Spectacle |
-| **Clipboard** | wl-clipboard | wl-clipboard | built-in | built-in |
-| **XDG portals** | xdg-desktop-portal-gtk | xdg-desktop-portal-gtk | built-in | built-in |
-| **Color scheme** | GTK/Qt Adwaita Dark | GTK/Qt Adwaita (light/dark) | dconf color-scheme | KDE theming |
-| **Secret storage** | gnome-keyring | gnome-keyring | gnome-keyring | KWallet |
+| Requirement | GNOME | Plasma |
+|---|---|---|
+| **Status bar** | built-in | built-in |
+| **App launcher** | Activities overlay | Kickoff |
+| **Notifications** | built-in | built-in |
+| **Screen lock** | built-in | built-in |
+| **Idle / sleep** | built-in | built-in |
+| **Volume / OSD** | built-in | built-in |
+| **Brightness / OSD** | built-in | built-in |
+| **Wallpaper** | built-in | built-in |
+| **Network management** | built-in | built-in |
+| **Bluetooth management** | built-in | built-in |
+| **Display layout** | built-in + display-configuration-switcher ext | built-in |
+| **System tray** | appindicator extension | built-in |
+| **Polkit agent** | built-in | built-in |
+| **Screenshot** | built-in | Spectacle |
+| **Clipboard** | built-in | built-in |
+| **XDG portals** | built-in | built-in |
+| **Color scheme** | dconf color-scheme | KDE theming |
+| **Secret storage** | gnome-keyring | KWallet |
 
 ## Laptop power policy
 

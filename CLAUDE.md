@@ -112,7 +112,7 @@ The flake.nix uses a `mkHost` function that creates NixOS systems with integrate
 │   │   ├── settings.nix    # Global options (gui, preferQt, authorizedKeys)
 │   │   └── secrets.nix     # Encrypted secrets (git-crypt)
 │   ├── system/             # System-level NixOS modules
-│   │   ├── desktop/        # Desktop environment configs (cosmic, gnome, hyprland, niri, plasma, sway)
+│   │   ├── desktop/        # Desktop environment configs (gnome, plasma)
 │   │   ├── profiles/       # System profiles (common, workstation)
 │   │   └── services/       # System services
 │   └── home/               # User-level home-manager modules
@@ -149,23 +149,12 @@ The repository uses a custom `settings.*` namespace for options that NixOS/home-
 **Namespace Structure:**
 ```
 settings.
-├── gui                          # (shared) which desktop: none|gnome|hyprland|niri|plasma
+├── gui                          # (shared) which desktop: none|gnome|plasma
 ├── preferQt                     # (shared) prefer Qt over GTK
 ├── authorizedKeys               # (shared) SSH public keys
 ├── terminal                     # (home) which terminal emulator
 ├── terminalFont.name            # (home) font name
 ├── terminalFont.size            # (home) font size
-├── desktop.
-│   ├── niri.enable              # desktop integration options
-│   └── hyprland.enable
-├── programs.
-│   └── noctalia.                # custom options for programs HM doesn't have
-│       ├── enable
-│       └── enableBrightnessWidget
-└── services.
-    └── swayidle.                # custom options HM's swayidle lacks
-        ├── enable
-        └── lockTimeout
 ```
 
 **Example - Adding custom options:**
