@@ -25,14 +25,11 @@ in {
         enum [
           "none"
           "gnome"
-          "hyprland"
-          "niri"
           "plasma"
         ];
       default = "none";
       description = ''
         Which gui to use. Gnome or Plasma will install the entire desktop environment.
-        Hyprland and Niri are tiling window managers.
         Defaults to `none`, which makes the system headless.
       '';
       example = "plasma";
@@ -88,8 +85,6 @@ in {
   config = {
     settings = {
       preferQt = builtins.elem cfg.gui ["plasma"];
-      desktop.niri.enable = cfg.gui == "niri";
-      desktop.hyprland.enable = cfg.gui == "hyprland";
     };
   };
 }
