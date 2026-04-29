@@ -73,7 +73,7 @@
 
   services.gpg-agent = {
     enable = true;
-    enableSshSupport = lib.mkDefault true;
+    enableSshSupport = false;
     defaultCacheTtl = 3600;
     maxCacheTtl = 14400;
     pinentry.package = lib.mkDefault pkgs.pinentry-curses;

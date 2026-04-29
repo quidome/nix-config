@@ -83,9 +83,6 @@ in {
       TerminalRows=40
     '';
 
-    services.gpg-agent = {
-      enableSshSupport = false; # Plasma uses ssh-agent + ksshaskpass + KWallet
-      pinentry.package = pkgs.pinentry-qt;
-    };
+    services.gpg-agent.pinentry.package = pkgs.pinentry-qt;
   };
 }
