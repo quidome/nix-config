@@ -18,12 +18,9 @@ in {
       accent = cfg.catppuccinAccent;
 
       # Enable catppuccin for supported programs when they are enabled
-      alacritty.enable = config.programs.alacritty.enable;
       bat.enable = config.programs.bat.enable;
-      kitty.enable = config.programs.kitty.enable;
       helix.enable = config.programs.helix.enable;
       starship.enable = config.programs.starship.enable;
-      tmux.enable = config.programs.tmux.enable;
       zed.enable = config.programs.zed-editor.enable;
 
       # Kvantum for Qt theming (useful for Plasma)

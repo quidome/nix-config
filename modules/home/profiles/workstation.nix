@@ -7,7 +7,7 @@ with lib; let
   isWorkstation = config.settings.gui != "none";
 
   # Terminals that have home-manager modules (vs system-provided like konsole)
-  hmTerminals = ["alacritty" "kitty" "wezterm" "ghostty"];
+  hmTerminals = ["ghostty"];
   terminalHasHmModule = builtins.elem config.settings.terminal hmTerminals;
 in {
   config = lib.mkIf isWorkstation {

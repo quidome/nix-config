@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  nativeCopyPrograms = ["wezterm" "ghostty"];
+  nativeCopyPrograms = ["ghostty"];
   nativeCopySupport = lib.any (prog: config.programs.${prog}.enable) nativeCopyPrograms;
   cfg = config.programs.zellij;
 in {

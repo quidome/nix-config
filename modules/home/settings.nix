@@ -7,7 +7,7 @@ with lib; {
   options.settings = {
     terminal = mkOption {
       type = types.str;
-      example = "kitty";
+      example = "ghostty";
       description = lib.mdDoc ''
         Terminal emulator to use across desktop environments.
 
