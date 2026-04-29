@@ -10,7 +10,6 @@
     ./starship.nix
     ./tmux.nix
     ./wezterm.nix
-    ./wofi.nix
     ./zed-editor.nix
     ./zellij
     ./zsh.nix

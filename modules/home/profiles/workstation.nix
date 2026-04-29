@@ -15,7 +15,6 @@ in {
 
     programs.emacs.enable = mkDefault true;
     programs.firefox.enable = mkDefault true;
-    programs.wofi.enable = mkDefault true;
     programs.zed-editor.enable = mkDefault true;
     programs.${config.settings.terminal}.enable = mkIf terminalHasHmModule (mkDefault true);
 

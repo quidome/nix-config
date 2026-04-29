@@ -24,7 +24,6 @@ in {
       helix.enable = config.programs.helix.enable;
       starship.enable = config.programs.starship.enable;
       tmux.enable = config.programs.tmux.enable;
-      mako.enable = config.services.mako.enable;
       zed.enable = config.programs.zed-editor.enable;
 
       # Kvantum for Qt theming (useful for Plasma)
