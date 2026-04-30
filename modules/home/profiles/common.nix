@@ -15,6 +15,7 @@
     sessionVariables = {
       DEV_PATH = "${config.home.homeDirectory}/dev";
       GOBIN = "${config.home.homeDirectory}/.local/bin";
+      PI_CODING_AGENT_DIR = "${config.home.homeDirectory}/dev/github.com/quidome/pi-config";
     };
   };
   programs.bat.enable = true;
