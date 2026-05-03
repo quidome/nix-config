@@ -8,6 +8,9 @@ with lib; {
     loader.systemd-boot.enable = mkDefault true;
     loader.efi.canTouchEfiVariables = mkDefault true;
     kernel.sysctl = {"vm.swappiness" = mkDefault 1;};
+    kernelPackages = mkIf (versionOlder pkgs.linux.version "6.18.22") (
+      mkDefault pkgs.linuxPackages_6_18
+    );
   };
 
   time.timeZone = mkDefault "Europe/Amsterdam";
