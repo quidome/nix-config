@@ -1,143 +1,168 @@
-# Variables
+# Multi-host Nix repo task runner
+
 hosts := `ls hosts 2>/dev/null || echo ""`
+current_host := `h=$(hostname -s 2>/dev/null || hostname); if [ -d "hosts/$h" ]; then echo "$h"; else h2=$(hostname); if [ -d "hosts/$h2" ]; then echo "$h2"; else echo "$h"; fi; fi`
 
-# Default recipe - shows available commands
 default:
-    @just --list
+  @just --list
 
-# === System Management ===
+# Short aliases
+check:
+  @just repo check
 
-# Build and switch current system
-switch:
-    sudo nixos-rebuild --flake . switch
+fmt:
+  @just repo fmt
 
-# Show what would change without building
-diff:
-    nixos-rebuild --flake . build --dry-run 2>&1 | grep -E "^\s*(will be|would be)"
+update:
+  @just repo update
 
-# Build for next boot (doesn't activate immediately)
-boot:
-    sudo nixos-rebuild --flake . boot
-
-# Rollback to previous generation
-rollback:
-    sudo nixos-rebuild --flake . --rollback switch
-
-# List system generations
-generations:
-    sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
-
-# === Host Configuration Testing ===
-
-# Build all host configurations (for testing)
-build-hosts:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    for host in $(ls hosts); do
-        echo "Building NixOS configuration for host: $host"
-        nixos-rebuild --flake .#$host build || just _error "Failed to build $host"
-        echo "✅ $host build completed successfully"
-        echo "---"
-    done
-
-# Verify all host configurations without building
-verify-hosts:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    for host in $(ls hosts); do
-        echo "Checking configuration for host: $host"
-        nix build .#nixosConfigurations.$host.config.system.build.toplevel --dry-run || just _error "Failed to verify $host"
-        echo "✅ $host check passed"
-        echo "---"
-    done
-
-# Build configuration for specific host
-build-host HOST:
-    nixos-rebuild --flake .#{{HOST}} build
-
-# === Updates and Maintenance ===
-
-# Complete system refresh (update, clean, rebuild)
-refresh: update clean switch
-
-# Pull latest changes, clean, and rebuild all hosts
-sync: _git-pull clean build-hosts
-
-# Update flake.lock and nix-index cache
-update: update-flake update-index
-
-# Update flake.lock
-update-flake:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    nix flake update || just _error "Failed to update flake"
-    if git diff --quiet --exit-code flake.lock; then
-        echo "No changes to flake.lock"
-    else
-        git add flake.lock
-        if git commit -m 'update flake.lock'; then
-            git push || echo "⚠️  Failed to push flake.lock update"
-        fi
-    fi
-
-# Update nix-index cache (for comma command)
-update-index:
-    #!/usr/bin/env bash
-    location=~/.cache/nix-index
-    filename="index-$(uname -m | sed 's/^arm64$/aarch64/')-$(uname | tr '[:upper:]' '[:lower:]')"
-    mkdir -p "$location"
-    wget -P "$location" -q -N "https://github.com/nix-community/nix-index-database/releases/latest/download/$filename"
-    ln -f "$location/$filename" "$location/files"
-
-# Garbage collect old generations
 clean:
-    nix-collect-garbage -d
-    sudo nix-collect-garbage -d
+  @just repo clean
 
-# === Validation ===
+refresh:
+  @just repo refresh
 
-# Quick syntax check of flake
-validate:
-    nix flake check
+plan HOST=current_host:
+  @just host {{HOST}} plan
 
-# Format Nix files with alejandra
-format:
-    find . -name '*.nix' -not -path '*/.*' -exec alejandra {} +
+build HOST=current_host:
+  @just host {{HOST}} build
 
-# Check git-crypt encryption status
-check-secrets:
-    #!/usr/bin/env bash
-    echo "Checking git-crypt status..."
-    if git-crypt status | grep -q "not encrypted"; then
-        echo "⚠️  WARNING: Some files may not be properly encrypted!"
-        git-crypt status
-        exit 1
-    else
-        echo "✅ All encrypted files are secure"
+switch HOST=current_host:
+  @just host {{HOST}} switch
+
+boot HOST=current_host:
+  @just host {{HOST}} boot
+
+rollback HOST=current_host:
+  @just host {{HOST}} rollback
+
+generations HOST=current_host:
+  @just host {{HOST}} generations
+
+# Repo-wide actions (codebase-level)
+repo ACTION="check":
+  #!/usr/bin/env bash
+  set -euo pipefail
+  case "{{ACTION}}" in
+    check)
+      nix flake check
+      ;;
+    fmt|format)
+      find . -name '*.nix' -not -path '*/.*' -exec alejandra {} +
+      ;;
+    update)
+      nix flake update
+      ;;
+    clean)
+      nix-collect-garbage -d
+      sudo nix-collect-garbage -d
+      ;;
+    refresh)
+      nix flake update
+      nix-collect-garbage -d
+      sudo nix-collect-garbage -d
+      ;;
+    *)
+      echo "Unknown repo action: {{ACTION}}" >&2
+      echo "Use: check | fmt | update | clean | refresh" >&2
+      exit 1
+      ;;
+  esac
+
+# Host-specific actions (machine-level)
+host HOST ACTION="plan":
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  local_host="$(hostname -s 2>/dev/null || hostname)"
+  if [ ! -d "hosts/$local_host" ]; then
+    full_local_host="$(hostname)"
+    if [ -d "hosts/$full_local_host" ]; then
+      local_host="$full_local_host"
     fi
+  fi
+  target_host="{{HOST}}"
 
-# === Live Images ===
+  case "{{ACTION}}" in
+    plan)
+      nix build .#nixosConfigurations.{{HOST}}.config.system.build.toplevel --dry-run
+      ;;
+    build)
+      nixos-rebuild --flake .#{{HOST}} build
+      ;;
+    apply|switch)
+      if [ "$target_host" = "$local_host" ]; then
+        sudo nixos-rebuild --flake .#{{HOST}} switch
+      else
+        nixos-rebuild --flake .#{{HOST}} --target-host "root@$target_host" switch
+      fi
+      ;;
+    boot)
+      if [ "$target_host" = "$local_host" ]; then
+        sudo nixos-rebuild --flake .#{{HOST}} boot
+      else
+        nixos-rebuild --flake .#{{HOST}} --target-host "root@$target_host" boot
+      fi
+      ;;
+    undo|rollback)
+      if [ "$target_host" = "$local_host" ]; then
+        sudo nixos-rebuild --flake .#{{HOST}} --rollback switch
+      else
+        nixos-rebuild --flake .#{{HOST}} --target-host "root@$target_host" --rollback switch
+      fi
+      ;;
+    generations)
+      if [ "$target_host" = "$local_host" ]; then
+        sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+      else
+        ssh "root@$target_host" 'nix-env --list-generations --profile /nix/var/nix/profiles/system'
+      fi
+      ;;
+    *)
+      echo "Unknown host action: {{ACTION}}" >&2
+      echo "Use: plan | build | switch | boot | rollback | generations" >&2
+      exit 1
+      ;;
+  esac
 
-# Build base ISO image
-iso-base:
-    nix build .#nixosConfigurations.baseIso.config.system.build.isoImage
-    @echo "ISO created at: result/iso/"
+# Optional: all-host checks
+hosts ACTION="plan":
+  #!/usr/bin/env bash
+  set -euo pipefail
+  for host in $(ls hosts); do
+    echo "==> $host"
+    case "{{ACTION}}" in
+      plan)
+        nix build .#nixosConfigurations.$host.config.system.build.toplevel --dry-run
+        ;;
+      build)
+        nixos-rebuild --flake .#$host build
+        ;;
+      *)
+        echo "Unknown hosts action: {{ACTION}}" >&2
+        echo "Use: plan | build" >&2
+        exit 1
+        ;;
+    esac
+  done
 
-# Build bcachefs ISO image
-iso-bcachefs:
-    nix build .#nixosConfigurations.bcachefsIso.config.system.build.isoImage
-    @echo "ISO created at: result/iso/"
-
-# === Internal Recipes ===
-
-# Pull latest changes from git
-_git-pull:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    git pull || just _error "Failed to git pull"
-
-# Error handling function
-_error:
-    #!/usr/bin/env bash
-    echo "Error: $1" >&2
-    exit 1
+# ISO builds
+iso TYPE="base":
+  #!/usr/bin/env bash
+  set -euo pipefail
+  case "{{TYPE}}" in
+    base)
+      nix build .#nixosConfigurations.baseIso.config.system.build.isoImage
+      echo "ISO created at: result/iso/"
+      ;;
+    bcachefs)
+      nix build .#nixosConfigurations.bcachefsIso.config.system.build.isoImage
+      echo "ISO created at: result/iso/"
+      ;;
+    *)
+      echo "Unknown iso type: {{TYPE}}" >&2
+      echo "Use: base | bcachefs" >&2
+      exit 1
+      ;;
+  esac
