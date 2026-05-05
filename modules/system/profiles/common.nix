@@ -42,6 +42,7 @@ with lib; {
 
     # devops
     git
+    gh
     git-crypt
     git-repo-updater
     gitui
@@ -65,7 +66,6 @@ with lib; {
     claude-code
     pi
     helmfile
-    httpie
     ipcalc
     k9s
     kubectl
