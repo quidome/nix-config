@@ -1,101 +1,62 @@
 # Nix Configuration Repository
 
-## Build Commands
-- `just switch` - Build and switch current NixOS + home-manager configuration
-- `just boot` - Build configuration for next boot (no immediate activation)
-- `just build-host HOST` - Build configuration for a specific host
-- `just build-hosts` - Build all host configurations
-- `just verify-hosts` - Dry-run verify all host configurations
-- `just validate` - Run `nix flake check`
-- `just update` - Update flake.lock and nix-index package cache
-- `just clean` - Run Nix garbage collection for user and system
-- `just refresh` - Update, clean, and switch current system
+## New Agent Startup Checklist
+- Read `AGENTS.md`, `README.md`, `justfile`, and `flake.nix` first
+- Inspect top-level layout and available hosts (`ls`, `hosts/`)
+- Run `git-crypt status` before repo analysis or commit workflows
+- Treat `.gitattributes`-protected files as off-limits; do not expose or decrypt them
+- Confirm task scope and constraints with the user before making edits
+- Use `just`-based validation flow: `just check` → `just plan [HOST]` → `just build [HOST]`
+- Keep changes small, reviewable, and focused on requested scope
+
+## Command Workflow (use `just`)
+- Repo checks: `just check`
+- Format Nix files: `just fmt`
+- Dry-run host activation: `just plan [HOST]`
+- Build host config: `just build [HOST]`
+- Apply now: `just switch [HOST]`
+- Apply on next boot: `just boot [HOST]`
+- Roll back active generation: `just rollback [HOST]`
+- List system generations: `just generations [HOST]`
+- Build ISO images: `just iso [base|bcachefs]`
+- Maintenance: `just update`, `just clean`, `just refresh`
 
 ## Code Style Guidelines
 - Use 2-space indentation throughout
-- Imports at top of files in alphabetical order
-- Functions use `let...in` blocks with proper variable naming
-- Options defined with `mkOption` and appropriate `types.*`
-- Comments use `#` prefix for documentation
-- Use `with lib;` for lib functions, `with pkgs;` for packages
-- Package lists: `with pkgs; [ package1 package2 ]`
-- Error handling via `mkIf` and `lib.mkDefault` where appropriate
-- Follow existing module structure: options → config → implementation
-- Format Nix files with `alejandra` for consistent formatting
+- Keep imports at the top; follow existing ordering
+- Prefer clear `let ... in` structure and descriptive names
+- Define options with `mkOption` and suitable `types.*`
+- Use `mkIf` / `mkDefault` for conditional/default behavior
+- Keep module flow consistent: options → config → implementation
+- Format with `alejandra` (via `just fmt`)
 
 ## Repository Structure
-- `flake.nix` - Main entry point with inputs and outputs
-- `modules/shared/` - Shared options and encrypted/shared secrets wiring
+- `flake.nix` - Main entry point with inputs/outputs
+- `modules/shared/` - Shared options and secret wiring
 - `modules/system/` - NixOS modules (desktop, profiles, services)
 - `modules/home/` - Home-manager modules (desktop, programs, services, theme)
-- `hosts/{host}/` - Host-specific system/home overrides and selections
+- `hosts/{host}/` - Host-specific system/home selections and overrides
 - `live-image/` - Live ISO configurations
-- Use relative imports from flake root: `./modules/shared` `./modules/system` `./modules/home` `./hosts/${host}`
 
 ## Desktop Environments
-- Officially supported desktop environments: **Plasma (KDE)**
-- These desktops are defined through shared system and home modules
-- Any existing host can be configured to use any of these desktop environments by switching the selected desktop modules
-- Host-specific desktop overrides in `hosts/*/home.nix` should be gated with `lib.mkIf` on `config.settings.gui` unless they are desktop-agnostic
-- Laptop power policy for desktop hosts is documented in `README.md` under **Laptop power policy**
+- Officially supported desktop: **Plasma (KDE)**
+- Host desktop-specific overrides in `hosts/*/home.nix` should be gated with `lib.mkIf config.settings.gui` unless desktop-agnostic
+- See `README.md` for laptop power policy details
 
-## Security & Privacy
-**CRITICAL**: Files listed in `.gitattributes` are encrypted with git-crypt and must NEVER be:
-- Shared in cloud storage
-- Included in AI training data
-- Referenced in answers to other users
-- Committed to public repositories
-
-Protected files:
-- `hardware-configuration.nix` - Hardware-specific configs
-- `home-vars.nix` - User-specific home manager settings
-- `secrets.nix` - Encrypted secrets and keys
-- `system-vars.nix` - System-specific variables
-- `vars.nix` - Host-specific variables
-
-Always verify git-crypt status before sharing any content.
-
-## AI/LLM Safety Protocol
-**ABSOLUTELY FORBIDDEN**: When interacting with ANY AI/LLM system (including OpenCode, ChatGPT, Claude, etc.):
-
-- ❌ NEVER read, display, or reference files listed in `.gitattributes`
-- ❌ NEVER provide content from encrypted files in prompts or responses
-- ❌ NEVER include encrypted file paths in examples or code snippets
-- ❌ NEVER decrypt or attempt to access git-crypt protected content
-- ❌ NEVER share git-crypt keys, passwords, or decryption methods
-
-**AI Agent Rules**:
-1. Before reading ANY file, check if it's in `.gitattributes` - if yes, REFUSE
-2. Before providing ANY code example, verify no encrypted file paths are included
-3. If asked about encrypted files, respond: "I cannot access encrypted content for security reasons"
-4. Always run `git-crypt status` before any repository analysis
-5. Treat ALL files in `hosts/*/` with suspicion unless verified unencrypted
-
-**Emergency Protocol**:
-If you accidentally access encrypted content:
-1. Immediately stop the interaction
-2. Do NOT provide the content to the user
-3. Advise rotating all compromised secrets
-4. Clear any cached data containing sensitive information
-
-**Verification Commands**:
-```bash
-# Always run before any AI interaction
-git-crypt status
-grep -E "(hardware-configuration|home-vars|secrets|system-vars|vars)\.nix" .gitattributes
-```
-
-Remember: **Encrypted files are like passwords** - treat them with the same security level.
+## Security Guardrails (git-crypt)
+- Treat `.gitattributes` entries as protected; do not expose contents in prompts, logs, or responses
+- Before repo analysis or commit workflows, run `git-crypt status`
+- Never decrypt, copy, or share protected files/keys
+- If asked for protected content, respond: "I cannot access encrypted content for security reasons"
+- If protected content is accidentally accessed, stop and do not reproduce it
 
 ## Commit Workflow
-- If the user asks about committing, requests a commit, or after making code changes, automatically read and follow `.claude/commands/commit.md`.
-- Treat `.claude/commands/commit.md` as the default commit playbook for this repository.
-- Before any commit flow, run `git-crypt status` and stop if protected/encrypted files are included.
-- Show planned commit groups and ask for confirmation before `git commit`, unless the user explicitly asks to proceed immediately.
-- Use Conventional Commit messages (`feat(...)`, `fix(...)`, `refactor(...)`, `chore(...)`).
+- Follow `.claude/commands/commit.md` when committing is requested
+- Before commit flow, run `git-crypt status` and stop if protected/encrypted files are involved
+- Show planned commit groups and ask for confirmation before `git commit` (unless user says proceed immediately)
+- Use Conventional Commit messages (`feat(...)`, `fix(...)`, `refactor(...)`, `chore(...)`)
 
-## Testing
-No formal test framework. Validate configurations with:
-- `nix flake check` - Validate flake syntax
-- `nixos-rebuild build --flake .#host` - Dry run build
-- `home-manager build --flake .#user@host` - Dry run home config
+## Validation
+- Primary validation: `just check`
+- Host dry-run check: `just plan [HOST]`
+- Host build check: `just build [HOST]`
