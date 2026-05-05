@@ -23,14 +23,7 @@ in {
         telemetry.metrics = false;
         telemetry.diagnostics = false;
 
-        # Set Claude as default agent
-        agent = {
-          default_model = {
-            provider = "anthropic";
-            model = "claude-sonnet-4.5";
-          };
-          button = true;
-        };
+        agent.button = true;
 
         vim_mode = false;
         ui_font_size = 16;
