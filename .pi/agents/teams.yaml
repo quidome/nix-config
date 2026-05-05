@@ -1,0 +1,22 @@
+nixos-safe:
+  - scout
+  - planner
+  - implementer
+  - reviewer
+
+nixos-harden:
+  - scout
+  - planner
+  - implementer
+  - reviewer
+  - red-team
+
+nixos-fast:
+  - scout
+  - planner
+  - implementer
+
+nixos-doc:
+  - scout
+  - documenter
+  - reviewer

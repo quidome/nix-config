@@ -1,0 +1,47 @@
+host-change:
+  description: "Change one host safely"
+  steps:
+    - agent: scout
+      prompt: "Map affected host files (hosts/, profiles/, modules/, flake.nix) for: $INPUT"
+    - agent: planner
+      prompt: "Plan minimal-risk host change with rollback note for: $INPUT"
+    - agent: implementer
+      prompt: "Implement only planned host changes with minimal diffs:\n\n$INPUT"
+    - agent: reviewer
+      prompt: "Review for host build/switch safety and regressions:\n\n$INPUT"
+
+shared-module-change:
+  description: "Change shared module used by multiple hosts"
+  steps:
+    - agent: scout
+      prompt: "Identify all hosts importing the target module and impacted options for: $INPUT"
+    - agent: planner
+      prompt: "Plan backward-compatible module change (defaults + migration notes):\n\n$INPUT"
+    - agent: implementer
+      prompt: "Implement conservatively, preserving existing behavior unless requested:\n\n$INPUT"
+    - agent: reviewer
+      prompt: "Review cross-host impact and option compatibility:\n\n$INPUT"
+
+security-change:
+  description: "Security-sensitive config change"
+  steps:
+    - agent: scout
+      prompt: "Locate security-relevant config touched by: $INPUT (ssh, firewall, sudo, secrets, auth)"
+    - agent: planner
+      prompt: "Plan with explicit risk controls and rollback path:\n\n$INPUT"
+    - agent: implementer
+      prompt: "Implement minimal secure changes only:\n\n$INPUT"
+    - agent: reviewer
+      prompt: "Review correctness and operational risk:\n\n$INPUT"
+    - agent: red-team
+      prompt: "Adversarial review: privilege, exposure, secret leaks, unsafe defaults:\n\n$INPUT"
+
+docs-sync:
+  description: "Keep docs/runbooks aligned with config"
+  steps:
+    - agent: scout
+      prompt: "Find docs/runbooks affected by this change:\n\n$INPUT"
+    - agent: documenter
+      prompt: "Update docs to match actual repo behavior:\n\n$INPUT"
+    - agent: reviewer
+      prompt: "Review for clarity and correctness:\n\n$INPUT"
