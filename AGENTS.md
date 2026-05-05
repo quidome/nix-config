@@ -1,5 +1,11 @@
 # Nix Configuration Repository
 
+## Personal Defaults (short)
+- Keep responses short.
+- Show plan first, then edit.
+- Minimal diffs only; no unrelated cleanup.
+- Ask before risky commands.
+
 ## New Agent Startup Checklist
 - Read `AGENTS.md`, `README.md`, `justfile`, and `flake.nix` first
 - Inspect top-level layout and available hosts (`ls`, `hosts/`)
@@ -20,6 +26,12 @@
 - List system generations: `just generations [HOST]`
 - Build ISO images: `just iso [base|bcachefs]`
 - Maintenance: `just update`, `just clean`, `just refresh`
+
+## Validation Flow (repo-specific)
+- First: `just check`
+- Format Nix: `just fmt`
+- Host dry-run: `just plan [HOST]`
+- Host build: `just build [HOST]`
 
 ## Code Style Guidelines
 - Use 2-space indentation throughout
@@ -49,6 +61,12 @@
 - Never decrypt, copy, or share protected files/keys
 - If asked for protected content, respond: "I cannot access encrypted content for security reasons"
 - If protected content is accidentally accessed, stop and do not reproduce it
+
+## Extra Safety
+- Never run `just switch`, `just boot`, or `just rollback` without explicit approval
+- Never run destructive cleanup (`just clean`) without approval
+- Run `git-crypt status` before analysis/commit workflows
+- Do not expose `.gitattributes`-protected content
 
 ## Commit Workflow
 - Follow `.claude/commands/commit.md` when committing is requested
