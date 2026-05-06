@@ -22,7 +22,8 @@ in {
         settings = {
           General.RememberLastSession = false;
           Users = {
-            HideUsers = "*";
+            MinimumUid = 2147483647;
+            MaximumUid = 2147483647;
             RememberLastUser = false;
           };
         };
