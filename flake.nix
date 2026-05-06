@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     catppuccin.url = "github:catppuccin/nix/release-25.11";
 
@@ -32,19 +31,10 @@
       inherit system;
       config.allowUnfree = true;
 
-      unstable = import inputs.nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
-
       overlays = [
         inputs.rtk-nix.overlays.default
         (final: prev: {
           pi = inputs.llm-agents.packages.${system}.pi;
-          unstable = import inputs.nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
-          };
         })
       ];
     };
