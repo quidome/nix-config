@@ -2,21 +2,26 @@ nixos-safe:
   - scout
   - planner
   - implementer
+  - nix-engineer
+  - system-engineer
   - reviewer
 
 nixos-harden:
   - scout
   - planner
   - implementer
+  - nix-engineer
+  - system-engineer
   - reviewer
   - red-team
 
 nixos-fast:
   - scout
   - planner
-  - implementer
+  - nix-engineer
 
 nixos-doc:
   - scout
   - documenter
+  - nix-engineer
   - reviewer
