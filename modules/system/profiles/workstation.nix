@@ -19,6 +19,10 @@ in {
       logseq
       mani
       mpv
+      element-desktop
+      obsidian
+      signal-desktop
+      spotify
       pandoc
       pavucontrol
       plantuml
