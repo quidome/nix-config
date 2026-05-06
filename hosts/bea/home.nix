@@ -13,5 +13,4 @@
   settings = {
     terminalFont.size = 10;
   };
-
 }

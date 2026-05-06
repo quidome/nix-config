@@ -19,10 +19,12 @@ in {
 
       displayManager.sddm = {
         enable = mkDefault true;
-        settings.Users = {
-          MaximumUid = 99999;
-          MinimumUid = 99999;
-          RememberLastUser = false;
+        settings = {
+          General.RememberLastSession = false;
+          Users = {
+            HideUsers = "*";
+            RememberLastUser = false;
+          };
         };
       };
     };
@@ -30,17 +32,17 @@ in {
     # packages to add with kde/plasma
     environment = {
       systemPackages =
-        (with pkgs; [
-          aspell
-          aspellDicts.en
-          aspellDicts.nl
-          hunspell
-          krename
-
-        ]
-        ++ optionals tailscaleEnabled [
-          ktailctl
-        ])
+        (with pkgs;
+          [
+            aspell
+            aspellDicts.en
+            aspellDicts.nl
+            hunspell
+            krename
+          ]
+          ++ optionals tailscaleEnabled [
+            ktailctl
+          ])
         ++ (with pkgs.kdePackages; [
           discover
           kcalc

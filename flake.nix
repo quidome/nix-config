@@ -19,7 +19,6 @@
 
     llm-agents.url = "github:numtide/llm-agents.nix";
 
-
     # Update with: nix flake lock --update-input rtk-nix
     rtk-nix.url = "github:hypervideo/rtk-nix";
     rtk-nix.inputs.nixpkgs.follows = "nixpkgs";
