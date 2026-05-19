@@ -260,7 +260,8 @@
         "llm-agents": "llm-agents",
         "nixpkgs": "nixpkgs_3",
         "plasma-manager": "plasma-manager",
-        "rtk-nix": "rtk-nix"
+        "rtk-nix": "rtk-nix",
+        "unstable": "unstable"
       }
     },
     "rtk-nix": {
@@ -332,6 +333,22 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "unstable": {
+      "locked": {
+        "lastModified": 1778869304,
+        "narHash": "sha256-30sZNZoA1cqF5JNO9fVX+wgiQYjB7HJqqJ4ztCDeBZE=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "d233902339c02a9c334e7e593de68855ad26c4cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     }

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     catppuccin.url = "github:catppuccin/nix/release-25.11";
 
@@ -27,6 +28,11 @@
     args = inputs;
     system = "x86_64-linux";
 
+    pkgsUnstable = import inputs.unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
+
     pkgs = import inputs.nixpkgs {
       inherit system;
       config.allowUnfree = true;
@@ -44,7 +50,7 @@
         inherit pkgs;
         modules = [
           inputs.disko.nixosModules.disko
-          {_module.args = args;}
+          {_module.args = args // {inherit pkgsUnstable;};}
           ./modules/shared
           ./modules/system
           ./hosts/${host}/configuration.nix

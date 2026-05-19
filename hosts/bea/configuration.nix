@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, pkgsUnstable, ...}: {
   imports = [
     ./disk-config.nix
     ./shared.nix
@@ -17,6 +17,9 @@
 
   environment.systemPackages = with pkgs; [
     zfs
+
+    # LLM tooling
+    pkgsUnstable.llama-cpp-vulkan
 
     # devops
     # don't install jetbrains.ide at this moment as the install never seems to end
