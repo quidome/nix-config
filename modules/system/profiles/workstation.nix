@@ -29,6 +29,7 @@ in {
       thunderbird
       v4l-utils
       vlc
+      vscodium
       wl-clipboard
 
       openttd
