@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  authorizedKeys = config.settings.authorizedKeys;
+  inherit (config.settings) authorizedKeys;
 in {
   options.settings.authorizedKeys = mkOption {type = types.listOf types.str;};
 

@@ -11,13 +11,15 @@
     ./hardware-configuration.nix
   ];
 
-  boot.loader.systemd-boot = {
-    configurationLimit = 7;
-    windows."11".efiDeviceHandle = "FS0";
-  };
+  boot = {
+    loader.systemd-boot = {
+      configurationLimit = 7;
+      windows."11".efiDeviceHandle = "FS0";
+    };
 
-  boot.kernelParams = ["consoleblank=180"];
-  boot.supportedFilesystems.zfs = true;
+    kernelParams = ["consoleblank=180"];
+    supportedFilesystems.zfs = true;
+  };
 
   environment.systemPackages = with pkgs; [
     zfs
@@ -60,13 +62,15 @@
     nvtopPackages.amd
   ];
 
-  networking.hostName = "bea";
-  networking.firewall.enable = true;
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "bea";
+    firewall.enable = true;
+    networkmanager.enable = true;
 
-  # Disable secondary interface to prevent IPv6 routing conflicts
-  networking.interfaces.enp47s0f3u3u3.useDHCP = false;
-  networking.networkmanager.unmanaged = ["enp47s0f3u3u3"];
+    # Disable secondary interface to prevent IPv6 routing conflicts
+    interfaces.enp47s0f3u3u3.useDHCP = false;
+    networkmanager.unmanaged = ["enp47s0f3u3u3"];
+  };
 
   time.hardwareClockInLocalTime = true;
 
@@ -75,30 +79,31 @@
     enable32Bit = true;
   };
 
-  programs.appimage.enable = true;
-  programs.appimage.binfmt = true;
-  programs.gamemode = {
-    enable = true;
-    enableRenice = true;
+  programs = {
+    appimage.enable = true;
+    appimage.binfmt = true;
+    gamemode = {
+      enable = true;
+      enableRenice = true;
+    };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+    java.enable = true;
+    steam = {
+      enable = true;
+      extraPackages = with pkgs; [
+        gamescope
+        gamemode
+        jdk
+        mangohud
+      ];
+      extraCompatPackages = with pkgs; [proton-ge-bin];
+      gamescopeSession.enable = true;
+      protontricks.enable = true;
+    };
   };
-  programs.gamescope = {
-    enable = true;
-    capSysNice = true;
-  };
-  programs.java.enable = true;
-  programs.steam = {
-    enable = true;
-    extraPackages = with pkgs; [
-      gamescope
-      gamemode
-      jdk
-      mangohud
-    ];
-    extraCompatPackages = with pkgs; [proton-ge-bin];
-    gamescopeSession.enable = true;
-    protontricks.enable = true;
-  };
-
   services.xserver.videoDrivers = ["amdgpu"];
 
   virtualisation.docker.enable = true;
