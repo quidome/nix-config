@@ -1,4 +1,8 @@
-{pkgs, pkgsUnstable, ...}: {
+{
+  pkgs,
+  pkgsUnstable,
+  ...
+}: {
   imports = [
     ./disk-config.nix
     ./shared.nix

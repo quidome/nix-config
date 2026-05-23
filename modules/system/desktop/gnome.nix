@@ -29,6 +29,5 @@
       gnome-tour
       gnome-user-docs
     ]);
-
   };
 }

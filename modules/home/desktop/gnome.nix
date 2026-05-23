@@ -11,7 +11,10 @@ with lib; let
   isLightTheme = config.settings.theme == "light";
   gnomeExtensions = pkgs.gnomeExtensions or {};
 
-  terminalCmd = if terminal != "" then terminal else "kgx";
+  terminalCmd =
+    if terminal != ""
+    then terminal
+    else "kgx";
   hasAppIndicator = gnomeExtensions ? appindicator;
   hasDisplayConfigurationSwitcher = gnomeExtensions ? display-configuration-switcher;
   gnomeColorScheme =
