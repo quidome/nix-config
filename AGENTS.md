@@ -71,10 +71,15 @@
 ## Commit Workflow
 - Follow `.claude/commands/commit.md` when committing is requested
 - Before commit flow, run `git-crypt status` and stop if protected/encrypted files are involved
+- Pre-commit flow:
+  1) `git-crypt status`
+  2) `just fmt`
+  3) `just check`
+  4) `just lint` (optional strict gate)
 - Show planned commit groups and ask for confirmation before `git commit` (unless user says proceed immediately)
 - Use Conventional Commit messages (`feat(...)`, `fix(...)`, `refactor(...)`, `chore(...)`)
 
 ## Validation
 - Primary validation: `just check`
-- Host dry-run check: `just plan [HOST]`
-- Host build check: `just build [HOST]`
+- Formatting: `just fmt`
+- Linting: `just lint` (optional strict gate)
