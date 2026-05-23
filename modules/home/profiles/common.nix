@@ -19,58 +19,74 @@
       PI_EXTENSIONS = "${config.home.homeDirectory}/dev/github.com/quidome/pi-extensions/extensions";
     };
   };
-  programs.bat.enable = true;
-  programs.bat.config.style = "header,snip";
+  programs = {
+    bat = {
+      enable = true;
+      config.style = "header,snip";
+    };
 
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
 
-  programs.eza.enable = true;
-  programs.eza.enableZshIntegration = true;
-  programs.eza.extraOptions = [
-    "--group-directories-first"
-    "--header"
-  ];
+    eza = {
+      enable = true;
+      enableZshIntegration = true;
+      extraOptions = [
+        "--group-directories-first"
+        "--header"
+      ];
+    };
 
-  programs.git.enable = true;
+    git.enable = true;
 
-  programs.helix.enable = true;
+    helix.enable = true;
 
-  programs.htop.enable = true;
-  programs.htop.settings.show_program_path = true;
+    htop = {
+      enable = true;
+      settings.show_program_path = true;
+    };
 
-  programs.neovim.enable = true;
+    neovim.enable = true;
 
-  programs.jujutsu.enable = true;
-  programs.jujutsu.ediff = true;
+    jujutsu = {
+      enable = true;
+      ediff = true;
+    };
 
-  programs.ssh.enable = true;
-  programs.ssh.enableDefaultConfig = false;
-  programs.ssh.matchBlocks."*" = {
-    forwardAgent = false;
-    addKeysToAgent = "yes";
-    compression = false;
-    serverAliveInterval = 0;
-    serverAliveCountMax = 3;
-    hashKnownHosts = false;
-    userKnownHostsFile = "~/.ssh/known_hosts";
-    controlMaster = "no";
-    controlPath = "~/.ssh/master-%r@%n:%p";
-    controlPersist = "no";
-  };
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      matchBlocks."*" = {
+        forwardAgent = false;
+        addKeysToAgent = "yes";
+        compression = false;
+        serverAliveInterval = 0;
+        serverAliveCountMax = 3;
+        hashKnownHosts = false;
+        userKnownHostsFile = "~/.ssh/known_hosts";
+        controlMaster = "no";
+        controlPath = "~/.ssh/master-%r@%n:%p";
+        controlPersist = "no";
+      };
+    };
 
-  programs.zellij.enable = lib.mkDefault true;
+    zellij.enable = lib.mkDefault true;
 
-  programs.zoxide.enable = true;
+    zoxide.enable = true;
 
-  programs.zsh.enable = true;
-  programs.zsh.enableCompletion = true;
-  programs.zsh.initContent = "fpath+=($HOME/.zsh/completion/)";
-  programs.zsh.shellAliases = {
-    "k" = "kubectl";
-    "kc" = "kubectx";
-    "kn" = "kubens";
-    "kseal" = "kubeseal --controller-namespace kube-system --controller-name sealed-secrets";
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      initContent = "fpath+=($HOME/.zsh/completion/)";
+      shellAliases = {
+        "k" = "kubectl";
+        "kc" = "kubectx";
+        "kn" = "kubens";
+        "kseal" = "kubeseal --controller-namespace kube-system --controller-name sealed-secrets";
+      };
+    };
   };
 
   services.gpg-agent = {

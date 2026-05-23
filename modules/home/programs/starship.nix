@@ -10,16 +10,12 @@ in {
       format = "$hostname$directory$nix_shell$git_branch$git_commit$git_status$fill$golang$java$kotlin$nodejs$php$python$ruby$rust$kubernetes$line_break$status$character";
       fill.symbol = " ";
 
-      directory.format = "[$path[$read_only]($read_only_style)]($style) ";
-      directory.repo_root_format = "[$before_root_path]($style)[$repo_root]($repo_root_style)[$path[$read_only]($read_only_style)]($style) ";
       git_branch.format = "[$symbol$branch]($style) ";
       git_commit.format = "[$hash]($style) ";
-      git_status.format = "([$all_status$ahead_behind]($style)) ";
       golang.format = "[$symbol($version)]($style) ";
       hostname.format = "[$hostname]($style):";
       java.format = "[$symbol($version)]($style) ";
       kotlin.format = "[$symbol($version)]($style) ";
-      kubernetes.format = "[$context/$namespace]($style) ";
       nodejs.format = "[$symbol($version)]($style) ";
       php.format = "[$symbol($version)]($style) ";
       python.format = "[\${symbol}\${pyenv_prefix}(\${version})(\($virtualenv\))]($style) ";
@@ -27,11 +23,14 @@ in {
       rust.format = "[$symbol($version)]($style) ";
 
       directory = {
+        format = "[$path[$read_only]($read_only_style)]($style) ";
+        repo_root_format = "[$before_root_path]($style)[$repo_root]($repo_root_style)[$path[$read_only]($read_only_style)]($style) ";
         style = "bold blue";
         repo_root_style = "bold mauve";
       };
 
       git_status = {
+        format = "([$all_status$ahead_behind]($style)) ";
         style = "green";
         ahead = "[↑$count](blue)";
         behind = "[↓$count](red)";
@@ -45,7 +44,10 @@ in {
         deleted = "[✗$count](red)";
       };
 
-      kubernetes.disabled = false;
+      kubernetes = {
+        format = "[$context/$namespace]($style) ";
+        disabled = false;
+      };
 
       status = {
         disabled = false;

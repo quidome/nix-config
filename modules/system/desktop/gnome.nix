@@ -20,11 +20,12 @@
         ]
       );
 
-    services.xserver.enable = lib.mkDefault true;
-    services.desktopManager.gnome.enable = lib.mkDefault true;
-    services.displayManager.gdm.enable = lib.mkDefault true;
-
-    services.gnome.games.enable = lib.mkDefault false;
+    services = {
+      xserver.enable = lib.mkDefault true;
+      desktopManager.gnome.enable = lib.mkDefault true;
+      displayManager.gdm.enable = lib.mkDefault true;
+      gnome.games.enable = lib.mkDefault false;
+    };
     environment.gnome.excludePackages = lib.mkDefault (with pkgs; [
       gnome-tour
       gnome-user-docs

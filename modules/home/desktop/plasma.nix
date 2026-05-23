@@ -38,10 +38,37 @@ with lib; let
 in {
   config = mkIf plasmaEnabled {
     # Catppuccin theme packages
-    home.packages = with pkgs; [
-      catppuccin-kde
-      catppuccin-cursors.${flavor + accentCap}
-    ];
+    home = {
+      packages = with pkgs; [
+        catppuccin-kde
+        catppuccin-cursors.${flavor + accentCap}
+      ];
+
+      # Catppuccin Konsole colorschemes
+      file = {
+        ".local/share/konsole/Catppuccin-Mocha.colorscheme" = {
+          enable = true;
+          source = ../dotfiles/Catppuccin-Mocha.colorscheme;
+        };
+        ".local/share/konsole/Catppuccin-Latte.colorscheme" = {
+          enable = true;
+          source = ../dotfiles/Catppuccin-Latte.colorscheme;
+        };
+
+        # Konsole profile using Catppuccin colorscheme
+        ".local/share/konsole/Catppuccin.profile".text = ''
+          [Appearance]
+          ColorScheme=${konsoleColorscheme}
+          Font=${config.settings.terminalFont.name},${toString config.settings.terminalFont.size},-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+
+          [General]
+          Name=Catppuccin
+          Parent=FALLBACK/
+          TerminalColumns=120
+          TerminalRows=40
+        '';
+      };
+    };
 
     # Plasma-manager configuration
     programs.plasma = {
@@ -59,29 +86,6 @@ in {
         "konsolerc"."General"."ConfigVersion" = 1;
       };
     };
-
-    # Catppuccin Konsole colorschemes
-    home.file.".local/share/konsole/Catppuccin-Mocha.colorscheme" = {
-      enable = true;
-      source = ../dotfiles/Catppuccin-Mocha.colorscheme;
-    };
-    home.file.".local/share/konsole/Catppuccin-Latte.colorscheme" = {
-      enable = true;
-      source = ../dotfiles/Catppuccin-Latte.colorscheme;
-    };
-
-    # Konsole profile using Catppuccin colorscheme
-    home.file.".local/share/konsole/Catppuccin.profile".text = ''
-      [Appearance]
-      ColorScheme=${konsoleColorscheme}
-      Font=${config.settings.terminalFont.name},${toString config.settings.terminalFont.size},-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-
-      [General]
-      Name=Catppuccin
-      Parent=FALLBACK/
-      TerminalColumns=120
-      TerminalRows=40
-    '';
 
     services.gpg-agent.pinentry.package = pkgs.pinentry-qt;
   };

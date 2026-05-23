@@ -7,7 +7,7 @@
 with lib; let
   gnomeEnabled = config.settings.gui == "gnome";
 
-  terminal = config.settings.terminal;
+  inherit (config.settings) terminal;
   isLightTheme = config.settings.theme == "light";
   gnomeExtensions = pkgs.gnomeExtensions or {};
 

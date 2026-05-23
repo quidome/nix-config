@@ -9,9 +9,11 @@ in {
   config = lib.mkIf isWorkstation {
     fonts.fontconfig.enable = mkDefault true;
 
-    programs.emacs.enable = mkDefault true;
-    programs.firefox.enable = mkDefault true;
-    programs.zed-editor.enable = mkDefault true;
+    programs = {
+      emacs.enable = mkDefault true;
+      firefox.enable = mkDefault true;
+      zed-editor.enable = mkDefault true;
+    };
 
     settings.terminalFont.name = mkDefault "JetBrainsMono Nerd Font";
 

@@ -13,9 +13,11 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    plasma-manager.url = "github:nix-community/plasma-manager";
-    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
-    plasma-manager.inputs.home-manager.follows = "home-manager";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
 
     llm-agents.url = "github:numtide/llm-agents.nix";
 
@@ -24,7 +26,7 @@
     rtk-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {self, ...} @ inputs: let
+  outputs = inputs: let
     args = inputs;
     system = "x86_64-linux";
 
@@ -39,8 +41,8 @@
 
       overlays = [
         inputs.rtk-nix.overlays.default
-        (final: prev: {
-          pi = inputs.llm-agents.packages.${system}.pi;
+        (_final: _prev: {
+          inherit (inputs.llm-agents.packages.${system}) pi;
         })
       ];
     };

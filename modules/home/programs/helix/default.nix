@@ -32,9 +32,11 @@ in {
             center = ["file-name" "file-modification-indicator" "spacer" "diagnostics"];
             right = ["position" "total-line-numbers"];
             separator = "|";
-            mode.normal = "NORMAL";
-            mode.insert = "INSERT";
-            mode.select = "SELECT";
+            mode = {
+              normal = "NORMAL";
+              insert = "INSERT";
+              select = "SELECT";
+            };
           };
         };
       };

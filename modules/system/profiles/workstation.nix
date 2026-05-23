@@ -52,20 +52,22 @@ in {
       noto-fonts
     ];
 
-    services.flatpak.enable = mkDefault true;
-    services.pipewire.enable = mkDefault true;
-    services.tailscale.enable = mkDefault false;
+    services = {
+      flatpak.enable = mkDefault true;
+      pipewire.enable = mkDefault true;
+      tailscale.enable = mkDefault false;
 
-    # Enable printing and printer discovery
-    services.printing.enable = mkDefault true;
-    services.printing.drivers = with pkgs; [
-      cups-filters
-      cups-browsed
-    ];
-    services.avahi = {
-      enable = mkDefault true;
-      nssmdns4 = mkDefault true;
-      openFirewall = mkDefault true;
+      # Enable printing and printer discovery
+      printing.enable = mkDefault true;
+      printing.drivers = with pkgs; [
+        cups-filters
+        cups-browsed
+      ];
+      avahi = {
+        enable = mkDefault true;
+        nssmdns4 = mkDefault true;
+        openFirewall = mkDefault true;
+      };
     };
   };
 }
