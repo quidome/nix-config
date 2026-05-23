@@ -62,6 +62,8 @@ with lib; {
 
     # devops tooling
     alejandra
+    deadnix
+    statix
     cilium-cli
     claude-code
     pi
