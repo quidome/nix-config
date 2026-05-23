@@ -8,5 +8,6 @@
 
   settings = {
     terminalFont.size = 10;
+    gnome.enableAppIndicator = true;
   };
 }

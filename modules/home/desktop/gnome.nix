@@ -15,7 +15,7 @@ with lib; let
     if terminal != ""
     then terminal
     else "kgx";
-  hasAppIndicator = gnomeExtensions ? appindicator;
+  hasAppIndicator = (gnomeExtensions ? appindicator) && config.settings.gnome.enableAppIndicator;
   hasDisplayConfigurationSwitcher = gnomeExtensions ? display-configuration-switcher;
   gnomeColorScheme =
     if isLightTheme
