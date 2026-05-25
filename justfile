@@ -36,16 +36,11 @@ verify:
 # Update flake.lock and auto-commit/push if changed
 update: _update-lock-and-push
 
-# Update lockfile and run garbage collection
-refresh:
-  just update
-  just gc
-
-# Update lockfile, garbage-collect, and switch
-update-switch: _update-lock-and-push _gc-and-switch
+# Update lockfile, then garbage-collect and switch
+upgrade: _update-lock-and-push _gc-and-switch
 
 # Pull latest changes, then garbage-collect and switch
-pull-update:
+sync:
   #!/usr/bin/env bash
   set -euo pipefail
   git pull
