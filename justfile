@@ -1,38 +1,50 @@
+# Show available recipes
 default:
   @just --list
 
+# Apply configuration to current system immediately
 switch:
   sudo nixos-rebuild --flake . switch
 
+# Apply configuration on next boot
 boot:
   sudo nixos-rebuild --flake . boot
 
+# Garbage-collect user and system generations
 gc:
   nix-collect-garbage -d
   sudo nix-collect-garbage -d
 
+# Format Nix files
 fmt:
   alejandra .
 
+# Run static lint checks
 lint:
   statix check . && deadnix .
 
+# Run flake checks
 check:
   nix flake check
 
+# Run fmt, lint, and check
 verify:
   just fmt
   just lint
   just check
 
+# Update flake.lock and auto-commit/push if changed
 update: _update-lock-and-push
 
+# Update lockfile and run garbage collection
 refresh:
   just update
   just gc
 
+# Update lockfile, garbage-collect, and switch
 update-switch: _update-lock-and-push _gc-and-switch
 
+# Pull latest changes, then garbage-collect and switch
 pull-update:
   #!/usr/bin/env bash
   set -euo pipefail
