@@ -58,6 +58,7 @@ with lib; {
     just
     rename
     rtk
+    yamllint
     vim
 
     # devops tooling
