@@ -9,9 +9,6 @@ with lib; {
     loader.efi.canTouchEfiVariables = mkDefault true;
     zfs.forceImportRoot = mkDefault false;
     kernel.sysctl = {"vm.swappiness" = mkDefault 1;};
-    kernelPackages = mkIf (versionOlder pkgs.linux.version "6.18.22") (
-      mkDefault pkgs.linuxPackages_6_18
-    );
   };
 
   time.timeZone = mkDefault "Europe/Amsterdam";

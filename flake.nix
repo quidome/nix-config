@@ -20,10 +20,6 @@
     };
 
     llm-agents.url = "github:numtide/llm-agents.nix";
-
-    # Update with: nix flake lock --update-input rtk-nix
-    rtk-nix.url = "github:hypervideo/rtk-nix";
-    rtk-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs: let
@@ -40,7 +36,6 @@
       config.allowUnfree = true;
 
       overlays = [
-        inputs.rtk-nix.overlays.default
         (_final: _prev: {
           inherit (inputs.llm-agents.packages.${system}) pi;
         })
