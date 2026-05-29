@@ -13,6 +13,8 @@ in {
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
+      withRuby = true;
+      withPython3 = true;
       extraConfig = builtins.readFile ./neovim/extraConfig.vim;
 
       plugins = with pkgs.vimPlugins; [

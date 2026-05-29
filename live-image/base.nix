@@ -11,6 +11,7 @@ in {
 
   config = {
     nix.settings.experimental-features = ["nix-command" "flakes"];
+    boot.zfs.forceImportRoot = false;
 
     environment.systemPackages = with pkgs; [
       fd
@@ -20,7 +21,6 @@ in {
     ];
 
     networking.networkmanager.enable = true; # nmtui for wi-fi
-    networking.wireless.enable = lib.mkForce false;
 
     systemd.services.sshd.wantedBy = lib.mkForce ["multi-user.target"];
 

@@ -10,4 +10,6 @@
     terminalFont.size = 10;
     gnome.enableAppIndicator = true;
   };
+
+  programs.firefox.configPath = ".mozilla/firefox";
 }
