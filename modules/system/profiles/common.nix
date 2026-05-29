@@ -65,7 +65,7 @@ with lib; {
     statix
     cilium-cli
     claude-code
-    pi
+    pi-coding-agent
     helmfile
     ipcalc
     k9s

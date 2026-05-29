@@ -18,8 +18,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-
-    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs = inputs: let
@@ -34,12 +32,6 @@
     pkgs = import inputs.nixpkgs {
       inherit system;
       config.allowUnfree = true;
-
-      overlays = [
-        (_final: _prev: {
-          inherit (inputs.llm-agents.packages.${system}) pi;
-        })
-      ];
     };
 
     mkHost = user: host:
