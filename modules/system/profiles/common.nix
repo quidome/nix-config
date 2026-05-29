@@ -7,10 +7,8 @@ with lib; {
   boot = {
     loader.systemd-boot.enable = mkDefault true;
     loader.efi.canTouchEfiVariables = mkDefault true;
+    zfs.forceImportRoot = mkDefault false;
     kernel.sysctl = {"vm.swappiness" = mkDefault 1;};
-    kernelPackages = mkIf (versionOlder pkgs.linux.version "6.18.22") (
-      mkDefault pkgs.linuxPackages_6_18
-    );
   };
 
   time.timeZone = mkDefault "Europe/Amsterdam";
@@ -35,7 +33,7 @@ with lib; {
 
     # network
     curl
-    dogdns
+    doggo
     httpie
     tcpdump
     wget
@@ -67,7 +65,7 @@ with lib; {
     statix
     cilium-cli
     claude-code
-    pi
+    pi-coding-agent
     helmfile
     ipcalc
     k9s

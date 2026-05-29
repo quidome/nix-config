@@ -4,10 +4,12 @@
     ./home-vars.nix
   ];
 
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   settings = {
     terminalFont.size = 10;
     gnome.enableAppIndicator = true;
   };
+
+  programs.firefox.configPath = ".mozilla/firefox";
 }

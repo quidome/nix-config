@@ -11,12 +11,12 @@ with pkgs;
       delve
       marksman # markdown lsp
       nixd
-      nodePackages.bash-language-server
+      bash-language-server
       dockerfile-language-server
-      nodePackages.prettier # json formatter
-      nodePackages.typescript-language-server
-      nodePackages.vscode-json-languageserver
-      nodePackages.yaml-language-server
+      prettier # json formatter
+      typescript-language-server
+      vscode-langservers-extracted
+      yaml-language-server
       python313Packages.python-lsp-server
 
       rustfmt

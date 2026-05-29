@@ -12,11 +12,11 @@ in {
 
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
-      bitwarden-desktop
+      # bitwarden-desktop # temporarily disabled: depends on insecure electron-39 on 26.05
       cameractrls-gtk3
       firefox
       freecad
-      logseq
+      # logseq # temporarily disabled: depends on insecure electron-39 on 26.05
       mani
       mpv
       element-desktop
