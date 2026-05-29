@@ -50,8 +50,6 @@
 
     neovim.enable = true;
 
-    firefox.configPath = lib.mkDefault ".config/mozilla/firefox";
-
     jujutsu = {
       enable = true;
       ediff = true;
