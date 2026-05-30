@@ -21,6 +21,7 @@ in {
       helix.enable = config.programs.helix.enable;
       starship.enable = config.programs.starship.enable;
       zed.enable = config.programs.zed-editor.enable;
+      hyprland.enable = false;
 
       # Kvantum for Qt theming (useful for Plasma)
       kvantum.enable = cfg.preferQt;
