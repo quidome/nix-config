@@ -1,4 +1,4 @@
 {
-  settings.gui = "hyprland";
-  settings.theme = "dark";
+  settings.gui = "plasma";
+  settings.theme = "light";
 }
