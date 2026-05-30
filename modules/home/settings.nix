@@ -11,7 +11,7 @@ with lib; {
       description = lib.mdDoc ''
         Terminal emulator to use across desktop environments.
 
-        Defaults to GNOME Console on GNOME and konsole on Plasma.
+        Defaults to GNOME Console on GNOME, konsole on Plasma, and foot on Hyprland.
       '';
     };
 
@@ -39,6 +39,8 @@ with lib; {
   config.settings.terminal = mkDefault (
     if config.settings.gui == "gnome"
     then "kgx"
+    else if config.settings.gui == "hyprland"
+    then "foot"
     else "konsole"
   );
 }

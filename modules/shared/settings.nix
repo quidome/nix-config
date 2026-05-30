@@ -26,10 +26,11 @@ in {
           "none"
           "gnome"
           "plasma"
+          "hyprland"
         ];
       default = "none";
       description = ''
-        Which gui to use. Gnome or Plasma will install the entire desktop environment.
+        Which gui to use. Gnome, Plasma, or Hyprland will install a desktop environment.
         Defaults to `none`, which makes the system headless.
       '';
       example = "plasma";

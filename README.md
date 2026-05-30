@@ -43,30 +43,30 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Desktop environments
 
-One desktop is supported via `settings.gui`: `plasma`.
+Supported desktops via `settings.gui`: `plasma`, `hyprland`.
 
 The table below maps core desktop functionality to how this environment provides it.
 
-| Requirement | Plasma |
-|---|---|
-| **Status bar** | built-in |
-| **App launcher** | Kickoff |
-| **Notifications** | built-in |
-| **Screen lock** | built-in |
-| **Idle / sleep** | built-in |
-| **Volume / OSD** | built-in |
-| **Brightness / OSD** | built-in |
-| **Wallpaper** | built-in |
-| **Network management** | built-in |
-| **Bluetooth management** | built-in |
-| **Display layout** | built-in |
-| **System tray** | built-in |
-| **Polkit agent** | built-in |
-| **Screenshot** | Spectacle |
-| **Clipboard** | built-in |
-| **XDG portals** | built-in |
-| **Color scheme** | KDE theming |
-| **Secret storage** | KWallet |
+| Requirement | Plasma | Hyprland |
+|---|---|---|
+| **Status bar** | built-in | custom |
+| **App launcher** | Kickoff | custom |
+| **Notifications** | built-in | custom |
+| **Screen lock** | built-in | custom |
+| **Idle / sleep** | built-in | custom |
+| **Volume / OSD** | built-in | custom |
+| **Brightness / OSD** | built-in | custom |
+| **Wallpaper** | built-in | custom |
+| **Network management** | built-in | custom |
+| **Bluetooth management** | built-in | custom |
+| **Display layout** | built-in | custom |
+| **System tray** | built-in | custom |
+| **Polkit agent** | built-in | custom |
+| **Screenshot** | Spectacle | custom |
+| **Clipboard** | built-in | custom |
+| **XDG portals** | built-in | custom |
+| **Color scheme** | KDE theming | custom |
+| **Secret storage** | KWallet | custom |
 
 ## Laptop power policy
 

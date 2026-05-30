@@ -5,6 +5,9 @@
   ...
 }: let
   cfg = config.programs.zellij;
+  terminal = config.settings.terminal;
+  osc52NativeTerminals = ["foot" "ghostty" "wezterm"];
+  useCopyCommand = !(builtins.elem terminal osc52NativeTerminals);
 in {
   config = lib.mkIf cfg.enable {
     programs.zellij = {
@@ -23,7 +26,7 @@ in {
         pane_frames = false;
         default_layout = "layout";
         show_startup_tips = false;
-        copy_command = "wl-copy";
+        copy_command = lib.mkIf useCopyCommand "wl-copy";
       };
     };
 
