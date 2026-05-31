@@ -98,6 +98,7 @@
 
   # Enable fingerprint authentication for login and system dialogs
   security.pam.services = {
+    login.fprintAuth = true;
     sudo.fprintAuth = true;
     polkit-1.fprintAuth = true;
   };
