@@ -8,6 +8,23 @@
   hyprAvizo = import ./hyprland/avizo.nix {inherit lib;};
   hyprIdle = import ./hyprland/hypridle.nix {inherit lib;};
   hyprInput = import ./hyprland/input.nix;
+  hyprDevices = [
+    # {
+    #   name = "logitech-usb-optical-mouse";
+    #   left_handed = true;
+    #   natural_scroll = true;
+    # }
+    {
+      name = "mosart-semi.-2.4g-wireless-mouse";
+      left_handed = false;
+      natural_scroll = true;
+    }
+    {
+      name = "microsoft-microsoft®-nano-transceiver-v2.0-mouse";
+      left_handed = false;
+      natural_scroll = false;
+    }
+  ];
   hyprBind = import ./hyprland/bind.nix {inherit lib;};
   hyprLock = import ./hyprland/hyprlock.nix {inherit lib;};
   hyprMako = import ./hyprland/mako.nix {inherit config lib;};
@@ -134,6 +151,7 @@ in {
       settings = lib.recursiveUpdate hyprSettingsCore (
         lib.recursiveUpdate hyprRules {
           config.input = hyprInput;
+          device = hyprDevices;
           bind = hyprBind;
         }
       );

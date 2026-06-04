@@ -27,6 +27,8 @@ in {
 
       defaultKeymap = "emacs";
 
+      syntaxHighlighting.enable = true;
+
       initContent = ''
         # unfortunally a few system paths end up in front of my profile path
         # this just adds the path (again) before the other paths
