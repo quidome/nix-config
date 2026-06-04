@@ -39,10 +39,10 @@ Added Hyprland session packages for existing binds:
 - `playerctl` for media keys
 - `thunar` for the file manager bind
 
-Existing launcher/terminal packages remain:
+Existing launcher/terminal packages are managed through Home Manager programs:
 
-- `wofi`
-- `foot`
+- `fuzzel` for the app launcher bind
+- `ghostty` for the terminal bind
 
 `hyprlock` is now managed by `programs.hyprlock` as part of WI-02.
 `avizo` is now managed by `services.avizo` as part of WI-03.

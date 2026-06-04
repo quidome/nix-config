@@ -39,7 +39,6 @@ in {
       playerctl
       thunar
       wdisplays
-      wofi
     ];
 
     dconf.settings."org/gnome/desktop/interface" = {
@@ -57,8 +56,17 @@ in {
       gtk4.extraConfig.gtk-application-prefer-dark-theme = !isLightTheme;
     };
 
-    programs.hyprlock = hyprLock;
-    programs.waybar = hyprWaybar;
+    programs = {
+      fuzzel = {
+        enable = lib.mkDefault true;
+        settings.main = {
+          launch-prefix = "uwsm app --";
+          terminal = "${config.settings.terminal} -e";
+        };
+      };
+      hyprlock = hyprLock;
+      waybar = hyprWaybar;
+    };
 
     qt = {
       enable = true;

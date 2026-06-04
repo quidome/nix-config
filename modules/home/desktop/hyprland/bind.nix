@@ -25,8 +25,7 @@
     9);
 in
   [
-    (mk "mod .. \" + SPACE\"" "hl.dsp.exec_cmd(launcher .. \" $(wofi --show drun --define=drun-print_desktop_file=true)\")" null)
-    (mk "mod .. \" + D\"" "hl.dsp.exec_cmd(launcher .. \" $(wofi --show run --define=drun-print_desktop_file=true)\")" null)
+    (mk "mod .. \" + SPACE\"" "hl.dsp.exec_cmd(launcher .. \" fuzzel\")" null)
 
     (mk "mod .. \" + RETURN\"" "hl.dsp.exec_cmd(launcher .. \" \" .. terminal)" null)
     (mk "mod .. \" + E\"" "hl.dsp.exec_cmd(launcher .. \" thunar\")" null)
