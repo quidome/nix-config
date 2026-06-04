@@ -1,6 +1,4 @@
-{lib}: let
-  _ = lib;
-in {
+_: {
   config = {
     windowrule = [
       "float, class:^(polkit-gnome-authentication-agent-1)$"
