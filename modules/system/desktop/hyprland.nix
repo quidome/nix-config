@@ -39,7 +39,7 @@
       hyprlock = {};
     };
 
-    xdg.portal.config.Hyprland = {
+    xdg.portal.config.hyprland = {
       default = ["hyprland" "gtk"];
       "org.freedesktop.impl.portal.Settings" = "gtk";
     };

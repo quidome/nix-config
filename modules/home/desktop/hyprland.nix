@@ -83,10 +83,13 @@ in {
       network-manager-applet.enable = lib.mkDefault networkmanagerEnabled;
     };
 
-    xdg.systemDirs.data = [
-      "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
-      "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
-    ];
+    xdg = {
+      portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      systemDirs.data = [
+        "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
+        "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}"
+      ];
+    };
 
     xsession.preferStatusNotifierItems = lib.mkDefault true;
 
