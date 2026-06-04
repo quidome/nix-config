@@ -19,7 +19,13 @@ in {
       # Enable catppuccin for supported programs when they are enabled
       bat.enable = config.programs.bat.enable;
       helix.enable = config.programs.helix.enable;
+      hyprlock = {
+        enable = config.programs.hyprlock.enable;
+        useDefaultConfig = false;
+      };
+      mako.enable = config.services.mako.enable;
       starship.enable = config.programs.starship.enable;
+      waybar.enable = config.programs.waybar.enable;
       zed.enable = config.programs.zed-editor.enable;
       hyprland.enable = false;
 

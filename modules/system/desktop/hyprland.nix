@@ -11,11 +11,15 @@
       xwayland.enable = lib.mkDefault true;
     };
 
-    services.greetd = {
-      enable = lib.mkDefault true;
-      settings.default_session = {
-        user = "greeter";
-        command = lib.mkDefault "${pkgs.tuigreet}/bin/tuigreet --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
+    services = {
+      gnome.gnome-keyring.enable = lib.mkDefault true;
+
+      greetd = {
+        enable = lib.mkDefault true;
+        settings.default_session = {
+          user = "greeter";
+          command = lib.mkDefault "${pkgs.tuigreet}/bin/tuigreet --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
+        };
       };
     };
 
@@ -30,9 +34,26 @@
       TTYVTDisallocate = true;
     };
 
-    environment.pathsToLink = [
-      "/share/applications"
-      "/share/xdg-desktop-portal"
-    ];
+    security.pam.services = {
+      greetd.enableGnomeKeyring = lib.mkDefault true;
+      hyprlock = {};
+    };
+
+    xdg.portal.config.Hyprland = {
+      default = ["hyprland" "gtk"];
+      "org.freedesktop.impl.portal.Settings" = "gtk";
+    };
+
+    environment = {
+      systemPackages = with pkgs; [
+        libsecret
+        seahorse
+      ];
+
+      pathsToLink = [
+        "/share/applications"
+        "/share/xdg-desktop-portal"
+      ];
+    };
   };
 }
