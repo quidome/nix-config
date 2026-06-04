@@ -13,6 +13,8 @@
 
     services = {
       gnome.gnome-keyring.enable = lib.mkDefault true;
+      power-profiles-daemon.enable = lib.mkDefault true;
+      upower.enable = lib.mkDefault true;
 
       greetd = {
         enable = lib.mkDefault true;
@@ -20,6 +22,12 @@
           user = "greeter";
           command = lib.mkDefault "${pkgs.tuigreet}/bin/tuigreet --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
         };
+      };
+
+      logind.settings.Login = {
+        HandlePowerKey = lib.mkDefault "suspend";
+        HandleLidSwitch = lib.mkDefault "suspend";
+        HandleLidSwitchDocked = lib.mkDefault "ignore";
       };
     };
 
