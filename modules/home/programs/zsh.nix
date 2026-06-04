@@ -12,6 +12,16 @@ in {
     # enable starship
     programs.starship.enable = true;
 
+    programs.fzf = {
+      enable = true;
+      enableZshIntegration = true;
+      historyWidgetOptions = [
+        "--height 40%"
+        "--layout=reverse"
+        "--border"
+      ];
+    };
+
     programs.zsh = {
       shellAliases = {
         find = "noglob find";
