@@ -53,7 +53,7 @@ in {
     ];
 
     services = {
-      # flatpak.enable = mkDefault true;
+      flatpak.enable = mkDefault true;
       pipewire.enable = mkDefault true;
       tailscale.enable = mkDefault false;
 
