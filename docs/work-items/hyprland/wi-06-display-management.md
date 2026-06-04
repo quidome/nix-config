@@ -60,5 +60,5 @@ Follow-up fix:
 - Fixed Lua-config compatibility errors by using nested `debug.disable_scale_checks`,
   removing removed `dwindle.pseudotile`, simplifying the active border color,
   and setting `misc.disable_scale_notification = true`.
-- Set `misc.force_default_wallpaper = 0` to force Hyprland's first bundled
+- Set `misc.force_default_wallpaper = 2` to pin Hyprland's second bundled
   default wallpaper consistently.

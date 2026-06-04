@@ -32,8 +32,8 @@ Useful current areas in that repo:
 - Waybar is intended to run as a Home Manager/systemd user service, but runtime
   startup under Hyprland/UWSM still needs verification.
 - Gaps are reduced.
-- Hyprland's first bundled default wallpaper is forced with
-  `misc.force_default_wallpaper = 0`.
+- Hyprland's second bundled default wallpaper is pinned with
+  `misc.force_default_wallpaper = 2`.
 - Animations are disabled.
 
 ## Constraints
