@@ -12,7 +12,9 @@
   hyprLock = import ./hyprland/hyprlock.nix {inherit lib;};
   hyprMako = import ./hyprland/mako.nix {inherit config lib;};
   hyprPolkit = import ./hyprland/polkit.nix {inherit pkgs;};
-  hyprSettingsCore = import ./hyprland/settings-core.nix;
+  hyprSettingsCore = import ./hyprland/settings-core.nix {
+    terminal = config.settings.terminal;
+  };
   hyprRules = import ./hyprland/rules.nix {inherit lib;};
   hyprWaybar = import ./hyprland/waybar.nix {inherit lib;};
   isLightTheme = config.settings.theme == "light";
@@ -32,7 +34,6 @@
 in {
   config = lib.mkIf (config.settings.gui == "hyprland") {
     home.packages = with pkgs; [
-      foot
       grimblast
       libnotify
       playerctl

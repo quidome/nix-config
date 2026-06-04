@@ -18,6 +18,7 @@ in {
 
       # Enable catppuccin for supported programs when they are enabled
       bat.enable = config.programs.bat.enable;
+      ghostty.enable = config.programs.ghostty.enable;
       helix.enable = config.programs.helix.enable;
       hyprlock = {
         enable = config.programs.hyprlock.enable;

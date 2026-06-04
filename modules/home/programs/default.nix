@@ -2,6 +2,7 @@
   imports = [
     ./emacs.nix
     ./git.nix
+    ./ghostty.nix
     ./helix
     ./neovim.nix
     ./starship.nix

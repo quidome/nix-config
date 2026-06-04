@@ -1,7 +1,7 @@
-{
+{terminal ? "foot"}: {
   mod = {_var = "SUPER";};
   launcher = {_var = "uwsm app --";};
-  terminal = {_var = "foot";};
+  terminal = {_var = terminal;};
 
   config = {
     debug.disable_scale_checks = true;
