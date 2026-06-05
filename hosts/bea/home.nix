@@ -21,7 +21,6 @@
       {
         profile = {
           name = "desktop";
-          # exec = [displayTools.cleanupCmd];
           outputs = [
             {
               criteria = "DP-1";
@@ -38,7 +37,6 @@
       {
         profile = {
           name = "gaming";
-          # exec = [displayTools.cleanupCmd];
           outputs = [
             {
               criteria = "DP-3";
@@ -55,7 +53,6 @@
       {
         profile = {
           name = "dual-monitors";
-          # exec = [displayTools.cleanupCmd];
           outputs = [
             {
               criteria = "DP-1";
