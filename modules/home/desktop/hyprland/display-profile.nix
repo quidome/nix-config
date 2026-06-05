@@ -117,8 +117,9 @@
       }
 
       choose_profile() {
-        local selection
-        selection=$(read_profiles | fuzzel --dmenu --prompt "Display profile> ") || exit 0
+        local current_profile selection
+        current_profile=$(kanshictl status 2>/dev/null | jq -r '.current_profile // empty' || true)
+        selection=$(read_profiles | fuzzel --dmenu --prompt "Display profile> " --select="$current_profile") || exit 0
         [ -n "$selection" ] || exit 0
         switch_profile "$selection"
       }
