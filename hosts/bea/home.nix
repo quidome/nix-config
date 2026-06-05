@@ -1,11 +1,8 @@
 {
   config,
   lib,
-  pkgs,
   ...
-}: let
-  displayTools = import ../../modules/home/desktop/hyprland/display-profile.nix {inherit lib pkgs;};
-in {
+}: {
   imports = [
     ./shared.nix
     ./home-vars.nix
