@@ -26,6 +26,7 @@ in {
           "none"
           "gnome"
           "plasma"
+          "hyprland"
         ];
       default = "none";
       description = ''

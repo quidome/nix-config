@@ -11,7 +11,7 @@ with lib; {
       description = lib.mdDoc ''
         Terminal emulator to use across desktop environments.
 
-        Defaults to GNOME Console on GNOME and konsole on Plasma.
+        Defaults to konsole on Plasma and Ghostty otherwise.
       '';
     };
 
@@ -37,8 +37,8 @@ with lib; {
   };
 
   config.settings.terminal = mkDefault (
-    if config.settings.gui == "gnome"
-    then "kgx"
-    else "konsole"
+    if config.settings.gui == "plasma"
+    then "konsole"
+    else "ghostty"
   );
 }
