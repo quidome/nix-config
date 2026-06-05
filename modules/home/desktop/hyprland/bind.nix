@@ -1,4 +1,7 @@
-{lib}: let
+{
+  lib,
+  displayProfileCmd,
+}: let
   lua = lib.generators.mkLuaInline;
 
   mk = keyExpr: callExpr: opts: {
@@ -29,6 +32,8 @@ in
 
     (mk "mod .. \" + RETURN\"" "hl.dsp.exec_cmd(launcher .. \" \" .. terminal)" null)
     (mk "mod .. \" + E\"" "hl.dsp.exec_cmd(launcher .. \" thunar\")" null)
+    (mk "mod .. \" + O\"" "hl.dsp.exec_cmd(\"${displayProfileCmd} choose\")" null)
+    (mk "mod .. \" + SHIFT + O\"" "hl.dsp.exec_cmd(\"${displayProfileCmd} next\")" null)
 
     (mk "mod .. \" + P\"" "hl.dsp.window.pseudo()" null)
     (mk "mod .. \" + J\"" "hl.dsp.layout(\"togglesplit\")" null)

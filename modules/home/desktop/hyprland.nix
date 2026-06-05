@@ -5,6 +5,7 @@
   pkgs,
   ...
 }: let
+  displayTools = import ./hyprland/display-profile.nix {inherit lib pkgs;};
   hyprAvizo = import ./hyprland/avizo.nix {inherit lib;};
   hyprIdle = import ./hyprland/hypridle.nix {inherit lib;};
   hyprInput = import ./hyprland/input.nix;
@@ -25,7 +26,10 @@
       natural_scroll = false;
     }
   ];
-  hyprBind = import ./hyprland/bind.nix {inherit lib;};
+  hyprBind = import ./hyprland/bind.nix {
+    inherit lib;
+    displayProfileCmd = displayTools.profileCmd;
+  };
   hyprLock = import ./hyprland/hyprlock.nix {inherit lib;};
   hyprMako = import ./hyprland/mako.nix {inherit config lib;};
   hyprPolkit = import ./hyprland/polkit.nix {inherit pkgs;};
@@ -50,13 +54,15 @@
     else "adwaita-dark";
 in {
   config = lib.mkIf (config.settings.gui == "hyprland") {
-    home.packages = with pkgs; [
-      grimblast
-      libnotify
-      playerctl
-      thunar
-      wdisplays
-    ];
+    home.packages =
+      (with pkgs; [
+        grimblast
+        libnotify
+        playerctl
+        thunar
+        wdisplays
+      ])
+      ++ displayTools.packages;
 
     dconf.settings."org/gnome/desktop/interface" = {
       color-scheme = gtkColorScheme;
