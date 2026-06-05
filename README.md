@@ -43,9 +43,9 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Desktop environments
 
-One desktop is supported via `settings.gui`: `plasma`.
+This repo includes multiple desktop environments via `settings.gui`, including `plasma`, `hyprland`, and `gnome`.
 
-The table below maps core desktop functionality to how this environment provides it.
+The table below maps core desktop functionality for the Plasma environment.
 
 | Requirement | Plasma |
 |---|---|

@@ -51,7 +51,7 @@
 - `live-image/` - Live ISO configurations
 
 ## Desktop Environments
-- Officially supported desktop: **Plasma (KDE)**
+- This repo includes multiple desktop environments via `settings.gui`, including **Plasma (KDE)**, **Hyprland**, and **GNOME**
 - Host desktop-specific overrides in `hosts/*/home.nix` should be gated with `lib.mkIf config.settings.gui` unless desktop-agnostic
 - See `README.md` for laptop power policy details
 
