@@ -50,9 +50,6 @@
     lutris
     gogdl
     itch
-    (writeShellScriptBin "the-finals-gamescope" ''
-      exec gamescope -f -e --force-grab-cursor -- mangohud gamemoderun "$@"
-    '')
     mesa-demos
     vulkan-tools
     clinfo
@@ -86,15 +83,10 @@
       enable = true;
       enableRenice = true;
     };
-    gamescope = {
-      enable = true;
-      capSysNice = true;
-    };
     java.enable = true;
     steam = {
       enable = true;
       extraPackages = with pkgs; [
-        gamescope
         gamemode
         jdk
         mangohud
