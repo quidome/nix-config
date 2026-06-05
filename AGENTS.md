@@ -75,11 +75,11 @@
   1) `git-crypt status`
   2) `just fmt`
   3) `just check`
-  4) `just lint` (optional strict gate)
+  4) `just lint`
 - Show planned commit groups and ask for confirmation before `git commit` (unless user says proceed immediately)
 - Use Conventional Commit messages (`feat(...)`, `fix(...)`, `refactor(...)`, `chore(...)`)
 
 ## Validation
 - Primary validation: `just check`
 - Formatting: `just fmt`
-- Linting: `just lint` (optional strict gate)
+- Linting: `just lint`
