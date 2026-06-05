@@ -13,7 +13,7 @@
 
     modules-left = ["hyprland/workspaces"];
     modules-center = ["clock"];
-    modules-right = ["idle_inhibitor" "tray" "network" "pulseaudio" "battery"];
+    modules-right = ["idle_inhibitor" "tray" "pulseaudio" "battery"];
 
     "hyprland/workspaces" = {
       all-outputs = true;
@@ -33,13 +33,6 @@
         activated = "";
         deactivated = "";
       };
-    };
-
-    network = {
-      format-wifi = "  {essid}";
-      format-ethernet = "󰈀  {ifname}";
-      format-disconnected = "󰖪 offline";
-      tooltip-format = "{ifname}: {ipaddr}/{cidr}";
     };
 
     pulseaudio = {
@@ -93,7 +86,6 @@
 
     #clock,
     #idle_inhibitor,
-    #network,
     #pulseaudio,
     #battery,
     #tray {
@@ -106,7 +98,6 @@
       color: @peach;
     }
 
-    #network.disconnected,
     #battery.critical:not(.charging) {
       color: @red;
     }
