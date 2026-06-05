@@ -24,7 +24,7 @@ in {
       {
         profile = {
           name = "desktop";
-          exec = [displayTools.cleanupCmd];
+          # exec = [displayTools.cleanupCmd];
           outputs = [
             {
               criteria = "DP-1";
@@ -41,7 +41,7 @@ in {
       {
         profile = {
           name = "gaming";
-          exec = [displayTools.cleanupCmd];
+          # exec = [displayTools.cleanupCmd];
           outputs = [
             {
               criteria = "DP-3";
@@ -58,7 +58,7 @@ in {
       {
         profile = {
           name = "dual-monitors";
-          exec = [displayTools.cleanupCmd];
+          # exec = [displayTools.cleanupCmd];
           outputs = [
             {
               criteria = "DP-1";
@@ -77,6 +77,4 @@ in {
       }
     ];
   };
-
-  programs.firefox.configPath = ".mozilla/firefox";
 }
