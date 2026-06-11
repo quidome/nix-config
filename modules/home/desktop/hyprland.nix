@@ -37,6 +37,7 @@
     terminal = config.settings.terminal;
   };
   hyprRules = import ./hyprland/rules.nix {inherit lib;};
+  hyprSnappySwitcher = import ./hyprland/snappy-switcher.nix {inherit lib pkgs;};
   hyprWaybar = import ./hyprland/waybar.nix {inherit lib;};
   isLightTheme = config.settings.theme == "light";
   gtkColorScheme =
@@ -62,7 +63,8 @@ in {
         thunar
         wdisplays
       ])
-      ++ displayTools.packages;
+      ++ displayTools.packages
+      ++ [hyprSnappySwitcher.package];
 
     dconf.settings."org/gnome/desktop/interface" = {
       color-scheme = gtkColorScheme;
@@ -154,11 +156,16 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = lib.mkDefault true;
+      extraConfig = ''
+        hl.on("hyprland.start", function()
+          hl.exec_cmd("snappy-switcher --daemon")
+        end)
+      '';
       settings = lib.recursiveUpdate hyprSettingsCore (
         lib.recursiveUpdate hyprRules {
           config.input = hyprInput;
           device = hyprDevices;
-          bind = hyprBind;
+          bind = hyprBind ++ hyprSnappySwitcher.binds;
         }
       );
     };

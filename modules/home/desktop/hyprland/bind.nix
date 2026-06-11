@@ -36,9 +36,19 @@ in
     (mk "mod .. \" + SHIFT + O\"" "hl.dsp.exec_cmd(\"${displayProfileCmd} next\")" null)
 
     (mk "mod .. \" + P\"" "hl.dsp.window.pseudo()" null)
-    (mk "mod .. \" + J\"" "hl.dsp.layout(\"togglesplit\")" null)
 
-    (mk "mod .. \" + R\"" "hl.dsp.exec_cmd(\"hyprctl reload\")" null)
+    (mk "mod .. \" + R\"" ''      hl.dsp.exec_cmd([[sh -c '
+            current=$(hyprctl getoption scrolling.column_width | awk "/^float:/ { print \$2 }")
+            case "$current" in
+              0.333333*|0.333334*) next=0.5 ;;
+              0.500000*) next=0.6666667 ;;
+              0.666666*|0.666667*) next=1 ;;
+              *) next=0.3333333 ;;
+            esac
+            hyprctl eval "hl.config({ scrolling = { column_width = $next } })"
+          ']])''
+    null)
+    (mk "mod .. \" + SHIFT + R\"" "hl.dsp.exec_cmd(\"hyprctl reload\")" null)
     (mk "mod .. \" + L\"" "hl.dsp.exec_cmd(\"hyprlock\")" null)
     (mk "mod .. \" + V\"" "hl.dsp.window.float({ action = \"toggle\" })" null)
     (mk "mod .. \" + F\"" "hl.dsp.window.fullscreen()" null)
@@ -50,10 +60,24 @@ in
     (mk "mod .. \" + UP\"" "hl.dsp.focus({ direction = \"up\" })" null)
     (mk "mod .. \" + DOWN\"" "hl.dsp.focus({ direction = \"down\" })" null)
 
-    (mk "mod .. \" + CTRL + LEFT\"" "hl.dsp.focus({ workspace = \"r-1\" })" null)
-    (mk "mod .. \" + CTRL + RIGHT\"" "hl.dsp.focus({ workspace = \"r+1\" })" null)
-    (mk "mod .. \" + SHIFT + CTRL + LEFT\"" "hl.dsp.window.move({ workspace = \"r-1\" })" null)
-    (mk "mod .. \" + SHIFT + CTRL + RIGHT\"" "hl.dsp.window.move({ workspace = \"r+1\" })" null)
+    (mk "mod .. \" + SHIFT + LEFT\"" "hl.dsp.window.move({ direction = \"left\" })" null)
+    (mk "mod .. \" + SHIFT + RIGHT\"" "hl.dsp.window.move({ direction = \"right\" })" null)
+    (mk "mod .. \" + SHIFT + UP\"" "hl.dsp.window.move({ direction = \"up\" })" null)
+    (mk "mod .. \" + SHIFT + DOWN\"" "hl.dsp.window.move({ direction = \"down\" })" null)
+
+    (mk "mod .. \" + CTRL + UP\"" "hl.dsp.focus({ workspace = \"r-1\" })" null)
+    (mk "mod .. \" + CTRL + DOWN\"" "hl.dsp.focus({ workspace = \"r+1\" })" null)
+    (mk "mod .. \" + Prior\"" "hl.dsp.focus({ workspace = \"r-1\" })" null)
+    (mk "mod .. \" + Next\"" "hl.dsp.focus({ workspace = \"r+1\" })" null)
+    (mk "mod .. \" + SHIFT + CTRL + UP\"" "hl.dsp.window.move({ workspace = \"r-1\" })" null)
+    (mk "mod .. \" + SHIFT + CTRL + DOWN\"" "hl.dsp.window.move({ workspace = \"r+1\" })" null)
+    (mk "mod .. \" + SHIFT + Prior\"" "hl.dsp.window.move({ workspace = \"r-1\" })" null)
+    (mk "mod .. \" + SHIFT + Next\"" "hl.dsp.window.move({ workspace = \"r+1\" })" null)
+
+    (mk "mod .. \" + ALT + LEFT\"" "hl.dsp.exec_cmd(\"hyprctl dispatch focusmonitor l\")" null)
+    (mk "mod .. \" + ALT + RIGHT\"" "hl.dsp.exec_cmd(\"hyprctl dispatch focusmonitor r\")" null)
+    (mk "mod .. \" + ALT + SHIFT + LEFT\"" "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow mon:l\")" null)
+    (mk "mod .. \" + ALT + SHIFT + RIGHT\"" "hl.dsp.exec_cmd(\"hyprctl dispatch movewindow mon:r\")" null)
 
     (mk "mod .. \" + S\"" "hl.dsp.workspace.toggle_special(\"magic\")" null)
     (mk "mod .. \" + SHIFT + S\"" "hl.dsp.window.move({ workspace = \"special:magic\" })" null)
