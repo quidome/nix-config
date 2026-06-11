@@ -10,6 +10,8 @@
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    snappy-switcher.url = "github:OpalAayan/snappy-switcher";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -38,6 +40,7 @@
       overlays = [
         (_final: _prev: {
           inherit (inputs.llm-agents.packages.${system}) pi;
+          snappy-switcher = inputs.snappy-switcher.packages.${system}.default;
         })
       ];
     };
