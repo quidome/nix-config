@@ -3,7 +3,8 @@
 in
   hyprWaybar
   // {
-    systemd.targets = ["graphical-session.target"];
+    # Start after Niri itself so Waybar sees the Wayland session environment.
+    systemd.targets = ["niri.service"];
     settings.mainBar =
       (removeAttrs hyprWaybar.settings.mainBar ["hyprland/workspaces"])
       // {
