@@ -1,4 +1,4 @@
 {
-  settings.gui = "cosmic";
+  settings.gui = "niri";
   settings.theme = "dark";
 }
