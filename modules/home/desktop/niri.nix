@@ -44,6 +44,21 @@ in {
       ];
     };
 
+    systemd.user.services.swaybg = {
+      Unit = {
+        Description = "Wallpaper daemon for Niri";
+        After = ["niri.service"];
+        BindsTo = ["niri.service"];
+        PartOf = ["niri.service"];
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+      };
+      Service = {
+        ExecStart = "${lib.getExe pkgs.swaybg} -i %h/Pictures/Wallpapers/183940.png -m fill";
+        Restart = "on-failure";
+      };
+      Install.WantedBy = ["niri.service"];
+    };
+
     xdg = {
       portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
 
@@ -68,7 +83,6 @@ in {
 
         prefer-no-csd
 
-        spawn-at-startup "swaybg" "-i" "~/Pictures/Wallpapers/183940.png" "-m" "fill"
 
         screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
