@@ -28,6 +28,7 @@ in {
           "gnome"
           "plasma"
           "hyprland"
+          "niri"
         ];
       default = "none";
       description = ''
