@@ -1,8 +1,7 @@
 {lib}: let
   hyprWaybar = import ./hyprland/waybar.nix {inherit lib;};
 in
-  hyprWaybar
-  // {
+  lib.recursiveUpdate hyprWaybar {
     # Start after Niri itself so Waybar sees the Wayland session environment.
     systemd.targets = ["niri.service"];
     settings.mainBar =
