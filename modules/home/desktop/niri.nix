@@ -87,6 +87,8 @@ in {
         screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
         layout {
+          default-column-width { proportion ${builtins.toJSON config.settings.niri.defaultColumnWidth}; }
+
           gaps 2
 
           struts {

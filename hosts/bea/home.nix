@@ -13,6 +13,7 @@
   settings = {
     terminalFont.size = 10;
     gnome.enableAppIndicator = true;
+    niri.defaultColumnWidth = 0.5;
   };
 
   services.kanshi = lib.mkIf (config.settings.gui == "hyprland") {
