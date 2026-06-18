@@ -12,16 +12,7 @@
       "HYPRCURSOR_SIZE,24"
     ];
 
-    animations = {
-      enabled = true;
-      animation = [
-        "windows, 1, 3, default"
-        "windowsIn, 1, 3, default, popin 80%"
-        "windowsOut, 1, 3, default, popin 80%"
-        "fade, 1, 3, default"
-        "workspaces, 1, 3, default"
-      ];
-    };
+    animations.enabled = false;
 
     general = {
       gaps_in = 2;
