@@ -37,17 +37,6 @@ in
 
     (mk "mod .. \" + P\"" "hl.dsp.window.pseudo()" null)
 
-    (mk "mod .. \" + R\"" ''      hl.dsp.exec_cmd([[sh -c '
-            current=$(hyprctl getoption scrolling.column_width | awk "/^float:/ { print \$2 }")
-            case "$current" in
-              0.333333*|0.333334*) next=0.5 ;;
-              0.500000*) next=0.6666667 ;;
-              0.666666*|0.666667*) next=1 ;;
-              *) next=0.3333333 ;;
-            esac
-            hyprctl eval "hl.config({ scrolling = { column_width = $next } })"
-          ']])''
-    null)
     (mk "mod .. \" + SHIFT + R\"" "hl.dsp.exec_cmd(\"hyprctl reload\")" null)
     (mk "mod .. \" + L\"" "hl.dsp.exec_cmd(\"hyprlock\")" null)
     (mk "mod .. \" + V\"" "hl.dsp.window.float({ action = \"toggle\" })" null)

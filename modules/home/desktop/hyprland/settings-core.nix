@@ -33,7 +33,7 @@
 
       resize_on_border = true;
       allow_tearing = false;
-      layout = "scrolling";
+      layout = "dwindle";
     };
 
     decoration = {
@@ -56,12 +56,6 @@
 
     master = {
       new_status = "master";
-    };
-
-    scrolling = {
-      column_width = 0.5;
-      fullscreen_on_one_column = true;
-      follow_focus = true;
     };
 
     monitor = [
