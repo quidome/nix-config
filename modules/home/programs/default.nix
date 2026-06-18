@@ -4,7 +4,7 @@
     ./git.nix
     ./ghostty.nix
     ./helix
-    ./neovim.nix
+    ./neovim
     ./starship.nix
     ./zed-editor.nix
     ./zellij
