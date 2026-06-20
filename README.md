@@ -41,35 +41,12 @@ The live iso contains ssh public keys, has sshd running and contains nmtui to se
 nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --generate-hardware-config nixos-generate-config hosts/${TARGET_HOST}/hardware-configuration.nix --target-host root@${TARGET_HOST_IP}
 ```
 
-## Desktop environments
+## Desktop environment
 
-This repo includes multiple desktop environments via `settings.gui`, including `plasma`, `hyprland`, and `gnome`.
-
-The table below maps core desktop functionality for the Plasma environment.
-
-| Requirement | Plasma |
-|---|---|
-| **Status bar** | built-in |
-| **App launcher** | Kickoff |
-| **Notifications** | built-in |
-| **Screen lock** | built-in |
-| **Idle / sleep** | built-in |
-| **Volume / OSD** | built-in |
-| **Brightness / OSD** | built-in |
-| **Wallpaper** | built-in |
-| **Network management** | built-in |
-| **Bluetooth management** | built-in |
-| **Display layout** | built-in |
-| **System tray** | built-in |
-| **Polkit agent** | built-in |
-| **Screenshot** | Spectacle |
-| **Clipboard** | built-in |
-| **XDG portals** | built-in |
-| **Color scheme** | KDE theming |
-| **Secret storage** | KWallet |
+This repo currently targets GNOME via `settings.gui = "gnome"`.
 
 ## Laptop power policy
 
 Battery charge thresholds are managed in BIOS/firmware (vendor power settings), not in NixOS services.
 
-This keeps charging behavior consistent regardless of OS state. Desktop session power behavior remains handled by Plasma.
+This keeps charging behavior consistent regardless of OS state. Desktop session power behavior remains handled by GNOME.

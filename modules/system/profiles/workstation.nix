@@ -35,11 +35,7 @@ in {
       openttd
 
       # office
-      (
-        if config.settings.preferQt
-        then libreoffice-qt
-        else libreoffice
-      )
+      libreoffice
       hunspell
       hunspellDicts.nl_NL
       hunspellDicts.en_US-large

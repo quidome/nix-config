@@ -7,11 +7,11 @@ with lib; {
   options.settings = {
     terminal = mkOption {
       type = types.str;
-      example = "konsole";
+      example = "ghostty";
       description = lib.mdDoc ''
         Terminal emulator to use across desktop environments.
 
-        Defaults to konsole on Plasma and Ghostty otherwise.
+        Defaults to Ghostty.
       '';
     };
 
@@ -43,9 +43,5 @@ with lib; {
     };
   };
 
-  config.settings.terminal = mkDefault (
-    if config.settings.gui == "plasma"
-    then "konsole"
-    else "ghostty"
-  );
+  config.settings.terminal = mkDefault "ghostty";
 }

@@ -35,16 +35,6 @@ in {
       zellij.enable = config.programs.zellij.enable;
       zsh-syntax-highlighting.enable = config.programs.zsh.syntaxHighlighting.enable;
       hyprland.enable = false;
-
-      # Kvantum for Qt theming (useful for Plasma)
-      kvantum.enable = cfg.preferQt;
-    };
-
-    # Configure Qt to use Kvantum when preferQt is enabled
-    qt = mkIf cfg.preferQt {
-      enable = true;
-      style.name = "kvantum";
-      platformTheme.name = "kvantum";
     };
   };
 }
