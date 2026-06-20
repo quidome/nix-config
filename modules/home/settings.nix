@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib; {
   options.settings = {
     terminal = mkOption {
@@ -33,13 +29,6 @@ with lib; {
       type = types.bool;
       default = true;
       description = "Enable GNOME AppIndicator shell extension when available.";
-    };
-
-    niri.defaultColumnWidth = mkOption {
-      type = types.number;
-      default = 1.0;
-      example = 0.3333;
-      description = "Default width for new Niri columns as a fraction of available width.";
     };
   };
 

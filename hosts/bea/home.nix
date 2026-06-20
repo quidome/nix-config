@@ -9,6 +9,5 @@
   settings = {
     terminalFont.size = 10;
     gnome.enableAppIndicator = true;
-    niri.defaultColumnWidth = 0.5;
   };
 }
