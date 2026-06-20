@@ -18,7 +18,6 @@ with lib; {
       type = with types;
         enum [
           "none"
-          "cosmic"
           "gnome"
         ];
       default = "gnome";
