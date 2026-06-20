@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
+{config, ...}: let
   cfg = config.settings;
   flavor =
     if cfg.theme == "light"
@@ -30,6 +25,7 @@ in {
       mako.enable = config.services.mako.enable;
       nvim.enable = config.programs.neovim.enable;
       starship.enable = config.programs.starship.enable;
+      tmux.enable = config.programs.tmux.enable;
       waybar.enable = config.programs.waybar.enable;
       zed.enable = config.programs.zed-editor.enable;
       zellij.enable = config.programs.zellij.enable;

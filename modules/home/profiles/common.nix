@@ -50,6 +50,8 @@
 
     neovim.enable = true;
 
+    tmux.enable = true;
+
     jujutsu = {
       enable = true;
       ediff = true;
