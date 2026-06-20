@@ -7,7 +7,7 @@ with lib; {
       description = lib.mdDoc ''
         Terminal emulator to use across desktop environments.
 
-        Defaults to Ghostty.
+        Defaults to KGX.
       '';
     };
 
@@ -32,5 +32,5 @@ with lib; {
     };
   };
 
-  config.settings.terminal = mkDefault "ghostty";
+  config.settings.terminal = mkDefault "kgx";
 }
