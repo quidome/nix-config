@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{...}: {
   imports = [
     ./shared.nix
     ./home-vars.nix
@@ -14,62 +10,5 @@
     terminalFont.size = 10;
     gnome.enableAppIndicator = true;
     niri.defaultColumnWidth = 0.5;
-  };
-
-  services.kanshi = lib.mkIf (config.settings.gui == "hyprland") {
-    enable = true;
-    settings = [
-      {
-        profile = {
-          name = "desktop";
-          outputs = [
-            {
-              criteria = "DP-1";
-              status = "enable";
-              mode = "3440x1440@59.973";
-            }
-            {
-              criteria = "DP-3";
-              status = "disable";
-            }
-          ];
-        };
-      }
-      {
-        profile = {
-          name = "gaming";
-          outputs = [
-            {
-              criteria = "DP-3";
-              status = "enable";
-              mode = "2560x1440@144";
-            }
-            {
-              criteria = "DP-1";
-              status = "disable";
-            }
-          ];
-        };
-      }
-      {
-        profile = {
-          name = "dual-monitors";
-          outputs = [
-            {
-              criteria = "DP-1";
-              status = "enable";
-              mode = "3440x1440@59.973";
-              position = "2560,0";
-            }
-            {
-              criteria = "DP-3";
-              status = "enable";
-              mode = "2560x1440@144";
-              position = "0,0";
-            }
-          ];
-        };
-      }
-    ];
   };
 }

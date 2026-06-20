@@ -20,7 +20,6 @@ with lib; {
           "none"
           "cosmic"
           "gnome"
-          "hyprland"
           "niri"
         ];
       default = "none";

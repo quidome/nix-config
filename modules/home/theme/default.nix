@@ -34,7 +34,6 @@ in {
       zed.enable = config.programs.zed-editor.enable;
       zellij.enable = config.programs.zellij.enable;
       zsh-syntax-highlighting.enable = config.programs.zsh.syntaxHighlighting.enable;
-      hyprland.enable = false;
     };
   };
 }
