@@ -50,7 +50,7 @@
 
     neovim.enable = true;
 
-    tmux.enable = true;
+    tmux.enable = lib.mkDefault (config.settings.terminalMultiplexer == "tmux");
 
     jujutsu = {
       enable = true;
@@ -74,7 +74,7 @@
       };
     };
 
-    zellij.enable = lib.mkDefault false;
+    zellij.enable = lib.mkDefault (config.settings.terminalMultiplexer == "zellij");
 
     zoxide.enable = true;
 

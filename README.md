@@ -45,6 +45,9 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 This repo currently targets GNOME via `settings.gui = "gnome"`.
 
+Default terminal multiplexer is `settings.terminalMultiplexer = "zellij"`.
+Override it per host/user if you want `tmux` or no multiplexer.
+
 ## Laptop power policy
 
 Battery charge thresholds are managed in BIOS/firmware (vendor power settings), not in NixOS services.

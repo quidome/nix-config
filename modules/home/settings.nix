@@ -11,6 +11,19 @@ with lib; {
       '';
     };
 
+    terminalMultiplexer = mkOption {
+      type = types.enum [
+        "tmux"
+        "zellij"
+        "none"
+      ];
+      default = "zellij";
+      description = ''
+        Default terminal multiplexer for shells and terminal sessions.
+      '';
+      example = "tmux";
+    };
+
     terminalFont.name = mkOption {
       default = "JetBrains Mono Nerd Font";
       type = types.str;
@@ -32,5 +45,7 @@ with lib; {
     };
   };
 
-  config.settings.terminal = mkDefault "kgx";
+  config = {
+    settings.terminal = mkDefault "kgx";
+  };
 }
