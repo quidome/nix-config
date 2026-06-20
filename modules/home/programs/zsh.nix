@@ -41,6 +41,11 @@ in {
         syntaxHighlighting.enable = true;
 
         initContent = ''
+          # import Home Manager session variables for shells that do not start as login shells
+          if [ -f "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh" ]; then
+            . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+          fi
+
           # unfortunally a few system paths end up in front of my profile path
           # this just adds the path (again) before the other paths
           export PATH=${config.home.profileDirectory}/bin:$PATH
