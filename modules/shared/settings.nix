@@ -21,7 +21,7 @@ with lib; {
           "cosmic"
           "gnome"
         ];
-      default = "none";
+      default = "gnome";
       description = ''
         Which gui to use. GNOME installs the full desktop environment.
         Defaults to `none`, which makes the system headless.
@@ -31,7 +31,7 @@ with lib; {
 
     theme = mkOption {
       type = types.enum ["light" "dark"];
-      default = "dark";
+      default = "light";
       description = ''
         Which color theme to use. Maps to catppuccin flavors:
         - light -> latte
