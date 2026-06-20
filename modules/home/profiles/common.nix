@@ -74,7 +74,7 @@
       };
     };
 
-    zellij.enable = lib.mkDefault true;
+    zellij.enable = lib.mkDefault false;
 
     zoxide.enable = true;
 
