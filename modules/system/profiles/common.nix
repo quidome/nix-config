@@ -61,6 +61,7 @@ with lib; {
     cilium-cli
     claude-code
     deadnix
+    pi-coding-agent
     helmfile
     ipcalc
     k9s
