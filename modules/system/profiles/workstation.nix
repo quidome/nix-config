@@ -12,7 +12,6 @@ in {
 
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
-      # bitwarden-desktop # temporarily disabled: depends on insecure electron-39 on 26.05
       cameractrls-gtk3
       firefox
       mani
