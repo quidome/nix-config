@@ -12,8 +12,6 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
-
-    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs = inputs: let
@@ -28,12 +26,6 @@
     pkgs = import inputs.nixpkgs {
       inherit system;
       config.allowUnfree = true;
-
-      overlays = [
-        (_final: _prev: {
-          inherit (inputs.llm-agents.packages.${system}) pi;
-        })
-      ];
     };
 
     mkHost = user: host:
