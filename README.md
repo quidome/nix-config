@@ -46,7 +46,7 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 This repo currently defaults to `settings.gui = "none"` as a clean headless starting point.
 
 Default terminal multiplexer is `settings.terminalMultiplexer = "zellij"`.
-Override it per host/user if you want `tmux` or no multiplexer.
+Override it per host/user if you want no multiplexer.
 
 ## Laptop power policy
 
