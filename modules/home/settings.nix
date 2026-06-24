@@ -13,7 +13,6 @@ with lib; {
 
     terminalMultiplexer = mkOption {
       type = types.enum [
-        "tmux"
         "zellij"
         "none"
       ];
@@ -21,7 +20,7 @@ with lib; {
       description = ''
         Default terminal multiplexer for shells and terminal sessions.
       '';
-      example = "tmux";
+      example = "zellij";
     };
 
     terminalFont.name = mkOption {

@@ -50,8 +50,6 @@
 
     neovim.enable = true;
 
-    tmux.enable = lib.mkDefault (config.settings.terminalMultiplexer == "tmux");
-
     jujutsu = {
       enable = true;
       ediff = true;
