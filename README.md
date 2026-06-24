@@ -43,7 +43,8 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Desktop environment
 
-This repo currently targets GNOME via `settings.gui = "gnome"`.
+Desktop mode is controlled via `settings.gui`.
+The default is `"cosmic"`; set it to `"none"` on hosts that should be headless.
 
 Default terminal multiplexer is `settings.terminalMultiplexer = "zellij"`.
 Override it per host/user if you want `tmux` or no multiplexer.
@@ -52,4 +53,4 @@ Override it per host/user if you want `tmux` or no multiplexer.
 
 Battery charge thresholds are managed in BIOS/firmware (vendor power settings), not in NixOS services.
 
-This keeps charging behavior consistent regardless of OS state. Desktop session power behavior remains handled by GNOME.
+This keeps charging behavior consistent regardless of OS state. Desktop session power behavior remains handled by COSMIC.

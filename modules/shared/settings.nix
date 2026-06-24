@@ -18,14 +18,14 @@ with lib; {
       type = with types;
         enum [
           "none"
-          "gnome"
+          "cosmic"
         ];
-      default = "gnome";
+      default = "cosmic";
       description = ''
-        Which gui to use. GNOME installs the full desktop environment.
-        Defaults to `none`, which makes the system headless.
+        Which gui to use. COSMIC installs the full desktop environment.
+        Use `none` to make the system headless.
       '';
-      example = "gnome";
+      example = "cosmic";
     };
 
     theme = mkOption {

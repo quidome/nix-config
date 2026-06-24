@@ -1,16 +1,6 @@
 {lib, ...}:
 with lib; {
   options.settings = {
-    terminal = mkOption {
-      type = types.str;
-      example = "ghostty";
-      description = lib.mdDoc ''
-        Terminal emulator to use across desktop environments.
-
-        Defaults to KGX.
-      '';
-    };
-
     terminalMultiplexer = mkOption {
       type = types.enum [
         "tmux"
@@ -37,15 +27,5 @@ with lib; {
       example = 42;
       description = "Font size for graphical terminals";
     };
-
-    gnome.enableAppIndicator = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable GNOME AppIndicator shell extension when available.";
-    };
-  };
-
-  config = {
-    settings.terminal = mkDefault "kgx";
   };
 }
