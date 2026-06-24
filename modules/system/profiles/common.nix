@@ -33,7 +33,6 @@ with lib; {
     # network
     curl
     dig
-    mtr
     tcpdump
     traceroute
 
@@ -60,6 +59,7 @@ with lib; {
     # devops tooling
     alejandra
     cilium-cli
+    claude-code
     deadnix
     helmfile
     ipcalc
