@@ -62,6 +62,7 @@ with lib; {
     claude-code
     deadnix
     pi-coding-agent
+    deadnix
     helmfile
     ipcalc
     k9s
