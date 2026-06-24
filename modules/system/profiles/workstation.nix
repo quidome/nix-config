@@ -15,7 +15,6 @@ in {
       cameractrls-gtk3
       firefox
       mani
-      mpv
       element-desktop
       obsidian
       signal-desktop
@@ -38,25 +37,26 @@ in {
 
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
-      nerd-fonts.roboto-mono
-      noto-fonts
     ];
 
     services = {
+      avahi = {
+        enable = mkDefault true;
+        nssmdns4 = mkDefault true;
+        openFirewall = mkDefault true;
+      };
+
       flatpak.enable = mkDefault true;
       pipewire.enable = mkDefault true;
       tailscale.enable = mkDefault false;
 
       # Enable printing and printer discovery
-      printing.enable = mkDefault true;
-      printing.drivers = with pkgs; [
-        cups-filters
-        cups-browsed
-      ];
-      avahi = {
+      printing = {
         enable = mkDefault true;
-        nssmdns4 = mkDefault true;
-        openFirewall = mkDefault true;
+        drivers = with pkgs; [
+          cups-filters
+          cups-browsed
+        ];
       };
     };
   };
