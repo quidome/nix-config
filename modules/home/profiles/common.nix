@@ -60,7 +60,6 @@
       enableDefaultConfig = false;
       settings."*" = {
         ForwardAgent = false;
-        AddKeysToAgent = "yes";
         Compression = false;
         ServerAliveInterval = 0;
         ServerAliveCountMax = 3;
@@ -87,13 +86,5 @@
         "kseal" = "kubeseal --controller-namespace kube-system --controller-name sealed-secrets";
       };
     };
-  };
-
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = false;
-    defaultCacheTtl = 3600;
-    maxCacheTtl = 14400;
-    pinentry.package = lib.mkDefault pkgs.pinentry-curses;
   };
 }
