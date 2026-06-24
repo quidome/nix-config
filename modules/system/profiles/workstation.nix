@@ -28,8 +28,6 @@ in {
       vscodium
       wl-clipboard
 
-      openttd
-
       # office
       libreoffice
       hunspell
