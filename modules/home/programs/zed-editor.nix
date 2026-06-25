@@ -6,6 +6,7 @@
 }: let
   cfg = config.programs.zed-editor;
   font = config.settings.terminalFont;
+  isLight = config.settings.theme == "light";
 in {
   config = lib.mkIf cfg.enable {
     programs.zed-editor = {
@@ -26,6 +27,10 @@ in {
         agent.button = true;
 
         vim_mode = false;
+        theme = lib.mkIf isLight {
+          mode = "system";
+          light = "Catppuccin Latte";
+        };
         ui_font_size = 16;
         buffer_font_size = font.size + 3;
         buffer_font_family = font.name;

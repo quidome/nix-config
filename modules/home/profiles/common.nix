@@ -3,7 +3,9 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  isLight = config.settings.theme == "light";
+in {
   home = {
     sessionPath = [
       "${config.home.homeDirectory}/.local/bin"
@@ -22,7 +24,10 @@
   programs = {
     bat = {
       enable = true;
-      config.style = "header,snip";
+      config = {
+        style = "header,snip";
+        theme = lib.mkIf isLight "Catppuccin Latte";
+      };
     };
 
     direnv = {

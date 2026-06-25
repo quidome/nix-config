@@ -23,22 +23,29 @@ in {
         ripgrep
       ];
 
-      plugins = with pkgs.vimPlugins; [
-        nerdtree
-        tabular
-        vim-airline
-        vim-airline-themes
-        vim-dirdiff
-        vim-fugitive
-        vim-gitgutter
-        vim-go
-        vim-nix
-        vim-puppet
-      ];
+      plugins = with pkgs.vimPlugins;
+        [
+          nerdtree
+          tabular
+          vim-airline
+          vim-airline-themes
+          vim-dirdiff
+          vim-fugitive
+          vim-gitgutter
+          vim-go
+          vim-nix
+          vim-puppet
+        ]
+        ++ lib.optionals (config.settings.theme == "light") [
+          catppuccin-nvim
+        ];
 
       extraConfig =
         ''
           let g:airline_theme = '${airlineTheme}'
+        ''
+        + lib.optionalString (config.settings.theme == "light") ''
+          colorscheme catppuccin-latte
         ''
         + builtins.readFile ./extraConfig.vim;
     };
