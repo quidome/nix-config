@@ -3,7 +3,10 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  sessions = "${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
+  uwsmHyprlandCmd = "${lib.getExe pkgs.uwsm} start -e -D Hyprland hyprland.desktop";
+in {
   config = lib.mkIf (config.settings.gui == "hyprland") {
     programs.hyprland = {
       enable = lib.mkDefault true;
@@ -20,7 +23,7 @@
         enable = lib.mkDefault true;
         settings.default_session = {
           user = "greeter";
-          command = lib.mkDefault "${pkgs.tuigreet}/bin/tuigreet --sessions ${config.services.displayManager.sessionData.desktops}/share/xsessions:${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
+          command = lib.mkDefault "${lib.getExe pkgs.tuigreet} --cmd ${lib.escapeShellArg uwsmHyprlandCmd} --sessions ${sessions}";
         };
       };
 
