@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  hyprAvizo = import ./hyprland/avizo.nix {inherit lib;};
+  hyprAvizo = import ./hyprland/avizo.nix {inherit config lib;};
   hyprIdle = import ./hyprland/hypridle.nix {inherit lib;};
   hyprInput = import ./hyprland/input.nix;
   hyprBind = import ./hyprland/bind.nix {inherit lib;};
@@ -12,6 +12,7 @@
   hyprMako = import ./hyprland/mako.nix {inherit config lib;};
   hyprPolkit = import ./hyprland/polkit.nix {inherit pkgs;};
   hyprSettingsCore = import ./hyprland/settings-core.nix {
+    inherit config;
     terminal = config.settings.terminal;
   };
   hyprRules = import ./hyprland/rules.nix {};

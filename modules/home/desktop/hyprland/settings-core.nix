@@ -1,4 +1,19 @@
-{terminal ? "wezterm"}: {
+{
+  config,
+  terminal ? "wezterm",
+}: let
+  isLightTheme = config.settings.theme == "light";
+  colors =
+    if isLightTheme
+    then {
+      activeBorder = "rgba(1e66f5ee)";
+      inactiveBorder = "rgba(9ca0b0aa)";
+    }
+    else {
+      activeBorder = "rgba(89b4faee)";
+      inactiveBorder = "rgba(6c7086aa)";
+    };
+in {
   mod = {_var = "SUPER";};
   launcher = {_var = "uwsm app --";};
   terminal = {_var = terminal;};
@@ -19,8 +34,8 @@
       gaps_out = 3;
 
       border_size = 2;
-      "col.active_border" = "rgba(33ccffee)";
-      "col.inactive_border" = "rgba(595959aa)";
+      "col.active_border" = colors.activeBorder;
+      "col.inactive_border" = colors.inactiveBorder;
 
       resize_on_border = true;
       allow_tearing = false;
