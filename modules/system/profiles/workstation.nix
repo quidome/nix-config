@@ -28,7 +28,7 @@ in {
       wl-clipboard
 
       # office
-      libreoffice
+      libreoffice-qt
       hunspell
       hunspellDicts.nl_NL
       hunspellDicts.en_US-large
