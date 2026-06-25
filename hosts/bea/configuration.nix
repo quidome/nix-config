@@ -40,7 +40,7 @@
 
     heroic
     mangohud
-    lutris
+    # lutris
     gogdl
     itch
     mesa-demos
