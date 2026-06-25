@@ -8,7 +8,7 @@
   hyprIdle = import ./hyprland/hypridle.nix {inherit lib;};
   hyprInput = import ./hyprland/input.nix;
   hyprBind = import ./hyprland/bind.nix {inherit lib;};
-  hyprLock = import ./hyprland/hyprlock.nix {inherit lib;};
+  hyprLock = import ./hyprland/hyprlock.nix {inherit config lib;};
   hyprMako = import ./hyprland/mako.nix {inherit config lib;};
   hyprPolkit = import ./hyprland/polkit.nix {inherit pkgs;};
   hyprSettingsCore = import ./hyprland/settings-core.nix {
