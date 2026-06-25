@@ -1,4 +1,8 @@
-{lib, ...}:
+{
+  config,
+  lib,
+  ...
+}:
 with lib; {
   options.settings = {
     terminal = mkOption {
@@ -45,6 +49,10 @@ with lib; {
   };
 
   config = {
-    settings.terminal = mkDefault "kgx";
+    settings.terminal = mkDefault (
+      if config.settings.gui == "hyprland"
+      then "wezterm"
+      else "kgx"
+    );
   };
 }

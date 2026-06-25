@@ -18,13 +18,14 @@ with lib; {
       type = with types;
         enum [
           "none"
+          "hyprland"
         ];
       default = "none";
       description = ''
         Which GUI profile to use.
         Defaults to `none`, which makes the system headless.
       '';
-      example = "none";
+      example = "hyprland";
     };
 
     theme = mkOption {
