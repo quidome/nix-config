@@ -9,6 +9,7 @@
       text = "#4c4f69";
       surface2 = "#acb0be";
       accent = "#1e66f5";
+      green = "#40a02b";
       peach = "#fe640b";
       red = "#d20f39";
     }
@@ -17,6 +18,7 @@
       text = "#cdd6f4";
       surface2 = "#a6adc8";
       accent = "#89b4fa";
+      green = "#a6e3a1";
       peach = "#fab387";
       red = "#f38ba8";
     };
@@ -100,17 +102,27 @@ in {
     }
 
     window#waybar {
-      background: ${colors.base};
+      background: transparent;
       color: ${colors.text};
+    }
+
+    .modules-left,
+    .modules-center,
+    .modules-right {
+      background: ${colors.base};
+      border-radius: 16px;
+      margin: 4px 6px;
     }
 
     #workspaces button {
       color: ${colors.surface2};
       padding: 0 10px;
+      border-radius: 16px;
     }
 
     #workspaces button.active {
-      color: ${colors.accent};
+      background: ${colors.text};
+      color: ${colors.base};
     }
 
     #clock,
@@ -120,6 +132,15 @@ in {
     #battery,
     #tray {
       padding: 0 10px;
+    }
+
+    #clock {
+      color: ${colors.accent};
+    }
+
+    #battery.charging,
+    #battery.plugged {
+      color: ${colors.green};
     }
 
     #idle_inhibitor.activated,

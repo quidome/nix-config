@@ -28,7 +28,7 @@ with lib; {
     };
 
     terminalFont.name = mkOption {
-      default = "JetBrains Mono Nerd Font";
+      default = "JetBrainsMono Nerd Font";
       type = types.str;
       example = "Hack";
       description = "Font name for graphical terminals";

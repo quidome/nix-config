@@ -61,9 +61,58 @@ in {
     programs = {
       fuzzel = {
         enable = lib.mkDefault true;
-        settings.main = {
-          launch-prefix = "uwsm app --";
-          terminal = launcherTerminal;
+        settings = {
+          main = {
+            launch-prefix = "uwsm app --";
+            terminal = launcherTerminal;
+            font = "JetBrainsMono Nerd Font:size=13";
+            width = 60;
+            lines = 8;
+            horizontal-pad = 16;
+            vertical-pad = 12;
+            inner-pad = 8;
+          };
+          border = {
+            width = 2;
+            radius = 8;
+          };
+          colors = {
+            background = "${
+              if isLightTheme
+              then "eff1f5ee"
+              else "1e1e2eee"
+            }";
+            text = "${
+              if isLightTheme
+              then "4c4f69ff"
+              else "cdd6f4ff"
+            }";
+            match = "${
+              if isLightTheme
+              then "1e66f5ff"
+              else "89b4faff"
+            }";
+            selection = "${
+              if isLightTheme
+              then "ccd0daff"
+              else "313244ff"
+            }";
+            selection-text = "${
+              if isLightTheme
+              then "4c4f69ff"
+              else "cdd6f4ff"
+            }";
+            selection-match = "${
+              if isLightTheme
+              then "1e66f5ff"
+              else "89b4faff"
+            }";
+            border = "${
+              if isLightTheme
+              then "9ca0b0ff"
+              else "6c7086ff"
+            }";
+          };
         };
       };
       hyprlock = hyprLock;
