@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  osConfig,
   pkgs,
   ...
 }: let
@@ -26,7 +25,6 @@
     if isLightTheme
     then "Adwaita"
     else "Adwaita Dark";
-  networkmanagerEnabled = osConfig.networking.networkmanager.enable;
   qtStyle =
     if isLightTheme
     then "adwaita"
@@ -84,7 +82,6 @@ in {
       hypridle = hyprIdle;
       kanshi.systemdTarget = lib.mkDefault "hyprland-session.target";
       mako = hyprMako;
-      network-manager-applet.enable = lib.mkDefault networkmanagerEnabled;
     };
 
     xdg = {
@@ -97,41 +94,31 @@ in {
 
     xsession.preferStatusNotifierItems = lib.mkDefault true;
 
-    systemd.user.services =
-      {
-        polkit-gnome-authentication-agent-1 = hyprPolkit;
+    systemd.user.services = {
+      polkit-gnome-authentication-agent-1 = hyprPolkit;
 
-        avizo = {
-          Unit = {
-            After = lib.mkForce ["hyprland-session.target"];
-            PartOf = lib.mkForce ["hyprland-session.target"];
-          };
-          Install.WantedBy = lib.mkForce ["hyprland-session.target"];
+      avizo = {
+        Unit = {
+          After = lib.mkForce ["hyprland-session.target"];
+          PartOf = lib.mkForce ["hyprland-session.target"];
         };
-
-        mako = {
-          Unit = {
-            Description = "Lightweight Wayland notification daemon";
-            After = ["hyprland-session.target"];
-            PartOf = ["hyprland-session.target"];
-            ConditionEnvironment = "WAYLAND_DISPLAY";
-          };
-          Service = {
-            ExecStart = "${lib.getExe pkgs.mako}";
-            Restart = "on-failure";
-          };
-          Install.WantedBy = ["hyprland-session.target"];
-        };
-      }
-      // lib.optionalAttrs networkmanagerEnabled {
-        network-manager-applet = {
-          Unit = {
-            After = lib.mkForce ["hyprland-session.target" "tray.target"];
-            PartOf = lib.mkForce ["hyprland-session.target"];
-          };
-          Install.WantedBy = lib.mkForce ["hyprland-session.target"];
-        };
+        Install.WantedBy = lib.mkForce ["hyprland-session.target"];
       };
+
+      mako = {
+        Unit = {
+          Description = "Lightweight Wayland notification daemon";
+          After = ["hyprland-session.target"];
+          PartOf = ["hyprland-session.target"];
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+        };
+        Service = {
+          ExecStart = "${lib.getExe pkgs.mako}";
+          Restart = "on-failure";
+        };
+        Install.WantedBy = ["hyprland-session.target"];
+      };
+    };
 
     wayland.windowManager.hyprland = {
       enable = lib.mkDefault true;
