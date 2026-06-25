@@ -18,9 +18,6 @@ fi
 
 
 if [[ $TERM != "screen-256color" && $TERM != "linux" && -z "$ZELLIJ" ]] ; then
-    if [[ "$(zellij ls -s)" = "default-session" ]]; then
-        zellij attach 'default-session'
-    else
-        zellij attach -c 'default-session'
-    fi
+    session_name="auto-${HOSTNAME:-host}-$$"
+    zellij attach -c "$session_name"
 fi
