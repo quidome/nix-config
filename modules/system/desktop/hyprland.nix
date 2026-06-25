@@ -56,6 +56,7 @@ in {
 
     environment = {
       systemPackages = with pkgs; [
+        gcr
         libsecret
         seahorse
       ];
