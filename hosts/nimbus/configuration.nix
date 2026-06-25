@@ -30,16 +30,15 @@
 
     wg-quick.interfaces.wg0 = {
       autostart = false;
-      address = ["172.16.41.14/32"];
-      dns = ["172.16.40.1" "lan.balti.casa"];
-      listenPort = 51820;
+      address = ["10.10.42.3/32"];
+      dns = ["172.16.40.78" "srv.balti.casa" "lan.balti.casa" "mgt.balti.casa"];
       privateKeyFile = "/etc/secrets/wg0-private";
 
       peers = [
         {
-          publicKey = "YkOAj87heEGLFgM8h1VhsBfBp1qYgpcpTAz9NUOTTQU=";
-          allowedIPs = ["0.0.0.0/0"];
-          endpoint = "wg.quido.me:51232";
+          publicKey = "bXHAJ9YbZHInQ8dlEHk9/y1+lwTKhk7ra8sxmiQK6wk=";
+          allowedIPs = ["10.10.42.0/24" "172.16.40.0/24"];
+          endpoint = "wg.quido.me:51820";
         }
       ];
     };
