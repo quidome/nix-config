@@ -43,7 +43,9 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Desktop environment
 
-This repo currently defaults to `settings.gui = "none"` as a clean headless starting point.
+This repo currently defaults to `settings.gui = "hyprland"`.
+
+Default theme is `settings.theme = "dark"`.
 
 Default terminal multiplexer is `settings.terminalMultiplexer = "zellij"`.
 Override it per host/user if you want no multiplexer.

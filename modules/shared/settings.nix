@@ -20,19 +20,19 @@ with lib; {
           "none"
           "hyprland"
         ];
-      default = "none";
+      default = "hyprland";
       description = ''
         Which GUI profile to use.
-        Defaults to `none`, which makes the system headless.
+        Defaults to `hyprland`.
       '';
       example = "hyprland";
     };
 
     theme = mkOption {
       type = types.enum ["light" "dark"];
-      default = "light";
+      default = "dark";
       description = "Light or dark theme preference";
-      example = "light";
+      example = "dark";
     };
   };
 }
