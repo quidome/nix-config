@@ -11,6 +11,8 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
+    catppuccin.url = "github:catppuccin/nix/release-26.05";
+
     llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
