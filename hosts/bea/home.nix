@@ -12,27 +12,84 @@
 
   settings.terminalFont.size = 10;
 
-  services.kanshi = lib.mkIf (config.settings.gui == "hyprland") {
+  services.shikane = lib.mkIf (config.settings.gui == "hyprland") {
     enable = true;
-    settings = [
+    settings.profile = [
       {
-        profile.name = "default";
-        profile.outputs = [
+        name = "desktop";
+        output = [
           {
-            criteria = "*";
-            status = "enable";
+            match = "DP-1";
+            enable = true;
+            position = {
+              x = 0;
+              y = 0;
+            };
+            scale = 1.0;
+            transform = "normal";
+          }
+          {
+            match = "Samsung Electric Company LC32G5xT HK2W200965";
+            enable = false;
+          }
+        ];
+      }
+      {
+        name = "gaming";
+        output = [
+          {
+            match = "DP-1";
+            enable = false;
+          }
+          {
+            match = "Samsung Electric Company LC32G5xT HK2W200965";
+            enable = true;
+            position = {
+              x = 0;
+              y = 0;
+            };
+            scale = 1.0;
+            transform = "normal";
+          }
+        ];
+      }
+      {
+        name = "dual";
+        output = [
+          {
+            match = "Samsung Electric Company LC32G5xT HK2W200965";
+            enable = true;
+            position = {
+              x = 0;
+              y = 0;
+            };
+            scale = 1.0;
+            transform = "normal";
+          }
+          {
+            match = "DP-1";
+            enable = true;
+            position = {
+              x = 2560;
+              y = 0;
+            };
+            scale = 1.0;
+            transform = "normal";
           }
         ];
       }
     ];
   };
 
-  wayland.windowManager.hyprland.settings = lib.mkIf (config.settings.gui == "hyprland") {
-    monitor = [
-      ", preferred, auto, auto"
-      "desc:Samsung Electric Company LC32G5xT HK2W200965, disable"
-    ];
+  systemd.user.services.shikane = lib.mkIf (config.settings.gui == "hyprland") {
+    Unit = {
+      After = lib.mkForce ["hyprland-session.target"];
+      PartOf = lib.mkForce ["hyprland-session.target"];
+    };
+    Install.WantedBy = lib.mkForce ["hyprland-session.target"];
+  };
 
+  wayland.windowManager.hyprland.settings = lib.mkIf (config.settings.gui == "hyprland") {
     device = [
       {
         name = "mosart-semi.-2.4g-wireless-mouse";
