@@ -8,17 +8,19 @@ with lib; let
   isPlasma = config.settings.gui == "plasma";
 in {
   config = mkIf isPlasma {
-    services.displayManager = {
-      sddm = {
-        enable = mkDefault true;
-        wayland.enable = mkDefault true;
+    services = {
+      displayManager = {
+        sddm = {
+          enable = mkDefault true;
+          wayland.enable = mkDefault true;
+        };
+        defaultSession = mkDefault "plasma";
       };
-      defaultSession = mkDefault "plasma";
+
+      desktopManager.plasma6.enable = mkDefault true;
+
+      xserver.enable = mkDefault true;
     };
-
-    services.desktopManager.plasma6.enable = mkDefault true;
-
-    services.xserver.enable = mkDefault true;
 
     xdg.portal = {
       enable = mkDefault true;

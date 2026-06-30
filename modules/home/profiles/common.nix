@@ -1,10 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   isLight = config.settings.theme == "light";
+  batTheme =
+    if isLight
+    then "Catppuccin Latte"
+    else "Catppuccin Mocha";
 in {
   home = {
     sessionPath = [
@@ -26,7 +29,7 @@ in {
       enable = true;
       config = {
         style = "header,snip";
-        theme = lib.mkIf isLight "Catppuccin Latte";
+        theme = batTheme;
       };
     };
 

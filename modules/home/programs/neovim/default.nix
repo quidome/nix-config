@@ -5,10 +5,15 @@
   ...
 }: let
   cfg = config.programs.neovim;
+  isLight = config.settings.theme == "light";
   airlineTheme =
-    if config.settings.theme == "light"
+    if isLight
     then "light"
     else "base16_mocha";
+  colorScheme =
+    if isLight
+    then "catppuccin-latte"
+    else "catppuccin-mocha";
 in {
   config = lib.mkIf cfg.enable {
     programs.neovim = {
@@ -36,16 +41,14 @@ in {
           vim-nix
           vim-puppet
         ]
-        ++ lib.optionals (config.settings.theme == "light") [
+        ++ [
           catppuccin-nvim
         ];
 
       extraConfig =
         ''
           let g:airline_theme = '${airlineTheme}'
-        ''
-        + lib.optionalString (config.settings.theme == "light") ''
-          colorscheme catppuccin-latte
+          colorscheme ${colorScheme}
         ''
         + builtins.readFile ./extraConfig.vim;
     };

@@ -7,6 +7,10 @@
   cfg = config.programs.zed-editor;
   font = config.settings.terminalFont;
   isLight = config.settings.theme == "light";
+  zedThemeMode =
+    if isLight
+    then "light"
+    else "dark";
 in {
   config = lib.mkIf cfg.enable {
     programs.zed-editor = {
@@ -27,9 +31,10 @@ in {
         agent.button = true;
 
         vim_mode = false;
-        theme = lib.mkIf isLight {
-          mode = "system";
+        theme = {
+          mode = zedThemeMode;
           light = "Catppuccin Latte";
+          dark = "Catppuccin Mocha";
         };
         ui_font_size = 16;
         buffer_font_size = font.size + 3;

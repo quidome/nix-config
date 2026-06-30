@@ -5,6 +5,10 @@
 }: let
   cfg = config.programs.helix;
   isLight = config.settings.theme == "light";
+  helixTheme =
+    if isLight
+    then "catppuccin_latte"
+    else "catppuccin_mocha";
 in {
   imports = [./languages.nix];
 
@@ -12,7 +16,7 @@ in {
     programs.helix = {
       defaultEditor = true;
       settings = {
-        theme = lib.mkIf isLight "catppuccin_latte";
+        theme = helixTheme;
         editor = {
           file-picker.hidden = false;
           line-number = "relative";
