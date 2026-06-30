@@ -34,6 +34,7 @@ with lib; {
     # network
     curl
     dig
+    mtr
     tcpdump
     wget
 
@@ -43,6 +44,7 @@ with lib; {
     git-crypt
     git-repo-updater
     gitui
+    lazygit
     shellcheck
     yq-go
 
@@ -59,11 +61,7 @@ with lib; {
     vim
 
     # devops tooling
-    alejandra
-    deadnix
-    statix
     cilium-cli
-    claude-code
     deadnix
     pi-coding-agent
     helmfile
@@ -74,13 +72,18 @@ with lib; {
     kubernetes-helm
     kubeseal
     kustomize
+    pi-coding-agent
     python3
     stern
 
     # Useful nix related tools
+    alejandra
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
+    deadnix
+    nil # language server
     niv # easy dependency management for nix projects
+    statix
   ];
 
   programs.gnupg.agent.enable = mkDefault true;
