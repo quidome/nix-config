@@ -1,3 +1,6 @@
 {
-  settings.theme = "dark";
+  settings = {
+    gui = "plasma";
+    theme = "dark";
+  };
 }
