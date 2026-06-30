@@ -33,8 +33,7 @@ with lib; {
 
     # network
     curl
-    doggo
-    httpie
+    dig
     tcpdump
     wget
 
@@ -64,6 +63,8 @@ with lib; {
     deadnix
     statix
     cilium-cli
+    claude-code
+    deadnix
     pi-coding-agent
     helmfile
     ipcalc

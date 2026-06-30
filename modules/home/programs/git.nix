@@ -4,9 +4,21 @@
   ...
 }: let
   cfg = config.programs.git;
+  isLight = config.settings.theme == "light";
+  deltaTheme =
+    if isLight
+    then "Catppuccin Latte"
+    else "Catppuccin Mocha";
 in {
   config = lib.mkIf cfg.enable {
-    programs.delta.enable = true;
+    programs.delta = {
+      enable = true;
+      options = {
+        syntax-theme = deltaTheme;
+        light = isLight;
+      };
+    };
+
     programs.git = {
       settings = {
         branch.autosetuprebase = "always";

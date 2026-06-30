@@ -18,47 +18,21 @@ with lib; {
       type = with types;
         enum [
           "none"
-          "gnome"
+          "plasma"
         ];
-      default = "gnome";
+      default = "none";
       description = ''
-        Which gui to use. GNOME installs the full desktop environment.
+        Which GUI profile to use.
         Defaults to `none`, which makes the system headless.
       '';
-      example = "gnome";
+      example = "plasma";
     };
 
     theme = mkOption {
       type = types.enum ["light" "dark"];
       default = "light";
-      description = ''
-        Which color theme to use. Maps to catppuccin flavors:
-        - light -> latte
-        - dark -> mocha
-      '';
+      description = "Light or dark theme preference";
       example = "light";
-    };
-
-    catppuccinAccent = mkOption {
-      type = types.enum [
-        "blue"
-        "flamingo"
-        "green"
-        "lavender"
-        "maroon"
-        "mauve"
-        "peach"
-        "pink"
-        "red"
-        "rosewater"
-        "sapphire"
-        "sky"
-        "teal"
-        "yellow"
-      ];
-      default = "lavender";
-      description = "Accent color for catppuccin theme.";
-      example = "blue";
     };
   };
 }

@@ -1,9 +1,14 @@
 {
   config,
   lib,
-  pkgs,
   ...
-}: {
+}: let
+  isLight = config.settings.theme == "light";
+  batTheme =
+    if isLight
+    then "Catppuccin Latte"
+    else "Catppuccin Mocha";
+in {
   home = {
     sessionPath = [
       "${config.home.homeDirectory}/.local/bin"
@@ -22,7 +27,10 @@
   programs = {
     bat = {
       enable = true;
-      config.style = "header,snip";
+      config = {
+        style = "header,snip";
+        theme = batTheme;
+      };
     };
 
     direnv = {
@@ -50,8 +58,6 @@
 
     neovim.enable = true;
 
-    tmux.enable = lib.mkDefault (config.settings.terminalMultiplexer == "tmux");
-
     jujutsu = {
       enable = true;
       ediff = true;
@@ -62,7 +68,6 @@
       enableDefaultConfig = false;
       settings."*" = {
         ForwardAgent = false;
-        AddKeysToAgent = "yes";
         Compression = false;
         ServerAliveInterval = 0;
         ServerAliveCountMax = 3;
@@ -89,13 +94,5 @@
         "kseal" = "kubeseal --controller-namespace kube-system --controller-name sealed-secrets";
       };
     };
-  };
-
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = false;
-    defaultCacheTtl = 3600;
-    maxCacheTtl = 14400;
-    pinentry.package = lib.mkDefault pkgs.pinentry-curses;
   };
 }

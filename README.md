@@ -43,13 +43,13 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Desktop environment
 
-This repo currently targets GNOME via `settings.gui = "gnome"`.
+This repo currently defaults to `settings.gui = "none"` as a clean headless starting point.
 
 Default terminal multiplexer is `settings.terminalMultiplexer = "zellij"`.
-Override it per host/user if you want `tmux` or no multiplexer.
+Override it per host/user if you want no multiplexer.
 
 ## Laptop power policy
 
 Battery charge thresholds are managed in BIOS/firmware (vendor power settings), not in NixOS services.
 
-This keeps charging behavior consistent regardless of OS state. Desktop session power behavior remains handled by GNOME.
+This keeps charging behavior consistent regardless of OS state.
