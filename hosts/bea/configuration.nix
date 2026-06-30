@@ -38,7 +38,7 @@
     blender
     orca-slicer
 
-    heroic
+    # heroic
     mangohud
     lutris
     gogdl
