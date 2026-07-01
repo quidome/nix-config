@@ -16,6 +16,7 @@ in {
       firefox
       mani
       element-desktop
+      librewolf
       obsidian
       signal-desktop
       spotify
