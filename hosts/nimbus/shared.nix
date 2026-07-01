@@ -1,6 +1,6 @@
 {
   settings = {
     gui = "plasma";
-    theme = "dark";
+    theme = "light";
   };
 }
