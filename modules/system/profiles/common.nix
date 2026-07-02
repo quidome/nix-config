@@ -24,10 +24,9 @@ with lib; {
 
   environment.systemPackages = with pkgs; [
     # system
-    bottom
+    btop
     fd
     fzf
-    gnupg
     ripgrep
     tree
 
@@ -36,34 +35,32 @@ with lib; {
     dig
     mtr
     tcpdump
+    traceroute
     wget
 
     # devops
-    git
     gh
+    git
     git-crypt
     git-repo-updater
     gitui
     lazygit
-    shellcheck
-    yq-go
 
     # tools
-    bitwarden-cli
+    gnupg
     gopass
     helix
     jless
     jq
     just
+    neovim
     rename
     rtk
     yamllint
-    vim
+    yq-go
 
     # devops tooling
     cilium-cli
-    deadnix
-    pi-coding-agent
     helmfile
     ipcalc
     k9s
@@ -74,6 +71,7 @@ with lib; {
     kustomize
     pi-coding-agent
     python3
+    shellcheck
     stern
 
     # Useful nix related tools

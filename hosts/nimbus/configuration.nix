@@ -44,8 +44,6 @@
     };
   };
 
-  settings.gui = "plasma";
-
   environment.systemPackages = with pkgs; [
     # devops
     # don't install jetbrains.ide at this moment as the install never seems to end

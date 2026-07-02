@@ -19,6 +19,7 @@ with lib; {
         enum [
           "none"
           "plasma"
+          "hyprland"
         ];
       default = "none";
       description = ''
@@ -33,6 +34,13 @@ with lib; {
       default = "light";
       description = "Light or dark theme preference";
       example = "light";
+    };
+
+    wallpaper = mkOption {
+      type = with types; nullOr str;
+      default = null;
+      example = "/home/quidome/Pictures/wallpaper.jpg";
+      description = "Absolute path to the desktop wallpaper image for graphical sessions.";
     };
   };
 }

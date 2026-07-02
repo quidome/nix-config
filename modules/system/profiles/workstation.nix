@@ -10,31 +10,34 @@ in {
   config = mkIf isWorkstation {
     hardware.bluetooth.input.General.UserspaceHID = mkDefault true;
 
-    environment.systemPackages = with pkgs; [
-      adoptopenjdk-icedtea-web
-      cameractrls-gtk3
-      firefox
-      mani
-      element-desktop
-      librewolf
-      obsidian
-      signal-desktop
-      spotify
-      pandoc
-      pavucontrol
-      plantuml
-      v4l-utils
-      vlc
-      vscodium
-      wl-clipboard
+    environment.systemPackages = with pkgs;
+      [
+        adoptopenjdk-icedtea-web
+        cameractrls-gtk3
+        firefox
+        mani
+        librewolf
+        obsidian
+        spotify
+        pandoc
+        pavucontrol
+        plantuml
+        v4l-utils
+        vlc
+        vscodium
+        wl-clipboard
 
-      # office
-      libreoffice-qt
-      hunspell
-      hunspellDicts.nl_NL
-      hunspellDicts.en_US-large
-      hunspellDicts.en_GB-large
-    ];
+        # office
+        libreoffice-qt
+        hunspell
+        hunspellDicts.nl_NL
+        hunspellDicts.en_US-large
+        hunspellDicts.en_GB-large
+      ]
+      ++ lib.optionals (config.settings.gui != "hyprland") [
+        element-desktop
+        signal-desktop
+      ];
 
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono
