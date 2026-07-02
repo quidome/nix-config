@@ -36,6 +36,7 @@ with lib; {
     mtr
     tcpdump
     traceroute
+    wget
 
     # devops
     gh
@@ -59,9 +60,7 @@ with lib; {
     yq-go
 
     # devops tooling
-    alejandra
     cilium-cli
-    deadnix
     helmfile
     ipcalc
     k9s
@@ -73,14 +72,16 @@ with lib; {
     pi-coding-agent
     python3
     shellcheck
-    statix
     stern
 
     # Useful nix related tools
+    alejandra
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
+    deadnix
     nil # language server
     niv # easy dependency management for nix projects
+    statix
   ];
 
   programs.gnupg.agent.enable = mkDefault true;
