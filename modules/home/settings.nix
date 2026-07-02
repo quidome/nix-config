@@ -52,6 +52,8 @@ with lib; {
     settings.terminal = mkDefault (
       if config.settings.gui == "plasma"
       then "konsole"
+      else if config.settings.gui == "hyprland"
+      then "wezterm"
       else "kgx"
     );
   };

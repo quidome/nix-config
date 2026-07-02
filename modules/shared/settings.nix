@@ -19,6 +19,7 @@ with lib; {
         enum [
           "none"
           "plasma"
+          "hyprland"
         ];
       default = "none";
       description = ''
