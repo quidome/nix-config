@@ -18,6 +18,34 @@
   hyprRules = import ./hyprland/rules.nix {};
   hyprWaybar = import ./hyprland/waybar.nix {inherit config lib;};
   isLightTheme = config.settings.theme == "light";
+  wallpaper = config.settings.wallpaper;
+  useHyprpaper = wallpaper != null;
+  applyWallpaperScript = pkgs.writeShellScript "apply-hyprpaper-wallpaper" ''
+    set -eu
+
+    wallpaper=${lib.escapeShellArg wallpaper}
+    hyprctl=${lib.escapeShellArg "${config.wayland.windowManager.hyprland.package}/bin/hyprctl"}
+    monitors=""
+
+    for _ in $(seq 1 40); do
+      monitors="$($hyprctl monitors 2>/dev/null | awk '/^Monitor / { print $2 }' || true)"
+      if [ -n "$monitors" ] && $hyprctl hyprpaper listactive >/dev/null 2>&1; then
+        break
+      fi
+      sleep 0.25
+    done
+
+    [ -n "$monitors" ] || exit 0
+
+    for monitor in $monitors; do
+      for _ in $(seq 1 20); do
+        if $hyprctl hyprpaper wallpaper "$monitor,$wallpaper" >/dev/null 2>&1; then
+          break
+        fi
+        sleep 0.25
+      done
+    done
+  '';
   gtkColorScheme =
     if isLightTheme
     then "prefer-light"
@@ -36,13 +64,17 @@
     else "${config.settings.terminal} -e";
 in {
   config = lib.mkIf (config.settings.gui == "hyprland") {
-    home.packages = with pkgs; [
-      grimblast
-      libnotify
-      playerctl
-      thunar
-      wdisplays
-    ];
+    home.packages =
+      (with pkgs; [
+        grimblast
+        libnotify
+        playerctl
+        thunar
+        wdisplays
+      ])
+      ++ lib.optionals useHyprpaper [
+        pkgs.hyprpaper
+      ];
 
     dconf.settings."org/gnome/desktop/interface" = {
       color-scheme = gtkColorScheme;
@@ -135,6 +167,12 @@ in {
     };
 
     xdg = {
+      configFile = lib.optionalAttrs useHyprpaper {
+        "hypr/hyprpaper.conf".text = ''
+          preload = ${wallpaper}
+          splash = false
+        '';
+      };
       portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
       systemDirs.data = [
         "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
@@ -144,40 +182,60 @@ in {
 
     xsession.preferStatusNotifierItems = lib.mkDefault true;
 
-    systemd.user.services = {
-      polkit-gnome-authentication-agent-1 = hyprPolkit;
+    systemd.user.services =
+      {
+        polkit-gnome-authentication-agent-1 = hyprPolkit;
 
-      avizo = {
-        Unit = {
-          After = lib.mkForce ["hyprland-session.target"];
-          PartOf = lib.mkForce ["hyprland-session.target"];
+        avizo = {
+          Unit = {
+            After = lib.mkForce ["hyprland-session.target"];
+            PartOf = lib.mkForce ["hyprland-session.target"];
+          };
+          Install.WantedBy = lib.mkForce ["hyprland-session.target"];
         };
-        Install.WantedBy = lib.mkForce ["hyprland-session.target"];
-      };
 
-      mako = {
-        Unit = {
-          Description = "Lightweight Wayland notification daemon";
-          After = ["hyprland-session.target"];
-          PartOf = ["hyprland-session.target"];
-          ConditionEnvironment = "WAYLAND_DISPLAY";
+        mako = {
+          Unit = {
+            Description = "Lightweight Wayland notification daemon";
+            After = ["hyprland-session.target"];
+            PartOf = ["hyprland-session.target"];
+            ConditionEnvironment = "WAYLAND_DISPLAY";
+          };
+          Service = {
+            ExecStart = "${lib.getExe pkgs.mako}";
+            Restart = "on-failure";
+          };
+          Install.WantedBy = ["hyprland-session.target"];
         };
-        Service = {
-          ExecStart = "${lib.getExe pkgs.mako}";
-          Restart = "on-failure";
+      }
+      // lib.optionalAttrs useHyprpaper {
+        hyprpaper = {
+          Unit = {
+            Description = "Hyprland wallpaper daemon";
+            After = ["hyprland-session.target"];
+            PartOf = ["hyprland-session.target"];
+            ConditionEnvironment = "WAYLAND_DISPLAY";
+          };
+          Service = {
+            ExecStart = "${lib.getExe pkgs.hyprpaper}";
+            ExecStartPost = applyWallpaperScript;
+            Restart = "on-failure";
+          };
+          Install.WantedBy = ["hyprland-session.target"];
         };
-        Install.WantedBy = ["hyprland-session.target"];
       };
-    };
 
     wayland.windowManager.hyprland = {
       enable = lib.mkDefault true;
-      settings = lib.recursiveUpdate hyprSettingsCore (
-        lib.recursiveUpdate hyprRules {
+      settings =
+        lib.recursiveUpdate
+        (lib.recursiveUpdate hyprSettingsCore (lib.optionalAttrs useHyprpaper {
+          config.misc.force_default_wallpaper = 0;
+        }))
+        (lib.recursiveUpdate hyprRules {
           config.input = hyprInput;
           bind = hyprBind;
-        }
-      );
+        });
     };
   };
 }
