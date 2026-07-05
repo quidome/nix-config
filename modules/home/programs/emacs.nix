@@ -8,7 +8,7 @@
 in {
   config = lib.mkIf cfg.enable {
     programs.emacs = {
-      package = pkgs.emacs;
+      package = pkgs.emacs-pgtk;
       extraPackages = epkgs:
         with epkgs; [
           vterm
