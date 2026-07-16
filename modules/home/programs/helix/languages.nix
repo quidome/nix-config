@@ -13,7 +13,7 @@ with pkgs;
       nixd
       bash-language-server
       dockerfile-language-server
-      # prettier # json formatter
+      prettier # json formatter
       typescript-language-server
       vscode-langservers-extracted
       yaml-language-server
