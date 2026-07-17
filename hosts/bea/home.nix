@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
@@ -11,6 +12,8 @@
   home.stateVersion = "26.05";
 
   settings.terminalFont.size = 10;
+
+  home.packages = with pkgs; [ discord ];
 
   wayland.windowManager.hyprland.settings = lib.mkIf (config.settings.gui == "hyprland") {
     device = [
