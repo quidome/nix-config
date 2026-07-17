@@ -54,6 +54,8 @@ with lib; {
       then "konsole"
       else if config.settings.gui == "hyprland"
       then "wezterm"
+      else if config.settings.gui == "cosmic"
+      then "cosmic-term"
       else "kgx"
     );
   };

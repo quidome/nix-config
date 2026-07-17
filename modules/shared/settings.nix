@@ -20,6 +20,7 @@ with lib; {
           "none"
           "plasma"
           "hyprland"
+          "cosmic"
         ];
       default = "none";
       description = ''
