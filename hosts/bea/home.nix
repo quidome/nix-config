@@ -13,7 +13,7 @@
 
   settings.terminalFont.size = 10;
 
-  home.packages = with pkgs; [ discord ];
+  home.packages = with pkgs; [discord];
 
   wayland.windowManager.hyprland.settings = lib.mkIf (config.settings.gui == "hyprland") {
     device = [
