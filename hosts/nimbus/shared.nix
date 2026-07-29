@@ -1,7 +1,7 @@
 {
   settings = {
-    gui = "plasma";
-    theme = "light";
+    gui = "gnome";
+    theme = "dark";
     wallpaper = "/home/quidome/Pictures/Wallpapers/cabin-3.png";
   };
 }
