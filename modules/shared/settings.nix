@@ -21,6 +21,7 @@ with lib; {
           "plasma"
           "hyprland"
           "cosmic"
+          "gnome"
         ];
       default = "none";
       description = ''
