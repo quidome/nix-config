@@ -29,6 +29,8 @@
 
     # multimedia
     kdePackages.kdenlive
+    obs-studio
+    # obs-studio-plugins
 
     # games
     openttd
@@ -67,6 +69,10 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+    # Provide the Mesa VA-API driver used by OBS for AMD hardware encoding.
+    extraPackages = with pkgs; [
+      mesa
+    ];
   };
 
   programs = {
