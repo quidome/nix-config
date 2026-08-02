@@ -22,6 +22,7 @@
       );
 
     services = {
+      input-remapper.enable = true;
       xserver.enable = lib.mkDefault true;
       desktopManager.gnome.enable = lib.mkDefault true;
       displayManager.gdm.enable = lib.mkDefault true;

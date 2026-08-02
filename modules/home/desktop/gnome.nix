@@ -37,6 +37,92 @@ in {
       NIXOS_OZONE_WL = "1";
     };
 
+    # input-remapper presets for GNOME. EV_REL=2, REL_WHEEL=8,
+    # REL_WHEEL_HI_RES=11, EV_KEY=1, BTN_LEFT=272, BTN_RIGHT=273.
+    home.file = {
+      ".config/input-remapper-2/config.json".text = builtins.toJSON {
+        version = "2.2.0";
+        autoload = {
+          "MOSART Semi. 2.4G Wireless Mouse" = "natural-scroll";
+          "Logitech USB Optical Mouse" = "natural-scroll-and-buttons";
+        };
+      };
+
+      ".config/input-remapper-2/presets/MOSART Semi. 2.4G Wireless Mouse/natural-scroll.json".text = builtins.toJSON [
+        {
+          input_combination = [
+            {
+              type = 2;
+              code = 8;
+            }
+          ];
+          target_uinput = "mouse";
+          output_type = 2;
+          output_code = 8;
+          gain = -1.0;
+        }
+        {
+          input_combination = [
+            {
+              type = 2;
+              code = 11;
+            }
+          ];
+          target_uinput = "mouse";
+          output_type = 2;
+          output_code = 11;
+          gain = -1.0;
+        }
+      ];
+
+      ".config/input-remapper-2/presets/Logitech USB Optical Mouse/natural-scroll-and-buttons.json".text = builtins.toJSON [
+        {
+          input_combination = [
+            {
+              type = 1;
+              code = 272;
+            }
+          ];
+          target_uinput = "mouse";
+          output_symbol = "BTN_RIGHT";
+        }
+        {
+          input_combination = [
+            {
+              type = 1;
+              code = 273;
+            }
+          ];
+          target_uinput = "mouse";
+          output_symbol = "BTN_LEFT";
+        }
+        {
+          input_combination = [
+            {
+              type = 2;
+              code = 8;
+            }
+          ];
+          target_uinput = "mouse";
+          output_type = 2;
+          output_code = 8;
+          gain = -1.0;
+        }
+        {
+          input_combination = [
+            {
+              type = 2;
+              code = 11;
+            }
+          ];
+          target_uinput = "mouse";
+          output_type = 2;
+          output_code = 11;
+          gain = -1.0;
+        }
+      ];
+    };
+
     dconf.settings = {
       "org/gnome/shell" = {
         enabled-extensions =
@@ -64,7 +150,8 @@ in {
       ];
 
       "org/gnome/desktop/peripherals/mouse" = {
-        natural-scroll = true;
+        # Keep the baseline non-natural; selected mice are inverted by input-remapper.
+        natural-scroll = false;
       };
 
       "org/gnome/desktop/peripherals/touchpad" = {
