@@ -139,7 +139,9 @@ in {
       Service = {
         Type = "oneshot";
         ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
-        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.input-remapper}/bin/input-remapper-control --command stop-all && ${pkgs.input-remapper}/bin/input-remapper-control --command autoload'";
+        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.input-remapper}/bin/input-remapper-control --command stop-all || true; ${pkgs.input-remapper}/bin/input-remapper-control --command autoload'";
+        Restart = "on-failure";
+        RestartSec = 5;
       };
       Install.WantedBy = ["graphical-session.target"];
     };
