@@ -8,12 +8,35 @@
   ];
 
   boot = {
+    initrd = {
+      network.enable = true;
+      systemd = {
+        enable = true;
+        network = {
+          enable = true;
+          networks."10-enp42s0" = {
+            matchConfig.Name = "enp42s0";
+            networkConfig.DHCP = "yes";
+            linkConfig.RequiredForOnline = true;
+          };
+        };
+      };
+      clevisLuksAskpass = {
+        enable = true;
+        useTang = true;
+      };
+    };
+
     loader.systemd-boot = {
       configurationLimit = 7;
       windows."11".efiDeviceHandle = "FS0";
     };
 
-    kernelParams = ["consoleblank=180"];
+    kernelParams = [
+      "consoleblank=180"
+      "ip=:::::enp42s0:dhcp"
+    ];
+    initrd.availableKernelModules = ["r8169"];
     supportedFilesystems.zfs = true;
   };
 
