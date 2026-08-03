@@ -75,6 +75,14 @@ in {
         }
       ];
 
+      # The package autostart runs before USB input devices are always ready.
+      ".config/autostart/input-remapper-autoload.desktop".text = ''
+        [Desktop Entry]
+        Type=Application
+        Name=input-remapper-autoload
+        Hidden=true
+      '';
+
       ".config/input-remapper-2/presets/Logitech USB Optical Mouse/natural-scroll-and-buttons.json".text = builtins.toJSON [
         {
           input_combination = [
@@ -121,6 +129,19 @@ in {
           gain = -1.0;
         }
       ];
+    };
+
+    systemd.user.services.input-remapper-autoload = {
+      Unit = {
+        Description = "Load input-remapper presets after the graphical session is ready";
+        After = ["graphical-session.target"];
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
+        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.input-remapper}/bin/input-remapper-control --command stop-all && ${pkgs.input-remapper}/bin/input-remapper-control --command autoload'";
+      };
+      Install.WantedBy = ["graphical-session.target"];
     };
 
     dconf.settings = {
