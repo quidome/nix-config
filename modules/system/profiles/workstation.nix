@@ -23,6 +23,7 @@ in {
         adoptopenjdk-icedtea-web
         cameractrls-gtk3
         firefox
+        thunderbird
         mani
         obsidian
         spotify
