@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  zen-browser,
   ...
 }:
 with lib; let
@@ -17,7 +16,6 @@ in {
         cameractrls-gtk3
         firefox
         mani
-        librewolf
         obsidian
         spotify
         pandoc
@@ -27,7 +25,6 @@ in {
         vlc
         vscodium
         wl-clipboard
-        zen-browser.packages.x86_64-linux.zen-browser
 
         # office
         libreoffice-qt
