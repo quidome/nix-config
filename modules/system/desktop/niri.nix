@@ -10,7 +10,16 @@ in {
   config = lib.mkIf (config.settings.gui == "niri") {
     programs.niri.enable = lib.mkDefault true;
 
+    environment = {
+      systemPackages = [pkgs.glimpse];
+      pathsToLink = [
+        "/share/dbus-1/services"
+        "/share/xdg-desktop-portal/portals"
+      ];
+    };
+
     security = {
+      pam.services.glimpse-lock = {};
       polkit.enable = lib.mkDefault true;
       pam.services.greetd.enableGnomeKeyring = lib.mkDefault true;
     };
