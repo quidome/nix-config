@@ -52,7 +52,7 @@ with lib; {
     settings.terminal = mkDefault (
       if config.settings.gui == "plasma"
       then "konsole"
-      else if config.settings.gui == "hyprland"
+      else if builtins.elem config.settings.gui ["hyprland" "niri"]
       then "wezterm"
       else if config.settings.gui == "cosmic"
       then "cosmic-term"
