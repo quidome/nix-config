@@ -80,13 +80,32 @@
     esac
   '';
   powerMonitor = pkgs.writeShellScript "niri-power-monitor" ''
-    set -eu
+    set -euo pipefail
+
+    current_power_state() {
+      if ${pkgs.systemd}/bin/systemd-ac-power >/dev/null 2>&1; then
+        printf '%s\n' ac
+      else
+        printf '%s\n' battery
+      fi
+    }
+
+    stable_state="$(current_power_state)"
+    debounce_seconds=5
 
     ${pkgs.upower}/bin/upower --monitor |
       while IFS= read -r changed; do
         case "$changed" in
           *line_power*)
-            ${pkgs.systemd}/bin/systemctl --user restart swayidle.service
+            while IFS= read -r -t "$debounce_seconds" changed; do
+              :
+            done
+
+            current_state="$(current_power_state)"
+            if [[ "$current_state" != "$stable_state" ]]; then
+              ${pkgs.systemd}/bin/systemctl --user restart swayidle.service
+              stable_state="$current_state"
+            fi
             ;;
         esac
       done
