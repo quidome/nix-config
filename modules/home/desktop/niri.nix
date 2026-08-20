@@ -35,6 +35,62 @@
     ${pkgs.procps}/bin/pgrep -u "$UID" -x swaylock >/dev/null && exit 0
     exec ${pkgs.swaylock}/bin/swaylock -f
   '';
+  idleProfiles = {
+    ac = {
+      lock = 900;
+      monitorsOff = 1800;
+      suspend = 3600;
+    };
+    battery = {
+      lock = 300;
+      monitorsOff = 600;
+      suspend = 1800;
+    };
+  };
+  idleAction = pkgs.writeShellScript "niri-idle-action" ''
+    set -eu
+
+    profile="$1"
+    action="$2"
+    on_ac=false
+    if ${pkgs.systemd}/bin/systemd-ac-power >/dev/null 2>&1; then
+      on_ac=true
+    fi
+
+    if [[ "$profile" == ac && "$on_ac" != true ]]; then
+      exit 0
+    fi
+    if [[ "$profile" == battery && "$on_ac" == true ]]; then
+      exit 0
+    fi
+
+    case "$action" in
+      lock)
+        ${pkgs.systemd}/bin/loginctl lock-session
+        ;;
+      monitors-off)
+        ${pkgs.niri}/bin/niri msg action power-off-monitors
+        ;;
+      suspend)
+        ${pkgs.systemd}/bin/systemctl suspend
+        ;;
+      *)
+        exit 2
+        ;;
+    esac
+  '';
+  powerMonitor = pkgs.writeShellScript "niri-power-monitor" ''
+    set -eu
+
+    ${pkgs.upower}/bin/upower --monitor |
+      while IFS= read -r changed; do
+        case "$changed" in
+          *line_power*)
+            ${pkgs.systemd}/bin/systemctl --user restart swayidle.service
+            ;;
+        esac
+      done
+  '';
   lockColors =
     if isLightTheme
     then {
@@ -134,7 +190,43 @@ in {
       avizo = niriAvizo;
       gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
       mako = niriMako;
-
+      swayidle = {
+        enable = lib.mkDefault true;
+        systemdTargets = ["graphical-session.target"];
+        events = {
+          after-resume = "${pkgs.niri}/bin/niri msg action power-on-monitors";
+          lock = "${lockScript}";
+          before-sleep = "${lockScript}";
+        };
+        timeouts = [
+          {
+            timeout = idleProfiles.battery.lock;
+            command = "${idleAction} battery lock";
+          }
+          {
+            timeout = idleProfiles.battery.monitorsOff;
+            command = "${idleAction} battery monitors-off";
+            resumeCommand = "${pkgs.niri}/bin/niri msg action power-on-monitors";
+          }
+          {
+            timeout = idleProfiles.battery.suspend;
+            command = "${idleAction} battery suspend";
+          }
+          {
+            timeout = idleProfiles.ac.lock;
+            command = "${idleAction} ac lock";
+          }
+          {
+            timeout = idleProfiles.ac.monitorsOff;
+            command = "${idleAction} ac monitors-off";
+            resumeCommand = "${pkgs.niri}/bin/niri msg action power-on-monitors";
+          }
+          {
+            timeout = idleProfiles.ac.suspend;
+            command = "${idleAction} ac suspend";
+          }
+        ];
+      };
     };
 
     systemd.user.services = {
@@ -189,7 +281,19 @@ in {
         Install.WantedBy = ["graphical-session.target"];
       };
 
-
+      niri-power-monitor = {
+        Unit = {
+          Description = "Restart Niri idle timers when power changes";
+          After = ["graphical-session.target" "swayidle.service"];
+          PartOf = ["graphical-session.target"];
+        };
+        Service = {
+          ExecStart = "${powerMonitor}";
+          Restart = "on-failure";
+          RestartSec = 2;
+        };
+        Install.WantedBy = ["graphical-session.target"];
+      };
     };
 
     xsession.preferStatusNotifierItems = lib.mkDefault true;
