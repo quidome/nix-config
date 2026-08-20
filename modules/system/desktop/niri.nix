@@ -5,7 +5,7 @@
   ...
 }: let
   sessions = "${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
-  tuigreetCommand = "${lib.getExe pkgs.tuigreet} --time --time-format '%a %F %H:%M' --remember --remember-user-session --asterisks --sessions ${sessions} --cmd ${config.programs.niri.package}/bin/niri-session";
+  tuigreetCommand = "${lib.getExe pkgs.tuigreet} --time --time-format '%a %F %H:%M' --asterisks --sessions ${sessions} --cmd ${config.programs.niri.package}/bin/niri-session";
 in {
   config = lib.mkIf (config.settings.gui == "niri") {
     programs.niri.enable = lib.mkDefault true;
