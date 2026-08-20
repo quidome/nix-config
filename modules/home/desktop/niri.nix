@@ -23,28 +23,37 @@
     if isLightTheme
     then "adwaita"
     else "adwaita-dark";
-  themeMode =
-    if isLightTheme
-    then "light"
-    else "dark";
+  niriAvizo = import ./hyprland/avizo.nix {inherit config lib;};
+  niriMako = import ./hyprland/mako.nix {inherit config lib;};
+  niriWaybar = import ./niri/waybar.nix {inherit config lib;};
   wallpaper = config.settings.wallpaper;
-  wallpaperSettings =
+  wallpaperCommand =
     if wallpaper == null
-    then ''
-      color = "#101010"
-      fit = "cover"
-      transition_ms = 800
-    ''
-    else ''
-      path = ${builtins.toJSON wallpaper}
-      color = "#101010"
-      fit = "cover"
-      transition_ms = 800
-    '';
+    then "${lib.getExe pkgs.swaybg} -c '#101010'"
+    else "${lib.getExe pkgs.swaybg} -i ${lib.escapeShellArg wallpaper} -m fill";
+  lockScript = pkgs.writeShellScript "niri-lock" ''
+    ${pkgs.procps}/bin/pgrep -u "$UID" -x swaylock >/dev/null && exit 0
+    exec ${pkgs.swaylock}/bin/swaylock -f
+  '';
+  lockColors =
+    if isLightTheme
+    then {
+      background = "eff1f5";
+      text = "4c4f69";
+      accent = "1e66f5";
+      failure = "d20f39";
+    }
+    else {
+      background = "1e1e2e";
+      text = "cdd6f4";
+      accent = "89b4fa";
+      failure = "f38ba8";
+    };
 in {
   config = lib.mkIf isNiri {
     home = {
       packages = with pkgs; [
+        brightnessctl
         playerctl
         xwayland-satellite
       ];
@@ -69,17 +78,50 @@ in {
       gtk4.extraConfig.gtk-application-prefer-dark-theme = !isLightTheme;
     };
 
-    programs.fuzzel = {
-      enable = lib.mkDefault true;
-      settings.main = {
-        terminal = launcherTerminal;
-        font = "${config.settings.terminalFont.name}:size=13";
-        width = 60;
-        lines = 8;
-        horizontal-pad = 16;
-        vertical-pad = 12;
-        inner-pad = 8;
+    programs = {
+      fuzzel = {
+        enable = lib.mkDefault true;
+        settings.main = {
+          terminal = launcherTerminal;
+          font = "${config.settings.terminalFont.name}:size=13";
+          width = 60;
+          lines = 8;
+          horizontal-pad = 16;
+          vertical-pad = 12;
+          inner-pad = 8;
+        };
       };
+
+      swaylock = {
+        enable = lib.mkDefault true;
+        settings =
+          {
+            color = lockColors.background;
+            font = config.settings.terminalFont.name;
+            font-size = 20;
+            indicator-radius = 90;
+            indicator-thickness = 8;
+            inside-color = "${lockColors.background}dd";
+            inside-clear-color = "${lockColors.accent}dd";
+            inside-ver-color = "${lockColors.accent}dd";
+            inside-wrong-color = "${lockColors.failure}dd";
+            key-hl-color = lockColors.accent;
+            line-color = "00000000";
+            ring-color = lockColors.text;
+            ring-clear-color = lockColors.accent;
+            ring-ver-color = lockColors.accent;
+            ring-wrong-color = lockColors.failure;
+            separator-color = "00000000";
+            show-failed-attempts = true;
+            text-color = lockColors.text;
+          }
+          // lib.optionalAttrs (wallpaper != null) {
+            image = wallpaper;
+            scaling = "fill";
+          };
+      };
+
+      waybar = niriWaybar;
     };
 
     qt = {
@@ -88,7 +130,12 @@ in {
       style.name = qtStyle;
     };
 
-    services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
+    services = {
+      avizo = niriAvizo;
+      gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
+      mako = niriMako;
+
+    };
 
     systemd.user.services = {
       polkit-gnome-authentication-agent-1 = {
@@ -104,102 +151,52 @@ in {
         Install.WantedBy = ["graphical-session.target"];
       };
 
-      glimpse-wallpaper = {
+      avizo = {
         Unit = {
-          Description = "Glimpse wallpaper";
+          After = lib.mkForce ["graphical-session.target"];
+          PartOf = lib.mkForce ["graphical-session.target"];
+        };
+        Install.WantedBy = lib.mkForce ["graphical-session.target"];
+      };
+
+      mako = {
+        Unit = {
+          Description = "Lightweight Wayland notification daemon";
           After = ["graphical-session.target"];
           PartOf = ["graphical-session.target"];
-          Requisite = ["graphical-session.target"];
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+        };
+        Service = {
+          ExecStart = "${lib.getExe pkgs.mako}";
+          Restart = "on-failure";
+        };
+        Install.WantedBy = ["graphical-session.target"];
+      };
+
+      swaybg = {
+        Unit = {
+          Description = "Niri wallpaper";
+          After = ["graphical-session.target"];
+          PartOf = ["graphical-session.target"];
+          ConditionEnvironment = "WAYLAND_DISPLAY";
         };
         Service = {
           Type = "exec";
-          ExecStart = "${pkgs.glimpse}/bin/glimpse-wallpaper";
+          ExecStart = wallpaperCommand;
           Restart = "on-failure";
           RestartSec = 2;
         };
         Install.WantedBy = ["graphical-session.target"];
       };
 
-      glimpse-shell = {
-        Unit = {
-          Description = "Glimpse shell";
-          After = ["graphical-session.target" "glimpse-wallpaper.service"];
-          PartOf = ["graphical-session.target"];
-          Requisite = ["graphical-session.target"];
-          Wants = ["glimpse-wallpaper.service"];
-        };
-        Service = {
-          Type = "exec";
-          ExecStart = "${pkgs.glimpse}/bin/glimpse-shell";
-          Restart = "on-failure";
-          RestartSec = 2;
-        };
-        Install.WantedBy = ["graphical-session.target"];
-      };
 
-      glimpse-lock = {
-        Unit = {
-          Description = "Glimpse lock screen";
-          After = ["graphical-session.target"];
-          PartOf = ["graphical-session.target"];
-          Requisite = ["graphical-session.target"];
-        };
-        Service = {
-          Type = "exec";
-          ExecStart = "${pkgs.glimpse}/bin/glimpse-lock";
-          Restart = "always";
-          RestartSec = 2;
-        };
-        Install.WantedBy = ["graphical-session.target"];
-      };
     };
 
+    xsession.preferStatusNotifierItems = lib.mkDefault true;
+
     xdg = {
-      configFile = {
-        "glimpse/themes/rosepine".source = "${pkgs.glimpse}/share/glimpse/themes/rosepine";
-
-        "glimpse/config.toml".text = ''
-          theme = "rosepine"
-          theme_mode = "${themeMode}"
-
-          [[panels]]
-          position = "top"
-          size = 36
-          left = ["pager", "mpris"]
-          center = ["clock", "notifications"]
-          right = ["network", "audio", "battery", "session"]
-
-          [wallpaper]
-          ${wallpaperSettings}
-
-          [backdrop]
-          enabled = true
-          blur_radius = 24
-
-          [night_light]
-          schedule = "off"
-
-          [idle]
-          enabled = false
-
-          [lock]
-          css_path = "themes/rosepine/lock.css"
-
-          [lock.background]
-          blur_radius = 0
-          dim = 0.35
-
-          [lock.clock]
-          enabled = true
-          time_format = "%H:%M"
-          date_format = "%A, %B %-d"
-
-          [lock.controls]
-          buttons = ["wifi", "battery", "power"]
-        '';
-
-        "niri/config.kdl".text = ''
-          environment {
+      configFile."niri/config.kdl".text = ''
+        environment {
             ELECTRON_OZONE_PLATFORM_HINT "auto"
           }
 
@@ -279,9 +276,11 @@ in {
             Mod+O repeat=false { toggle-overview; }
             Mod+Q repeat=false { close-window; }
 
-            XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" "-l" "1.0"; }
-            XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-            XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+            XF86AudioRaiseVolume allow-when-locked=true { spawn "${pkgs.avizo}/bin/volumectl" "-u" "up"; }
+            XF86AudioLowerVolume allow-when-locked=true { spawn "${pkgs.avizo}/bin/volumectl" "-u" "down"; }
+            XF86AudioMute allow-when-locked=true { spawn "${pkgs.avizo}/bin/volumectl" "toggle-mute"; }
+            XF86MonBrightnessUp allow-when-locked=true { spawn "${pkgs.avizo}/bin/lightctl" "up"; }
+            XF86MonBrightnessDown allow-when-locked=true { spawn "${pkgs.avizo}/bin/lightctl" "down"; }
             XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
             XF86AudioStop allow-when-locked=true { spawn "playerctl" "stop"; }
             XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
@@ -339,10 +338,10 @@ in {
             Ctrl+Print { screenshot-screen; }
             Alt+Print { screenshot-window; }
 
+            Mod+Alt+L hotkey-overlay-title="Lock Screen" { spawn "${pkgs.systemd}/bin/loginctl" "lock-session"; }
             Mod+Shift+E { quit; }
           }
-        '';
-      };
+      '';
 
       systemDirs.data = [
         "${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}"
