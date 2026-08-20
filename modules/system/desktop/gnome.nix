@@ -9,6 +9,7 @@
       (with pkgs; [
         geary
         gnome-tweaks
+        ghostty
         pavucontrol
       ])
       ++ lib.filter (x: x != null) [

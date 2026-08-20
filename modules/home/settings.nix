@@ -56,6 +56,8 @@ with lib; {
       then "wezterm"
       else if config.settings.gui == "cosmic"
       then "cosmic-term"
+      else if config.settings.gui == "gnome"
+      then "ghostty"
       else "kgx"
     );
   };
