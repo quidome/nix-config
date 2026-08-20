@@ -1,6 +1,6 @@
 {
   settings = {
-    gui = "niri";
+    gui = "gnome";
     theme = "dark";
     wallpaper = "/home/quidome/Pictures/Wallpapers/cabin-3.png";
   };
