@@ -44,6 +44,8 @@ in {
       ]
       ++ lib.optionals (config.settings.gui != "hyprland") [
         element-desktop
+      ]
+      ++ lib.optionals (config.settings.gui != "hyprland" && config.settings.gui != "niri") [
         signal-desktop
       ];
 
