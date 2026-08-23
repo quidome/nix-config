@@ -13,7 +13,7 @@
         pavucontrol
       ])
       ++ lib.filter (x: x != null) [
-        (pkgs.gnomeExtensions.appindicator or null)
+        (pkgs.gnomeExtensions.caffeine or null)
         (pkgs.gnomeExtensions.display-configuration-switcher or null)
       ]
       ++ lib.optionals config.services.tailscale.enable (
