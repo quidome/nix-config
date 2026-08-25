@@ -15,9 +15,6 @@
   outputs = inputs: let
     args = inputs;
     system = "x86_64-linux";
-    glimpseOverlay = final: _prev: {
-      glimpse = final.callPackage ./packages/glimpse.nix {};
-    };
 
     pkgsUnstable = import inputs.unstable {
       inherit system;
@@ -26,7 +23,6 @@
 
     pkgs = import inputs.nixpkgs {
       inherit system;
-      overlays = [glimpseOverlay];
       config.allowUnfree = true;
     };
 
@@ -62,8 +58,6 @@
         ];
       };
   in {
-    packages.${system}.glimpse = pkgs.glimpse;
-
     nixosConfigurations = {
       coolding = mkHost "quidome" "coolding";
       nimbus = mkHost "quidome" "nimbus";
