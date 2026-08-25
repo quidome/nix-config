@@ -64,6 +64,7 @@ in {
       packages = with pkgs; [
         brightnessctl
         playerctl
+        wdisplays
         xwayland-satellite
       ];
 

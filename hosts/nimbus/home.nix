@@ -2,13 +2,18 @@
   config,
   lib,
   ...
-}: {
+}: let
+  sessionTarget =
+    if config.settings.gui == "hyprland"
+    then "hyprland-session.target"
+    else "graphical-session.target";
+in {
   imports = [
     ./shared.nix
     ./home-vars.nix
   ];
 
-  services.shikane = lib.mkIf (config.settings.gui == "hyprland") {
+  services.shikane = lib.mkIf (lib.elem config.settings.gui ["hyprland" "niri"]) {
     enable = true;
     settings.profile = [
       {
@@ -48,12 +53,12 @@
     ];
   };
 
-  systemd.user.services.shikane = lib.mkIf (config.settings.gui == "hyprland") {
+  systemd.user.services.shikane = lib.mkIf (lib.elem config.settings.gui ["hyprland" "niri"]) {
     Unit = {
-      After = lib.mkForce ["hyprland-session.target"];
-      PartOf = lib.mkForce ["hyprland-session.target"];
+      After = lib.mkForce [sessionTarget];
+      PartOf = lib.mkForce [sessionTarget];
     };
-    Install.WantedBy = lib.mkForce ["hyprland-session.target"];
+    Install.WantedBy = lib.mkForce [sessionTarget];
   };
 
   home.stateVersion = "26.05";
