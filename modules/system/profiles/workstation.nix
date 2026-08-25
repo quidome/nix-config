@@ -42,7 +42,7 @@ in {
         hunspellDicts.en_US-large
         hunspellDicts.en_GB-large
       ]
-      ++ lib.optionals (config.settings.gui != "hyprland") [
+      ++ lib.optionals (config.settings.gui != "hyprland" && config.settings.gui != "niri") [
         element-desktop
       ]
       ++ lib.optionals (config.settings.gui != "hyprland" && config.settings.gui != "niri") [

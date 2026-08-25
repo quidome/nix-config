@@ -3,7 +3,7 @@
     ./plasma.nix
     ./hyprland.nix
     ./niri.nix
-    ./signal-desktop.nix
+    ./electron-desktop.nix
     ./cosmic.nix
     ./gnome.nix
   ];
