@@ -75,6 +75,7 @@
     lact
     amdgpu_top
     nvtopPackages.amd
+    streamcontroller
   ];
 
   networking = {
