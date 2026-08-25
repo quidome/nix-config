@@ -2,9 +2,11 @@
   config,
   lib,
   pkgs,
+  pkgsUnstable,
   ...
 }: let
   isNiri = config.settings.gui == "niri";
+  noctaliaEnabled = isNiri && config.programs.noctalia.enable;
   isLightTheme = config.settings.theme == "light";
   terminal = config.settings.terminal;
   launcherTerminal =
@@ -31,85 +33,17 @@
     if wallpaper == null
     then "${lib.getExe pkgs.swaybg} -c '#101010'"
     else "${lib.getExe pkgs.swaybg} -i ${lib.escapeShellArg wallpaper} -m fill";
-  lockScript = pkgs.writeShellScript "niri-lock" ''
-    ${pkgs.procps}/bin/pgrep -u "$UID" -x swaylock >/dev/null && exit 0
-    exec ${pkgs.swaylock}/bin/swaylock -f
-  '';
-  idleProfiles = {
-    ac = {
-      lock = 900;
-      monitorsOff = 1800;
-      suspend = 3600;
-    };
-    battery = {
-      lock = 300;
-      monitorsOff = 600;
-      suspend = 1800;
-    };
-  };
-  idleAction = pkgs.writeShellScript "niri-idle-action" ''
-    set -eu
-
-    profile="$1"
-    action="$2"
-    on_ac=false
-    if ${pkgs.systemd}/bin/systemd-ac-power >/dev/null 2>&1; then
-      on_ac=true
-    fi
-
-    if [[ "$profile" == ac && "$on_ac" != true ]]; then
-      exit 0
-    fi
-    if [[ "$profile" == battery && "$on_ac" == true ]]; then
-      exit 0
-    fi
-
-    case "$action" in
-      lock)
-        ${pkgs.systemd}/bin/loginctl lock-session
-        ;;
-      monitors-off)
-        ${pkgs.niri}/bin/niri msg action power-off-monitors
-        ;;
-      suspend)
-        ${pkgs.systemd}/bin/systemctl suspend
-        ;;
-      *)
-        exit 2
-        ;;
-    esac
-  '';
-  powerMonitor = pkgs.writeShellScript "niri-power-monitor" ''
-    set -euo pipefail
-
-    current_power_state() {
-      if ${pkgs.systemd}/bin/systemd-ac-power >/dev/null 2>&1; then
-        printf '%s\n' ac
-      else
-        printf '%s\n' battery
-      fi
-    }
-
-    stable_state="$(current_power_state)"
-    debounce_seconds=5
-
-    ${pkgs.upower}/bin/upower --monitor |
-      while IFS= read -r changed; do
-        case "$changed" in
-          *line_power*)
-            while IFS= read -r -t "$debounce_seconds" changed; do
-              :
-            done
-
-            current_state="$(current_power_state)"
-            if [[ "$current_state" != "$stable_state" ]]; then
-              ${pkgs.systemd}/bin/systemctl --user restart swayidle.service
-              stable_state="$current_state"
-            fi
-            ;;
-        esac
-      done
-  '';
+  lockScript =
+    if noctaliaEnabled
+    then
+      pkgs.writeShellScript "niri-lock" ''
+        ${lib.getExe pkgsUnstable.noctalia} msg session lock || exec ${pkgs.swaylock}/bin/swaylock -f
+      ''
+    else
+      pkgs.writeShellScript "niri-lock" ''
+        ${pkgs.procps}/bin/pgrep -u "$UID" -x swaylock >/dev/null && exit 0
+        exec ${pkgs.swaylock}/bin/swaylock -f
+      '';
   lockColors =
     if isLightTheme
     then {
@@ -196,7 +130,7 @@ in {
           };
       };
 
-      waybar = niriWaybar;
+      waybar = lib.mkIf (!noctaliaEnabled) niriWaybar;
     };
 
     qt = {
@@ -206,114 +140,66 @@ in {
     };
 
     services = {
-      avizo = niriAvizo;
+      avizo = lib.mkIf (!noctaliaEnabled) niriAvizo;
       gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
-      mako = niriMako;
-      swayidle = {
-        enable = lib.mkDefault true;
-        systemdTargets = ["graphical-session.target"];
-        events = {
-          after-resume = "${pkgs.niri}/bin/niri msg action power-on-monitors";
-          lock = "${lockScript}";
-          before-sleep = "${lockScript}";
-        };
-        timeouts = [
-          {
-            timeout = idleProfiles.battery.lock;
-            command = "${idleAction} battery lock";
-          }
-          {
-            timeout = idleProfiles.battery.monitorsOff;
-            command = "${idleAction} battery monitors-off";
-            resumeCommand = "${pkgs.niri}/bin/niri msg action power-on-monitors";
-          }
-          {
-            timeout = idleProfiles.battery.suspend;
-            command = "${idleAction} battery suspend";
-          }
-          {
-            timeout = idleProfiles.ac.lock;
-            command = "${idleAction} ac lock";
-          }
-          {
-            timeout = idleProfiles.ac.monitorsOff;
-            command = "${idleAction} ac monitors-off";
-            resumeCommand = "${pkgs.niri}/bin/niri msg action power-on-monitors";
-          }
-          {
-            timeout = idleProfiles.ac.suspend;
-            command = "${idleAction} ac suspend";
-          }
-        ];
-      };
+      mako = lib.mkIf (!noctaliaEnabled) niriMako;
     };
 
-    systemd.user.services = {
-      polkit-gnome-authentication-agent-1 = {
-        Unit = {
-          Description = "GNOME polkit authentication agent";
-          After = ["graphical-session.target"];
-          PartOf = ["graphical-session.target"];
+    systemd.user.services = lib.mkMerge [
+      {
+        polkit-gnome-authentication-agent-1 = {
+          Unit = {
+            Description = "GNOME polkit authentication agent";
+            After = ["graphical-session.target"];
+            PartOf = ["graphical-session.target"];
+          };
+          Service = {
+            ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+            Restart = "on-failure";
+          };
+          Install.WantedBy = ["graphical-session.target"];
         };
-        Service = {
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
+      }
+      (lib.mkIf (!noctaliaEnabled) {
+        avizo = {
+          Unit = {
+            After = lib.mkForce ["graphical-session.target"];
+            PartOf = lib.mkForce ["graphical-session.target"];
+          };
+          Install.WantedBy = lib.mkForce ["graphical-session.target"];
         };
-        Install.WantedBy = ["graphical-session.target"];
-      };
 
-      avizo = {
-        Unit = {
-          After = lib.mkForce ["graphical-session.target"];
-          PartOf = lib.mkForce ["graphical-session.target"];
+        mako = {
+          Unit = {
+            Description = "Lightweight Wayland notification daemon";
+            After = ["graphical-session.target"];
+            PartOf = ["graphical-session.target"];
+            ConditionEnvironment = "WAYLAND_DISPLAY";
+          };
+          Service = {
+            ExecStart = "${lib.getExe pkgs.mako}";
+            Restart = "on-failure";
+          };
+          Install.WantedBy = ["graphical-session.target"];
         };
-        Install.WantedBy = lib.mkForce ["graphical-session.target"];
-      };
 
-      mako = {
-        Unit = {
-          Description = "Lightweight Wayland notification daemon";
-          After = ["graphical-session.target"];
-          PartOf = ["graphical-session.target"];
-          ConditionEnvironment = "WAYLAND_DISPLAY";
+        swaybg = {
+          Unit = {
+            Description = "Niri wallpaper";
+            After = ["graphical-session.target"];
+            PartOf = ["graphical-session.target"];
+            ConditionEnvironment = "WAYLAND_DISPLAY";
+          };
+          Service = {
+            Type = "exec";
+            ExecStart = wallpaperCommand;
+            Restart = "on-failure";
+            RestartSec = 2;
+          };
+          Install.WantedBy = ["graphical-session.target"];
         };
-        Service = {
-          ExecStart = "${lib.getExe pkgs.mako}";
-          Restart = "on-failure";
-        };
-        Install.WantedBy = ["graphical-session.target"];
-      };
-
-      swaybg = {
-        Unit = {
-          Description = "Niri wallpaper";
-          After = ["graphical-session.target"];
-          PartOf = ["graphical-session.target"];
-          ConditionEnvironment = "WAYLAND_DISPLAY";
-        };
-        Service = {
-          Type = "exec";
-          ExecStart = wallpaperCommand;
-          Restart = "on-failure";
-          RestartSec = 2;
-        };
-        Install.WantedBy = ["graphical-session.target"];
-      };
-
-      niri-power-monitor = {
-        Unit = {
-          Description = "Restart Niri idle timers when power changes";
-          After = ["graphical-session.target" "swayidle.service"];
-          PartOf = ["graphical-session.target"];
-        };
-        Service = {
-          ExecStart = "${powerMonitor}";
-          Restart = "on-failure";
-          RestartSec = 2;
-        };
-        Install.WantedBy = ["graphical-session.target"];
-      };
-    };
+      })
+    ];
 
     xsession.preferStatusNotifierItems = lib.mkDefault true;
 
@@ -395,15 +281,34 @@ in {
             Mod+Shift+Slash { show-hotkey-overlay; }
 
             Mod+Return hotkey-overlay-title="Open ${terminal}" { spawn "${terminal}"; }
-            Mod+D hotkey-overlay-title="Run an Application" { spawn "fuzzel"; }
+            Mod+D hotkey-overlay-title="Run an Application" {
+              ${
+          if noctaliaEnabled
+          then ''spawn "${lib.getExe pkgsUnstable.noctalia}" "msg" "panel-toggle" "launcher";''
+          else ''spawn "fuzzel";''
+        }
+            }
+            Mod+Shift+D hotkey-overlay-title="Run an Application (Fuzzel)" { spawn "fuzzel"; }
             Mod+O repeat=false { toggle-overview; }
             Mod+Q repeat=false { close-window; }
 
+            ${
+          if noctaliaEnabled
+          then ''
+            XF86AudioRaiseVolume allow-when-locked=true { spawn "${lib.getExe pkgsUnstable.noctalia}" "msg" "volume-up"; }
+            XF86AudioLowerVolume allow-when-locked=true { spawn "${lib.getExe pkgsUnstable.noctalia}" "msg" "volume-down"; }
+            XF86AudioMute allow-when-locked=true { spawn "${lib.getExe pkgsUnstable.noctalia}" "msg" "volume-mute"; }
+            XF86MonBrightnessUp allow-when-locked=true { spawn "${lib.getExe pkgsUnstable.noctalia}" "msg" "brightness-up"; }
+            XF86MonBrightnessDown allow-when-locked=true { spawn "${lib.getExe pkgsUnstable.noctalia}" "msg" "brightness-down"; }
+          ''
+          else ''
             XF86AudioRaiseVolume allow-when-locked=true { spawn "${pkgs.avizo}/bin/volumectl" "-u" "up"; }
             XF86AudioLowerVolume allow-when-locked=true { spawn "${pkgs.avizo}/bin/volumectl" "-u" "down"; }
             XF86AudioMute allow-when-locked=true { spawn "${pkgs.avizo}/bin/volumectl" "toggle-mute"; }
             XF86MonBrightnessUp allow-when-locked=true { spawn "${pkgs.avizo}/bin/lightctl" "up"; }
             XF86MonBrightnessDown allow-when-locked=true { spawn "${pkgs.avizo}/bin/lightctl" "down"; }
+          ''
+        }
             XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
             XF86AudioStop allow-when-locked=true { spawn "playerctl" "stop"; }
             XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
@@ -461,7 +366,7 @@ in {
             Ctrl+Print { screenshot-screen; }
             Alt+Print { screenshot-window; }
 
-            Mod+Alt+L hotkey-overlay-title="Lock Screen" { spawn "${pkgs.systemd}/bin/loginctl" "lock-session"; }
+            Mod+Alt+L hotkey-overlay-title="Lock Screen" { spawn "${lockScript}"; }
             Mod+Shift+E { quit; }
           }
       '';
