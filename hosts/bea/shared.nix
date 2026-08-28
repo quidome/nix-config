@@ -1,6 +1,6 @@
 {
   settings = {
-    gui = "plasma";
+    gui = "gnome";
     theme = "dark";
   };
 }
