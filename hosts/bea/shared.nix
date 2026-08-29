@@ -1,6 +1,6 @@
 {
   settings = {
-    gui = "gnome";
+    gui = "niri";
     theme = "dark";
   };
 }
