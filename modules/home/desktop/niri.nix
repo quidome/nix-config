@@ -222,10 +222,6 @@ in {
               natural-scroll
             }
 
-            mouse {
-              natural-scroll
-            }
-
             trackpoint {
               natural-scroll
             }

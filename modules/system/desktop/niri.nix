@@ -17,6 +17,7 @@ in {
     };
 
     services = {
+      input-remapper.enable = true;
       gnome.gnome-keyring.enable = lib.mkDefault true;
       power-profiles-daemon.enable = lib.mkDefault true;
       upower.enable = lib.mkDefault true;
