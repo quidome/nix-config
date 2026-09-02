@@ -1,4 +1,33 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  herdr = pkgs.stdenvNoCC.mkDerivation {
+    pname = "herdr";
+    version = "0.8.2";
+
+    src = pkgs.fetchurl {
+      url = "https://github.com/herdrdev/herdr/releases/download/v0.8.2/herdr-linux-x86_64";
+      hash = "sha256-l2FQoU1JDJSyQ+ouGn6y37Z/EuNrGC25CTb2co5q7PQ=";
+    };
+
+    dontUnpack = true;
+    dontBuild = true;
+
+    installPhase = ''
+      install -Dm755 "$src" "$out/bin/herdr"
+    '';
+
+    meta = {
+      description = "Terminal workspace manager for AI coding agents";
+      homepage = "https://herdr.dev";
+      license = lib.licenses.asl20;
+      mainProgram = "herdr";
+      platforms = ["x86_64-linux"];
+    };
+  };
+in {
   imports = [
     ./disk-config.nix
     ./shared.nix
@@ -69,6 +98,7 @@
 
     docker-compose
     lazydocker
+    herdr
 
     libimobiledevice
     ifuse
