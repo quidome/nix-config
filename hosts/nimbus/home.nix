@@ -20,7 +20,7 @@ in {
         name = "internal";
         output = [
           {
-            match = "eDP-1";
+            search = "n=eDP-1";
             enable = true;
             position = {
               x = 0;
@@ -35,11 +35,11 @@ in {
         name = "external-only";
         output = [
           {
-            match = "eDP-1";
+            search = "n=eDP-1";
             enable = false;
           }
           {
-            match = "DP-1";
+            search = "n=DP-1";
             enable = true;
             position = {
               x = 0;

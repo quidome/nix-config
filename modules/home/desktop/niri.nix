@@ -59,6 +59,20 @@
       failure = "f38ba8";
     };
 in {
+  options.settings.niri = {
+    extraConfig = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "Additional Niri configuration for a host.";
+    };
+
+    extraBinds = lib.mkOption {
+      type = lib.types.lines;
+      default = "";
+      description = "Additional Niri key bindings for a host.";
+    };
+  };
+
   config = lib.mkIf isNiri {
     home = {
       packages = with pkgs; [
@@ -269,12 +283,24 @@ in {
 
           animations {}
 
+          ${config.settings.niri.extraConfig}
+
           window-rule {
             match app-id=r#"firefox$"# title="^Picture-in-Picture$"
             open-floating true
           }
 
+          window-rule {
+            match app-id=r#"^steam_app_[0-9]+$"#
+            variable-refresh-rate true
+            focus-ring {
+              off
+            }
+          }
+
           binds {
+            ${config.settings.niri.extraBinds}
+
             Mod+Shift+Slash { show-hotkey-overlay; }
 
             Mod+Return hotkey-overlay-title="Open ${terminal}" { spawn "${terminal}"; }
