@@ -11,6 +11,7 @@ if  [ -n "$TMUX" ] ||
     [ "$TERMINAL_EMULATOR" = "JetBrains-JediTerm" ] ||
     [ "$NO_TMUX" = "1" ] ||
     [ "$NO_ZELLIJ" = "1" ] ||
+    [ "$HERDR_ENV" = "1" ] ||
     [ "$INSIDE_EMACS" = 'vterm' ]
 then
     return 1
