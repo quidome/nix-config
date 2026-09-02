@@ -21,7 +21,7 @@
     ];
   };
   enabledOutput = output: {
-    search = output.search;
+    inherit (output) search;
     enable = true;
     mode = "preferred";
     position = {
@@ -32,7 +32,7 @@
     transform = "normal";
   };
   disabledOutput = output: {
-    search = output.search;
+    inherit (output) search;
     enable = false;
   };
   shikanectl = lib.getExe' pkgs.shikane "shikanectl";
