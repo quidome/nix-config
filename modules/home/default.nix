@@ -4,6 +4,5 @@
     ./profiles
     ./programs
     ./settings.nix
-    ./theme
   ];
 }
