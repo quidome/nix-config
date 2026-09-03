@@ -70,7 +70,6 @@
     docker-compose
     lazydocker
 
-    libimobiledevice
     ifuse
     virt-manager
     wireshark
