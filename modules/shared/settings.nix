@@ -15,15 +15,7 @@ with lib; {
     };
 
     gui = mkOption {
-      type = with types;
-        enum [
-          "none"
-          "plasma"
-          "hyprland"
-          "niri"
-          "cosmic"
-          "gnome"
-        ];
+      type = types.enum ["plasma" "none"];
       default = "none";
       description = ''
         Which GUI profile to use.
@@ -37,13 +29,6 @@ with lib; {
       default = "light";
       description = "Light or dark theme preference";
       example = "light";
-    };
-
-    wallpaper = mkOption {
-      type = with types; nullOr str;
-      default = null;
-      example = "/home/quidome/Pictures/wallpaper.jpg";
-      description = "Absolute path to the desktop wallpaper image for graphical sessions.";
     };
   };
 }

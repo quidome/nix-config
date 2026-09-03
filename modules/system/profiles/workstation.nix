@@ -18,36 +18,31 @@ in {
 
     hardware.bluetooth.input.General.UserspaceHID = mkDefault true;
 
-    environment.systemPackages = with pkgs;
-      [
-        adoptopenjdk-icedtea-web
-        cameractrls-gtk3
-        firefox
-        thunderbird
-        mani
-        obsidian
-        spotify
-        pandoc
-        pavucontrol
-        plantuml
-        v4l-utils
-        vlc
-        vscodium
-        wl-clipboard
+    environment.systemPackages = with pkgs; [
+      adoptopenjdk-icedtea-web
+      cameractrls-gtk3
+      firefox
+      thunderbird
+      mani
+      obsidian
+      spotify
+      pandoc
+      pavucontrol
+      plantuml
+      v4l-utils
+      vlc
+      vscodium
+      wl-clipboard
 
-        # office
-        libreoffice-qt
-        hunspell
-        hunspellDicts.nl_NL
-        hunspellDicts.en_US-large
-        hunspellDicts.en_GB-large
-      ]
-      ++ lib.optionals (config.settings.gui != "hyprland" && config.settings.gui != "niri") [
-        element-desktop
-      ]
-      ++ lib.optionals (config.settings.gui != "hyprland" && config.settings.gui != "niri") [
-        signal-desktop
-      ];
+      # office
+      libreoffice-qt
+      hunspell
+      hunspellDicts.nl_NL
+      hunspellDicts.en_US-large
+      hunspellDicts.en_GB-large
+      element-desktop
+      signal-desktop
+    ];
 
     fonts.packages = with pkgs; [
       nerd-fonts.jetbrains-mono

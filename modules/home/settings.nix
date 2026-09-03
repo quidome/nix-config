@@ -40,24 +40,12 @@ with lib; {
       example = 42;
       description = "Font size for graphical terminals";
     };
-
-    gnome.enableAppIndicator = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable GNOME AppIndicator shell extension when available.";
-    };
   };
 
   config = {
     settings.terminal = mkDefault (
       if config.settings.gui == "plasma"
       then "konsole"
-      else if builtins.elem config.settings.gui ["hyprland" "niri"]
-      then "wezterm"
-      else if config.settings.gui == "cosmic"
-      then "cosmic-term"
-      else if config.settings.gui == "gnome"
-      then "ghostty"
       else "kgx"
     );
   };

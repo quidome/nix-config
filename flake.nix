@@ -39,7 +39,6 @@
           {
             home-manager = {
               backupFileExtension = "backup";
-              extraSpecialArgs = {inherit pkgsUnstable;};
               useGlobalPkgs = true;
               useUserPackages = true;
               users.${user} = {...}: {
