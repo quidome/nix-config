@@ -11,7 +11,6 @@ in {
 
     programs = {
       emacs.enable = mkDefault true;
-      firefox.enable = mkDefault true;
       zed-editor.enable = mkDefault true;
     };
 
