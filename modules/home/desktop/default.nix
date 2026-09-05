@@ -1,3 +1,7 @@
 {
-  imports = [./plasma.nix];
+  imports = [
+    ./plasma.nix
+    ./input-remapper.nix
+    ./gnome.nix
+  ];
 }
