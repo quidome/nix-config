@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  pkgsUnstable,
   ...
 }:
 with lib; let
@@ -96,7 +95,6 @@ in {
     kubernetes-helm
     kubeseal
     kustomize
-    pkgsUnstable.pi-coding-agent
     python3
     shellcheck
     stern

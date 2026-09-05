@@ -49,6 +49,11 @@ in {
 
     git.enable = true;
 
+    pi.coding-agent = {
+      enable = true;
+      settings.packages = ["npm:pi-subagents@0.65.1"];
+    };
+
     helix.enable = true;
 
     htop = {
