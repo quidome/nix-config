@@ -26,7 +26,6 @@
   networking = {
     hostName = "nimbus";
     firewall.enable = true;
-    networkmanager.enable = true;
 
     wg-quick.interfaces.wg0 = {
       autostart = false;

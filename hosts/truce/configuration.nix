@@ -10,7 +10,6 @@
   networking = {
     hostName = "truce";
     firewall.enable = true;
-    networkmanager.enable = true;
   };
 
   powerManagement.enable = true;

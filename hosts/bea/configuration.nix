@@ -80,7 +80,6 @@
   networking = {
     hostName = "bea";
     firewall.enable = true;
-    networkmanager.enable = true;
 
     # Disable secondary interface to prevent IPv6 routing conflicts
     interfaces.enp47s0f3u3u3.useDHCP = false;
