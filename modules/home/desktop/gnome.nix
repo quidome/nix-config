@@ -7,15 +7,9 @@
 with lib; let
   gnomeEnabled = config.settings.gui == "gnome";
 
-  inherit (config.settings) terminal;
   isLightTheme = config.settings.theme == "light";
-  wallpaper = config.settings.wallpaper;
   gnomeExtensions = pkgs.gnomeExtensions or {};
 
-  terminalCmd =
-    if terminal != ""
-    then terminal
-    else "kgx";
   hasCaffeine = gnomeExtensions ? caffeine;
   hasDisplayConfigurationSwitcher = gnomeExtensions ? display-configuration-switcher;
   gnomeColorScheme =
@@ -26,10 +20,6 @@ with lib; let
     if isLightTheme
     then "Adwaita"
     else "Adwaita Dark";
-  wallpaperSettings = lib.optionalAttrs (wallpaper != null) {
-    picture-uri = "file://${wallpaper}";
-    picture-uri-dark = "file://${wallpaper}";
-  };
 in {
   config = mkIf gnomeEnabled {
     home.sessionVariables = {
@@ -43,8 +33,6 @@ in {
           lib.optional hasCaffeine "caffeine@patapon.info"
           ++ lib.optional hasDisplayConfigurationSwitcher "display-configuration-switcher@knokelmaat.gitlab.com";
       };
-
-      "org/gnome/desktop/background" = wallpaperSettings;
 
       "org/gnome/desktop/interface" = {
         color-scheme = gnomeColorScheme;
@@ -73,8 +61,6 @@ in {
         two-finger-scrolling-enabled = true;
       };
 
-      "org/gnome/desktop/screensaver" = wallpaperSettings;
-
       "org/gnome/desktop/wm/preferences" = {
         button-layout = "icon:minimize,maximize,close";
         # Follow pointer focus behavior intentionally.
@@ -89,7 +75,7 @@ in {
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
         binding = "<Super>Return";
-        command = terminalCmd;
+        command = "ghostty";
         name = "Launch Terminal";
       };
 
