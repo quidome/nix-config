@@ -101,20 +101,54 @@ in {
       ];
     };
 
-    systemd.user.services.input-remapper-autoload = {
-      Unit = {
-        Description = "Load input-remapper presets after the graphical session is ready";
-        After = ["graphical-session.target"];
+    # NixOS keeps input-remapper's root udev autoload rule disabled because of
+    # upstream issue #140. Poll from the user session instead so autoloading
+    # cannot cross session/user boundaries.
+    systemd.user = {
+      services.input-remapper-autoload = {
+        Unit = {
+          Description = "Load input-remapper presets after the graphical session is ready";
+          After = ["graphical-session.target"];
+          PartOf = ["graphical-session.target"];
+        };
+        Service = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
+          # Do not autoload this session's mappings if the previous session was not cleaned up.
+          ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.input-remapper}/bin/input-remapper-control --command stop-all && ${pkgs.input-remapper}/bin/input-remapper-control --command autoload'";
+          ExecStop = "${pkgs.input-remapper}/bin/input-remapper-control --command stop-all";
+        };
+        Install.WantedBy = ["graphical-session.target"];
       };
-      Service = {
-        Type = "oneshot";
-        ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
-        # Do not autoload this session's mappings if the previous session was not cleaned up.
-        ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.input-remapper}/bin/input-remapper-control --command stop-all && ${pkgs.input-remapper}/bin/input-remapper-control --command autoload'";
-        Restart = "on-failure";
-        RestartSec = 5;
+
+      services.input-remapper-autoload-refresh = {
+        Unit = {
+          Description = "Retry input-remapper autoload for newly available devices";
+          After = ["input-remapper-autoload.service"];
+          PartOf = ["graphical-session.target"];
+        };
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.input-remapper}/bin/input-remapper-control --command autoload";
+        };
       };
-      Install.WantedBy = ["graphical-session.target"];
+
+      timers.input-remapper-autoload-refresh = {
+        Unit = {
+          Description = "Retry input-remapper autoload for newly available devices";
+          Requires = ["input-remapper-autoload.service"];
+          After = ["input-remapper-autoload.service"];
+          PartOf = ["graphical-session.target"];
+        };
+        Timer = {
+          AccuracySec = "1s";
+          OnStartupSec = "10s";
+          OnUnitActiveSec = "10s";
+          Unit = "input-remapper-autoload-refresh.service";
+        };
+        Install.WantedBy = ["graphical-session.target"];
+      };
     };
   };
 }

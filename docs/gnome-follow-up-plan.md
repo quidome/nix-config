@@ -31,6 +31,16 @@ Resolved by keeping the GNOME extension set declarative and deriving activation 
 
 The evaluated Bea configuration contains matching packages and enabled-extension UUIDs for AppIndicator, Caffeine, and Display Configuration Switcher. `just check`, `just lint`, `alejandra --check .`, both host dry-runs, and `git diff --check` passed.
 
+### 4. Input-remapper lifecycle behavior
+
+Resolved without enabling the pinned package's root udev rule, which NixOS leaves disabled because of upstream issue #140. The user session now:
+
+- performs `stop-all && autoload` once after `graphical-session.target`, and refuses to autoload if cleanup fails;
+- remains bound to `graphical-session.target` and runs `stop-all` when the session ends; and
+- retries `autoload` every 10 seconds from a user systemd timer, covering delayed device availability and hotplug/resume without invoking a root udev command.
+
+The timer requires successful session initialization, uses one-second timer accuracy, and is stopped with the graphical session. This preserves the single-user D-Bus boundary established in topic 1. Evaluation confirmed the generated user service/timer relationships; `just check`, `just lint`, `alejandra --check .`, both host dry-runs, and `git diff --check` passed.
+
 ## 1. Resolve the input-remapper security boundary first
 
 - Reproduce the reported behavior from a non-root account in a disposable/test environment.
