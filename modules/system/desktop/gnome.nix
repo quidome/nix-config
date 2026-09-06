@@ -57,7 +57,7 @@ in {
 
     services = {
       input-remapper = {
-        enable = true;
+        enable = lib.mkDefault config.settings.inputRemapper.enable;
         package = inputRemapperPackage;
       };
       xserver.enable = lib.mkDefault true;

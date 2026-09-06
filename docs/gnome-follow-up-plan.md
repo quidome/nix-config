@@ -17,6 +17,10 @@ Resolved by restricting the system D-Bus policy for input-remapper 2.2.0, pinned
 
 A disposable NixOS VM using dbus-broker reproduced the original issue: an unrelated user could invoke `hello`, `stop-all`, and `quit`, including stopping the root daemon. The restricted policy allowed the configured desktop user to call `hello` while an unrelated user was denied all three calls and the daemon remained active. The policy covers injection methods because it denies all messages to the daemon destination, not only the tested commands.
 
+### 2. Default input-remapper policy
+
+Resolved as opt-in. `settings.inputRemapper.enable` defaults to `false`, and the Home Manager configuration is gated by the same setting so a disabled system daemon does not leave a failing autoload unit behind. Bea and Nimbus explicitly opt in to preserve their existing mouse mappings. The stale Niri branch was removed because Niri is not a supported GUI value in this repository.
+
 ## 1. Resolve the input-remapper security boundary first
 
 - Reproduce the reported behavior from a non-root account in a disposable/test environment.
