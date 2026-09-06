@@ -41,6 +41,10 @@ Resolved without enabling the pinned package's root udev rule, which NixOS leave
 
 The timer requires successful session initialization, uses one-second timer accuracy, and is stopped with the graphical session. This preserves the single-user D-Bus boundary established in topic 1. Evaluation confirmed the generated user service/timer relationships; `just check`, `just lint`, `alejandra --check .`, both host dry-runs, and `git diff --check` passed.
 
+### 5. Desktop-manager transitions
+
+No configuration change was needed. Evaluation confirms that both `bea` and `nimbus` select `settings.gui = "gnome"`, enable GDM, and disable SDDM. The live transition remains intentionally operational: a host currently running SDDM/Plasma needs a planned reboot or an explicitly approved display-manager restart; `switch` alone is not assumed to change the active session.
+
 ## 1. Resolve the input-remapper security boundary first
 
 - Reproduce the reported behavior from a non-root account in a disposable/test environment.
