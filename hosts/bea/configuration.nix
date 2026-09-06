@@ -3,7 +3,6 @@
     ./disk-config.nix
     ./shared.nix
     ./vars.nix
-    ./networking.nix
     ./hardware-configuration.nix
   ];
 
