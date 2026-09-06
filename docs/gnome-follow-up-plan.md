@@ -21,6 +21,16 @@ A disposable NixOS VM using dbus-broker reproduced the original issue: an unrela
 
 Resolved as opt-in. `settings.inputRemapper.enable` defaults to `false`, and the Home Manager configuration is gated by the same setting so a disabled system daemon does not leave a failing autoload unit behind. Bea and Nimbus explicitly opt in to preserve their existing mouse mappings. The stale Niri branch was removed because Niri is not a supported GUI value in this repository.
 
+### 3. GNOME extension package/activation consistency
+
+Resolved by keeping the GNOME extension set declarative and deriving activation from package availability:
+
+- AppIndicator, Caffeine, and Display Configuration Switcher are installed and enabled when available.
+- Tailscale Status is installed and enabled only when `services.tailscale.enable` is true and the extension is available.
+- AppIndicator remains enabled by the existing GNOME setting; no separate Bea/Nimbus-specific override was present to restore.
+
+The evaluated Bea configuration contains matching packages and enabled-extension UUIDs for AppIndicator, Caffeine, and Display Configuration Switcher. `just check`, `just lint`, `alejandra --check .`, both host dry-runs, and `git diff --check` passed.
+
 ## 1. Resolve the input-remapper security boundary first
 
 - Reproduce the reported behavior from a non-root account in a disposable/test environment.
