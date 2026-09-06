@@ -98,7 +98,7 @@ in {
       };
     };
 
-    zellij.enable = lib.mkDefault (config.settings.terminalMultiplexer == "zellij");
+    zellij.enable = lib.mkDefault true;
 
     zoxide.enable = true;
 

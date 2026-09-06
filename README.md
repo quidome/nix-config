@@ -45,8 +45,8 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 This repo supports GNOME and headless systems, and defaults to `settings.gui = "gnome"`.
 
-Default terminal multiplexer is `settings.terminalMultiplexer = "zellij"`.
-Override it per host/user if you want no multiplexer.
+The default terminal multiplexer is Zellij.
+Set `programs.zellij.enable = false` per host/user if you want no multiplexer.
 
 Input remapper is disabled by default because its root-owned daemon can inject global input.
 Opt in for a host by setting `settings.inputRemapper.enable = true` in its shared settings.

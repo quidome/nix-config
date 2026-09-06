@@ -29,18 +29,6 @@ with lib; {
       '';
     };
 
-    terminalMultiplexer = mkOption {
-      type = types.enum [
-        "zellij"
-        "none"
-      ];
-      default = "zellij";
-      description = ''
-        Default terminal multiplexer for shells and terminal sessions.
-      '';
-      example = "zellij";
-    };
-
     terminalFont.name = mkOption {
       default = "JetBrainsMono Nerd Font";
       type = types.str;
