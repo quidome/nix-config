@@ -104,7 +104,6 @@ in {
 
     zsh = {
       enable = true;
-      enableCompletion = true;
       initContent = "fpath+=($HOME/.zsh/completion/)";
       shellAliases = {
         "k" = "kubectl";
