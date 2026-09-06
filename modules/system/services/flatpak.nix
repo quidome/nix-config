@@ -7,8 +7,6 @@
   cfg = config.services.flatpak;
 in {
   config = lib.mkIf cfg.enable {
-    users.groups.flatpak = {};
-
     security.polkit.extraConfig = ''
       polkit.addRule(function(action, subject) {
         if ((action.id === "org.freedesktop.Flatpak.app-install" ||
