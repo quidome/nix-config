@@ -14,8 +14,6 @@ in {
       zed-editor.enable = mkDefault true;
     };
 
-    settings.terminalFont.name = mkDefault "JetBrainsMono Nerd Font";
-
     services.syncthing.enable = mkDefault true;
   };
 }

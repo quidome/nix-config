@@ -24,13 +24,6 @@ with lib; {
       example = "gnome";
     };
 
-    theme = mkOption {
-      type = types.enum ["light" "dark"];
-      default = "dark";
-      description = "Light or dark theme preference";
-      example = "light";
-    };
-
     inputRemapper.enable = mkOption {
       type = types.bool;
       default = false;
@@ -38,13 +31,6 @@ with lib; {
         Enable input-remapper for the desktop user. This is opt-in because the
         service runs as a root-owned system daemon and can inject global input.
       '';
-    };
-
-    wallpaper = mkOption {
-      type = with types; nullOr str;
-      default = null;
-      example = "/home/quidome/Pictures/wallpaper.jpg";
-      description = "Absolute path to the desktop wallpaper image for graphical sessions.";
     };
   };
 }
