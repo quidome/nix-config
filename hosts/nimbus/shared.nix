@@ -1,7 +1,3 @@
 {
-  settings = {
-    gui = "gnome";
-    theme = "dark";
-    inputRemapper.enable = true;
-  };
+  settings.inputRemapper.enable = true;
 }

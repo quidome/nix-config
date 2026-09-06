@@ -54,7 +54,6 @@
       };
   in {
     nixosConfigurations = {
-      coolding = mkHost "quidome" "coolding";
       nimbus = mkHost "quidome" "nimbus";
       truce = mkHost "quidome" "truce";
       bea = mkHost "quidome" "bea";
