@@ -50,9 +50,7 @@ with lib; {
 
   config = {
     settings.terminal = mkDefault (
-      if config.settings.gui == "plasma"
-      then "konsole"
-      else if config.settings.gui == "gnome"
+      if config.settings.gui == "gnome"
       then "ghostty"
       else "kgx"
     );
