@@ -26,7 +26,7 @@
         inherit pkgs;
         modules = [
           inputs.disko.nixosModules.disko
-          {_module.args = args;}
+          {_module.args = args // {desktopUser = user;};}
           ./modules/shared
           ./modules/system
           ./hosts/${host}/configuration.nix

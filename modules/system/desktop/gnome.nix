@@ -2,9 +2,9 @@
   config,
   pkgs,
   lib,
+  desktopUser,
   ...
 }: let
-  inputRemapperUsers = builtins.filter (user: user != "root") (lib.attrNames config.home-manager.users);
   inputRemapperDbusPolicy = pkgs.writeText "inputremapper.Control.conf" ''
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-Bus Bus Configuration 1.0//EN"
@@ -15,12 +15,9 @@
         <allow own="inputremapper.Control"/>
         <allow send_destination="inputremapper.Control"/>
       </policy>
-      ${lib.concatMapStringsSep "\n" (user: ''
-        <policy user="${lib.escapeXML user}">
-          <allow send_destination="inputremapper.Control"/>
-        </policy>
-      '')
-      inputRemapperUsers}
+      <policy user="${lib.escapeXML desktopUser}">
+        <allow send_destination="inputremapper.Control"/>
+      </policy>
     </busconfig>
   '';
   inputRemapperPackage = pkgs.input-remapper.overrideAttrs (old: {
@@ -32,12 +29,6 @@
   });
 in {
   config = lib.mkIf (config.settings.gui == "gnome") {
-    assertions = [
-      {
-        assertion = builtins.length inputRemapperUsers <= 1;
-        message = "GNOME input-remapper supports at most one non-root Home Manager user because its daemon is system-wide.";
-      }
-    ];
     environment.systemPackages =
       (with pkgs; [
         geary
