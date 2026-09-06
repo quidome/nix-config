@@ -64,6 +64,7 @@ in {
         ];
         packages = [
           "git:github.com/nicobailon/pi-subagents.git@83be9c3de2cde1553c0269f383efc1eb1194dc8b"
+          "npm:pi-web-search@1.4.0"
         ];
       };
     };
