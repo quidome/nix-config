@@ -27,7 +27,6 @@ in {
       obsidian
       spotify
       pandoc
-      pavucontrol
       plantuml
       v4l-utils
       vlc
@@ -57,7 +56,6 @@ in {
 
       flatpak.enable = mkDefault true;
       pipewire.enable = mkDefault true;
-      tailscale.enable = mkDefault false;
 
       # Enable printing and printer discovery
       printing = {

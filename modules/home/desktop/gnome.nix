@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  osConfig,
   ...
 }:
 with lib; let
@@ -17,14 +16,8 @@ with lib; let
     if terminal != ""
     then terminal
     else "kgx";
-  hasAppIndicator = (gnomeExtensions ? appindicator) && config.settings.gnome.enableAppIndicator;
   hasCaffeine = gnomeExtensions ? caffeine;
   hasDisplayConfigurationSwitcher = gnomeExtensions ? display-configuration-switcher;
-  hasTailscaleStatus =
-    osConfig
-    != null
-    && (osConfig.services.tailscale.enable or false)
-    && (gnomeExtensions ? tailscale-status);
   gnomeColorScheme =
     if isLightTheme
     then "prefer-light"
@@ -47,10 +40,8 @@ in {
     dconf.settings = {
       "org/gnome/shell" = {
         enabled-extensions =
-          lib.optional hasAppIndicator "appindicatorsupport@rgcjonas.gmail.com"
-          ++ lib.optional hasCaffeine "caffeine@patapon.info"
-          ++ lib.optional hasDisplayConfigurationSwitcher "display-configuration-switcher@knokelmaat.gitlab.com"
-          ++ lib.optional hasTailscaleStatus "tailscale-status@maxgallup.github.com";
+          lib.optional hasCaffeine "caffeine@patapon.info"
+          ++ lib.optional hasDisplayConfigurationSwitcher "display-configuration-switcher@knokelmaat.gitlab.com";
       };
 
       "org/gnome/desktop/background" = wallpaperSettings;
@@ -108,6 +99,5 @@ in {
     };
 
     services.gpg-agent.pinentry.package = pkgs.pinentry-gnome3;
-    xsession.preferStatusNotifierItems = lib.mkDefault config.settings.gnome.enableAppIndicator;
   };
 }
