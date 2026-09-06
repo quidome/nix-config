@@ -98,12 +98,24 @@ Acceptance: configured devices load after login and after hotplug/resume, missin
 
 ## 6. Treat the Pi npm risk as a separate task
 
-The `965626e` runtime npm installation is unrelated to GNOME. Track it separately:
+Resolved separately from GNOME. Pi now loads `pi-subagents` from its Git repository at
+commit `83be9c3de2cde1553c0269f383efc1eb1194dc8b` (the `v0.65.1` tag target),
+rather than resolving a mutable npm range. The pinned repository includes a
+versioned npm lockfile with integrity metadata for the dependency tree.
 
-- evaluate whether `pi-subagents` can be packaged/pinned declaratively;
-- use an integrity-locked dependency tree and avoid unneeded lifecycle scripts;
-- decide whether sandboxing should be enabled by default;
-- document the credential/network boundary if runtime installation remains.
+Pi-managed npm commands are configured with `--ignore-scripts`, `--no-audit`,
+`--no-fund`, and `--omit=dev`. This prevents dependency lifecycle scripts,
+dev-only dependencies, and unnecessary registry audit/funding requests during
+installation; it does not make the extension trusted code.
+
+The Pi jail remains opt-in. It would not isolate an extension from Pi's agent
+configuration directory, which must remain writable for settings, package state,
+and credentials, and it can interfere with the configured external-tool/SSH
+workflow. The remaining boundary is documented: initial package/dependency
+installation requires network access, and the extension runs as the same user
+as Pi with access to the agent directory, current working directory, configured
+external tools, and Pi's model/network credentials. Do not install or run an
+unreviewed Pi package in this profile.
 
 ## Validation checklist
 

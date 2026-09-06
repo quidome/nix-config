@@ -51,7 +51,21 @@ in {
 
     pi.coding-agent = {
       enable = true;
-      settings.packages = ["npm:pi-subagents@0.65.1"];
+
+      # Keep the extension source and its checked-in package-lock.json pinned.
+      # pi-subagents runs in Pi's process and is not a security boundary.
+      settings = {
+        npmCommand = [
+          "npm"
+          "--ignore-scripts"
+          "--no-audit"
+          "--no-fund"
+          "--omit=dev"
+        ];
+        packages = [
+          "git:github.com/nicobailon/pi-subagents.git@83be9c3de2cde1553c0269f383efc1eb1194dc8b"
+        ];
+      };
     };
 
     helix.enable = true;
