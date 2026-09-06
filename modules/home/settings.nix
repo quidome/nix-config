@@ -28,26 +28,6 @@ with lib; {
         Defaults to Ghostty for GNOME and KGX otherwise.
       '';
     };
-
-    terminalFont.name = mkOption {
-      default = "JetBrainsMono Nerd Font";
-      type = types.str;
-      example = "Hack";
-      description = "Font name for graphical terminals";
-    };
-
-    terminalFont.size = mkOption {
-      default = 11;
-      type = types.int;
-      example = 42;
-      description = "Font size for graphical terminals";
-    };
-
-    gnome.enableAppIndicator = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable GNOME AppIndicator shell extension when available.";
-    };
   };
 
   config = {

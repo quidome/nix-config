@@ -6,7 +6,7 @@
 
   home.stateVersion = "26.05";
 
-  settings.terminalFont.size = 10;
+  programs.zed-editor.userSettings.buffer_font_size = 13;
 
   home.packages = with pkgs; [discord];
 }

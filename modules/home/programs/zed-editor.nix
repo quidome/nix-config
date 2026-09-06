@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.programs.zed-editor;
-  font = config.settings.terminalFont;
   isLight = config.settings.theme == "light";
   zedThemeMode =
     if isLight
@@ -37,8 +36,8 @@ in {
           dark = "Catppuccin Mocha";
         };
         ui_font_size = 16;
-        buffer_font_size = font.size + 3;
-        buffer_font_family = font.name;
+        buffer_font_size = lib.mkDefault 14;
+        buffer_font_family = lib.mkDefault "JetBrainsMono Nerd Font";
 
         # Editor preferences
         format_on_save = "on";
