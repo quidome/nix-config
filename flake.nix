@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-    pi.url = "github:lukasl-dev/pi.nix";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -16,6 +16,11 @@
     args = inputs;
     system = "x86_64-linux";
 
+    pkgsUnstable = import inputs.unstable {
+      inherit system;
+      config.allowUnfree = true;
+    };
+
     pkgs = import inputs.nixpkgs {
       inherit system;
       config.allowUnfree = true;
@@ -26,7 +31,7 @@
         inherit pkgs;
         modules = [
           inputs.disko.nixosModules.disko
-          {_module.args = args // {desktopUser = user;};}
+          {_module.args = args // {inherit pkgsUnstable; desktopUser = user;};}
           ./modules/shared
           ./modules/system
           ./hosts/${host}/configuration.nix
@@ -38,7 +43,6 @@
               useUserPackages = true;
               users.${user} = {...}: {
                 imports = [
-                  inputs.pi.homeModules.default
                   ./modules/shared
                   ./modules/home
                   ./hosts/${host}/home.nix
