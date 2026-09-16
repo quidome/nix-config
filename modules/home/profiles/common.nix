@@ -20,8 +20,8 @@ in {
     sessionVariables = {
       DEV_PATH = "${config.home.homeDirectory}/dev";
       GOBIN = "${config.home.homeDirectory}/.local/bin";
-      PI_CODING_AGENT_DIR = "${config.home.homeDirectory}/dev/codeberg.org/quidome/pi-config";
-      PI_EXTENSIONS = "${config.home.homeDirectory}/dev/codeberg.org/quidome/pi-extensions/extensions";
+      PI_CODING_AGENT_DIR = "${config.home.homeDirectory}/dev/github.com/quidome/pi-config";
+      PI_EXTENSIONS = "${config.home.homeDirectory}/dev/github.com/quidome/pi-extensions/extensions";
     };
   };
   programs = {
