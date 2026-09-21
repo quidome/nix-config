@@ -50,10 +50,5 @@ in {
       desktopManager.gnome.enable = lib.mkDefault true;
       displayManager.gdm.enable = lib.mkDefault true;
     };
-
-    environment.gnome.excludePackages = lib.mkDefault (with pkgs; [
-      gnome-tour
-      gnome-user-docs
-    ]);
   };
 }
