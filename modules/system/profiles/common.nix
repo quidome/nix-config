@@ -1,4 +1,5 @@
 {
+  claude-code,
   lib,
   pkgs,
   pkgsUnstable,
@@ -96,6 +97,7 @@ in {
     kubernetes-helm
     kubeseal
     kustomize
+    claude-code.packages.${pkgs.system}.default
     pkgsUnstable.pi-coding-agent
     python3
     shellcheck

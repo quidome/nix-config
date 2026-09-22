@@ -10,6 +10,8 @@
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
   outputs = inputs: let
@@ -31,7 +33,14 @@
         inherit pkgs;
         modules = [
           inputs.disko.nixosModules.disko
-          {_module.args = args // {inherit pkgsUnstable; desktopUser = user;};}
+          {
+            _module.args =
+              args
+              // {
+                inherit pkgsUnstable;
+                desktopUser = user;
+              };
+          }
           ./modules/shared
           ./modules/system
           ./hosts/${host}/configuration.nix
