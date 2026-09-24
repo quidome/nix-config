@@ -2,11 +2,12 @@
   config,
   lib,
   pkgs,
+  pkgsUnstable,
   ...
 }: let
   isNiri = config.settings.gui == "niri";
   isLightTheme = config.settings.theme == "light";
-  noctalia = lib.getExe pkgs.noctalia;
+  noctalia = lib.getExe pkgsUnstable.noctalia;
   gtkColorScheme =
     if isLightTheme
     then "prefer-light"

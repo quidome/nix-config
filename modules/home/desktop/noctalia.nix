@@ -2,10 +2,11 @@
   config,
   lib,
   pkgs,
+  pkgsUnstable,
   ...
 }: let
   isNiri = config.settings.gui == "niri";
-  package = pkgs.noctalia;
+  package = pkgsUnstable.noctalia;
 
   rawConfig = (pkgs.formats.toml {}).generate "noctalia-config.toml" {
     shell = {
