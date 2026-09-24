@@ -5,8 +5,6 @@
 }: {
   programs.gpg.enable = true;
 
-  home.sessionVariables.SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh";
-
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;

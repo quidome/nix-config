@@ -48,6 +48,7 @@ in {
   };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.optimise.automatic = mkDefault true;
 
   environment.systemPackages = with pkgs; [
     # system
@@ -97,7 +98,7 @@ in {
     kubernetes-helm
     kubeseal
     kustomize
-    claude-code.packages.${pkgs.system}.default
+    claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
     pkgsUnstable.pi-coding-agent
     python3
     shellcheck
@@ -108,13 +109,12 @@ in {
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
     deadnix
-    nil # language server
-    niv # easy dependency management for nix projects
     statix
   ];
 
-  programs.gnupg.agent.enable = mkDefault true;
   programs.zsh.enable = mkDefault true;
 
+  # Home Manager's gpg-agent provides the SSH agent; keep gnome-keyring's GCR agent off.
+  services.gnome.gcr-ssh-agent.enable = false;
   services.openssh.enable = mkDefault true;
 }
