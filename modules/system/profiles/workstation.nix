@@ -8,14 +8,6 @@ with lib; let
   isWorkstation = config.settings.gui != "none";
 in {
   config = mkIf isWorkstation {
-    boot = {
-      kernelParams = ["quiet"];
-      plymouth = {
-        enable = mkDefault true;
-        theme = mkDefault "bgrt";
-      };
-    };
-
     hardware.bluetooth.input.General.UserspaceHID = mkDefault true;
 
     environment.systemPackages = with pkgs; [
