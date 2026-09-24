@@ -50,13 +50,7 @@ in {
       pipewire.enable = mkDefault true;
 
       # Enable printing and printer discovery
-      printing = {
-        enable = mkDefault true;
-        drivers = with pkgs; [
-          cups-filters
-          cups-browsed
-        ];
-      };
+      printing.enable = mkDefault true;
     };
   };
 }
