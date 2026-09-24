@@ -1,3 +1,3 @@
 {
-  settings.inputRemapper.enable = true;
+  settings.gui = "niri";
 }
