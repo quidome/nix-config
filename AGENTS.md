@@ -51,7 +51,7 @@
 - `live-image/` - Live ISO configurations
 
 ## Desktop Environments
-- This repo supports **GNOME** or a headless system via `settings.gui = "gnome"` or `settings.gui = "none"`
+- This repo supports **GNOME**, **niri** or a headless system via `settings.gui = "gnome"`, `"niri"` or `"none"`
 - Host desktop-specific overrides in `hosts/*/home.nix` should be gated with `lib.mkIf config.settings.gui` unless desktop-agnostic
 - See `README.md` for laptop power policy details
 
