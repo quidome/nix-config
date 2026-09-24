@@ -1,7 +1,6 @@
 # Nix repo task runner
 
-hosts := `nix eval --json .#nixosConfigurations --apply builtins.attrNames 2>/dev/null | jq -r 'join(" ")' || echo ""`
-current_host := `h=$(hostname -s 2>/dev/null || hostname); hosts="$(nix eval --json .#nixosConfigurations --apply builtins.attrNames 2>/dev/null | jq -r '.[]' || true)"; if printf '%s\n' "$hosts" | grep -qx "$h"; then echo "$h"; else h2=$(hostname); if printf '%s\n' "$hosts" | grep -qx "$h2"; then echo "$h2"; else echo "$h"; fi; fi`
+current_host := `hostname -s 2>/dev/null || hostname`
 
 # Show available recipes
 default:
@@ -14,6 +13,14 @@ switch HOST=current_host:
 # Apply configuration to target host on next boot
 boot HOST=current_host:
   @just host {{HOST}} boot
+
+# Dry-run activation to show what would change
+plan HOST=current_host:
+  nixos-rebuild --flake .#{{HOST}} dry-activate
+
+# Build host configuration without activating it
+build HOST=current_host:
+  nixos-rebuild --flake .#{{HOST}} build
 
 # Garbage-collect user and system generations (local or remote)
 gc HOST=current_host:

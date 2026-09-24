@@ -22,10 +22,9 @@
 - Build host config: `just build [HOST]`
 - Apply now: `just switch [HOST]`
 - Apply on next boot: `just boot [HOST]`
-- Roll back active generation: `just rollback [HOST]`
-- List system generations: `just generations [HOST]`
-- Build ISO images: `just iso [base|bcachefs]`
-- Maintenance: `just update`, `just clean`, `just refresh`
+- Lint: `just lint`; fmt + lint + check: `just verify`
+- Build ISO images: `nix build .#nixosConfigurations.{baseIso,bcachefsIso}.config.system.build.isoImage`
+- Maintenance: `just update`, `just upgrade [HOST]`, `just sync [HOST]`, `just gc [HOST]`
 
 ## Validation Flow (repo-specific)
 - First: `just check`
@@ -63,8 +62,8 @@
 - If protected content is accidentally accessed, stop and do not reproduce it
 
 ## Extra Safety
-- Never run `just switch`, `just boot`, or `just rollback` without explicit approval
-- Never run destructive cleanup (`just clean`) without approval
+- Never run `just switch`, `just boot`, `just upgrade`, or `just sync` without explicit approval
+- Never run destructive cleanup (`just gc`) without approval
 - Run `git-crypt status` before analysis/commit workflows
 - Do not expose `.gitattributes`-protected content
 

@@ -67,6 +67,19 @@
         ];
       };
   in {
+    formatter.${system} = pkgs.alejandra;
+
+    checks.${system}.lint =
+      pkgs.runCommand "lint" {
+        nativeBuildInputs = with pkgs; [alejandra deadnix statix];
+      } ''
+        cd ${./.}
+        alejandra --check .
+        statix check .
+        deadnix --fail .
+        touch $out
+      '';
+
     nixosConfigurations = {
       nimbus = mkHost "quidome" "nimbus";
       truce = mkHost "quidome" "truce";
