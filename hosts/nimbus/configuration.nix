@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  desktopUser,
+  pkgs,
+  ...
+}: {
   imports = [
     ./disk-config.nix
     ./shared.nix
@@ -72,10 +76,13 @@
 
     ifuse
     virt-manager
-    wireshark
   ];
 
-  powerManagement.enable = true;
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
+  users.users.${desktopUser}.extraGroups = ["wireshark"];
 
   services = {
     btrfs.autoScrub = {
@@ -92,12 +99,6 @@
 
     fwupd.enable = true;
     usbmuxd.enable = true;
-  };
-
-  # Enable fingerprint authentication for login and system dialogs
-  security.pam.services = {
-    sudo.fprintAuth = true;
-    polkit-1.fprintAuth = true;
   };
 
   virtualisation = {

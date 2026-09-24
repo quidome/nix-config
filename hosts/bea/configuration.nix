@@ -91,10 +91,6 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    # Provide the Mesa VA-API driver used by OBS for AMD hardware encoding.
-    extraPackages = with pkgs; [
-      mesa
-    ];
   };
 
   programs = {
