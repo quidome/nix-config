@@ -181,10 +181,7 @@ in {
         xwayland-satellite
       ];
 
-      sessionVariables = {
-        MOZ_ENABLE_WAYLAND = "1";
-        NIXOS_OZONE_WL = "1";
-      };
+      sessionVariables.NIXOS_OZONE_WL = "1";
     };
 
     dconf.settings."org/gnome/desktop/interface".color-scheme = gtkColorScheme;

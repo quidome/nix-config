@@ -5,17 +5,14 @@
   ...
 }: {
   config = lib.mkIf (config.settings.gui == "gnome") {
-    environment.systemPackages =
-      (with pkgs; [
-        geary
-        gnome-tweaks
-        ghostty
-        pavucontrol
-      ])
-      ++ lib.filter (x: x != null) [
-        (pkgs.gnomeExtensions.caffeine or null)
-        (pkgs.gnomeExtensions.display-configuration-switcher or null)
-      ];
+    environment.systemPackages = with pkgs; [
+      geary
+      gnome-tweaks
+      ghostty
+      pavucontrol
+      gnomeExtensions.caffeine
+      gnomeExtensions.display-configuration-switcher
+    ];
 
     services = {
       xserver.enable = lib.mkDefault true;

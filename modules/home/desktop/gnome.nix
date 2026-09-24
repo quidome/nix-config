@@ -8,10 +8,6 @@ with lib; let
   gnomeEnabled = config.settings.gui == "gnome";
 
   isLightTheme = config.settings.theme == "light";
-  gnomeExtensions = pkgs.gnomeExtensions or {};
-
-  hasCaffeine = gnomeExtensions ? caffeine;
-  hasDisplayConfigurationSwitcher = gnomeExtensions ? display-configuration-switcher;
   gnomeColorScheme =
     if isLightTheme
     then "prefer-light"
@@ -22,16 +18,14 @@ with lib; let
     else "Adwaita Dark";
 in {
   config = mkIf gnomeEnabled {
-    home.sessionVariables = {
-      MOZ_ENABLE_WAYLAND = "1";
-      NIXOS_OZONE_WL = "1";
-    };
+    home.sessionVariables.NIXOS_OZONE_WL = "1";
 
     dconf.settings = {
       "org/gnome/shell" = {
-        enabled-extensions =
-          lib.optional hasCaffeine "caffeine@patapon.info"
-          ++ lib.optional hasDisplayConfigurationSwitcher "display-configuration-switcher@knokelmaat.gitlab.com";
+        enabled-extensions = [
+          "caffeine@patapon.info"
+          "display-configuration-switcher@knokelmaat.gitlab.com"
+        ];
       };
 
       "org/gnome/desktop/interface" = {

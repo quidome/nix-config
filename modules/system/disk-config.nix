@@ -3,9 +3,6 @@
     "compress=zstd"
     "discard=async"
     "noatime"
-    "rw"
-    "space_cache=v2"
-    "ssd"
   ];
 in {
   disko.devices = {
