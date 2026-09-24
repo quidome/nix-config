@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  enabled = config.settings.gui == "gnome" && config.settings.inputRemapper.enable;
+  enabled = config.settings.gui != "none" && config.settings.inputRemapper.enable;
 in {
   config = lib.mkIf enabled {
     # Per-device mouse overrides. EV_REL=2, REL_WHEEL=8,
