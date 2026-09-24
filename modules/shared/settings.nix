@@ -15,7 +15,7 @@ with lib; {
     };
 
     gui = mkOption {
-      type = types.enum ["none" "gnome"];
+      type = types.enum ["none" "gnome" "niri"];
       default = "gnome";
       description = ''
         Which GUI profile to use.
