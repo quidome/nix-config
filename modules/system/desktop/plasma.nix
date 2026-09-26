@@ -5,28 +5,18 @@
   ...
 }: {
   config = lib.mkIf (config.settings.gui == "plasma") {
-    environment = {
-      systemPackages =
-        (with pkgs; [
-          ghostty
-          krename
-        ])
-        ++ (with pkgs.kdePackages; [
-          discover
-          kcalc
-          kcolorchooser
-          kompare
-          krdc
-        ]);
-
-      # ghostty replaces konsole; drop apps that are not used.
-      plasma6.excludePackages = with pkgs.kdePackages; [
-        elisa
-        khelpcenter
-        konsole
-        krdp
-      ];
-    };
+    environment.systemPackages =
+      (with pkgs; [
+        ghostty
+        krename
+      ])
+      ++ (with pkgs.kdePackages; [
+        discover
+        kcalc
+        kcolorchooser
+        kompare
+        krdc
+      ]);
 
     services = {
       desktopManager.plasma6.enable = lib.mkDefault true;
