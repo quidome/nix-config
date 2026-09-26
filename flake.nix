@@ -12,12 +12,6 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     claude-code.url = "github:sadjow/claude-code-nix";
-
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
   };
 
   outputs = inputs: let
@@ -59,7 +53,6 @@
               useUserPackages = true;
               users.${user} = {...}: {
                 imports = [
-                  inputs.plasma-manager.homeModules.plasma-manager
                   ./modules/shared
                   ./modules/home
                   ./hosts/${host}/home.nix
