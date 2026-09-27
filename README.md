@@ -43,10 +43,7 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Desktop environment
 
-This repo supports GNOME, niri, Plasma and headless systems, and defaults to `settings.gui = "plasma"`.
-
-The niri profile logs in through greetd (tuigreet) and uses Noctalia as its shell
-(bar, launcher, notifications, lock screen, idle).
+This repo supports Plasma and headless systems, and defaults to `settings.gui = "plasma"`.
 
 The default terminal multiplexer is Zellij.
 Set `programs.zellij.enable = false` per host/user if you want no multiplexer.

@@ -114,7 +114,5 @@ in {
 
   programs.zsh.enable = mkDefault true;
 
-  # Home Manager's gpg-agent provides the SSH agent; keep gnome-keyring's GCR agent off.
-  services.gnome.gcr-ssh-agent.enable = false;
   services.openssh.enable = mkDefault true;
 }
