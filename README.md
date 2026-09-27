@@ -48,9 +48,6 @@ This repo supports Plasma and headless systems, and defaults to `settings.gui = 
 The default terminal multiplexer is Zellij.
 Set `programs.zellij.enable = false` per host/user if you want no multiplexer.
 
-Input remapper is disabled by default because its root-owned daemon can inject global input.
-Opt in for a host by setting `settings.inputRemapper.enable = true` in its shared settings.
-
 ## Laptop power policy
 
 Battery charge thresholds are managed in BIOS/firmware (vendor power settings), not in NixOS services.

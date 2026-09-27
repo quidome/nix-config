@@ -1,3 +1,0 @@
-{
-  settings.inputRemapper.enable = true;
-}

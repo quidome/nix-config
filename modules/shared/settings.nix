@@ -22,14 +22,5 @@
       '';
       example = "plasma";
     };
-
-    inputRemapper.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = ''
-        Enable input-remapper for the desktop user. This is opt-in because the
-        service runs as a root-owned system daemon and can inject global input.
-      '';
-    };
   };
 }
