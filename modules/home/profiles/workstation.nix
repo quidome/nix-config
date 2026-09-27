@@ -2,18 +2,17 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
   isWorkstation = config.settings.gui != "none";
 in {
   config = lib.mkIf isWorkstation {
-    fonts.fontconfig.enable = mkDefault true;
+    fonts.fontconfig.enable = lib.mkDefault true;
 
     programs = {
-      emacs.enable = mkDefault true;
-      zed-editor.enable = mkDefault true;
+      emacs.enable = lib.mkDefault true;
+      zed-editor.enable = lib.mkDefault true;
     };
 
-    services.syncthing.enable = mkDefault true;
+    services.syncthing.enable = lib.mkDefault true;
   };
 }

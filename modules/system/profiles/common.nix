@@ -4,8 +4,7 @@
   pkgs,
   pkgsUnstable,
   ...
-}:
-with lib; let
+}: let
   herdr = pkgs.stdenvNoCC.mkDerivation {
     pname = "herdr";
     version = "0.8.2";
@@ -32,23 +31,23 @@ with lib; let
   };
 in {
   boot = {
-    loader.systemd-boot.enable = mkDefault true;
-    loader.efi.canTouchEfiVariables = mkDefault true;
-    zfs.forceImportRoot = mkDefault false;
-    kernel.sysctl = {"vm.swappiness" = mkDefault 1;};
+    loader.systemd-boot.enable = lib.mkDefault true;
+    loader.efi.canTouchEfiVariables = lib.mkDefault true;
+    zfs.forceImportRoot = lib.mkDefault false;
+    kernel.sysctl = {"vm.swappiness" = lib.mkDefault 1;};
   };
 
-  time.timeZone = mkDefault "Europe/Amsterdam";
+  time.timeZone = lib.mkDefault "Europe/Amsterdam";
 
-  i18n.defaultLocale = mkDefault "en_IE.UTF-8";
+  i18n.defaultLocale = lib.mkDefault "en_IE.UTF-8";
 
   hardware.bluetooth = {
-    enable = mkDefault true;
-    powerOnBoot = mkDefault true;
+    enable = lib.mkDefault true;
+    powerOnBoot = lib.mkDefault true;
   };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.optimise.automatic = mkDefault true;
+  nix.optimise.automatic = lib.mkDefault true;
 
   environment.systemPackages = with pkgs; [
     # system
@@ -112,7 +111,7 @@ in {
     statix
   ];
 
-  programs.zsh.enable = mkDefault true;
+  programs.zsh.enable = lib.mkDefault true;
 
-  services.openssh.enable = mkDefault true;
+  services.openssh.enable = lib.mkDefault true;
 }

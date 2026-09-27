@@ -2,11 +2,10 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
   cfg = config.programs.zsh;
 in {
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.file.".env.d/70-dev.sh".source = ./zsh/dev.sh;
 
     programs = {

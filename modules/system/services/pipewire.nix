@@ -2,16 +2,15 @@
   lib,
   config,
   ...
-}:
-with lib; {
+}: {
   config = lib.mkIf config.services.pipewire.enable {
-    services.pulseaudio.enable = mkDefault false;
+    services.pulseaudio.enable = lib.mkDefault false;
 
-    security.rtkit.enable = mkDefault true;
+    security.rtkit.enable = lib.mkDefault true;
     services.pipewire = {
-      alsa.enable = mkDefault true;
-      alsa.support32Bit = mkDefault true;
-      pulse.enable = mkDefault true;
+      alsa.enable = lib.mkDefault true;
+      alsa.support32Bit = lib.mkDefault true;
+      pulse.enable = lib.mkDefault true;
     };
   };
 }

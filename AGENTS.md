@@ -36,6 +36,7 @@
 - Use 2-space indentation throughout
 - Keep imports at the top; follow existing ordering
 - Prefer clear `let ... in` structure and descriptive names
+- Use the `lib.` prefix (e.g. `lib.mkIf`); do not use `with lib;`
 - Define options with `mkOption` and suitable `types.*`
 - Use `mkIf` / `mkDefault` for conditional/default behavior
 - Keep module flow consistent: options → config → implementation

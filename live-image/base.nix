@@ -3,11 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
+}: let
   inherit (config.settings) authorizedKeys;
 in {
-  options.settings.authorizedKeys = mkOption {type = types.listOf types.str;};
+  options.settings.authorizedKeys = lib.mkOption {type = lib.types.listOf lib.types.str;};
 
   config = {
     nix.settings.experimental-features = ["nix-command" "flakes"];

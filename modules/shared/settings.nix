@@ -1,12 +1,11 @@
-{lib, ...}:
-with lib; {
+{lib, ...}: {
   #############################################################################
   # OPTIONS
   #############################################################################
   options.settings = {
-    authorizedKeys = mkOption {
+    authorizedKeys = lib.mkOption {
       default = [];
-      type = types.listOf types.str;
+      type = lib.types.listOf lib.types.str;
       example = [
         "ssh-ed25519 AAAAC3 ....."
         "ssh-ed25519 AAAAC3 ....."
@@ -14,8 +13,8 @@ with lib; {
       description = "Specify public ssh keys to allow access to hosts.";
     };
 
-    gui = mkOption {
-      type = types.enum ["none" "plasma"];
+    gui = lib.mkOption {
+      type = lib.types.enum ["none" "plasma"];
       default = "plasma";
       description = ''
         Which GUI profile to use.
@@ -24,8 +23,8 @@ with lib; {
       example = "plasma";
     };
 
-    inputRemapper.enable = mkOption {
-      type = types.bool;
+    inputRemapper.enable = lib.mkOption {
+      type = lib.types.bool;
       default = false;
       description = ''
         Enable input-remapper for the desktop user. This is opt-in because the

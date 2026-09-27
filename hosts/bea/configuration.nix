@@ -8,6 +8,7 @@
 
   boot = {
     initrd = {
+      availableKernelModules = ["r8169"];
       network.enable = true;
       systemd = {
         enable = true;
@@ -35,7 +36,6 @@
       "consoleblank=180"
       "ip=:::::enp42s0:dhcp"
     ];
-    initrd.availableKernelModules = ["r8169"];
     supportedFilesystems.zfs = true;
   };
 
@@ -112,7 +112,6 @@
       protontricks.enable = true;
     };
   };
-  services.xserver.videoDrivers = ["amdgpu"];
 
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";

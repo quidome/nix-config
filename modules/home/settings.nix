@@ -1,8 +1,7 @@
-{lib, ...}:
-with lib; {
+{lib, ...}: {
   options.settings = {
-    theme = mkOption {
-      type = types.enum ["light" "dark"];
+    theme = lib.mkOption {
+      type = lib.types.enum ["light" "dark"];
       default = "dark";
       description = "Light or dark theme preference";
       example = "light";

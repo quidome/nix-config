@@ -3,12 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
   isWorkstation = config.settings.gui != "none";
 in {
-  config = mkIf isWorkstation {
-    hardware.bluetooth.input.General.UserspaceHID = mkDefault true;
+  config = lib.mkIf isWorkstation {
+    hardware.bluetooth.input.General.UserspaceHID = lib.mkDefault true;
 
     environment.systemPackages = with pkgs; [
       adoptopenjdk-icedtea-web
@@ -41,16 +40,16 @@ in {
 
     services = {
       avahi = {
-        enable = mkDefault true;
-        nssmdns4 = mkDefault true;
-        openFirewall = mkDefault true;
+        enable = lib.mkDefault true;
+        nssmdns4 = lib.mkDefault true;
+        openFirewall = lib.mkDefault true;
       };
 
-      flatpak.enable = mkDefault true;
-      pipewire.enable = mkDefault true;
+      flatpak.enable = lib.mkDefault true;
+      pipewire.enable = lib.mkDefault true;
 
       # Enable printing and printer discovery
-      printing.enable = mkDefault true;
+      printing.enable = lib.mkDefault true;
     };
   };
 }
