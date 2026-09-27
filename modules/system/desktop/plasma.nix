@@ -7,7 +7,6 @@
   config = lib.mkIf (config.settings.gui == "plasma") {
     environment.systemPackages =
       (with pkgs; [
-        ghostty
         krename
       ])
       ++ (with pkgs.kdePackages; [
