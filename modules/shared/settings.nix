@@ -16,12 +16,12 @@ with lib; {
 
     gui = mkOption {
       type = types.enum ["none" "gnome" "niri" "plasma"];
-      default = "gnome";
+      default = "plasma";
       description = ''
         Which GUI profile to use.
-        Defaults to `gnome`.
+        Defaults to `plasma`.
       '';
-      example = "gnome";
+      example = "plasma";
     };
 
     inputRemapper.enable = mkOption {

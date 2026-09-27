@@ -43,7 +43,7 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Desktop environment
 
-This repo supports GNOME, niri and headless systems, and defaults to `settings.gui = "gnome"`.
+This repo supports GNOME, niri, Plasma and headless systems, and defaults to `settings.gui = "plasma"`.
 
 The niri profile logs in through greetd (tuigreet) and uses Noctalia as its shell
 (bar, launcher, notifications, lock screen, idle).
