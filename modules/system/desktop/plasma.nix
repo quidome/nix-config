@@ -5,6 +5,8 @@
   ...
 }: {
   config = lib.mkIf (config.settings.gui == "plasma") {
+    networking.networkmanager.enable = lib.mkDefault true;
+
     environment.systemPackages =
       (with pkgs; [
         krename
