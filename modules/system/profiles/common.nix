@@ -1,8 +1,6 @@
 {
-  claude-code,
   lib,
   pkgs,
-  pkgsUnstable,
   ...
 }: {
   boot = {
@@ -15,11 +13,6 @@
   time.timeZone = lib.mkDefault "Europe/Amsterdam";
 
   i18n.defaultLocale = lib.mkDefault "en_IE.UTF-8";
-
-  hardware.bluetooth = {
-    enable = lib.mkDefault true;
-    powerOnBoot = lib.mkDefault true;
-  };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.optimise.automatic = lib.mkDefault true;
@@ -35,18 +28,15 @@
     # network
     curl
     dig
+    ipcalc
     mtr
     tcpdump
     traceroute
     wget
 
-    # devops
-    gh
+    # git
     git
     git-crypt
-    git-repo-updater
-    gitui
-    lazygit
 
     # tools
     gnupg
@@ -58,24 +48,7 @@
     neovim
     rename
     rtk
-    yamllint
     yq-go
-
-    # devops tooling
-    cilium-cli
-    helmfile
-    ipcalc
-    k9s
-    kubectl
-    kubectx
-    kubernetes-helm
-    kubeseal
-    kustomize
-    claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
-    pkgsUnstable.pi-coding-agent
-    python3
-    shellcheck
-    stern
 
     # Useful nix related tools
     alejandra

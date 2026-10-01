@@ -20,8 +20,6 @@ in {
     sessionVariables = {
       DEV_PATH = "${config.home.homeDirectory}/dev";
       GOBIN = "${config.home.homeDirectory}/.local/bin";
-      PI_CODING_AGENT_DIR = "${config.home.homeDirectory}/dev/github.com/quidome/pi-config";
-      PI_EXTENSIONS = "${config.home.homeDirectory}/dev/github.com/quidome/pi-extensions/extensions";
     };
   };
   programs = {
@@ -86,12 +84,6 @@ in {
     zsh = {
       enable = true;
       initContent = "fpath+=($HOME/.zsh/completion/)";
-      shellAliases = {
-        "k" = "kubectl";
-        "kc" = "kubectx";
-        "kn" = "kubens";
-        "kseal" = "kubeseal --controller-namespace kube-system --controller-name sealed-secrets";
-      };
     };
   };
 }

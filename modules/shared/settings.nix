@@ -22,5 +22,22 @@
       '';
       example = "plasma";
     };
+
+    formFactor = lib.mkOption {
+      type = lib.types.enum ["laptop" "desktop" "server"];
+      default = "desktop";
+      description = ''
+        Kind of machine. Controls networking, bluetooth and power management.
+        Defaults to `desktop`.
+      '';
+      example = "laptop";
+    };
+
+    roles = {
+      dev.enable = lib.mkEnableOption "development and devops tools";
+      personal.enable = lib.mkEnableOption "everyday apps, printing and file sync";
+      media.enable = lib.mkEnableOption "video editing, 3D modelling and printing tools";
+      gaming.enable = lib.mkEnableOption "games";
+    };
   };
 }

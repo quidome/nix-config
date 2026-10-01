@@ -4,6 +4,7 @@
 
     ./desktop
     ./profiles
+    ./roles
     ./services
   ];
 }

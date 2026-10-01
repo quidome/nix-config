@@ -3,26 +3,20 @@
   lib,
   pkgs,
   ...
-}: let
-  isWorkstation = config.settings.gui != "none";
-in {
-  config = lib.mkIf isWorkstation {
-    hardware.bluetooth.input.General.UserspaceHID = lib.mkDefault true;
-
+}: {
+  config = lib.mkIf (config.settings.roles.personal.enable && config.settings.gui != "none") {
     environment.systemPackages = with pkgs; [
-      adoptopenjdk-icedtea-web
       cameractrls-gtk3
       firefox
-      thunderbird
-      mani
       obsidian
       spotify
-      pandoc
-      plantuml
+      thunderbird
       v4l-utils
       vlc
-      vscodium
-      wl-clipboard
+
+      # chat
+      element-desktop
+      signal-desktop
 
       # office
       libreoffice-qt
@@ -30,12 +24,6 @@ in {
       hunspellDicts.nl_NL
       hunspellDicts.en_US-large
       hunspellDicts.en_GB-large
-      element-desktop
-      signal-desktop
-    ];
-
-    fonts.packages = with pkgs; [
-      nerd-fonts.jetbrains-mono
     ];
 
     services = {
@@ -44,9 +32,6 @@ in {
         nssmdns4 = lib.mkDefault true;
         openFirewall = lib.mkDefault true;
       };
-
-      flatpak.enable = lib.mkDefault true;
-      pipewire.enable = lib.mkDefault true;
 
       # Enable printing and printer discovery
       printing.enable = lib.mkDefault true;

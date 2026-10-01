@@ -51,12 +51,14 @@
               extraSpecialArgs = {inherit pkgsUnstable;};
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.${user} = {...}: {
+              users.${user} = {osConfig, ...}: {
                 imports = [
                   ./modules/shared
                   ./modules/home
                   ./hosts/${host}/home.nix
                 ];
+                # Set host settings once, in the system config.
+                settings = {inherit (osConfig.settings) gui formFactor roles;};
                 home = {
                   username = user;
                   homeDirectory = "/home/${user}";

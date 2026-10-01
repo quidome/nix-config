@@ -44,22 +44,11 @@
     # devops
     # don't install jetbrains.ide at this moment as the install never seems to end
     # jetbrains.idea-oss
-    ktlint
     postgresql
-    temurin-bin-21
 
     # multimedia
-    kdePackages.kdenlive
     obs-studio
     # obs-studio-plugins
-
-    # games
-    openttd
-    zeroad
-
-    # printing
-    blender
-    orca-slicer
 
     # heroic
     mangohud
@@ -75,6 +64,16 @@
     nvtopPackages.amd
     streamcontroller
   ];
+
+  settings = {
+    formFactor = "desktop";
+    roles = {
+      dev.enable = true;
+      gaming.enable = true;
+      media.enable = true;
+      personal.enable = true;
+    };
+  };
 
   networking = {
     hostName = "bea";

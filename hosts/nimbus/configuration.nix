@@ -9,6 +9,16 @@
     ./hardware-configuration.nix
   ];
 
+  settings = {
+    formFactor = "laptop";
+    roles = {
+      dev.enable = true;
+      gaming.enable = true;
+      media.enable = true;
+      personal.enable = true;
+    };
+  };
+
   boot.kernelParams = [
     "consoleblank=60"
     "zswap.enabled=1"
@@ -50,21 +60,10 @@
     # devops
     # don't install jetbrains.ide at this moment as the install never seems to end
     # jetbrains.idea-oss
-    temurin-bin-21
-    ktlint
 
     # multimedia
-    kdePackages.kdenlive
     krita
     digikam
-
-    # games
-    openttd
-    zeroad
-
-    # printing
-    blender
-    orca-slicer
 
     calibre
     gimp
@@ -95,7 +94,6 @@
       tod.driver = pkgs.libfprint-2-tod1-goodix;
     };
 
-    fwupd.enable = true;
     usbmuxd.enable = true;
   };
 

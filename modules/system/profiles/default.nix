@@ -1,6 +1,7 @@
 {
   imports = [
     ./common.nix
-    ./workstation.nix
+    ./form-factor.nix
+    ./graphical.nix
   ];
 }
