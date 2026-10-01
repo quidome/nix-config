@@ -87,7 +87,7 @@ Optional groups of software. All are off by default.
 | `media` | kdenlive, Blender, OrcaSlicer (GUI only) |
 | `gaming` | OpenTTD, 0 A.D. (GUI only) |
 
-Software that only one host uses stays in that host's `configuration.nix`.
+Software that only one host uses stays in that host's `system.nix` or `home.nix`.
 
 ### Terminal multiplexer
 

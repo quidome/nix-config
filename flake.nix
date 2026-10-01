@@ -44,7 +44,7 @@
           ./modules/shared
           ./modules/system
           ./hosts/${host}/shared.nix
-          ./hosts/${host}/configuration.nix
+          ./hosts/${host}/system.nix
           inputs.home-manager.nixosModules.home-manager
           {
             home-manager = {
