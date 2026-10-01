@@ -47,11 +47,17 @@
 - `modules/shared/` - Shared options and secret wiring
 - `modules/system/` - NixOS modules (desktop, profiles, services)
 - `modules/home/` - Home-manager modules (desktop, programs, services, theme)
+- `modules/{system,home}/profiles/` - Always-on base, form factor and graphical base
+- `modules/{system,home}/roles/` - Optional software groups (`settings.roles.*`)
 - `hosts/{host}/` - Host-specific system/home selections and overrides
 - `live-image/` - Live ISO configurations
 
-## Desktop Environments
-- This repo supports **Plasma** or a headless system via `settings.gui = "plasma"` or `"none"`
+## Host Settings
+- Set `settings.gui`, `settings.formFactor` and `settings.roles` once, in `hosts/*/configuration.nix`; `flake.nix` passes them to home-manager
+- `settings.gui`: `"none"`, `"niri"` or `"plasma"` (default)
+- `settings.formFactor`: `"laptop"`, `"desktop"` (default) or `"server"`; enables networking, bluetooth and laptop power services with `lib.mkDefault`
+- `settings.roles.{dev,personal,media,gaming}.enable`: optional software groups
+- Desktop modules override form-factor services with a plain assignment, not `lib.mkDefault false`
 - Host desktop-specific overrides in `hosts/*/home.nix` should be gated with `lib.mkIf config.settings.gui` unless desktop-agnostic
 - See `README.md` for laptop power policy details
 
