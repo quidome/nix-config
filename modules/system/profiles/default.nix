@@ -1,6 +1,6 @@
 {
   imports = [
-    ./common.nix
+    ./base.nix
     ./form-factor.nix
     ./graphical.nix
   ];

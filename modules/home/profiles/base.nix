@@ -13,14 +13,7 @@ in {
     sessionPath = [
       "${config.home.homeDirectory}/.local/bin"
       "${config.home.homeDirectory}/bin"
-      "${config.home.homeDirectory}/go/bin"
-      "${config.home.homeDirectory}/.cargo/bin"
     ];
-
-    sessionVariables = {
-      DEV_PATH = "${config.home.homeDirectory}/dev";
-      GOBIN = "${config.home.homeDirectory}/.local/bin";
-    };
   };
   programs = {
     bat = {
@@ -29,11 +22,6 @@ in {
         style = "header,snip";
         theme = batTheme;
       };
-    };
-
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
     };
 
     eza = {
@@ -55,11 +43,6 @@ in {
     };
 
     neovim.enable = true;
-
-    jujutsu = {
-      enable = true;
-      ediff = true;
-    };
 
     ssh = {
       enable = true;
