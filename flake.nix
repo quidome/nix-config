@@ -43,6 +43,7 @@
           }
           ./modules/shared
           ./modules/system
+          ./hosts/${host}/shared.nix
           ./hosts/${host}/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           {
@@ -51,14 +52,13 @@
               extraSpecialArgs = {inherit pkgsUnstable;};
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.${user} = {osConfig, ...}: {
+              users.${user} = {...}: {
                 imports = [
                   ./modules/shared
                   ./modules/home
+                  ./hosts/${host}/shared.nix
                   ./hosts/${host}/home.nix
                 ];
-                # Set host settings once, in the system config.
-                settings = {inherit (osConfig.settings) gui formFactor roles;};
                 home = {
                   username = user;
                   homeDirectory = "/home/${user}";

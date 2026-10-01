@@ -9,16 +9,6 @@
     ./hardware-configuration.nix
   ];
 
-  settings = {
-    formFactor = "laptop";
-    roles = {
-      dev.enable = true;
-      gaming.enable = true;
-      media.enable = true;
-      personal.enable = true;
-    };
-  };
-
   boot.kernelParams = [
     "consoleblank=60"
     "zswap.enabled=1"

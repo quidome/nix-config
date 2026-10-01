@@ -53,7 +53,7 @@
 - `live-image/` - Live ISO configurations
 
 ## Host Settings
-- Set `settings.gui`, `settings.formFactor` and `settings.roles` once, in `hosts/*/configuration.nix`; `flake.nix` passes them to home-manager
+- Set `settings.gui`, `settings.formFactor` and `settings.roles` in `hosts/*/shared.nix`; `flake.nix` imports this required file in both the system and home-manager config
 - `settings.gui`: `"none"`, `"niri"` or `"plasma"` (default)
 - `settings.formFactor`: `"laptop"`, `"desktop"` (default) or `"server"`; enables networking, bluetooth and laptop power services with `lib.mkDefault`
 - `settings.roles.{dev,personal,media,gaming}.enable`: optional software groups

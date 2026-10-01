@@ -43,8 +43,8 @@ nix run github:nix-community/nixos-anywhere -- --flake .#${TARGET_HOST} --genera
 
 ## Host settings
 
-Each host sets its settings once, in `hosts/<host>/configuration.nix`.
-Home-manager gets the same values from the system config.
+Each host sets its settings in `hosts/<host>/shared.nix`.
+The flake imports this file in both the system and the home-manager config, so every host must have one (it can be `{}`).
 
 ```nix
 settings = {
