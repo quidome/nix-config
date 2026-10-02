@@ -48,6 +48,8 @@
     exit 1
   '';
 in {
+  imports = [./apps.nix];
+
   config = lib.mkIf (config.settings.gui == "niri") {
     # config.kdl includes the generated theme.kdl; both are checked
     # with `niri validate` at build time.
