@@ -29,8 +29,12 @@ in {
       cp ${./config.kdl} $out
     '';
 
-    # Media keys; avizo handles volume and brightness keys with a pop-up.
-    home.packages = [pkgs.playerctl];
+    home.packages = with pkgs; [
+      # Send notifications from scripts (notify-send).
+      libnotify
+      # Media keys; avizo handles volume and brightness keys with a pop-up.
+      playerctl
+    ];
 
     # Terminal and launcher used by the key bindings in config.kdl.
     programs = {
