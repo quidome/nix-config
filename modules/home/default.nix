@@ -5,5 +5,6 @@
     ./programs
     ./roles
     ./settings.nix
+    ./theme
   ];
 }

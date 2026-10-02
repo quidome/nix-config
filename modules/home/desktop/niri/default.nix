@@ -12,6 +12,20 @@
     ${lib.getExe' pkgs.procps "pgrep"} -x swaylock || ${lib.getExe config.programs.swaylock.package} -f
   '';
 
+  cursor = config.home.pointerCursor;
+  themeKdl = pkgs.writeText "theme.kdl" ''
+    cursor {
+        xcursor-theme "${cursor.name}"
+        xcursor-size ${toString cursor.size}
+    }
+  '';
+  niriConfig = pkgs.runCommand "niri-config" {} ''
+    mkdir $out
+    cp ${./config.kdl} $out/config.kdl
+    cp ${themeKdl} $out/theme.kdl
+    ${lib.getExe pkgs.niri} validate -c $out/config.kdl
+  '';
+
   # Exit 0 when a charger (mains or USB-C) is connected.
   onAc = pkgs.writeShellScript "on-ac" ''
     for supply in /sys/class/power_supply/*; do
@@ -23,11 +37,12 @@
   '';
 in {
   config = lib.mkIf (config.settings.gui == "niri") {
-    # Checked with `niri validate` at build time.
-    xdg.configFile."niri/config.kdl".source = pkgs.runCommand "niri-config.kdl" {} ''
-      ${lib.getExe pkgs.niri} validate -c ${./config.kdl}
-      cp ${./config.kdl} $out
-    '';
+    # config.kdl includes the generated theme.kdl; both are checked
+    # with `niri validate` at build time.
+    xdg.configFile = {
+      "niri/config.kdl".source = "${niriConfig}/config.kdl";
+      "niri/theme.kdl".source = "${niriConfig}/theme.kdl";
+    };
 
     home.packages = with pkgs; [
       # Send notifications from scripts (notify-send).
