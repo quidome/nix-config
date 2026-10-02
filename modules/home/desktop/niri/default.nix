@@ -49,6 +49,56 @@ in {
           show-failed-attempts = true;
         };
       };
+
+      # Status bar, started with graphical-session.target.
+      waybar = {
+        enable = lib.mkDefault true;
+        systemd.enable = lib.mkDefault true;
+        settings.main = {
+          layer = "top";
+          position = "top";
+          modules-center = ["clock"];
+          modules-right =
+            ["privacy" "idle_inhibitor" "tray" "wireplumber" "network" "bluetooth"]
+            ++ lib.optionals isLaptop ["power-profiles-daemon" "battery"];
+
+          clock.format = "{:%a %d %b  %H:%M}";
+          # Stops screen lock and suspend while activated.
+          idle_inhibitor = {
+            format = "{icon}";
+            format-icons = {
+              activated = "AWAKE";
+              deactivated = "auto";
+            };
+          };
+          wireplumber = {
+            format = "VOL {volume}%";
+            format-muted = "VOL muted";
+            on-click = lib.getExe pkgs.pavucontrol;
+            on-click-right = "${lib.getExe' config.services.avizo.package "volumectl"} toggle-mute";
+          };
+          network = {
+            format-wifi = "{essid} {signalStrength}%";
+            format-ethernet = "wired";
+            format-disconnected = "offline";
+            on-click = "${lib.getExe config.programs.alacritty.package} -e ${lib.getExe' pkgs.networkmanager "nmtui"}";
+          };
+          bluetooth = {
+            format = "BT {status}";
+            format-connected = "BT {device_alias}";
+          };
+          # Click to change to the next power profile.
+          power-profiles-daemon.format = "{profile}";
+          battery = {
+            format = "BAT {capacity}%";
+            format-charging = "CHG {capacity}%";
+            states = {
+              warning = 20;
+              critical = 10;
+            };
+          };
+        };
+      };
     };
 
     services = {
