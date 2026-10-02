@@ -59,6 +59,9 @@ in {
     gtk = {
       enable = true;
       colorScheme = lib.toLower variant;
+      # GTK 4 and libadwaita get the preference from the portal; the
+      # settings.ini keys for it give warnings with GTK 4.22.
+      gtk4.colorScheme = null;
       font = {
         name = uiFont;
         size = fontSize;
