@@ -13,10 +13,22 @@
   '';
 
   cursor = config.home.pointerCursor;
+  c = import ../../theme/palette.nix config.settings.theme;
   themeKdl = pkgs.writeText "theme.kdl" ''
     cursor {
         xcursor-theme "${cursor.name}"
         xcursor-size ${toString cursor.size}
+    }
+    layout {
+        focus-ring {
+            active-color "#${c.accent}"
+            inactive-color "#${c.surface1}"
+        }
+        border {
+            active-color "#${c.accent}"
+            inactive-color "#${c.surface1}"
+            urgent-color "#${c.red}"
+        }
     }
   '';
   niriConfig = pkgs.runCommand "niri-config" {} ''
@@ -57,12 +69,10 @@ in {
       fuzzel.enable = lib.mkDefault true;
 
       # Screen lock, also used by the Super+Alt+L key binding.
+      # Colors are set in the theme module.
       swaylock = {
         enable = lib.mkDefault true;
-        settings = {
-          color = "000000";
-          show-failed-attempts = true;
-        };
+        settings.show-failed-attempts = true;
       };
 
       # Status bar, started with graphical-session.target.
