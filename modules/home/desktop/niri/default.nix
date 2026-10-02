@@ -23,12 +23,21 @@
   '';
 in {
   config = lib.mkIf (config.settings.gui == "niri") {
-    # Terminal and launcher used by niri's default key bindings.
+    # Checked with `niri validate` at build time.
+    xdg.configFile."niri/config.kdl".source = pkgs.runCommand "niri-config.kdl" {} ''
+      ${lib.getExe pkgs.niri} validate -c ${./config.kdl}
+      cp ${./config.kdl} $out
+    '';
+
+    # Media keys; avizo handles volume and brightness keys with a pop-up.
+    home.packages = [pkgs.playerctl];
+
+    # Terminal and launcher used by the key bindings in config.kdl.
     programs = {
       alacritty.enable = lib.mkDefault true;
       fuzzel.enable = lib.mkDefault true;
 
-      # Screen lock, also used by niri's default Super+Alt+L key binding.
+      # Screen lock, also used by the Super+Alt+L key binding.
       swaylock = {
         enable = lib.mkDefault true;
         settings = {
@@ -39,6 +48,9 @@ in {
     };
 
     services = {
+      # Volume and brightness pop-up, used by volumectl and lightctl.
+      avizo.enable = lib.mkDefault true;
+
       # Password prompt for polkit, started with graphical-session.target.
       polkit-gnome.enable = lib.mkDefault true;
 

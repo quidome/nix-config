@@ -1,7 +1,7 @@
 {
   imports = [
     ./desktop-reset.nix
-    ./niri.nix
+    ./niri
     ./plasma.nix
   ];
 }
