@@ -51,6 +51,16 @@ in {
       # Volume and brightness pop-up, used by volumectl and lightctl.
       avizo.enable = lib.mkDefault true;
 
+      # Notifications, started by D-Bus on the first notification.
+      mako = {
+        enable = lib.mkDefault true;
+        settings = {
+          default-timeout = 5000;
+          # Keep critical notifications until they are dismissed.
+          "urgency=critical".default-timeout = 0;
+        };
+      };
+
       # Password prompt for polkit, started with graphical-session.target.
       polkit-gnome.enable = lib.mkDefault true;
 
