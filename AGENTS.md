@@ -89,3 +89,9 @@
 - Primary validation: `just check`
 - Formatting: `just fmt`
 - Linting: `just lint`
+
+## Way of working
+This project uses the product way of working (skill `product-workflow`).
+Team and roles: `.claude/team.md`. Word list: @docs/language.md
+Living documents: docs/vision.md, docs/architecture.md, docs/product/. Open changes: docs/changes/.
+Do not read docs/changes/done/ unless asked.
