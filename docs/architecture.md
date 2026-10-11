@@ -74,8 +74,6 @@ use the default, plasma.
   needed at boot, but no unencrypted file uses it. Root is not wiped at boot, so everything
   already survives a reboot. Find out if an encrypted file uses it; if not, remove it or give it
   a purpose (for example host keys, if root is ever wiped at boot).
-- **JetBrains IDE in host files.** `nimbus` and `bea` both have the JetBrains IDE as a
-  commented-out line in their `system.nix` (the install hangs). It belongs in the `dev` role.
 - **WireGuard key is a manual, unwritten step.** `nimbus` reads `/etc/secrets/wg0-private`, a
   file made by hand. Either the configuration provides it, or the manual step is written down.
 - **`server` form factor is not used.** No host uses it, and servers have their own repository.

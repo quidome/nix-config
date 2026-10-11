@@ -49,6 +49,8 @@ in {
         adoptopenjdk-icedtea-web
         plantuml
         vscodium
+        # don't install jetbrains.ide at this moment as the install never seems to end
+        # jetbrains.idea-oss
       ];
   };
 }
