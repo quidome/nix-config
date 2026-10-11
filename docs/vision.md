@@ -24,7 +24,8 @@ What it is not:
 
 ## Core values
 1. **Secrets never leak.** Not in git, not in the Nix store, not in logs. This is the worst
-   possible failure.
+   possible failure. One known exception: the temporary initial password hash may be in the
+   Nix store, because the operator changes the password right after install.
 2. **Data on disk is never lost** because of a configuration change.
 3. **Any host can be rebuilt in minutes**, and after the rebuild it is ready to use, except for
    the identity steps above.
@@ -33,7 +34,9 @@ What it is not:
 ## Where we are
 The setup works well and nothing is hard. Three hosts are configured. Hosts choose a graphical
 session, a kind of machine and software groups; shared modules do the rest. Plasma is the
-daily desktop; niri is available as a second, minimal session. The structure is decent and
+daily desktop; niri is available as a second, minimal session. Known gap: host secrets (for
+example the WireGuard key) are files made by hand on the host, so a rebuild of such a host needs
+one step more than the identity steps. The structure is decent and
 could be cleaner in places.
 
 ## North star
@@ -71,6 +74,8 @@ No large changes are planned.
 - Do not remove a working experiment only because it is not in use now; keeping it costs less
   than building it again.
 - Identity is set up by hand, on purpose.
+- Every value has a class – secret, private, public or identity – and the class decides where it
+  lives (`docs/product/secrets.md`). Private values stay hidden, even in a public repository.
 
 ## Open questions
 - None at the moment.
@@ -79,3 +84,5 @@ No large changes are planned.
 | Date | Change |
 |------|--------|
 | 2026-10-11 | Vision created |
+| 2026-10-11 | Exception for the temporary password hash in the Nix store; principle that every value has a class (secret management change) |
+| 2026-10-11 | Four value classes; known gap for host secrets in "where we are" (spec review round 2) |
