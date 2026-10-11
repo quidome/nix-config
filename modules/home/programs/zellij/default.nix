@@ -29,7 +29,6 @@ in {
         theme = zellijTheme;
         default_layout = "layout";
         show_startup_tips = false;
-        copy_command = "wl-copy";
       };
     };
 
