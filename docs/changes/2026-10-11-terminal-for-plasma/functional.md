@@ -104,21 +104,21 @@ acceptance criteria in Stories 2 and 3; they are checked on the real setup in Im
 Zellij, with my tools, **so that** daily work with LLM tools does not hit terminal limits.
 
 #### Acceptance criteria
-- [ ] Shift+Enter in the Claude Code prompt adds a new line, inside Zellij.
-- [ ] Text copied in Zellij, sent through the terminal (OSC 52, without the `wl-copy`
+- [x] Shift+Enter in the Claude Code prompt adds a new line, inside Zellij.
+- [x] Text copied in Zellij, sent through the terminal (OSC 52, without the `wl-copy`
   workaround), can be pasted in another Plasma app.
-- [ ] If this passes, the `wl-copy` workaround is removed from the Zellij settings, so the copy
+- [x] If this passes, the `wl-copy` workaround is removed from the Zellij settings, so the copy
   goes through the terminal again (and also works in Zellij over SSH). If it does not pass, the
   workaround stays.
-- [ ] Accepted by the operator: without the workaround, the Zellij copy no longer works in Konsole.
+- [x] Accepted by the operator: without the workaround, the Zellij copy no longer works in Konsole.
   Konsole is the fallback for when the new terminal does not start; there, the copy is a small
   loss.
-- [ ] Output that redraws a lot (for example Claude Code while it works) shows no flicker or torn
+- [x] Output that redraws a lot (for example Claude Code while it works) shows no flicker or torn
   lines.
-- [ ] A kitty-format image shows in the terminal, outside Zellij. Inside Zellij is not required
+- [x] A kitty-format image shows in the terminal, outside Zellij. Inside Zellij is not required
   (Zellij probably does not pass kitty images on).
-- [ ] A link printed with OSC 8 opens in the browser on click.
-- [ ] A true-colour test shows smooth colour gradients.
+- [x] A link printed with OSC 8 opens in the browser on click.
+- [x] A true-colour test shows smooth colour gradients.
 
 #### Behaviour
 The operator opens the terminal; Zellij starts as now; the tools work without extra settings by hand.
@@ -132,19 +132,19 @@ The operator opens the terminal; Zellij starts as now; the tools work without ex
 Plasma window, **so that** the daily desktop stays one calm, consistent desktop.
 
 #### Acceptance criteria
-- [ ] The terminal is installed on every host with Plasma as its graphical session, and can be
+- [x] The terminal is installed on every host with Plasma as its graphical session, and can be
   started from the Plasma launcher.
 - [ ] It starts and is not clearly slow on `truce`, the oldest host.
-- [ ] The window has the normal Plasma title bar (window name, minimize, maximize, close), drawn by
+- [x] The window has the normal Plasma title bar (window name, minimize, maximize, close), drawn by
   Plasma as on every other window. There are no extra buttons.
-- [ ] There is no scroll bar, menu bar, toolbar or tab bar.
-- [ ] It uses the same monospace font as the rest of the setup.
-- [ ] It has a light and a dark theme and follows the light/dark mode that Plasma shows, also when
+- [x] There is no scroll bar, menu bar, toolbar or tab bar.
+- [x] It uses the same monospace font as the rest of the setup.
+- [x] It has a light and a dark theme and follows the light/dark mode that Plasma shows, also when
   that mode changes while the terminal is open.
-- [ ] All of the above holds right after a rebuild, with no setting made by hand, except the
+- [x] All of the above holds right after a rebuild, with no setting made by hand, except the
   default terminal below.
-- [ ] Konsole stays installed and works as before.
-- [ ] Plasma opens the new terminal by default: the keyboard shortcut for a terminal and "Open
+- [x] Konsole stays installed and works as before.
+- [x] Plasma opens the new terminal by default: the keyboard shortcut for a terminal and "Open
   terminal" in the file manager start it, not Konsole. The operator sets both by hand in the Plasma
   settings (keyboard shortcut; default terminal application) – Plasma writes these settings itself.
   This hand step is written down in the product document for the terminal, so it is not forgotten

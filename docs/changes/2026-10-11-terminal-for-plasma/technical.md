@@ -1,6 +1,6 @@
 # Technical spec: Terminal for Plasma
 
-**Status**: approved
+**Status**: done
 **Size**: story
 **Change**: docs/changes/2026-10-11-terminal-for-plasma/
 **Date**: 2026-10-11
@@ -193,19 +193,53 @@ From `functional.md` (approved 2026-10-11; Story 3 changed with the operator dur
 - Ghostty uses the GPU; `truce` is checked first (Step 0) and last (Step 5).
 
 ## Progress
-- [ ] Step 0
-- [ ] Step 1
-- [ ] Step 2
-- [ ] Step 3
-- [ ] Step 4
-- [ ] Step 5
-- [ ] All checks pass
+- [ ] Step 0 – skipped: `truce` has no Nix now (see Deviations)
+- [x] Step 1
+- [x] Step 2
+- [ ] Step 3 – 3a done; niri check and 3b wait for a host (see Deviations)
+- [x] Step 4
+- [ ] Step 5 – skipped: `truce` has no Nix now (see Deviations)
+- [x] All checks pass
+
+Results (2026-10-11):
+- Step 1: `just verify` passes; `just build` passes for `nimbus`, `bea`, `truce`;
+  `programs.ghostty.enable` is `true` on `nimbus`; `ghostty +validate-config` on the generated file
+  reports nothing (and fails on a wrong value, checked). The import is placed before `./git.nix`
+  (alphabetical order), not after it as Step 1 says. After the operator's switch of `nimbus`:
+  true-colour gradient smooth, OSC 8 link opens, kitty image shows outside **and inside** Zellij
+  (the spec assumed Zellij does not pass kitty images on – it does), Shift+Enter adds a new line in
+  Claude Code inside Zellij, no flicker, window shows only the Plasma title bar (no scroll bar, tab
+  bar, menu or extra buttons; `gtk-titlebar` not needed), light/dark follows Plasma while open,
+  Konsole still starts.
+- Step 2: in Ghostty, Zellij with a test configuration without `copy_command` copied through the
+  terminal (OSC 52) to the Plasma clipboard. `copy_command = "wl-copy"` removed; `just verify` and
+  `just build nimbus` pass; the generated Zellij config has no `copy_command`. After the operator's
+  switch, the copy works with the normal configuration.
+- Step 3a: Ghostty enabled in niri instead of Alacritty; the waybar network click runs
+  `ghostty -e nmtui`; `Mod+Return` replaces `Mod+T` in `config.kdl` (no other `Mod+Return` bind).
+  `just verify` passes. A temporary `gui = "niri"` on `truce` (reverted at once, not committed)
+  builds with `just build truce`, so `config.kdl` validates. The niri check in a real session and
+  Step 3b wait for a host.
+- Step 4: `docs/product/terminal.md` written (purpose, behaviour, limits including the Konsole copy,
+  the single process and the open checks, settings, and the Plasma hand step: default terminal
+  Ghostty, Meta+Enter as the only terminal shortcut). `just verify` passes (the leak guard reads it).
+- After the reviews: `shell-integration-features = "ssh-env,ssh-terminfo"` added (R1); `terminal.md`
+  updated (R2, R3); the operator did the Plasma hand step on `nimbus` and it works (A5).
+  `just verify` passes.
+- Open at Close (known gaps): Ghostty on `truce` (Steps 0 and 5); the niri check in a real session
+  and Step 3b (Alacritty colours).
 
 ## Deviations
 - **Stricter reading of Story 4**: the spec makes niri a bonus ("if it works well"); the operator
   asked during Design to replace Alacritty in niri as a fixed step. The niri check runs on `truce`
   before Close (Step 3); if Ghostty does not work well in niri, Step 3 is reverted and Alacritty
   stays.
+- **`truce` not available (Implement, 2026-10-11)**: `truce` has no Nix installed now. Step 0
+  and Step 5 are skipped; the Story 3 criterion "starts and is not slow on `truce`" stays open
+  until `truce` runs this configuration. `just build truce` still runs. The niri check (Step 3)
+  waits for `truce` or another host (operator's choice): Step 3a goes in, Step 3b (removing the
+  Alacritty colours) waits for the check. The change may close with both checks open, written down
+  as known gaps.
 - No other difference from `functional.md`. The hand step for the default terminal is in the
   functional spec itself (changed with the operator during Design).
 
@@ -233,3 +267,131 @@ updated at Close (a task for `/close`). The approved spec was changed after its 
 is the review of that change.
 
 ## Review findings
+Reviewed 2026-10-11 by `/review build` (fresh agent). Read: the diff against `main` (uncommitted
+work: `ghostty.nix`, `plasma.nix`, `niri/default.nix`, `niri/config.kdl`, `zellij/default.nix`,
+`programs/default.nix`, `docs/product/terminal.md`), the change folder, `docs/architecture.md`,
+decision records 0001 and 0002, `AGENTS.md`. No extra text was passed in the arguments.
+
+- **R1 – SSH from Ghostty to a host without its terminfo (bug against Story 2's intent).** Ghostty
+  sets `TERM=xterm-ghostty`. Its terminfo is only in the operator's own profile, not system-wide,
+  and Ghostty's SSH help is off by default. So `ssh root@<host>` (used by `just gc`), SSH into the
+  live install image, a `gui = "none"` host or a server from the other repository gets a `TERM` the
+  remote does not know: shells, `nmtui`, editors and Zellij there may draw wrong or refuse to start.
+  Story 2 counts "Zellij over SSH" as a gain of this change, and the product document does not name
+  the limit. Options: `shell-integration-features = ssh-env,ssh-terminfo` in `ghostty.nix` (Ghostty
+  then installs its terminfo on the remote or falls back to `xterm-256color`), or only `ssh-env`;
+  and/or the Ghostty terminfo in the system packages and the live images. Checked: `ls` of
+  `/run/current-system/sw/share/terminfo/x/` (no `xterm-ghostty`) and
+  `/etc/profiles/per-user/*/share/terminfo/x/` (has it) on `nimbus`; `nix eval` of
+  `environment.enableAllTerminfo` for `nimbus` (`false`); `ghostty +show-config --default --docs`
+  (`shell-integration-features = …,no-ssh-env,no-ssh-terminfo,…`). Not run over a real SSH session.
+  - Fixed 2026-10-11: inside Zellij `TERM` is `xterm-256color` (operator checked), so only windows without Zellij use `xterm-ghostty`. Added `shell-integration-features = "ssh-env,ssh-terminfo"` to `ghostty.nix`; `+show-config` shows the other features stay on (cursor, title, path); `+validate-config` passes. Written in `terminal.md`.
+- **R2 – Zellij does not follow Plasma's light/dark mode; the product document says it matches.**
+  Ghostty switches Latte/Mocha with Plasma's mode; Zellij's theme comes from `settings.theme`
+  (default `dark`), which Plasma does not change. With Plasma in light mode, the Zellij bar stays
+  Mocha on a Latte terminal. Changing Zellij is out of scope, but `docs/product/terminal.md` ("the
+  same as Zellij") and the comment in `ghostty.nix` ("same flavors as Zellij") are only true when
+  both happen to agree. Write it as a limit (or say "the same flavours"), and maybe an idea line.
+  Checked: trace `modules/home/programs/zellij/default.nix` (`zellijTheme` from `settings.theme`),
+  `modules/home/settings.nix` (default `dark`), `nix eval` of the Zellij settings for `nimbus`
+  (`theme = "catppuccin-mocha"`). Not seen on screen.
+  - Fixed 2026-10-11 in the documents: `terminal.md` says "the same flavours as Zellij" and names the light/dark mismatch as a limit. Not fixed in code: Story 3 asks only the terminal to follow Plasma; idea line added in `docs/ideas.md`.
+- **R3 – `desktop-reset kde` undoes the hand step.** It moves `.config/kdeglobals` and
+  `.config/kglobalshortcutsrc` aside, which hold the default terminal and the Meta+Enter shortcut.
+  `docs/product/terminal.md` names the hand step only "after a rebuild". Add "and after
+  `desktop-reset kde`". Checked: read `paths_for kde` in `modules/home/desktop/desktop-reset.sh`.
+  - Fixed 2026-10-11: `terminal.md` says to do the hand step again after `desktop-reset kde`.
+- **R4 – Claims about checks.** True: `nix flake check` passes (alejandra, statix, deadnix, leak
+  guard; all hosts evaluate); `statix check`, `deadnix`, `alejandra --check` clean;
+  `ghostty +validate-config` on the generated file exits 0, and exits 1 on `scrollbar = bogus`, so
+  the test can fail; home-manager defaults `systemd.enable`, `enableZshIntegration` are `true` and
+  the package is 1.3.1. Checked: run. Not checked: `just build` per host (the flake check only
+  evaluates), the temporary niri build on `truce` (needs a repository edit), and the hand checks on
+  `nimbus` (operator observations). Note: `niri validate` checks syntax only, not that `ghostty` is
+  on the path, so the 3a build does not prove Mod+Return opens Ghostty; the open niri check is
+  rightly kept.
+  - Not fixed 2026-10-11: the hand checks and builds are recorded under Progress; the real niri session stays an open check (see Deviations).
+- **R5 – Siblings, checked and fine.** `ghostty -e nmtui` from waybar has CLI arguments, so with
+  `gtk-single-instance = detect` it runs as its own process with niri's environment, not through
+  the service (read from `+show-config --default --docs`). No `alacritty.enable` is left anywhere;
+  the remaining `alacritty.settings.colors` block writes nothing while Alacritty is off, as the
+  deviation intends (search `alacritty` in `modules`, `hosts`). Enabling Ghostty in `plasma.nix`
+  and the niri module follows the niri precedent (Alacritty, fuzzel enabled there) and the
+  "program modules configure, desktops enable" pattern. `wl-clipboard` stays in the graphical base;
+  README's line about it is still true (search `wl-clipboard`).
+  - No action 2026-10-11: all fine.
+- **R6 – Change documents for `/close`.** The functional spec says Zellij probably does not pass
+  kitty images on; the trial shows it does (Progress, Step 1) – the product document already says
+  so. The import order (before `./git.nix`) differs from Step 1 and is recorded under Progress, not
+  under Deviations; harmless, as Step 1 was wrong about alphabetical order. The `vision.md` known
+  gap (default terminal as hand step) is still a `/close` task.
+  - For `/close` 2026-10-11: images in Zellij, import order, and the vision gap are handled at Close.
+
+Verdict: no blocker in the code. R1 should be settled before Close (a setting or a written
+limit); R2 and R3 are doc fixes.
+
+Reviewed 2026-10-11 by `/review accept` (fresh agent). Read: `change.md`, `idea.md`,
+`functional.md`, the diff against `main` (uncommitted), `docs/product/terminal.md`; looked at the
+running system on `nimbus` read-only. View formed before reading Deviations and the R findings. No
+extra text was passed in the arguments.
+
+- **A1 – Story 2, modern features: faithful.** Shift+Enter, OSC 52 copy, no flicker, kitty image,
+  OSC 8, true colour all pass on `nimbus` per the operator's observations (Progress, Step 1–2); the
+  `wl-copy` workaround is gone, as the spec asks when the copy passes. Kitty images work also
+  inside Zellij – better than the spec assumed. The Konsole copy loss is the accepted trade-off.
+  Checked: diff of `zellij/default.nix`; `~/.config/ghostty/config` is the generated store file
+  with the four settings; hand checks themselves not repeated (operator observations).
+  For `/close`: the Story 2 and 3 boxes in `functional.md` are still unticked.
+  - No action 2026-10-11: faithful.
+- **A2 – Story 2, "also works in Zellij over SSH": neutral drift.** The spec names this as the gain
+  of removing the workaround; nothing checks it, and R1 (no `xterm-ghostty` terminfo on remote
+  hosts, root or servers) can break the remote side. Settle R1 or write the limit in the product
+  document. Checked: not run over SSH; `echo $TERM` in this session is `xterm-256color`.
+  - Fixed 2026-10-11 with R1. Zellij copy over SSH is not tested by hand; it is not an acceptance criterion.
+- **A3 – Story 3, `truce` starts Ghostty and is not slow: neutral drift (open criterion).** This is
+  the pass/fail check that sends the change back to Discover with kitty; it is not done because
+  `truce` has no Nix now (Deviations). The daily desktop stays safe (Konsole), and the product
+  document names it under "Not yet checked". Acceptable only as a written known gap; when `truce`
+  returns, a failure there still reopens the terminal choice. Checked: read Deviations and
+  `docs/product/terminal.md`.
+  - Not fixed 2026-10-11: `truce` has no Nix now; stays an open check and a known gap at Close.
+- **A4 – Story 3, light/dark: faithful for the terminal, neutral drift for what runs in it.**
+  Ghostty follows Plasma's mode, as decided. But Zellij, helix, git and the shell prompt pick their
+  colours from `settings.theme` (default `dark`), so with Plasma in light mode the operator sees
+  Mocha bars and tools on a Latte terminal – not the "one calm, consistent desktop" the story is
+  for. The spec decided the terminal side only; the result should at least say so (same as R2),
+  and an idea line for following the mode in the tools is worth it. Checked: search
+  `settings.theme` in `modules/home` (base, git, helix, neovim, zed, zellij).
+  - Fixed 2026-10-11 in the documents, see R2.
+- **A5 – Story 3, default terminal and Meta+Enter: faithful adaptation, not yet observed.** The hand
+  step is written down as the spec asks. On `nimbus` it has not been done yet: no
+  `TerminalApplication` in `~/.config/kdeglobals`, no Ghostty entry in `~/.config/kglobalshortcutsrc`.
+  So the criterion "Plasma opens the new terminal by default" has not been seen working, and
+  whether the written steps give that result (Dolphin "Open terminal", Meta+Enter free in Plasma)
+  is not checked. Do the hand step once on `nimbus` before Close, following the document word for
+  word; add R3 (`desktop-reset kde`). Checked: grep of both files.
+  - Fixed 2026-10-11: the operator did the hand step on `nimbus` as `terminal.md` says; Meta+Enter and "Open terminal" in Dolphin open Ghostty. R3 added to the document.
+- **A6 – Story 3, window, font, launcher, Konsole: faithful.** `window-decoration = server`,
+  `scrollbar = never`, tab bar `auto` (none with one tab); operator saw only the Plasma title bar.
+  Launcher entry `com.mitchellh.ghostty.desktop` is in the user profile; `konsole` is still on the
+  system path. Font is `JetBrainsMono Nerd Font` at Ghostty's default 12 (operator's choice; the
+  niri theme uses size 10 for KDE apps – a small difference, chosen). Checked: `ls` of the profile
+  applications, `which konsole`, `ghostty +show-config --default`.
+  - No action 2026-10-11: faithful.
+- **A7 – Story 4, niri: neutral drift (recorded deviation).** Ghostty replaces Alacritty in niri
+  before the "works well" check; the check is open. Alacritty is no longer installed in niri and
+  Mod+T is gone, so if Ghostty fails there, niri has no terminal key until the revert – acceptable
+  for the playground, and the Alacritty colours are kept for the revert. Checked: diff of
+  `niri/default.nix`, `config.kdl`; whether niri has any other terminal installed not checked.
+  - Not fixed 2026-10-11: accepted by the operator (playground); the niri check stays open.
+- **A8 – single instance: neutral drift.** Keeping home-manager's Ghostty user service means one
+  crash closes every terminal window – a new way to lose all daily work at once that Konsole did
+  not have. Documented in the product document; the operator should know it is a choice, not a
+  must (`systemd.enable = false` removes it at the cost of slower new windows). Checked: read
+  Decisions and `systemctl --user status app-com.mitchellh.ghostty.service` (running).
+  - Not fixed 2026-10-11: the operator keeps the single service (faster new windows); documented in `terminal.md`.
+
+Verdict: **accepted with notes.** What was built is what was meant for Stories 1, 2 and the visible
+parts of 3. Before Close: do and observe the Plasma hand step (A5); fix the product document for
+R2/A4 and R3; settle R1/A2; record the `truce` (A3) and niri (A7) checks as known gaps if they are
+still open; tick the passed boxes in `functional.md`.
