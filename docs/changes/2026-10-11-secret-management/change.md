@@ -1,8 +1,8 @@
 ---
 title: Secret management
 type: feature
-stage: design
-closure: checks
+stage: implement
+closure: review build + accept
 created: 2026-10-11
 ---
 
@@ -21,3 +21,4 @@ WireGuard key on `nimbus` and the question if the user account must stay hidden.
 | 2026-10-11 | discover | spec review round 1: all serve with notes; N1-N6 fixed in the spec with the operator |
 | 2026-10-11 | discover | spec review round 2: all serve, notes N7-N10 fixed; /vision aligned language.md and vision.md |
 | 2026-10-11 | design | functional spec approved by the operator |
+| 2026-10-11 | implement | technical spec approved; closure: review build + accept (the leak guard is a safety net that fails silently if it has a hole; the rule document is the main protection) |
