@@ -4,14 +4,89 @@ How the product is built **now**. Updated at each /close. The reasons for choice
 `docs/decisions/`.
 
 ## Overview
-<The main parts and how they work together. A small diagram if it helps.>
+One flake (`flake.nix`) builds a NixOS configuration for each host, with home-manager running
+as a NixOS module, so one rebuild applies both system and user configuration. The flake also
+builds two live install images.
+
+```
+flake.nix ── mkHost user host
+               ├─ disko module                      disk layout
+               ├─ modules/shared                    options (settings.*) + secret wiring
+               ├─ modules/system                    NixOS: profiles, roles, desktop, services
+               ├─ hosts/<host>/shared.nix           the host's choices (settings.*)
+               ├─ hosts/<host>/system.nix           host-only system config + hardware
+               └─ home-manager, one user
+                    ├─ modules/shared               same options, same secret wiring
+                    ├─ modules/home                 profiles, roles, desktop, programs, theme
+                    ├─ hosts/<host>/shared.nix      the same choices again
+                    └─ hosts/<host>/home.nix        host-only user config
+```
+
+The host's choices are read twice, once by the system and once by home-manager, so both sides
+see the same `settings.*` values.
+
+Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `pkgsUnstable`),
+`home-manager` (matching release), `disko`, `claude-code`. One `pkgs` set for `x86_64-linux`,
+with unfree packages allowed. All hosts use the same user, passed to modules as `desktopUser`.
 
 ## Layers and modules
 | Part | Responsibility | Depends on |
 |------|----------------|------------|
+| `modules/shared/settings.nix` | The host choices as options: `gui`, `formFactor`, `roles.*`, `authorizedKeys` | – |
+| `modules/shared/secrets.nix`, `modules/system/secrets.nix` | Private values (encrypted with git-crypt) | – |
+| `modules/system/profiles/` | Always-on system base; form-factor services (network, bluetooth, laptop power); graphical base (fonts, PipeWire, Flatpak) | `settings.formFactor`, `settings.gui` |
+| `modules/system/roles/` | Optional software groups on the system side: `dev`, `personal`, `media`, `gaming` | `settings.roles`, `settings.gui` |
+| `modules/system/desktop/` | Plasma (SDDM), niri (greetd), and a fix for Electron apps outside Plasma | `settings.gui`, `settings.roles.personal` |
+| `modules/system/services/` | Service settings that turn on when the service is on (Flatpak repo, PipeWire, usbmuxd) | the service's own `enable` |
+| `modules/system/disk-config.nix` | One shared disk layout (EFI + LUKS + btrfs subvolumes, swap file); a function of the disk device | disko |
+| `modules/home/profiles/` | Always-on user base (shell, editors, git, ssh client); graphical base | `settings.gui` |
+| `modules/home/roles/` | Optional groups on the user side: `dev`, `personal` | `settings.roles`, `settings.gui` |
+| `modules/home/desktop/` | Plasma and niri user config; `desktop-reset` tool | `settings.gui` |
+| `modules/home/programs/` | Settings per program; active when the program is enabled elsewhere | the program's own `enable` |
+| `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
+| `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), and encrypted `vars.nix`, `home-vars.nix`, `hardware-configuration.nix` | modules |
+| `live-image/` | Install images: base (ssh keys, sshd, nmtui) and a bcachefs variant | `modules/shared/secrets.nix` |
+
+Hosts now: `nimbus` (laptop), `bea` (desktop), `truce` (laptop). None sets `gui`, so all three
+use the default, plasma.
 
 ## Patterns to follow
-- <for example: fetch → core logic → write>
+- **A host chooses, modules implement.** `hosts/<host>/shared.nix` sets only `settings.*`. A host
+  file adds only what is unique to that host: hardware, disk device, and software that only that
+  host uses.
+- **Defaults in modules use `lib.mkDefault`.** A module that needs something else turns it off
+  with a plain assignment, not with `lib.mkDefault false`.
+- **Conditional config with `lib.mkIf`** on `settings.*`; combine with `lib.mkMerge`.
+- **Program modules configure, they do not enable.** `modules/home/programs/*` act under
+  `lib.mkIf cfg.enable`; profiles and roles decide what is enabled.
+- **GUI-only packages** in a role go behind `settings.gui != "none"`.
+- **Host desktop overrides** in `home.nix` are gated with `lib.mkIf` on `settings.gui`, unless
+  they work on every desktop.
+- **niri config is a plain KDL file** (`config.kdl`); generated parts go into a separate included
+  file and the whole is checked with `niri validate` at build time.
+- **Secrets only in git-crypt files** (`.gitattributes`: `secrets.nix`, `vars.nix`,
+  `home-vars.nix`, `system-vars.nix`, `hardware-configuration.nix`). Never read or show them.
+- **Code style:** `lib.` prefix, no `with lib;`; options → config; format with alejandra.
+- **Checks:** `nix flake check` runs alejandra, statix and deadnix; each host must build.
 
 ## Known technical debt
-- <shortcut, where, and when to fix it>
+- **`/persist` has no known use.** `modules/system/disk-config.nix` makes a `/persist` subvolume,
+  needed at boot, but no unencrypted file uses it. Root is not wiped at boot, so everything
+  already survives a reboot. Find out if an encrypted file uses it; if not, remove it or give it
+  a purpose (for example host keys, if root is ever wiped at boot).
+- **Two definitions of `authorizedKeys`.** `live-image/base.nix` declares the option again
+  instead of importing `modules/shared/settings.nix`. The goal is one list of keys for hosts and
+  live images.
+- **Dead `gnome` value** in `modules/system/desktop/electron-desktop.nix`; `gnome` is not a
+  permitted `settings.gui` value.
+- **Containers are set up per host.** `nimbus` and `bea` both enable Docker with btrfs storage in
+  their `system.nix`. Containers must be standard on every host (Docker or Podman: not decided).
+  The commented-out JetBrains IDE in both hosts belongs in the `dev` role.
+- **WireGuard key is a manual, unwritten step.** `nimbus` reads `/etc/secrets/wg0-private`, a
+  file made by hand. Either the configuration provides it, or the manual step is written down.
+- **`server` form factor is not used.** No host uses it, and servers have their own repository.
+  A host without a desktop is already `gui = "none"`.
+- **The user account is hidden, but the username is not.** The user account is defined in the
+  encrypted host files to keep the username private, but the username is already in plain text
+  in `flake.nix` (`mkHost`) and in `modules/home/roles/dev.nix`. Decide: make the account plain
+  (keeping only real secrets, such as password hashes, encrypted) or hide the name everywhere.
