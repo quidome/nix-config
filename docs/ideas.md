@@ -4,3 +4,4 @@ Raw ideas, one line each. No judgement yet. `/vision idea: …` picks them up.
 Add the date. Remove a line when it becomes a change, or mark it `(rejected: reason)`.
 
 - 2026-10-11 Research: should containers move from Docker to Podman (rootless, no daemon)? A switch needs a plan for existing images and volumes. See decision 0001.
+- 2026-10-11 Decide how this repository manages secrets: today git-crypt for whole files, and hand-made files on the host (for example the WireGuard key on `nimbus`). Blocks the WireGuard item in the backlog; check against the vision (identity is hand work on purpose).
