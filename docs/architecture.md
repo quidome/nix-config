@@ -44,7 +44,7 @@ with unfree packages allowed. All hosts use the same user, passed to modules as 
 | `modules/home/desktop/` | Plasma and niri user config; `desktop-reset` tool | `settings.gui` |
 | `modules/home/programs/` | Settings per program; active when the program is enabled elsewhere | the program's own `enable` |
 | `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
-| `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), and encrypted `vars.nix`, `home-vars.nix`, `hardware-configuration.nix` | modules |
+| `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), `hardware-configuration.nix` (generated, plain text), and encrypted `vars.nix`, `home-vars.nix` | modules |
 | `live-image/` | Install images: base (ssh keys, sshd, nmtui) and a bcachefs variant | `modules/shared/settings.nix`, `modules/shared/secrets.nix` |
 
 Hosts now: `nimbus` (laptop), `bea` (desktop), `truce` (laptop). None sets `gui`, so all three
@@ -65,7 +65,8 @@ use the default, plasma.
 - **niri config is a plain KDL file** (`config.kdl`); generated parts go into a separate included
   file and the whole is checked with `niri validate` at build time.
 - **Secrets only in git-crypt files** (`.gitattributes`: `secrets.nix`, `vars.nix`,
-  `home-vars.nix`, `system-vars.nix`, `hardware-configuration.nix`). Never read or show them.
+  `home-vars.nix`, `system-vars.nix`). Never read or show them. The generated
+  `hardware-configuration.nix` is plain text: it holds nothing secret or private.
 - **Code style:** `lib.` prefix, no `with lib;`; options → config; format with alejandra.
 - **Checks:** `nix flake check` runs alejandra, statix and deadnix; each host must build.
 

@@ -1,4 +1,3 @@
-hardware-configuration.nix filter=git-crypt diff=git-crypt
 home-vars.nix filter=git-crypt diff=git-crypt
 secrets.nix filter=git-crypt diff=git-crypt
 system-vars.nix filter=git-crypt diff=git-crypt
