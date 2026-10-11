@@ -34,9 +34,11 @@ What it is not:
 ## Where we are
 The setup works well and nothing is hard. Three hosts are configured. Hosts choose a graphical
 session, a kind of machine and software groups; shared modules do the rest. Plasma is the
-daily desktop; niri is available as a second, minimal session. Known gap: host secrets (for
+daily desktop; niri is available as a second, minimal session. The terminal is Ghostty, with the
+modern features that daily work with LLM tools in Zellij needs. Known gaps: host secrets (for
 example the WireGuard key) are files made by hand on the host, so a rebuild of such a host needs
-one step more than the identity steps. Every value has a written class, and a leak guard in the
+one step more than the identity steps; and on a Plasma host, the default terminal and its keyboard
+shortcut are set by hand after a rebuild. Every value has a written class, and a leak guard in the
 checks stops a password hash or private key in a plain file. The structure is decent and
 could be cleaner in places.
 
@@ -88,3 +90,4 @@ No large changes are planned.
 | 2026-10-11 | Exception for the temporary password hash in the Nix store; principle that every value has a class (secret management change) |
 | 2026-10-11 | Four value classes; known gap for host secrets in "where we are" (spec review round 2) |
 | 2026-10-11 | Where we are: written value classes and leak guard (secret management change closed) |
+| 2026-10-11 | Where we are: Ghostty as the terminal; second known gap (default terminal set by hand in Plasma) (terminal for Plasma change closed) |

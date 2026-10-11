@@ -42,7 +42,7 @@ with unfree packages allowed. All hosts use the same user, passed to modules as 
 | `modules/system/disk-config.nix` | One shared disk layout (EFI + LUKS + btrfs subvolumes, swap file); a function of the disk device. The Docker storage driver in the base (btrfs) depends on it | disko |
 | `modules/home/profiles/` | Always-on user base (shell, editors, git, ssh client); graphical base | `settings.gui` |
 | `modules/home/roles/` | Optional groups on the user side: `dev`, `personal` | `settings.roles`, `settings.gui` |
-| `modules/home/desktop/` | Plasma and niri user config; `desktop-reset` tool | `settings.gui` |
+| `modules/home/desktop/` | Plasma and niri user config, which turns on the terminal (Ghostty); `desktop-reset` tool | `settings.gui` |
 | `modules/home/programs/` | Settings per program; active when the program is enabled elsewhere | the program's own `enable` |
 | `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
 | `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), `hardware-configuration.nix` (generated, plain text), and encrypted `vars.nix`, `home-vars.nix` | modules |
@@ -74,6 +74,10 @@ use the default, plasma.
   check (with its tests, `leak-guard-test`); each host must build.
 
 ## Known technical debt
+- **Alacritty colours not used.** `modules/home/theme/default.nix` still sets Alacritty colours, and
+  `modules/home/theme/palette.nix` has four entries only for them (`black`, `brightBlack`, `white`,
+  `brightWhite`). Nothing uses them since Ghostty replaced Alacritty in niri. Remove them after
+  Ghostty is checked in a real niri session.
 - **`/persist` has no known use.** `modules/system/disk-config.nix` makes a `/persist` subvolume,
   needed at boot, but no unencrypted file uses it. Root is not wiped at boot, so everything
   already survives a reboot. Find out if an encrypted file uses it; if not, remove it or give it
