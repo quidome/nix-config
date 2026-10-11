@@ -34,11 +34,11 @@ with unfree packages allowed. All hosts use the same user, passed to modules as 
 |------|----------------|------------|
 | `modules/shared/settings.nix` | The host choices as options: `gui`, `formFactor`, `roles.*`, `authorizedKeys` | – |
 | `modules/shared/secrets.nix`, `modules/system/secrets.nix` | Private values (encrypted with git-crypt) | – |
-| `modules/system/profiles/` | Always-on system base; form-factor services (network, bluetooth, laptop power); graphical base (fonts, PipeWire, Flatpak) | `settings.formFactor`, `settings.gui` |
+| `modules/system/profiles/` | Always-on system base, including containers (Docker, shared container configuration); form-factor services (network, bluetooth, laptop power); graphical base (fonts, PipeWire, Flatpak) | `settings.formFactor`, `settings.gui` |
 | `modules/system/roles/` | Optional software groups on the system side: `dev`, `personal`, `media`, `gaming` | `settings.roles`, `settings.gui` |
 | `modules/system/desktop/` | Plasma (SDDM), niri (greetd), and a fix for Electron apps outside Plasma | `settings.gui`, `settings.roles.personal` |
 | `modules/system/services/` | Service settings that turn on when the service is on (Flatpak repo, PipeWire, usbmuxd) | the service's own `enable` |
-| `modules/system/disk-config.nix` | One shared disk layout (EFI + LUKS + btrfs subvolumes, swap file); a function of the disk device | disko |
+| `modules/system/disk-config.nix` | One shared disk layout (EFI + LUKS + btrfs subvolumes, swap file); a function of the disk device. The Docker storage driver in the base (btrfs) depends on it | disko |
 | `modules/home/profiles/` | Always-on user base (shell, editors, git, ssh client); graphical base | `settings.gui` |
 | `modules/home/roles/` | Optional groups on the user side: `dev`, `personal` | `settings.roles`, `settings.gui` |
 | `modules/home/desktop/` | Plasma and niri user config; `desktop-reset` tool | `settings.gui` |
@@ -74,9 +74,8 @@ use the default, plasma.
   needed at boot, but no unencrypted file uses it. Root is not wiped at boot, so everything
   already survives a reboot. Find out if an encrypted file uses it; if not, remove it or give it
   a purpose (for example host keys, if root is ever wiped at boot).
-- **Containers are set up per host.** `nimbus` and `bea` both enable Docker with btrfs storage in
-  their `system.nix`. Containers must be standard on every host (Docker or Podman: not decided).
-  The commented-out JetBrains IDE in both hosts belongs in the `dev` role.
+- **JetBrains IDE in host files.** `nimbus` and `bea` both have the JetBrains IDE as a
+  commented-out line in their `system.nix` (the install hangs). It belongs in the `dev` role.
 - **WireGuard key is a manual, unwritten step.** `nimbus` reads `/etc/secrets/wg0-private`, a
   file made by hand. Either the configuration provides it, or the manual step is written down.
 - **`server` form factor is not used.** No host uses it, and servers have their own repository.

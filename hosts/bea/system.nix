@@ -101,8 +101,5 @@
     };
   };
 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
-
   system.stateVersion = "26.05";
 }

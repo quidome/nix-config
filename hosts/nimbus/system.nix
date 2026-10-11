@@ -58,9 +58,6 @@
     calibre
     gimp
 
-    docker-compose
-    lazydocker
-
     ifuse
     virt-manager
   ];
@@ -85,13 +82,6 @@
     };
 
     usbmuxd.enable = true;
-  };
-
-  virtualisation = {
-    containers.enable = true;
-
-    docker.enable = true;
-    docker.storageDriver = "btrfs";
   };
 
   system.stateVersion = "26.05";

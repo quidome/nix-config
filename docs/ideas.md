@@ -3,4 +3,4 @@
 Raw ideas, one line each. No judgement yet. `/vision idea: …` picks them up.
 Add the date. Remove a line when it becomes a change, or mark it `(rejected: reason)`.
 
-- YYYY-MM-DD <idea>
+- 2026-10-11 Research: should containers move from Docker to Podman (rootless, no daemon)? A switch needs a plan for existing images and volumes. See decision 0001.

@@ -61,4 +61,13 @@
   programs.zsh.enable = lib.mkDefault true;
 
   services.openssh.enable = lib.mkDefault true;
+
+  virtualisation = {
+    containers.enable = lib.mkDefault true;
+    docker = {
+      enable = lib.mkDefault true;
+      # All hosts use the shared btrfs disk layout (modules/system/disk-config.nix).
+      storageDriver = lib.mkDefault "btrfs";
+    };
+  };
 }

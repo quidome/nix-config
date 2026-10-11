@@ -29,6 +29,10 @@ in {
         kustomize
         stern
 
+        # containers
+        docker-compose
+        lazydocker
+
         # languages and linters
         ktlint
         pandoc
