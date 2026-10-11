@@ -62,6 +62,7 @@
 - See `README.md` for laptop power policy details
 
 ## Security Guardrails (git-crypt)
+- Which values are secret, private, public or identity, and where each lives: `docs/product/secrets.md`
 - Treat `.gitattributes` entries as protected; do not expose contents in prompts, logs, or responses
 - Before repo analysis or commit workflows, run `git-crypt status`
 - Never decrypt, copy, or share protected files/keys
