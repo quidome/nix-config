@@ -19,8 +19,8 @@
     };
 
   inherit (config.settings) gui;
-  # Electron picks the right secret store by itself on these desktops.
-  knownDesktop = lib.elem gui ["gnome" "plasma"];
+  # Electron picks the right secret store by itself on Plasma.
+  knownDesktop = gui == "plasma";
 in {
   config = lib.mkIf (gui != "none" && !knownDesktop && config.settings.roles.personal.enable) {
     # hiPrio: replace the plain packages from the personal role.
