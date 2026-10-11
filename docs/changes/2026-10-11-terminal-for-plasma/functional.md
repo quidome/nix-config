@@ -141,14 +141,19 @@ Plasma window, **so that** the daily desktop stays one calm, consistent desktop.
 - [ ] It uses the same monospace font as the rest of the setup.
 - [ ] It has a light and a dark theme and follows the light/dark mode that Plasma shows, also when
   that mode changes while the terminal is open.
-- [ ] All of the above holds right after a rebuild, with no setting made by hand.
+- [ ] All of the above holds right after a rebuild, with no setting made by hand, except the
+  default terminal below.
 - [ ] Konsole stays installed and works as before.
 - [ ] Plasma opens the new terminal by default: the keyboard shortcut for a terminal and "Open
-  terminal" in the file manager start it, not Konsole.
+  terminal" in the file manager start it, not Konsole. The operator sets both by hand in the Plasma
+  settings (keyboard shortcut; default terminal application) – Plasma writes these settings itself.
+  This hand step is written down in the product document for the terminal, so it is not forgotten
+  after a reinstall (decided with the operator during Design, 2026-10-11).
 
 #### Behaviour
-The operator rebuilds a Plasma host and opens a terminal with the keyboard shortcut, the launcher or
-the file manager. The new terminal opens with Zellij, in the right font and in Plasma's light or
+The operator rebuilds a Plasma host, sets the default terminal and its keyboard shortcut one time
+(the written hand step), and opens a terminal with the keyboard shortcut, the launcher or the file
+manager. The new terminal opens with Zellij, in the right font and in Plasma's light or
 dark mode, with only the Plasma title bar around it.
 
 #### Errors and edge cases
