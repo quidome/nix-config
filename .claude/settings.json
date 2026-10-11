@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/nix-post-edit.sh",
+            "timeout": 30,
+            "statusMessage": "Formatting and linting Nix file"
+          }
+        ]
+      }
+    ]
+  }
+}
