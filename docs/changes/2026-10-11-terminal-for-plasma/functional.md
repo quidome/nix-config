@@ -1,6 +1,6 @@
 # Functional spec: Terminal for Plasma
 
-**Status**: draft
+**Status**: approved
 **Change**: docs/changes/2026-10-11-terminal-for-plasma/
 **Date**: 2026-10-11
 
@@ -70,6 +70,10 @@ copy and Shift+Enter work in the operator's macOS setup; the same terminal as on
 MacBooks. Not yet checked on Linux: Shift+Enter, the copy through Zellij, the window in Plasma, and
 `truce`. These are acceptance criteria in Stories 2 and 3.
 
+Note: the image test ran outside Zellij. Zellij probably does not pass kitty images on (not
+checked), so images are a need outside Zellij only. The test that put WezTerm out therefore weighs
+less than it seems; the choice of Ghostty does not depend on it.
+
 ## User stories
 
 ### Story 1: Choose with checked facts
@@ -106,10 +110,13 @@ Zellij, with my tools, **so that** daily work with LLM tools does not hit termin
 - [ ] If this passes, the `wl-copy` workaround is removed from the Zellij settings, so the copy
   goes through the terminal again (and also works in Zellij over SSH). If it does not pass, the
   workaround stays.
+- [ ] Accepted by the operator: without the workaround, the Zellij copy no longer works in Konsole.
+  Konsole is the fallback for when the new terminal does not start; there, the copy is a small
+  loss.
 - [ ] Output that redraws a lot (for example Claude Code while it works) shows no flicker or torn
   lines.
-- [ ] A kitty-format image shows in the terminal (outside Zellij is acceptable if Zellij does not
-  pass images on; the spec then says so).
+- [ ] A kitty-format image shows in the terminal, outside Zellij. Inside Zellij is not required
+  (Zellij probably does not pass kitty images on).
 - [ ] A link printed with OSC 8 opens in the browser on click.
 - [ ] A true-colour test shows smooth colour gradients.
 
@@ -131,16 +138,18 @@ Plasma window, **so that** the daily desktop stays one calm, consistent desktop.
 - [ ] The window has the normal Plasma title bar (window name, minimize, maximize, close), drawn by
   Plasma as on every other window. There are no extra buttons.
 - [ ] There is no scroll bar, menu bar, toolbar or tab bar.
-- [ ] It uses the same monospace font as the rest of the setup, and follows the light/dark theme
-  that the host uses.
+- [ ] It uses the same monospace font as the rest of the setup.
+- [ ] It has a light and a dark theme and follows the light/dark mode that Plasma shows, also when
+  that mode changes while the terminal is open.
 - [ ] All of the above holds right after a rebuild, with no setting made by hand.
 - [ ] Konsole stays installed and works as before.
-- [ ] Nice to have, not required: Plasma opens the new terminal by default (keyboard shortcut,
-  "Open terminal" in the file manager).
+- [ ] Plasma opens the new terminal by default: the keyboard shortcut for a terminal and "Open
+  terminal" in the file manager start it, not Konsole.
 
 #### Behaviour
-The operator rebuilds a Plasma host and starts the terminal from the launcher. It opens with Zellij,
-in the right font and theme, with only the Plasma title bar around it.
+The operator rebuilds a Plasma host and opens a terminal with the keyboard shortcut, the launcher or
+the file manager. The new terminal opens with Zellij, in the right font and in Plasma's light or
+dark mode, with only the Plasma title bar around it.
 
 #### Errors and edge cases
 - The terminal does not start (for example a graphics problem on `truce`): Konsole is still there,
@@ -185,7 +194,7 @@ Alacritty may be replaced (Story 4).
   bar) is one more setting that the repository must manage, on every host. A terminal with fewer
   extras is leaner to maintain, too.
 - **Theme in two places.** Plasma manages its own theme; the repository's light/dark setting is used
-  outside Plasma. The terminal must follow what the host really shows, and the two may disagree.
+  outside Plasma. In Plasma, the terminal follows the mode that Plasma shows (decided 2026-10-11).
 - **Development builds.** WezTerm in the stable channel is a development build, not a release. That
   can mean more change between updates.
 
@@ -206,3 +215,17 @@ without this table. A "does not serve" row sends the spec back to Discover.>
 
 | Story | What the user is doing here | Verdict | Note |
 |---|---|---|---|
+| 1. Choose with checked facts | Picking the terminal for daily LLM work on facts, not feature lists | serves – note | The deciding trial (images) ran outside Zellij, but the operator always works inside Zellij (Context). As far as known, Zellij does not pass kitty images on, so the one check that put WezTerm out may not matter in daily use, while Shift+Enter and the copy (the real pains from the idea) were not tried on Linux. The choice still stands on other grounds (same terminal as macOS) and Story 1 has a fallback to kitty. Checked: read the trial table; Zellij image support not checked. |
+| 2. Modern features in my real setup | Typing multi-line prompts and copying from Zellij, locally and over SSH, without hitting terminal limits | serves – note | Shift+Enter and the copy are the operator's real pains and are tested inside Zellij: good. But removing the `wl-copy` workaround changes Zellij for every terminal, so the copy then breaks in Konsole, the fallback that Story 3 and core value 4 rely on. The spec should say this trade-off is accepted (or keep a local fallback). The image criterion allows "outside Zellij", which the operator never uses; name it as a nice-to-have rather than a feature that works. Checked: search `copy_command` in `modules/` (one shared setting in `modules/home/programs/zellij/default.nix`). |
+| 3. At home in Plasma | Opening a terminal on any Plasma host after a rebuild and finding it fitting the daily desktop | serves – note | Fits core values 3 and 4 and the "no setting by hand" rule. Two points for Design to settle from the user's view: (a) "follows the light/dark theme that the host uses" – the repository's theme setting is used only outside Plasma, so the spec should say which one wins in Plasma (the warning names the conflict, the criterion does not decide it); (b) the default terminal is only "nice to have", yet the operator's quickest way to a terminal (shortcut, "Open terminal" in the file manager) would then still open Konsole, which lacks the features. Checked: search `settings.theme` in `modules/home/theme/default.nix` (gated on niri; comment "Plasma manages its own theme"). |
+| 4. Bonus – same terminal in niri | Using one terminal in both graphical sessions | serves | Optional and never blocking, as the vision says for the playground. Checked: read vision principles. |
+
+Reviewed 2026-10-11 by `/review spec` (fresh agent). No story conflicts with the vision. Side
+note: most acceptance criteria in Stories 2 and 3 are hand checks on real hosts (including
+`truce`); the `closure: checks` in `change.md` cannot see them – for Design to weigh.
+
+Fixed in the spec on 2026-10-11, with the operator: Story 1 (note that the image test ran outside
+Zellij and weighs less), Story 2 (image outside Zellij only; the loss of the Zellij copy in Konsole
+is accepted), Story 3 (the terminal follows Plasma's light/dark mode; default terminal is now
+required). The side note on hand checks goes to Design. No second round: the changes follow from
+the review.
