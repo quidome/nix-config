@@ -6,7 +6,7 @@
 }: let
   inherit (config.settings) authorizedKeys;
 in {
-  options.settings.authorizedKeys = lib.mkOption {type = lib.types.listOf lib.types.str;};
+  imports = [../modules/shared/settings.nix];
 
   config = {
     nix.settings.experimental-features = ["nix-command" "flakes"];
