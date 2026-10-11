@@ -33,7 +33,8 @@ with unfree packages allowed. All hosts use the same user, passed to modules as 
 | Part | Responsibility | Depends on |
 |------|----------------|------------|
 | `modules/shared/settings.nix` | The host choices as options: `gui`, `formFactor`, `roles.*`, `authorizedKeys` | – |
-| `modules/shared/secrets.nix`, `modules/system/secrets.nix` | Private values (encrypted with git-crypt) | – |
+| `modules/shared/secrets.nix` | Private values: the authorized SSH public keys (encrypted with git-crypt) | – |
+| `modules/system/secrets.nix` | The temporary initial password hash for the operator and `root`, the one secret exception (encrypted with git-crypt) | – |
 | `modules/system/profiles/` | Always-on system base, including containers (Docker, shared container configuration); form-factor services (network, bluetooth, laptop power); graphical base (fonts, PipeWire, Flatpak) | `settings.formFactor`, `settings.gui` |
 | `modules/system/roles/` | Optional software groups on the system side: `dev`, `personal`, `media`, `gaming` | `settings.roles`, `settings.gui` |
 | `modules/system/desktop/` | Plasma (SDDM), niri (greetd), and a fix for Electron apps outside Plasma | `settings.gui`, `settings.roles.personal` |
@@ -45,6 +46,7 @@ with unfree packages allowed. All hosts use the same user, passed to modules as 
 | `modules/home/programs/` | Settings per program; active when the program is enabled elsewhere | the program's own `enable` |
 | `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
 | `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), `hardware-configuration.nix` (generated, plain text), and encrypted `vars.nix`, `home-vars.nix` | modules |
+| `scripts/` | The leak guard and its tests, run as flake checks (`leak-guard`, `leak-guard-test`) | `.gitattributes` |
 | `live-image/` | Install images: base (ssh keys, sshd, nmtui) and a bcachefs variant | `modules/shared/settings.nix`, `modules/shared/secrets.nix` |
 
 Hosts now: `nimbus` (laptop), `bea` (desktop), `truce` (laptop). None sets `gui`, so all three
@@ -64,11 +66,12 @@ use the default, plasma.
   they work on every desktop.
 - **niri config is a plain KDL file** (`config.kdl`); generated parts go into a separate included
   file and the whole is checked with `niri validate` at build time.
-- **Secrets only in git-crypt files** (`.gitattributes`: `secrets.nix`, `vars.nix`,
-  `home-vars.nix`, `system-vars.nix`). Never read or show them. The generated
-  `hardware-configuration.nix` is plain text: it holds nothing secret or private.
+- **Every value has a class** (secret, private, public, identity) that decides where it lives:
+  `docs/product/secrets.md`. Private values in git-crypt files (`.gitattributes`: `secrets.nix`,
+  `vars.nix`, `home-vars.nix`, `system-vars.nix`). Never read or show them.
 - **Code style:** `lib.` prefix, no `with lib;`; options → config; format with alejandra.
-- **Checks:** `nix flake check` runs alejandra, statix and deadnix; each host must build.
+- **Checks:** `nix flake check` runs alejandra, statix and deadnix (`lint`), and the `leak-guard`
+  check (with its tests, `leak-guard-test`); each host must build.
 
 ## Known technical debt
 - **`/persist` has no known use.** `modules/system/disk-config.nix` makes a `/persist` subvolume,
@@ -77,9 +80,6 @@ use the default, plasma.
   a purpose (for example host keys, if root is ever wiped at boot).
 - **WireGuard key is a manual, unwritten step.** `nimbus` reads `/etc/secrets/wg0-private`, a
   file made by hand. Either the configuration provides it, or the manual step is written down.
+  The host secret change closes this (see `docs/product/secrets.md`).
 - **`server` form factor is not used.** No host uses it, and servers have their own repository.
   A host without a desktop is already `gui = "none"`.
-- **The user account is hidden, but the username is not.** The user account is defined in the
-  encrypted host files to keep the username private, but the username is already in plain text
-  in `flake.nix` (`mkHost`) and in `modules/home/roles/dev.nix`. Decide: make the account plain
-  (keeping only real secrets, such as password hashes, encrypted) or hide the name everywhere.

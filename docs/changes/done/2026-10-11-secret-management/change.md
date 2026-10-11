@@ -1,7 +1,7 @@
 ---
 title: Secret management
 type: feature
-stage: implement
+stage: done
 closure: review build + accept
 created: 2026-10-11
 ---
@@ -22,3 +22,6 @@ WireGuard key on `nimbus` and the question if the user account must stay hidden.
 | 2026-10-11 | discover | spec review round 2: all serve, notes N7-N10 fixed; /vision aligned language.md and vision.md |
 | 2026-10-11 | design | functional spec approved by the operator |
 | 2026-10-11 | implement | technical spec approved; closure: review build + accept (the leak guard is a safety net that fails silently if it has a hole; the rule document is the main protection) |
+| 2026-10-11 | implement | steps 1-3 done; build review: R1-R5, accept review: accepted with notes A1-A9; R1, R2 (guard stops on unsupported `.gitattributes` rules; apr1 and argon2 hashes) fixed as an agreed deviation, so the build review runs again on the new guard |
+| 2026-10-11 | close | build review round 2: R6-R8 fixed (guard stops on other filters, macros, read errors); no third round, agreed with the operator; spec done |
+| 2026-10-11 | done | closed: architecture.md (secret rows, scripts, debt), vision.md (where we are), decision 0002; folder moved to changes/done/ |
