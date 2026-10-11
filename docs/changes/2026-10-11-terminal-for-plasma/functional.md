@@ -57,33 +57,43 @@ Not in the comparison: Alacritty (no images) and foot (only sixel images, not th
 Konsole stays in the comparison only if Shift+Enter in Claude Code and the Zellij copy can be made
 to work in it (Story 1).
 
+### Trial and choice (2026-10-11, on `nimbus`, Plasma)
+| Candidate | Result | Source |
+|---|---|---|
+| Konsole | **out**: Shift+Enter in Claude Code (inside Zellij) does not add a new line. Stays as the fallback | operator, in daily use |
+| WezTerm | **out**: no kitty image shown | trial, outside Zellij |
+| kitty | kitty image shown; other needs from documentation. **Next candidate** if Ghostty fails in Story 2 or 3 | trial, outside Zellij |
+| Ghostty | kitty image shown. Copy through Zellij and Shift+Enter in Claude Code work on macOS. Other needs from documentation | trial, outside Zellij; operator experience on macOS |
+
+**Choice: Ghostty**, by the operator. Reasons: no known fact against it; the image works on Linux;
+copy and Shift+Enter work in the operator's macOS setup; the same terminal as on the operator's
+MacBooks. Not yet checked on Linux: Shift+Enter, the copy through Zellij, the window in Plasma, and
+`truce`. These are acceptance criteria in Stories 2 and 3.
+
 ## User stories
 
 ### Story 1: Choose with checked facts
-**As the** operator, **I want to** try each candidate against my needs before I choose, **so
-that** the choice rests on how it works in my real setup, not on feature lists.
+**As the** operator, **I want to** try candidates against my needs before I choose, **so that**
+the choice rests on how they work in my setup, not on feature lists.
 
 #### Acceptance criteria
-- [ ] Each candidate (Ghostty, kitty, WezTerm, and Konsole on condition) is tried on a Plasma host,
-  with Zellij and Claude Code, and the comparison table above is updated with the checked result
-  for each cell ("checked: yes / no / with setting").
-- [ ] For Konsole, the trial first checks Shift+Enter in Claude Code and the Zellij copy through
-  the terminal (without the `wl-copy` workaround). If one of them cannot be made to work, Konsole
-  leaves the comparison and stays only as the fallback.
-- [ ] Each candidate is started on `truce`, the oldest host; one that does not start or is
-  clearly slow there fails.
-- [ ] The operator chooses one candidate; the choice and the reason are written in this spec.
+- [x] The candidates were tried on a Plasma host where it decides between them (images), and the
+  results are in "Trial and choice" above.
+- [x] Konsole was checked first for Shift+Enter in Claude Code; it failed, so Konsole is out and
+  stays only as the fallback.
+- [x] The operator chose one candidate (Ghostty); the choice and the reason are written above.
 
 #### Behaviour
-The operator starts each candidate on a Plasma host without changing the configuration of the host,
-runs the checks of Story 2, looks at the window (Story 3), and fills in the table. Then the
-operator chooses.
+Done in Discover, before this spec was approved. The checks that were not done on Linux are
+acceptance criteria in Stories 2 and 3; they are checked on the real setup in Implement.
 
 #### Errors and edge cases
-- No candidate passes every need: the operator chooses the best one and writes down which need is
-  not met and why that is acceptable, or the change goes back to `/vision`.
-- A feature fails only inside Zellij: the table says so; the cause (terminal or Zellij) is named,
-  because a Zellij problem does not count against the terminal.
+- Ghostty fails Shift+Enter in Claude Code (Story 2), or does not start or is clearly slow on
+  `truce` (Story 3): the change goes back to Discover, with kitty as the next candidate.
+- The copy through Zellij fails in Ghostty: the `wl-copy` workaround stays (Story 2); this does not
+  block the change.
+- A feature fails only inside Zellij: the cause (terminal or Zellij) is named, because a Zellij
+  problem does not count against the terminal.
 
 ### Story 2: The modern features work in my real setup
 **As the** operator, **I want** all six modern features to work in the chosen terminal, inside
@@ -117,6 +127,7 @@ Plasma window, **so that** the daily desktop stays one calm, consistent desktop.
 #### Acceptance criteria
 - [ ] The terminal is installed on every host with Plasma as its graphical session, and can be
   started from the Plasma launcher.
+- [ ] It starts and is not clearly slow on `truce`, the oldest host.
 - [ ] The window has the normal Plasma title bar (window name, minimize, maximize, close), drawn by
   Plasma as on every other window. There are no extra buttons.
 - [ ] There is no scroll bar, menu bar, toolbar or tab bar.
@@ -160,8 +171,8 @@ No breaking changes. A new terminal is added on every Plasma host; Konsole stays
 Alacritty may be replaced (Story 4).
 
 ## Warnings from architect and engineer
-- **Old hardware.** Ghostty, kitty and WezTerm draw with the GPU (OpenGL). On `truce` (an old
-  laptop) a candidate may not start or may be slow. This is a pass/fail check in Story 1.
+- **Old hardware.** Ghostty draws with the GPU (OpenGL). On `truce` (an old laptop) it may not
+  start or may be slow. This is a pass/fail check in Story 3.
 - **Zellij sits in the middle.** Each feature must pass through Zellij 0.45. Images and the
   keyboard protocol are the most likely to fail there. A failure must be traced to the terminal or to
   Zellij.
@@ -182,7 +193,7 @@ Alacritty may be replaced (Story 4).
 - Removing Konsole.
 - Changes to Zellij other than removing the `wl-copy` workaround; the automatic start of Zellij.
 - Settings inside Claude Code or pi agent, except what a check needs.
-- Terminals other than the four candidates (Alacritty and foot are out because of images).
+- Terminals other than Ghostty, unless Ghostty fails (then kitty, see Story 1).
 - macOS.
 
 ## Open questions
