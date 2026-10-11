@@ -45,7 +45,7 @@ with unfree packages allowed. All hosts use the same user, passed to modules as 
 | `modules/home/programs/` | Settings per program; active when the program is enabled elsewhere | the program's own `enable` |
 | `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
 | `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), and encrypted `vars.nix`, `home-vars.nix`, `hardware-configuration.nix` | modules |
-| `live-image/` | Install images: base (ssh keys, sshd, nmtui) and a bcachefs variant | `modules/shared/secrets.nix` |
+| `live-image/` | Install images: base (ssh keys, sshd, nmtui) and a bcachefs variant | `modules/shared/settings.nix`, `modules/shared/secrets.nix` |
 
 Hosts now: `nimbus` (laptop), `bea` (desktop), `truce` (laptop). None sets `gui`, so all three
 use the default, plasma.
@@ -74,11 +74,6 @@ use the default, plasma.
   needed at boot, but no unencrypted file uses it. Root is not wiped at boot, so everything
   already survives a reboot. Find out if an encrypted file uses it; if not, remove it or give it
   a purpose (for example host keys, if root is ever wiped at boot).
-- **Two definitions of `authorizedKeys`.** `live-image/base.nix` declares the option again
-  instead of importing `modules/shared/settings.nix`. The goal is one list of keys for hosts and
-  live images.
-- **Dead `gnome` value** in `modules/system/desktop/electron-desktop.nix`; `gnome` is not a
-  permitted `settings.gui` value.
 - **Containers are set up per host.** `nimbus` and `bea` both enable Docker with btrfs storage in
   their `system.nix`. Containers must be standard on every host (Docker or Podman: not decided).
   The commented-out JetBrains IDE in both hosts belongs in the `dev` role.
