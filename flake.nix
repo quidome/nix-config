@@ -71,16 +71,40 @@
   in {
     formatter.${system} = pkgs.alejandra;
 
-    checks.${system}.lint =
-      pkgs.runCommand "lint" {
-        nativeBuildInputs = with pkgs; [alejandra deadnix statix];
-      } ''
-        cd ${./.}
-        alejandra --check .
-        statix check .
-        deadnix --fail .
+    checks.${system} = let
+      # Fails on a secret in a plain file; see docs/product/secrets.md.
+      leakGuard = pkgs.writeShellApplication {
+        name = "leak-guard";
+        runtimeInputs = with pkgs; [coreutils findutils gawk gnugrep];
+        text = builtins.readFile ./scripts/leak-guard.sh;
+      };
+      leakGuardTest = pkgs.writeShellApplication {
+        name = "leak-guard-test";
+        runtimeInputs = with pkgs; [coreutils];
+        text = builtins.readFile ./scripts/leak-guard-test.sh;
+      };
+    in {
+      lint =
+        pkgs.runCommand "lint" {
+          nativeBuildInputs = with pkgs; [alejandra deadnix statix];
+        } ''
+          cd ${./.}
+          alejandra --check .
+          statix check .
+          deadnix --fail .
+          touch $out
+        '';
+
+      leak-guard = pkgs.runCommand "leak-guard" {} ''
+        ${leakGuard}/bin/leak-guard ${./.}
         touch $out
       '';
+
+      leak-guard-test = pkgs.runCommand "leak-guard-test" {} ''
+        ${leakGuardTest}/bin/leak-guard-test ${leakGuard}/bin/leak-guard
+        touch $out
+      '';
+    };
 
     nixosConfigurations = {
       nimbus = mkHost "quidome" "nimbus";
