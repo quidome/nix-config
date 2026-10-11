@@ -67,8 +67,8 @@ in {
 
     # Terminal and launcher used by the key bindings in config.kdl.
     programs = {
-      alacritty.enable = lib.mkDefault true;
       fuzzel.enable = lib.mkDefault true;
+      ghostty.enable = lib.mkDefault true;
 
       # Screen lock, also used by the Super+Alt+L key binding.
       # Colors are set in the theme module.
@@ -108,7 +108,7 @@ in {
             format-wifi = "{essid} {signalStrength}%";
             format-ethernet = "wired";
             format-disconnected = "offline";
-            on-click = "${lib.getExe config.programs.alacritty.package} -e ${lib.getExe' pkgs.networkmanager "nmtui"}";
+            on-click = "${lib.getExe config.programs.ghostty.package} -e ${lib.getExe' pkgs.networkmanager "nmtui"}";
           };
           bluetooth = {
             format = "BT {status}";
