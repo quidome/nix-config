@@ -1,7 +1,6 @@
 {
   settings = {
     formFactor = "laptop";
-    gui = "niri";
     roles = {
       dev.enable = true;
       gaming.enable = true;
