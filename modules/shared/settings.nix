@@ -24,7 +24,7 @@
     };
 
     formFactor = lib.mkOption {
-      type = lib.types.enum ["laptop" "desktop" "server"];
+      type = lib.types.enum ["laptop" "desktop"];
       default = "desktop";
       description = ''
         Kind of machine. Controls networking, bluetooth and power management.

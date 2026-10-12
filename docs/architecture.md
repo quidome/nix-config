@@ -85,5 +85,3 @@ use the default, plasma.
 - **WireGuard key is a manual, unwritten step.** `nimbus` reads `/etc/secrets/wg0-private`, a
   file made by hand. Either the configuration provides it, or the manual step is written down.
   The host secret change closes this (see `docs/product/secrets.md`).
-- **`server` form factor is not used.** No host uses it, and servers have their own repository.
-  A host without a desktop is already `gui = "none"`.

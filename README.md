@@ -66,7 +66,7 @@ The niri session is minimal. It has no login manager, so start it with `niri-ses
 
 ### `formFactor`
 
-The kind of machine: `"laptop"`, `"desktop"` (default) or `"server"`.
+The kind of machine: `"laptop"` or `"desktop"` (default).
 
 | Form factor | Enables |
 | --- | --- |
