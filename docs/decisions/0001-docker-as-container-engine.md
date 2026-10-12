@@ -2,7 +2,7 @@
 
 **Status**: valid
 **Date**: 2026-10-11
-**Change**: [Containers standard on every host](../changes/done/2026-10-11-containers-standard/)
+**Change**: Containers standard on every host (change documents in git history)
 
 ## Context
 Containers became part of the always-on system base, so every host has them. Before, only

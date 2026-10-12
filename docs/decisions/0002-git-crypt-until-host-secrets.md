@@ -2,7 +2,7 @@
 
 **Status**: valid
 **Date**: 2026-10-11
-**Change**: [Secret management](../changes/done/2026-10-11-secret-management/)
+**Change**: Secret management (change documents in git history)
 
 ## Context
 The repository is public. git-crypt encrypts whole files, chosen by file name in
@@ -14,7 +14,7 @@ encrypted values are private, not secret.
 
 ## Decision
 Keep git-crypt for private values and for the temporary initial password hash (a written
-exception in the vision). Put no other secret in the repository: until the host secret change, a
+exception in goal 1 in `AGENTS.md`). Put no other secret in the repository: until the host secret change, a
 secret is a file made by hand on the host, with the step written down. The host secret change
 chooses the tool for host secrets. The rule is in `docs/product/secrets.md`.
 
@@ -28,7 +28,7 @@ chooses the tool for host secrets. The rule is in `docs/product/secrets.md`.
 ## Consequences
 - No migration now. The repository keeps one key for all encrypted files.
 - A new secret cannot go into an encrypted file; it is hand work on the host until the host
-  secret change. This is a known gap in vision core value 3.
+  secret change. This is a known gap in goal 3 in `AGENTS.md`.
 - The leak guard stops a password hash or private key in a plain file; it reads `.gitattributes`
   and must change with it.
 - The host secret change must choose sops-nix, agenix or another tool, and decide if this record

@@ -1,6 +1,6 @@
 # Terminal
 
-What it does **now**, for the operator. Updated at each /close that changes it.
+What it does **now**, for the operator. Update it when a change affects it.
 
 ## Purpose
 Most daily work happens in a terminal, with LLM tools such as Claude Code and pi agent inside

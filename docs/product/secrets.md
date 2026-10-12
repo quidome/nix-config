@@ -1,12 +1,12 @@
 # Secrets and private values
 
-What it does **now**, for the operator. Updated at each /close that changes it.
+What it does **now**, for the operator. Update it when a change affects it.
 
 ## Purpose
 This repository is public on GitHub. Every value in it has a class – secret, private, public or
 identity – and the class decides where the value lives. With this rule the operator knows where a
-new value goes without having to think about it, and nothing leaks by mistake (vision core
-value 1: secrets never leak).
+new value goes without having to think about it, and nothing leaks by mistake (goal 1 in
+`AGENTS.md`: secrets never leak).
 
 ## Behaviour
 
@@ -44,12 +44,12 @@ boot) are private values: their comments can name users and hosts.
 The temporary initial password hash for the operator and `root` is a value in one encrypted file,
 `modules/system/secrets.nix`, and so it is in the Nix store. The operator changes the password
 with `passwd` right after install, before the first graphical login. This exception is written in
-the vision.
+goal 1 in `AGENTS.md`.
 
 ### Host secrets: a known, temporary gap
 A host secret (a secret that belongs to a host, such as the WireGuard key) is for now a file made
 by hand on the host, with the step written down. A rebuild of such a host therefore needs one step
-more than the identity steps – a gap in vision core value 3. The host secret change closes it and
+more than the identity steps – a gap in goal 3 in `AGENTS.md`. The host secret change closes it and
 chooses the tool for host secrets.
 
 ### Install images
@@ -66,7 +66,7 @@ An image is not published.
 ## Errors and limits
 - **A value fits two classes** (for example a public key whose comment names a host): the
   stricter class wins.
-- **A value has no clear class**: treat it as private and ask `/vision` to extend the rule.
+- **A value has no clear class**: treat it as private and extend the rule in this document.
 - **Git history keeps old versions.** Encrypted files stay readable with the git-crypt key
   forever; a value that was ever pushed as plain text stays public. See `SECURITY.md` for the steps
   after a leak.
@@ -104,7 +104,7 @@ Limits – the guard is a safety net; the rule above is the main protection:
 - It checks only tracked and staged files (what Nix copies from the checkout).
 
 ## Interface
-- Classes and places: this document. `docs/language.md` defines the words.
+- Classes and places: this document.
 - Encrypted files: `.gitattributes` (`secrets.nix`, `vars.nix`, `home-vars.nix`,
   `system-vars.nix`).
 - Check: `just verify`. Example of a failure:

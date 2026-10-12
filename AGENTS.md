@@ -91,8 +91,29 @@
 - Formatting: `just fmt`
 - Linting: `just lint`
 
-## Way of working
-This project uses the product way of working (skill `product-workflow`).
-Team and roles: `.claude/team.md`. Word list: @docs/language.md
-Living documents: docs/vision.md, docs/architecture.md, docs/product/. Open changes: docs/changes/.
-Do not read docs/changes/done/ unless asked.
+## Goals and principles
+In order of priority:
+1. Secrets never leak: not in git, not in the Nix store, not in logs. One exception: the temporary
+   initial password hash (encrypted, changed right after install).
+2. Data on disk is never lost because of a configuration change.
+3. Any host can be rebuilt in minutes; after that only the identity steps (SSH/GPG keys, password
+   manager, browser sign-in, device pairing) are hand work, on purpose.
+4. Plasma (the daily desktop) always works. niri is a playground: it must build, but may be rough.
+5. Small hosts, clear shared modules. A host chooses; modules implement.
+
+Every value is secret, private, public or identity; the class decides where it lives
+(`docs/product/secrets.md`). Do not remove a working experiment only because it is not in use now.
+
+## How we work
+Size the work before starting (suggest a size if the operator did not give one):
+
+| Size | Examples | Steps |
+|------|----------|-------|
+| Small | package, setting, option value | edit → `just verify` → `just build HOST` for affected hosts → commit |
+| Medium | new service, module or role | short plan in chat first (hosts touched, options, test, rollback); approval; then as small |
+| Large / risky | disk, boot, secrets, networking, users, big input update | as medium, plus a review by the `nixos-engineer` agent before switch |
+
+- Ask the `nixos-engineer` agent for advice on how to build something, and for review of risky diffs.
+- Write a decision record in `docs/decisions/` only when a real choice between options was made.
+- Open work: `docs/backlog.md`. Raw ideas: `docs/ideas.md`.
+- Keep `docs/architecture.md` and `docs/product/*.md` true when a change affects them.

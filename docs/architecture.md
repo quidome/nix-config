@@ -1,6 +1,6 @@
 # Architecture: nix-config
 
-How the product is built **now**. Updated at each /close. The reasons for choices are in
+How the repository is built **now**. Update it when a change affects it. The reasons for choices are in
 `docs/decisions/`.
 
 ## Overview
