@@ -78,10 +78,6 @@ use the default, plasma.
   `modules/home/theme/palette.nix` has four entries only for them (`black`, `brightBlack`, `white`,
   `brightWhite`). Nothing uses them since Ghostty replaced Alacritty in niri. Remove them after
   Ghostty is checked in a real niri session.
-- **`/persist` has no known use.** `modules/system/disk-config.nix` makes a `/persist` subvolume,
-  needed at boot, but no unencrypted file uses it. Root is not wiped at boot, so everything
-  already survives a reboot. Find out if an encrypted file uses it; if not, remove it or give it
-  a purpose (for example host keys, if root is ever wiped at boot).
 - **WireGuard key is a manual, unwritten step.** `nimbus` reads `/etc/secrets/wg0-private`, a
   file made by hand. Either the configuration provides it, or the manual step is written down.
   The host secret change closes this (see `docs/product/secrets.md`).

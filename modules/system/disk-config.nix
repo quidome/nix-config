@@ -59,10 +59,6 @@ in {
                       mountpoint = "/nix";
                       mountOptions = btrfs_mount_options ++ ["subvol=nix"];
                     };
-                    "/persist" = {
-                      mountpoint = "/persist";
-                      mountOptions = btrfs_mount_options ++ ["subvol=persist"];
-                    };
                     "/log" = {
                       mountpoint = "/var/log";
                       mountOptions = btrfs_mount_options ++ ["subvol=log"];
@@ -80,6 +76,5 @@ in {
       };
     };
   };
-  fileSystems."/persist".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
 }
