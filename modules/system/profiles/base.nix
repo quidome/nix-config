@@ -14,8 +14,16 @@
 
   i18n.defaultLocale = lib.mkDefault "en_IE.UTF-8";
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.optimise.automatic = lib.mkDefault true;
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes"];
+    # Deduplicate on write; the optimise timer is skipped on battery.
+    auto-optimise-store = lib.mkDefault true;
+  };
+  nix.gc = {
+    automatic = lib.mkDefault true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
 
   environment.systemPackages = with pkgs; [
     # system
