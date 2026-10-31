@@ -39,6 +39,8 @@
   environment.systemPackages = with pkgs; [
     # zfs
 
+    discord
+
     # devops
     postgresql
 

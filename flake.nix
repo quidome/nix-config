@@ -37,6 +37,7 @@
         inherit pkgs;
         modules = [
           inputs.disko.nixosModules.disko
+          inputs.nix-index-database.nixosModules.nix-index
           {
             _module.args =
               inputs
@@ -57,7 +58,6 @@
               useUserPackages = true;
               users.${user} = {...}: {
                 imports = [
-                  inputs.nix-index-database.homeModules.nix-index
                   ./modules/shared
                   ./modules/home
                   ./hosts/${host}/shared.nix

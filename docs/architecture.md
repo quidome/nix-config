@@ -37,12 +37,12 @@ Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `
 | `modules/system/secrets.nix` | The temporary initial password hash for the operator and `root`, the one secret exception (encrypted with git-crypt) | – |
 | `modules/system/profiles/` | Always-on system base, including containers (Docker, shared container configuration) a monthly btrfs scrub, and zswap in front of the swap file; form-factor services (network, bluetooth, laptop power); graphical base (fonts, PipeWire, Flatpak, `systemd-oomd` on user sessions) | `settings.formFactor`, `settings.gui` |
 | `modules/system/roles/` | Optional software groups on the system side: `dev`, `personal`, `media`, `gaming` | `settings.roles`, `settings.gui` |
-| `modules/system/desktop/` | Plasma (SDDM), GNOME (GDM), niri (greetd), and a fix for Electron apps on niri | `settings.gui`, `settings.roles.personal` |
+| `modules/system/desktop/` | Plasma (SDDM), GNOME (GDM), niri (greetd), a fix for Electron apps on niri, and the `desktop-reset` tool | `settings.gui`, `settings.roles.personal` |
 | `modules/system/services/` | Service settings that turn on when the service is on (Flatpak repo, PipeWire, usbmuxd) | the service's own `enable` |
 | `modules/system/disk-config.nix` | One shared disk layout (EFI + LUKS + btrfs subvolumes, swap file); a function of the disk device. The Docker storage driver (btrfs) and the scrub in the base depend on it | disko |
 | `modules/home/profiles/` | Always-on user base (shell, editors, git, ssh client); graphical base (fonts, Wayland for Electron apps, the terminal Ghostty) | `settings.gui` |
 | `modules/home/roles/` | Optional groups on the user side: `dev`, `personal` | `settings.roles`, `settings.gui` |
-| `modules/home/desktop/` | GNOME and niri user config; `desktop-reset` tool | `settings.gui` |
+| `modules/home/desktop/` | GNOME and niri user config | `settings.gui` |
 | `modules/home/programs/` | Settings per program; active when the program is enabled elsewhere | the program's own `enable` |
 | `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
 | `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), `hardware-configuration.nix` (generated, plain text), and encrypted `vars.nix`, `home-vars.nix` | modules |
@@ -61,6 +61,9 @@ it does not set `gui`).
 - **Conditional config with `lib.mkIf`** on `settings.*`; combine with `lib.mkMerge`.
 - **Program modules configure, they do not enable.** `modules/home/programs/*` act under
   `lib.mkIf cfg.enable`; profiles and roles decide what is enabled.
+- **User configuration goes in home, a plain install on the system.** A program that is configured
+  for the user with home-manager is in `modules/home/`. A package that only needs to be installed
+  is in `environment.systemPackages`, not in `home.packages`.
 - **GUI-only packages** in a role go behind `settings.gui != "none"`.
 - **Host desktop overrides** in `home.nix` are gated with `lib.mkIf` on `settings.gui`, unless
   they work on every desktop.

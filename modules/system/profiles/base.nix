@@ -70,7 +70,11 @@
     statix
   ];
 
-  programs.zsh.enable = lib.mkDefault true;
+  programs = {
+    # comma (run a program without installing it), with its package database.
+    nix-index-database.comma.enable = lib.mkDefault true;
+    zsh.enable = lib.mkDefault true;
+  };
 
   services = {
     # All hosts use the shared btrfs disk layout (modules/system/disk-config.nix).

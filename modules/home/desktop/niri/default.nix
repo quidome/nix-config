@@ -58,13 +58,6 @@ in {
       "niri/theme.kdl".source = "${niriConfig}/theme.kdl";
     };
 
-    home.packages = with pkgs; [
-      # Send notifications from scripts (notify-send).
-      libnotify
-      # Media keys; avizo handles volume and brightness keys with a pop-up.
-      playerctl
-    ];
-
     # Launcher used by the key bindings in config.kdl.
     programs = {
       fuzzel.enable = lib.mkDefault true;

@@ -11,7 +11,7 @@
     else "Light";
 
   uiFont = "Noto Sans";
-  monoFont = "JetBrainsMono Nerd Font";
+  inherit (config.settings) monoFont;
   fontSize = 10;
   iconTheme = "Papirus-${variant}";
   c = import ./palette.nix config.settings.theme;
@@ -35,11 +35,6 @@
 in {
   # Plasma manages its own theme; this is for sessions without one.
   config = lib.mkIf (config.settings.gui == "niri") {
-    home.packages = with pkgs; [
-      adwaita-icon-theme
-      noto-fonts
-    ];
-
     fonts.fontconfig.defaultFonts = {
       sansSerif = [uiFont];
       monospace = [monoFont];

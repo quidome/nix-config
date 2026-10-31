@@ -1,21 +1,12 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   # Map a list of MIME types to one default app.
   defaultFor = app: types: lib.genAttrs types (_: app);
 in {
-  # Plasma brings its own apps; these replace them in niri.
   config = lib.mkIf (config.settings.gui == "niri") {
-    home.packages = with pkgs; [
-      file-roller
-      loupe
-      nautilus
-      papers
-    ];
-
     # Replaces the unmanaged mimeapps.list from the Plasma time.
     xdg.mimeApps = {
       enable = true;

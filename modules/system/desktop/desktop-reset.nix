@@ -11,6 +11,6 @@
   };
 in {
   config = lib.mkIf (config.settings.gui != "none") {
-    home.packages = [desktopReset];
+    environment.systemPackages = [desktopReset];
   };
 }

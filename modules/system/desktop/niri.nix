@@ -7,8 +7,26 @@
   config = lib.mkIf (config.settings.gui == "niri") {
     programs.niri.enable = lib.mkDefault true;
 
-    # niri starts this for X11 apps when it is in PATH.
-    environment.systemPackages = [pkgs.xwayland-satellite];
+    environment.systemPackages = with pkgs; [
+      # niri starts this for X11 apps when it is in PATH.
+      xwayland-satellite
+
+      # Send notifications from scripts (notify-send).
+      libnotify
+      # Media keys; avizo handles volume and brightness keys with a pop-up.
+      playerctl
+
+      # Plasma brings its own apps; these replace them in niri.
+      file-roller
+      loupe
+      nautilus
+      papers
+
+      # Icons and fonts for sessions without their own theme.
+      adwaita-icon-theme
+    ];
+
+    fonts.packages = [pkgs.noto-fonts];
 
     # Printer settings app and USB printer setup, as Plasma and GNOME have.
     programs.system-config-printer.enable = lib.mkIf config.services.printing.enable (lib.mkDefault true);
