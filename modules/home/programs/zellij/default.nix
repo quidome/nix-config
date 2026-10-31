@@ -5,11 +5,7 @@
   ...
 }: let
   cfg = config.programs.zellij;
-  isLight = config.settings.theme == "light";
-  zellijTheme =
-    if isLight
-    then "catppuccin-latte"
-    else "catppuccin-mocha";
+  c = import ../../theme/palette.nix config.settings.theme;
 in {
   config = lib.mkIf cfg.enable {
     programs.zellij = {
@@ -26,7 +22,7 @@ in {
         };
         scrollback_editor = lib.mkIf config.programs.helix.enable (lib.getExe pkgs.helix);
         pane_frames = false;
-        theme = zellijTheme;
+        theme = "catppuccin-${c.flavor}";
         default_layout = "layout";
         show_startup_tips = false;
       };

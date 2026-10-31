@@ -3,11 +3,7 @@
   lib,
   ...
 }: let
-  isLight = config.settings.theme == "light";
-  batTheme =
-    if isLight
-    then "Catppuccin Latte"
-    else "Catppuccin Mocha";
+  c = import ../theme/palette.nix config.settings.theme;
 in {
   home = {
     sessionPath = [
@@ -20,7 +16,7 @@ in {
       enable = true;
       config = {
         style = "header,snip";
-        theme = batTheme;
+        theme = "Catppuccin ${c.flavorTitle}";
       };
     };
 

@@ -50,6 +50,15 @@ theme: let
 in
   colors
   // {
+    # Flavor name, for apps that pick a Catppuccin theme by name.
+    flavor =
+      if theme == "dark"
+      then "mocha"
+      else "latte";
+    flavorTitle =
+      if theme == "dark"
+      then "Mocha"
+      else "Latte";
     accent = colors.blue;
     # Terminal black and white differ between dark and light flavors.
     black =

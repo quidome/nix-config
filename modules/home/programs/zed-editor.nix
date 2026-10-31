@@ -5,11 +5,6 @@
   ...
 }: let
   cfg = config.programs.zed-editor;
-  isLight = config.settings.theme == "light";
-  zedThemeMode =
-    if isLight
-    then "light"
-    else "dark";
 in {
   config = lib.mkIf cfg.enable {
     programs.zed-editor = {
@@ -31,7 +26,7 @@ in {
 
         vim_mode = false;
         theme = {
-          mode = zedThemeMode;
+          mode = config.settings.theme;
           light = "Catppuccin Latte";
           dark = "Catppuccin Mocha";
         };

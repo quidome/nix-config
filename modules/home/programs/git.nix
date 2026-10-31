@@ -4,18 +4,14 @@
   ...
 }: let
   cfg = config.programs.git;
-  isLight = config.settings.theme == "light";
-  deltaTheme =
-    if isLight
-    then "Catppuccin Latte"
-    else "Catppuccin Mocha";
+  c = import ../theme/palette.nix config.settings.theme;
 in {
   config = lib.mkIf cfg.enable {
     programs.delta = {
       enable = true;
       options = {
-        syntax-theme = deltaTheme;
-        light = isLight;
+        syntax-theme = "Catppuccin ${c.flavorTitle}";
+        light = config.settings.theme == "light";
       };
     };
 

@@ -6,13 +6,8 @@
 }: let
   gnomeEnabled = config.settings.gui == "gnome";
 
-  isLightTheme = config.settings.theme == "light";
-  gnomeColorScheme =
-    if isLightTheme
-    then "prefer-light"
-    else "prefer-dark";
   gnomeGtkTheme =
-    if isLightTheme
+    if config.settings.theme == "light"
     then "Adwaita"
     else "Adwaita Dark";
 in {
@@ -30,7 +25,7 @@ in {
       };
 
       "org/gnome/desktop/interface" = {
-        color-scheme = gnomeColorScheme;
+        color-scheme = "prefer-${config.settings.theme}";
         cursor-theme = "Adwaita";
         enable-hot-corners = false;
         font-name = "Noto Sans 10";
