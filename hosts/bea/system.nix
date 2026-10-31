@@ -32,11 +32,12 @@
       "consoleblank=180"
       "ip=:::::enp42s0:dhcp"
     ];
-    supportedFilesystems.zfs = true;
+    # For the old disks project; also add the zfs package below.
+    # supportedFilesystems.zfs = true;
   };
 
   environment.systemPackages = with pkgs; [
-    zfs
+    # zfs
 
     # devops
     postgresql
