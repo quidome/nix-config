@@ -24,6 +24,7 @@ look like a normal window of the graphical session.
   description on the other host.
 - **Keys**: Mod+Enter opens a terminal – in niri and GNOME from the repository; in Plasma
   (Meta+Enter) after the hand step below. In niri, the network item in the status bar opens `nmtui` in Ghostty.
+  Ctrl+Enter goes to the program, not to Ghostty's full screen action.
 - **Konsole** stays installed in Plasma as the fallback, with its own settings.
 
 ## Errors and limits

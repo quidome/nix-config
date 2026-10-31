@@ -15,6 +15,8 @@
       # Other hosts do not know TERM=xterm-ghostty: over SSH, send a known
       # TERM or install Ghostty's terminfo there.
       shell-integration-features = "ssh-env,ssh-terminfo";
+      # Let Ctrl+Enter reach the program; by default it toggles full screen.
+      keybind = "ctrl+enter=unbind";
     };
   };
 }
