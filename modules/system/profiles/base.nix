@@ -68,7 +68,13 @@
 
   programs.zsh.enable = lib.mkDefault true;
 
-  services.openssh.enable = lib.mkDefault true;
+  services.openssh = {
+    enable = lib.mkDefault true;
+    settings = {
+      PasswordAuthentication = lib.mkDefault false;
+      KbdInteractiveAuthentication = lib.mkDefault false;
+    };
+  };
 
   virtualisation = {
     containers.enable = lib.mkDefault true;
