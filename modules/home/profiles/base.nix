@@ -40,6 +40,9 @@ in {
 
     neovim.enable = true;
 
+    # comma (run a program without installing it), with its package database.
+    nix-index-database.comma.enable = true;
+
     ssh = {
       enable = true;
       enableDefaultConfig = false;

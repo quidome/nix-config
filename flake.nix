@@ -13,6 +13,9 @@
 
     claude-code.url = "github:sadjow/claude-code-nix";
 
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     zen-browser.url = "github:youwen5/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -54,6 +57,7 @@
               useUserPackages = true;
               users.${user} = {...}: {
                 imports = [
+                  inputs.nix-index-database.homeModules.nix-index
                   ./modules/shared
                   ./modules/home
                   ./hosts/${host}/shared.nix

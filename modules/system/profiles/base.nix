@@ -66,7 +66,6 @@
     # Useful nix related tools
     alejandra
     cachix # adding/managing alternative binary caches hosted by Cachix
-    comma # run software from without installing it
     deadnix
     statix
   ];
