@@ -4,7 +4,10 @@
   ...
 }: {
   boot = {
-    loader.systemd-boot.enable = lib.mkDefault true;
+    loader.systemd-boot = {
+      enable = lib.mkDefault true;
+      configurationLimit = lib.mkDefault 7;
+    };
     loader.efi.canTouchEfiVariables = lib.mkDefault true;
     zfs.forceImportRoot = lib.mkDefault false;
     kernel.sysctl = {"vm.swappiness" = lib.mkDefault 1;};

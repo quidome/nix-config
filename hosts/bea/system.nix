@@ -26,10 +26,7 @@
       };
     };
 
-    loader.systemd-boot = {
-      configurationLimit = 7;
-      windows."11".efiDeviceHandle = "FS0";
-    };
+    loader.systemd-boot.windows."11".efiDeviceHandle = "FS0";
 
     kernelParams = [
       "consoleblank=180"
