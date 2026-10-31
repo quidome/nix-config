@@ -26,8 +26,8 @@ The host's choices are read twice, once by the system and once by home-manager, 
 see the same `settings.*` values.
 
 Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `pkgsUnstable`),
-`home-manager` (matching release), `disko`, `claude-code`. One `pkgs` set for `x86_64-linux`,
-with unfree packages allowed. All hosts use the same user, passed to modules as `desktopUser`.
+`home-manager` (matching release), `disko`, `claude-code`, `zen-browser`. One `pkgs` set for
+`x86_64-linux`, with unfree packages allowed. All hosts use the same user, passed to modules as `desktopUser`.
 
 ## Layers and modules
 | Part | Responsibility | Depends on |

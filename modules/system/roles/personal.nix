@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  zen-browser,
   ...
 }: {
   config = lib.mkIf (config.settings.roles.personal.enable && config.settings.gui != "none") {
@@ -13,6 +14,7 @@
       thunderbird
       v4l-utils
       vlc
+      zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
       # chat
       element-desktop

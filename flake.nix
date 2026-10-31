@@ -12,6 +12,9 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
     claude-code.url = "github:sadjow/claude-code-nix";
+
+    zen-browser.url = "github:youwen5/zen-browser-flake";
+    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs: let

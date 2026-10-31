@@ -98,7 +98,8 @@
         "disko": "disko",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",
-        "unstable": "unstable"
+        "unstable": "unstable",
+        "zen-browser": "zen-browser"
       }
     },
     "systems": {
@@ -129,6 +130,26 @@
         "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793356942,
+        "narHash": "sha256-3ddg7v2Ya11zEeQghXELyFwYIpv+nCTm2uVmu3LmvfU=",
+        "owner": "youwen5",
+        "repo": "zen-browser-flake",
+        "rev": "532b9a848c6b96d9f607e8856d1a458bdb7dcf66",
+        "type": "github"
+      },
+      "original": {
+        "owner": "youwen5",
+        "repo": "zen-browser-flake",
         "type": "github"
       }
     }
