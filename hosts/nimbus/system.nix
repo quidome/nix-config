@@ -65,12 +65,6 @@
   users.users.${desktopUser}.extraGroups = ["wireshark"];
 
   services = {
-    btrfs.autoScrub = {
-      enable = true;
-      fileSystems = ["/"];
-      interval = "monthly";
-    };
-
     fprintd = {
       enable = true;
       tod.enable = true;

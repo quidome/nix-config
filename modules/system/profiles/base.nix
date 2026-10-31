@@ -68,11 +68,16 @@
 
   programs.zsh.enable = lib.mkDefault true;
 
-  services.openssh = {
-    enable = lib.mkDefault true;
-    settings = {
-      PasswordAuthentication = lib.mkDefault false;
-      KbdInteractiveAuthentication = lib.mkDefault false;
+  services = {
+    # All hosts use the shared btrfs disk layout (modules/system/disk-config.nix).
+    btrfs.autoScrub.enable = lib.mkDefault true;
+
+    openssh = {
+      enable = lib.mkDefault true;
+      settings = {
+        PasswordAuthentication = lib.mkDefault false;
+        KbdInteractiveAuthentication = lib.mkDefault false;
+      };
     };
   };
 
