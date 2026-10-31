@@ -23,7 +23,7 @@ build HOST=current_host:
   nixos-rebuild --flake .#{{HOST}} build
 
 # Garbage-collect user and system generations (local or remote)
-gc HOST=current_host:
+gc HOST=current_host OPTS="-d":
   #!/usr/bin/env bash
   set -euo pipefail
 
@@ -31,8 +31,8 @@ gc HOST=current_host:
   target_host="{{HOST}}"
 
   if [ "$target_host" = "$local_host" ]; then
-    nix-collect-garbage -d
-    sudo nix-collect-garbage -d
+    nix-collect-garbage {{OPTS}}
+    sudo nix-collect-garbage {{OPTS}}
     exit 0
   fi
 
@@ -41,11 +41,11 @@ gc HOST=current_host:
   if [ -n "$hm_users" ]; then
     while IFS= read -r u; do
       [ -n "$u" ] || continue
-      ssh "root@$target_host" "sudo -Hiu '$u' nix-collect-garbage -d"
+      ssh "root@$target_host" "sudo -Hiu '$u' nix-collect-garbage {{OPTS}}"
     done <<< "$hm_users"
   fi
 
-  ssh "root@$target_host" "nix-collect-garbage -d"
+  ssh "root@$target_host" "nix-collect-garbage {{OPTS}}"
 
 # Format Nix files
 fmt:
@@ -66,24 +66,28 @@ verify:
   just check
 
 # Update flake.lock and auto-commit/push if changed
-update: _update-lock-and-push
+update:
+  nix flake update
+  just _push-lock
 
-# Update lockfile, then garbage-collect and switch
+# Update lockfile, switch, push the lockfile, then garbage-collect
 upgrade HOST=current_host:
-  just _update-lock-and-push
-  just _gc-and-switch {{HOST}}
+  nix flake update
+  just switch {{HOST}}
+  just _push-lock
+  just _gc-keep {{HOST}}
 
-# Pull latest changes, then garbage-collect and switch
+# Pull latest changes, switch, then garbage-collect
 sync HOST=current_host:
   #!/usr/bin/env bash
   set -euo pipefail
   git pull
-  just _gc-and-switch {{HOST}}
+  just switch {{HOST}}
+  just _gc-keep {{HOST}}
 
-_update-lock-and-push:
+_push-lock:
   #!/usr/bin/env bash
   set -euo pipefail
-  nix flake update
 
   if ! git diff --quiet -- flake.lock; then
     git add flake.lock
@@ -93,9 +97,9 @@ _update-lock-and-push:
     echo "No flake.lock changes; skipping commit/push."
   fi
 
-_gc-and-switch HOST=current_host:
-  just gc {{HOST}}
-  just switch {{HOST}}
+# Keep recent generations, so a new switch can still be rolled back
+_gc-keep HOST=current_host:
+  just gc {{HOST}} "--delete-older-than 14d"
 
 # Host-specific actions (machine-level)
 host HOST ACTION="switch":
