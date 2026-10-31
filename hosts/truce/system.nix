@@ -7,10 +7,7 @@
 
   boot.kernelParams = ["consoleblank=60"];
 
-  networking = {
-    hostName = "truce";
-    firewall.enable = true;
-  };
+  networking.hostName = "truce";
 
   system.stateVersion = "26.05";
 }
