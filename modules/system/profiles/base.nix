@@ -1,8 +1,22 @@
 {
+  config,
   lib,
   pkgs,
   ...
 }: {
+  assertions = [
+    {
+      assertion =
+        !config.services.openssh.settings.PasswordAuthentication
+        && !config.services.openssh.settings.KbdInteractiveAuthentication;
+      message = "SSH password login must stay off.";
+    }
+    {
+      assertion = config.users.users.root.openssh.authorizedKeys.keys != [];
+      message = "root needs an SSH key, because password login is off.";
+    }
+  ];
+
   boot = {
     loader.systemd-boot = {
       enable = lib.mkDefault true;
