@@ -5,7 +5,7 @@
   ...
 }:
 lib.mkIf config.programs.helix.enable {
-  home.packages = with pkgs; [
+  programs.helix.extraPackages = with pkgs; [
     gopls
     delve
     marksman # markdown lsp
