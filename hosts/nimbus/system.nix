@@ -9,13 +9,7 @@
     ./hardware-configuration.nix
   ];
 
-  boot.kernelParams = [
-    "consoleblank=60"
-    "zswap.enabled=1"
-    "zswap.compression=zstd"
-    "zswap.zpool=zsmalloc"
-    "zswap.max_pool_percent=50"
-  ];
+  boot.kernelParams = ["consoleblank=60"];
 
   hardware = {
     cpu.intel.updateMicrocode = true;

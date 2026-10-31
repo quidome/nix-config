@@ -35,7 +35,7 @@ Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `
 | `modules/shared/settings.nix` | The host choices as options: `gui`, `formFactor`, `roles.*`, `authorizedKeys` | – |
 | `modules/shared/secrets.nix` | Private values: the authorized SSH public keys (encrypted with git-crypt) | – |
 | `modules/system/secrets.nix` | The temporary initial password hash for the operator and `root`, the one secret exception (encrypted with git-crypt) | – |
-| `modules/system/profiles/` | Always-on system base, including containers (Docker, shared container configuration) and a monthly btrfs scrub; form-factor services (network, bluetooth, laptop power); graphical base (fonts, PipeWire, Flatpak) | `settings.formFactor`, `settings.gui` |
+| `modules/system/profiles/` | Always-on system base, including containers (Docker, shared container configuration) a monthly btrfs scrub, and zswap in front of the swap file; form-factor services (network, bluetooth, laptop power); graphical base (fonts, PipeWire, Flatpak, `systemd-oomd` on user sessions) | `settings.formFactor`, `settings.gui` |
 | `modules/system/roles/` | Optional software groups on the system side: `dev`, `personal`, `media`, `gaming` | `settings.roles`, `settings.gui` |
 | `modules/system/desktop/` | Plasma (SDDM), GNOME (GDM), niri (greetd), and a fix for Electron apps on niri | `settings.gui`, `settings.roles.personal` |
 | `modules/system/services/` | Service settings that turn on when the service is on (Flatpak repo, PipeWire, usbmuxd) | the service's own `enable` |

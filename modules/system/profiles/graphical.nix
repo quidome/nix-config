@@ -19,5 +19,8 @@
       flatpak.enable = lib.mkDefault true;
       pipewire.enable = lib.mkDefault true;
     };
+
+    # Stop a program under real memory overload, so the desktop does not freeze.
+    systemd.oomd.enableUserSlices = lib.mkDefault true;
   };
 }

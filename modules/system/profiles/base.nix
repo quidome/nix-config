@@ -10,7 +10,9 @@
     };
     loader.efi.canTouchEfiVariables = lib.mkDefault true;
     zfs.forceImportRoot = lib.mkDefault false;
-    kernel.sysctl = {"vm.swappiness" = lib.mkDefault 1;};
+    # Compressed swap in RAM, in front of the swap file; see docs/decisions/0003.
+    zswap.enable = lib.mkDefault true;
+    kernel.sysctl = {"vm.swappiness" = lib.mkDefault 60;};
   };
 
   time.timeZone = lib.mkDefault "Europe/Amsterdam";
