@@ -18,18 +18,16 @@
   };
 
   outputs = inputs: let
-    args = inputs;
     system = "x86_64-linux";
 
-    pkgsUnstable = import inputs.unstable {
-      inherit system;
-      config.allowUnfree = true;
-    };
+    mkPkgs = nixpkgs:
+      import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
-    pkgs = import inputs.nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
+    pkgs = mkPkgs inputs.nixpkgs;
+    pkgsUnstable = mkPkgs inputs.unstable;
 
     mkHost = user: host:
       inputs.nixpkgs.lib.nixosSystem {
@@ -38,7 +36,7 @@
           inputs.disko.nixosModules.disko
           {
             _module.args =
-              args
+              inputs
               // {
                 inherit pkgsUnstable;
                 desktopUser = user;
@@ -52,7 +50,6 @@
           {
             home-manager = {
               backupFileExtension = "backup";
-              extraSpecialArgs = {inherit pkgsUnstable;};
               useGlobalPkgs = true;
               useUserPackages = true;
               users.${user} = {...}: {
@@ -116,18 +113,16 @@
 
       # Bootable images
       baseIso = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
         modules = [
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-          ./modules/shared/secrets.nix
           ./live-image/base.nix
         ];
       };
       bcachefsIso = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+        inherit system;
         modules = [
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix"
-          ./modules/shared/secrets.nix
           ./live-image/bcachefs.nix
         ];
       };

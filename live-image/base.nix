@@ -6,7 +6,7 @@
 }: let
   inherit (config.settings) authorizedKeys;
 in {
-  imports = [../modules/shared/settings.nix];
+  imports = [../modules/shared];
 
   config = {
     nix.settings.experimental-features = ["nix-command" "flakes"];
