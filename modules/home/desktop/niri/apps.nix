@@ -32,20 +32,6 @@ in {
           "x-scheme-handler/http"
           "x-scheme-handler/https"
         ]
-        # Thunderbird made these entries itself; their .desktop files are in
-        # ~/.local/share/applications.
-        // defaultFor "userapp-Thunderbird-VFCBU3.desktop" [
-          "message/rfc822"
-          "x-scheme-handler/mailto"
-          "x-scheme-handler/mid"
-        ]
-        // defaultFor "userapp-Thunderbird-PPVIU3.desktop" [
-          "application/x-extension-ics"
-          "text/calendar"
-          "x-scheme-handler/webcal"
-          "x-scheme-handler/webcals"
-        ]
-        // defaultFor "userapp-Thunderbird-IYWHU3.desktop" ["x-scheme-handler/net.thunderbird"]
         // defaultFor "claude-code-url-handler.desktop" ["x-scheme-handler/claude-cli"]
         // defaultFor "gimp.desktop" ["image/vnd.adobe.photoshop"]
         // defaultFor "org.gnome.Nautilus.desktop" ["inode/directory"]

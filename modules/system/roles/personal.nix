@@ -11,7 +11,6 @@
       firefox
       obsidian
       spotify
-      thunderbird
       v4l-utils
       vlc
       zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default

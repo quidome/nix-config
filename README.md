@@ -83,7 +83,7 @@ Optional groups of software. All are off by default.
 | Role | Contents |
 | --- | --- |
 | `dev` | git, kubernetes and devops tools, linters, Java, coding agents, direnv, jujutsu; with a GUI also VSCodium, Zed and Emacs |
-| `personal` | Syncthing; with a GUI also browser, mail, office, chat, printing and Avahi |
+| `personal` | Syncthing; with a GUI also browser, office, chat, printing and Avahi |
 | `media` | kdenlive, Blender, OrcaSlicer (GUI only) |
 | `gaming` | OpenTTD, 0 A.D. (GUI only) |
 
