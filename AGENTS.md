@@ -76,7 +76,6 @@
 - Do not expose `.gitattributes`-protected content
 
 ## Commit Workflow
-- Follow `.claude/commands/commit.md` when committing is requested
 - Before commit flow, run `git-crypt status` and stop if protected/encrypted files are involved
 - Pre-commit flow:
   1) `git-crypt status`
@@ -98,7 +97,7 @@ In order of priority:
 2. Data on disk is never lost because of a configuration change.
 3. Any host can be rebuilt in minutes; after that only the identity steps (SSH/GPG keys, password
    manager, browser sign-in, device pairing) are hand work, on purpose.
-4. Plasma (the daily desktop) always works. niri is a playground: it must build, but may be rough.
+4. GNOME (the daily desktop) always works. niri is a playground: it must build, but may be rough.
 5. Small hosts, clear shared modules. A host chooses; modules implement.
 
 Every value is secret, private, public or identity; the class decides where it lives

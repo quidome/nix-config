@@ -47,10 +47,10 @@ Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `
 | `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
 | `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), `hardware-configuration.nix` (generated, plain text), and encrypted `vars.nix`, `home-vars.nix` | modules |
 | `scripts/` | The leak guard and its tests, run as flake checks (`leak-guard`, `leak-guard-test`) | `.gitattributes` |
-| `live-image/` | Install images: base (ssh keys, sshd, nmtui) and a bcachefs variant | `modules/shared/settings.nix`, `modules/shared/secrets.nix` |
+| `live-image/` | Install images: base (ssh keys, sshd, nmtui) and a bcachefs variant | `modules/shared` |
 
-Hosts now: `nimbus` (laptop), `bea` (desktop), `truce` (laptop). None sets `gui`, so all three
-use the default, plasma.
+Hosts now: `nimbus` (laptop, GNOME), `bea` (desktop, GNOME), `truce` (laptop, Plasma, the default:
+it does not set `gui`).
 
 ## Patterns to follow
 - **A host chooses, modules implement.** `hosts/<host>/shared.nix` sets only `settings.*`. A host
@@ -71,7 +71,8 @@ use the default, plasma.
   `vars.nix`, `home-vars.nix`, `system-vars.nix`). Never read or show them.
 - **Code style:** `lib.` prefix, no `with lib;`; options → config; format with alejandra.
 - **Checks:** `nix flake check` runs alejandra, statix and deadnix (`lint`), and the `leak-guard`
-  check (with its tests, `leak-guard-test`); each host must build.
+  check (with its tests, `leak-guard-test`). It only evaluates the hosts; `just build HOST` builds
+  one.
 
 ## Known technical debt
 - **Alacritty colours not used.** `modules/home/theme/default.nix` still sets Alacritty colours, and

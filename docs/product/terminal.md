@@ -8,8 +8,8 @@ Zellij. The terminal must give the modern features that these tools use, stay ou
 look like a normal window of the graphical session.
 
 ## Behaviour
-- **Ghostty** is the terminal on every host with a graphical session: Plasma and niri. Every new
-  shell starts Zellij, as before.
+- **Ghostty** is the terminal on every host with a graphical session: Plasma, GNOME and niri. Every
+  new shell starts Zellij, as before.
 - **Modern features** (checked on `nimbus` in Plasma): Shift+Enter adds a new line in Claude Code,
   inside Zellij; Zellij copies through the terminal (OSC 52) to the clipboard of the session; kitty
   images show, also inside Zellij; links (OSC 8) open on click; true colour; no flicker while a
@@ -22,8 +22,8 @@ look like a normal window of the graphical session.
 - **SSH**: inside Zellij the terminal type is `xterm-256color`, which every host knows. Outside
   Zellij it is `xterm-ghostty`; over SSH, Ghostty then sends a known type or installs its own
   description on the other host.
-- **Keys**: Mod+Enter opens a terminal – in niri from the repository; in Plasma (Meta+Enter) after
-  the hand step below. In niri, the network item in the status bar opens `nmtui` in Ghostty.
+- **Keys**: Mod+Enter opens a terminal – in niri and GNOME from the repository; in Plasma
+  (Meta+Enter) after the hand step below. In niri, the network item in the status bar opens `nmtui` in Ghostty.
 - **Konsole** stays installed in Plasma as the fallback, with its own settings.
 
 ## Errors and limits
@@ -43,7 +43,8 @@ look like a normal window of the graphical session.
 
 ## Interface
 - Settings: `modules/home/programs/ghostty.nix` (only values that differ from Ghostty's defaults).
-  Enabled in `modules/home/desktop/plasma.nix` and `modules/home/desktop/niri/default.nix`.
+  Enabled in `modules/home/desktop/plasma.nix`, `modules/home/desktop/gnome.nix` and
+  `modules/home/desktop/niri/default.nix`.
 - Zellij settings: `modules/home/programs/zellij/`.
 - **Hand step after a rebuild (Plasma)** – Plasma writes these settings itself, so the repository
   does not manage them:

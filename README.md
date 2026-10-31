@@ -28,7 +28,7 @@ nix build .#nixosConfigurations.baseIso.config.system.build.isoImage
 After a successful build, the iso can be found in `result/iso/`. Use cp to copy the image to for instance an usb thumb drive.
 
 ```sh
-sudo cp result/iso/nixos-minimal-25.05.20250525.7c43f08-x86_64-linux.iso /dev/sdb
+sudo cp result/iso/nixos-minimal-*-x86_64-linux.iso /dev/sdb
 ```
 
 Don't forget to replace the destination drive with the proper drive.
