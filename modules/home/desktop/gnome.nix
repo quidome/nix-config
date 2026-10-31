@@ -12,10 +12,6 @@
     else "Adwaita Dark";
 in {
   config = lib.mkIf gnomeEnabled {
-    home.sessionVariables.NIXOS_OZONE_WL = "1";
-
-    programs.ghostty.enable = lib.mkDefault true;
-
     dconf.settings = {
       "org/gnome/shell" = {
         enabled-extensions = [

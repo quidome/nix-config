@@ -65,10 +65,9 @@ in {
       playerctl
     ];
 
-    # Terminal and launcher used by the key bindings in config.kdl.
+    # Launcher used by the key bindings in config.kdl.
     programs = {
       fuzzel.enable = lib.mkDefault true;
-      ghostty.enable = lib.mkDefault true;
 
       # Screen lock, also used by the Super+Alt+L key binding.
       # Colors are set in the theme module.

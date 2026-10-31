@@ -43,8 +43,7 @@ look like a normal window of the graphical session.
 
 ## Interface
 - Settings: `modules/home/programs/ghostty.nix` (only values that differ from Ghostty's defaults).
-  Enabled in `modules/home/desktop/plasma.nix`, `modules/home/desktop/gnome.nix` and
-  `modules/home/desktop/niri/default.nix`.
+  Enabled in `modules/home/profiles/graphical.nix`.
 - Zellij settings: `modules/home/programs/zellij/`.
 - **Hand step after a rebuild (Plasma)** – Plasma writes these settings itself, so the repository
   does not manage them:

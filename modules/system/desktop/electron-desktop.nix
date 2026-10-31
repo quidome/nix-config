@@ -17,12 +17,9 @@
           --add-flags "--password-store=gnome-libsecret"
       '';
     };
-
-  inherit (config.settings) gui;
-  # Electron picks the right secret store by itself on Plasma and GNOME.
-  knownDesktop = gui == "plasma" || gui == "gnome";
 in {
-  config = lib.mkIf (gui != "none" && !knownDesktop && config.settings.roles.personal.enable) {
+  # Electron picks the right secret store by itself on Plasma and GNOME.
+  config = lib.mkIf (config.settings.gui == "niri" && config.settings.roles.personal.enable) {
     # hiPrio: replace the plain packages from the personal role.
     environment.systemPackages = map (pkg: lib.hiPrio (withSecretStore pkg)) [
       pkgs.element-desktop

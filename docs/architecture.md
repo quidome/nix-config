@@ -40,9 +40,9 @@ Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `
 | `modules/system/desktop/` | Plasma (SDDM), GNOME (GDM), niri (greetd), and a fix for Electron apps on niri | `settings.gui`, `settings.roles.personal` |
 | `modules/system/services/` | Service settings that turn on when the service is on (Flatpak repo, PipeWire, usbmuxd) | the service's own `enable` |
 | `modules/system/disk-config.nix` | One shared disk layout (EFI + LUKS + btrfs subvolumes, swap file); a function of the disk device. The Docker storage driver (btrfs) and the scrub in the base depend on it | disko |
-| `modules/home/profiles/` | Always-on user base (shell, editors, git, ssh client); graphical base | `settings.gui` |
+| `modules/home/profiles/` | Always-on user base (shell, editors, git, ssh client); graphical base (fonts, Wayland for Electron apps, the terminal Ghostty) | `settings.gui` |
 | `modules/home/roles/` | Optional groups on the user side: `dev`, `personal` | `settings.roles`, `settings.gui` |
-| `modules/home/desktop/` | Plasma, GNOME and niri user config, which turns on the terminal (Ghostty); `desktop-reset` tool | `settings.gui` |
+| `modules/home/desktop/` | GNOME and niri user config; `desktop-reset` tool | `settings.gui` |
 | `modules/home/programs/` | Settings per program; active when the program is enabled elsewhere | the program's own `enable` |
 | `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
 | `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), `hardware-configuration.nix` (generated, plain text), and encrypted `vars.nix`, `home-vars.nix` | modules |

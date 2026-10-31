@@ -53,7 +53,7 @@ fmt:
 
 # Run static lint checks
 lint:
-  statix check . && deadnix .
+  statix check . && deadnix --fail .
 
 # Run flake checks
 check:
@@ -110,23 +110,17 @@ host HOST ACTION="switch":
   target_host="{{HOST}}"
 
   case "{{ACTION}}" in
-    apply|switch)
-      if [ "$target_host" = "$local_host" ]; then
-        sudo nixos-rebuild --flake .#{{HOST}} switch
-      else
-        nixos-rebuild --flake .#{{HOST}} --target-host "root@$target_host" switch
-      fi
-      ;;
-    boot)
-      if [ "$target_host" = "$local_host" ]; then
-        sudo nixos-rebuild --flake .#{{HOST}} boot
-      else
-        nixos-rebuild --flake .#{{HOST}} --target-host "root@$target_host" boot
-      fi
-      ;;
+    apply|switch) action=switch ;;
+    boot) action=boot ;;
     *)
       echo "Unknown host action: {{ACTION}}" >&2
       echo "Use: switch | boot" >&2
       exit 1
       ;;
   esac
+
+  if [ "$target_host" = "$local_host" ]; then
+    sudo nixos-rebuild --flake .#{{HOST}} "$action"
+  else
+    nixos-rebuild --flake .#{{HOST}} --target-host "root@$target_host" "$action"
+  fi
