@@ -32,7 +32,7 @@ in {
         };
         ui_font_size = 16;
         buffer_font_size = lib.mkDefault 14;
-        buffer_font_family = lib.mkDefault "JetBrainsMono Nerd Font";
+        buffer_font_family = lib.mkDefault config.settings.monoFont;
 
         # Editor preferences
         format_on_save = "on";

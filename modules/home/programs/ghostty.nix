@@ -6,7 +6,7 @@
   config = lib.mkIf config.programs.ghostty.enable {
     # Only values that differ from Ghostty's defaults.
     programs.ghostty.settings = {
-      font-family = "JetBrainsMono Nerd Font";
+      font-family = config.settings.monoFont;
       # Follows the light/dark mode of the desktop; same flavors as Zellij.
       theme = "light:Catppuccin Latte,dark:Catppuccin Mocha";
       # Let the desktop draw the title bar.
