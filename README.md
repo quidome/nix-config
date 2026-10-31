@@ -59,7 +59,7 @@ settings = {
 
 ### `gui`
 
-The graphical session: `"none"`, `"niri"` or `"plasma"` (default).
+The graphical session: `"none"`, `"gnome"`, `"niri"` or `"plasma"` (default).
 Any value other than `"none"` also enables the graphical base: fonts, PipeWire, Flatpak and `wl-clipboard`.
 
 The niri session is minimal. It has no login manager, so start it with `niri-session` from a console.

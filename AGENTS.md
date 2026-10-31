@@ -54,7 +54,7 @@
 
 ## Host Settings
 - Set `settings.gui`, `settings.formFactor` and `settings.roles` in `hosts/*/shared.nix`; `flake.nix` imports this required file in both the system and home-manager config
-- `settings.gui`: `"none"`, `"niri"` or `"plasma"` (default)
+- `settings.gui`: `"none"`, `"gnome"`, `"niri"` or `"plasma"` (default)
 - `settings.formFactor`: `"laptop"` or `"desktop"` (default); enables networking, bluetooth and laptop power services with `lib.mkDefault`
 - `settings.roles.{dev,personal,media,gaming}.enable`: optional software groups
 - Desktop modules override form-factor services with a plain assignment, not `lib.mkDefault false`

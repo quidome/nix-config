@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   programs.gpg.enable = true;
 
   services.gpg-agent = {
@@ -8,6 +12,6 @@
     defaultCacheTtlSsh = 3600;
     maxCacheTtl = 14400;
     maxCacheTtlSsh = 14400;
-    pinentry.package = pkgs.pinentry-qt;
+    pinentry.package = lib.mkDefault pkgs.pinentry-qt;
   };
 }
