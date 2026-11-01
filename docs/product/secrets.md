@@ -35,6 +35,9 @@ boot) are private values: their comments can name users and hosts.
 | Initial password hash for the operator and `root` | `modules/system/secrets.nix` (encrypted) | secret – the exception |
 | git and jujutsu name and email address | `hosts/*/home-vars.nix` (encrypted) | private |
 | Host names in the SSH client settings | `hosts/*/home-vars.nix` (encrypted) | private |
+| WireGuard settings on `nimbus` (addresses, DNS names, server, public key) | `hosts/nimbus/system-vars.nix` (encrypted) | private |
+| Monitor serial number on `nimbus` | `hosts/nimbus/kanshi.nix` (encrypted) | private |
+| Disk device IDs (they hold the serial number) | `hosts/*/disk-config.nix` (encrypted) | private |
 | User account (name, groups, shell), `networking.hostId` | `hosts/*/vars.nix` (encrypted, shared with private values) | public |
 | Authorized SSH public keys | `modules/shared/secrets.nix` (encrypted) | private |
 | Generated hardware configuration | `hosts/*/hardware-configuration.nix` (plain) | public |
@@ -106,7 +109,7 @@ Limits – the guard is a safety net; the rule above is the main protection:
 ## Interface
 - Classes and places: this document.
 - Encrypted files: `.gitattributes` (`secrets.nix`, `vars.nix`, `home-vars.nix`,
-  `system-vars.nix`).
+  `system-vars.nix`, and by exact path `hosts/*/disk-config.nix` and `hosts/nimbus/kanshi.nix`).
 - Check: `just verify`. Example of a failure:
   ```
   leak guard: possible secret in a plain file

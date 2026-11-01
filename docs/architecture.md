@@ -45,7 +45,7 @@ Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `
 | `modules/home/desktop/` | GNOME and niri user config | `settings.gui` |
 | `modules/home/programs/` | Settings per program; active when the program is enabled elsewhere | the program's own `enable` |
 | `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
-| `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `disk-config.nix` (disk device), `hardware-configuration.nix` (generated, plain text), and encrypted `vars.nix`, `home-vars.nix` | modules |
+| `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `hardware-configuration.nix` (generated, plain text), and encrypted `disk-config.nix` (disk device), `vars.nix`, `home-vars.nix`; on `nimbus` also encrypted `system-vars.nix` (WireGuard) and `kanshi.nix` | modules |
 | `scripts/` | The leak guard and its tests, run as flake checks (`leak-guard`, `leak-guard-test`) | `.gitattributes` |
 | `live-image/` | Install images: base (ssh keys, sshd, nmtui) and a bcachefs variant | `modules/shared` |
 
@@ -71,7 +71,7 @@ it does not set `gui`).
   file and the whole is checked with `niri validate` at build time.
 - **Every value has a class** (secret, private, public, identity) that decides where it lives:
   `docs/product/secrets.md`. Private values in git-crypt files (`.gitattributes`: `secrets.nix`,
-  `vars.nix`, `home-vars.nix`, `system-vars.nix`). Never read or show them.
+  `vars.nix`, `home-vars.nix`, `system-vars.nix`, and some host files by exact path). Never read or show them.
 - **Code style:** `lib.` prefix, no `with lib;`; options → config; format with alejandra.
 - **Checks:** `nix flake check` runs alejandra, statix and deadnix (`lint`), and the `leak-guard`
   check (with its tests, `leak-guard-test`). It only evaluates the hosts; `just build HOST` builds

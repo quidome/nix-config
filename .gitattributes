@@ -2,3 +2,7 @@ home-vars.nix filter=git-crypt diff=git-crypt
 secrets.nix filter=git-crypt diff=git-crypt
 system-vars.nix filter=git-crypt diff=git-crypt
 vars.nix filter=git-crypt diff=git-crypt
+hosts/bea/disk-config.nix filter=git-crypt diff=git-crypt
+hosts/nimbus/disk-config.nix filter=git-crypt diff=git-crypt
+hosts/nimbus/kanshi.nix filter=git-crypt diff=git-crypt
+hosts/truce/disk-config.nix filter=git-crypt diff=git-crypt
