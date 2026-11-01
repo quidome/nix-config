@@ -288,8 +288,9 @@ if [ "$force" != true ]; then
   fi
 fi
 
-backup="${XDG_STATE_HOME:-$HOME/.local/state}/desktop-reset/$(date +%Y%m%d-%H%M%S)"
-mkdir -p "$backup"
+backup_root="${XDG_STATE_HOME:-$HOME/.local/state}/desktop-reset"
+mkdir -p "$backup_root"
+backup=$(mktemp -d "$backup_root/$(date +%Y%m%d-%H%M%S).XXXXXX")
 
 for dir in "${dconf_resets[@]}"; do
   mkdir -p "$backup/dconf"

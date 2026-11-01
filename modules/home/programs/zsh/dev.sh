@@ -24,7 +24,7 @@ p () {
     git clone "$url" "$localPath" || return 1
   fi
 
-  $(_cdz) "$localPath" || exit 1
+  $(_cdz) "$localPath" || return 1
 }
 
 _cdp () {

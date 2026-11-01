@@ -1,6 +1,7 @@
 # shellcheck shell=bash
 # Wrapped in a named function so guards can use early `return` in both bash and zsh.
 _zellij_attach() {
+  [[ -t 0 && -t 1 ]] || return
   command -v zellij &>/dev/null || return
 
   # Some exceptions in which case zellij should not be used.

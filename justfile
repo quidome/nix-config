@@ -16,7 +16,7 @@ boot HOST=current_host:
 
 # Dry-run activation to show what would change
 plan HOST=current_host:
-  nixos-rebuild --flake .#{{HOST}} dry-activate
+  @just host {{HOST}} dry-activate
 
 # Build host configuration without activating it
 build HOST=current_host:
@@ -91,7 +91,7 @@ _push-lock:
 
   if ! git diff --quiet -- flake.lock; then
     git add flake.lock
-    git commit -m "chore(flake): update lockfile"
+    git commit -m "chore(flake): update lockfile" -- flake.lock
     git push
   else
     echo "No flake.lock changes; skipping commit/push."
@@ -112,9 +112,10 @@ host HOST ACTION="switch":
   case "{{ACTION}}" in
     apply|switch) action=switch ;;
     boot) action=boot ;;
+    dry-activate) action=dry-activate ;;
     *)
       echo "Unknown host action: {{ACTION}}" >&2
-      echo "Use: switch | boot" >&2
+      echo "Use: switch | boot | dry-activate" >&2
       exit 1
       ;;
   esac
