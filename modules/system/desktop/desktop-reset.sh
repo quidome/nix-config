@@ -19,7 +19,7 @@ Targets:
 
 Options:
   --apply   make the changes
-  --force   apply even when the desktop of a target is running
+  --force   apply even when a desktop session is running
   -h        show this help
 
 Never touched: KWallet and GNOME keyring data, files managed by Home Manager,
@@ -160,14 +160,9 @@ paths_for() {
   esac
 }
 
-# Processes that show a target's desktop is running.
-session_procs_for() {
-  case "$1" in
-    kde) echo "plasmashell kwin_wayland kwin_x11" ;;
-    gnome) echo "gnome-shell" ;;
-    niri) echo "niri" ;;
-  esac
-}
+# Processes that show a desktop is running. Any desktop blocks every target:
+# GTK and theme files are in use in all of them.
+session_procs=(plasmashell kwin_wayland kwin_x11 gnome-shell niri)
 
 dconf_dirs=(/org/gnome/ /org/gtk/)
 
@@ -252,7 +247,7 @@ if [[ " ${targets[*]} " == *" gnome "* ]] && command -v dconf >/dev/null; then
 fi
 
 for path in "${items[@]}"; do
-  size=$(du -sh "$path" 2>/dev/null | cut -f1)
+  size=$(du -sh "$path" 2>/dev/null | cut -f1 || true)
   echo "move  [${item_target[$path]}] ${path#"$HOME"/} ($size)"
 done
 
@@ -269,14 +264,12 @@ fi
 
 if [ "$force" != true ]; then
   running=()
-  for t in "${targets[@]}"; do
-    for proc in $(session_procs_for "$t"); do
-      # Match the program path: on NixOS the process name is a wrapper
-      # (e.g. ".plasmashell-wr"), so an exact name match finds nothing.
-      if pgrep -u "$(id -u)" -f "(^|/)$proc( |\$)" >/dev/null; then
-        running+=("$t ($proc)")
-      fi
-    done
+  for proc in "${session_procs[@]}"; do
+    # Match the program path: on NixOS the process name is a wrapper
+    # (e.g. ".plasmashell-wr"), so an exact name match finds nothing.
+    if pgrep -u "$(id -u)" -f "(^|/)$proc( |\$)" >/dev/null; then
+      running+=("$proc")
+    fi
   done
   if [ ${#running[@]} -gt 0 ]; then
     echo >&2
@@ -291,17 +284,18 @@ fi
 backup_root="${XDG_STATE_HOME:-$HOME/.local/state}/desktop-reset"
 mkdir -p "$backup_root"
 backup=$(mktemp -d "$backup_root/$(date +%Y%m%d-%H%M%S).XXXXXX")
-
-for dir in "${dconf_resets[@]}"; do
-  mkdir -p "$backup/dconf"
-  dconf dump "$dir" >"$backup/dconf/$(echo "$dir" | tr -d '/').ini"
-  dconf reset -f "$dir"
-done
+echo "Backup folder: $backup"
 
 for path in "${items[@]}"; do
   dest="$backup/files/${path#"$HOME"/}"
   mkdir -p "$(dirname "$dest")"
   mv "$path" "$dest"
+done
+
+for dir in "${dconf_resets[@]}"; do
+  mkdir -p "$backup/dconf"
+  dconf dump "$dir" >"$backup/dconf/$(echo "$dir" | tr -d '/').ini"
+  dconf reset -f "$dir"
 done
 
 echo

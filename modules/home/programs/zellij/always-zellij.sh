@@ -26,7 +26,7 @@ _zellij_attach() {
   if [[ "$TERM" != "screen-256color" && "$TERM" != "linux" && -z "$ZELLIJ" ]]; then
     local -a animals=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐸 🐙 🦋 🐝 🦄 🐳 🦈 🦅 🦉 🦚 🦜 🐊 🦒 🐘 🦘 🦥 🦦)
     local used
-    used=$(zellij list-sessions 2>/dev/null | awk '{print $1}')
+    used=$(zellij list-sessions --short 2>/dev/null)
     local -a available=()
     for animal in "${animals[@]}"; do
       grep -qxF "${animal}" <<< "$used" || available+=("$animal")

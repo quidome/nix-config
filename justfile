@@ -22,8 +22,8 @@ plan HOST=current_host:
 build HOST=current_host:
   nixos-rebuild --flake .#{{HOST}} build
 
-# Garbage-collect user and system generations (local or remote)
-gc HOST=current_host OPTS="-d":
+# Garbage-collect generations older than 14 days (local or remote); OPTS="-d" removes all
+gc HOST=current_host OPTS="--delete-older-than 14d":
   #!/usr/bin/env bash
   set -euo pipefail
 
@@ -75,7 +75,7 @@ upgrade HOST=current_host:
   nix flake update
   just switch {{HOST}}
   just _push-lock
-  just _gc-keep {{HOST}}
+  just gc {{HOST}}
 
 # Pull latest changes, switch, then garbage-collect
 sync HOST=current_host:
@@ -83,7 +83,7 @@ sync HOST=current_host:
   set -euo pipefail
   git pull
   just switch {{HOST}}
-  just _gc-keep {{HOST}}
+  just gc {{HOST}}
 
 _push-lock:
   #!/usr/bin/env bash
@@ -96,10 +96,6 @@ _push-lock:
   else
     echo "No flake.lock changes; skipping commit/push."
   fi
-
-# Keep recent generations, so a new switch can still be rolled back
-_gc-keep HOST=current_host:
-  just gc {{HOST}} "--delete-older-than 14d"
 
 # Host-specific actions (machine-level)
 host HOST ACTION="switch":

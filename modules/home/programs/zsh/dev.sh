@@ -13,7 +13,7 @@ p () {
   if [ $# -ne 1 ]
   then
     _cdp
-    return "$_"
+    return $?
   fi
 
   url=$1
@@ -29,7 +29,7 @@ p () {
 
 _cdp () {
   local repo_path
-  if repo_path=$(fd -u -td '\.git$' "$DEV_PATH" | xargs dirname | fzf) && [ -d "$repo_path" ]; then
+  if repo_path=$(fd -0 -u -td '\.git$' "$DEV_PATH" | xargs -0 -r dirname | fzf) && [ -d "$repo_path" ]; then
     $(_cdz) "$repo_path" || return 1
   fi
 }
@@ -46,8 +46,8 @@ _path_from_url () {
   perl -pe 's!
     ^(?<prot>\w+://)? # Capture the protocol part (e.g. "ssh://")
     (?<username>\w+@)?
-    (?<domain>(\w+\.)*\w+\.\w+) # capture the domain
+    (?<domain>[\w-]+(\.[\w-]+)+) # capture the domain
     (?<port>:[0-9]+)?
-    [:/](?<path>.*)(\.git$) # Capture the path
+    [:/](?<path>.*?)(\.git)?$ # Capture the path
   !$+{domain}/$+{path}!x' <<< "$1"
 }
