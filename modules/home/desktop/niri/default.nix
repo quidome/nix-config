@@ -47,6 +47,27 @@
     done
     exit 1
   '';
+
+  fuzzel = lib.getExe config.programs.fuzzel.package;
+  loginctl = lib.getExe' pkgs.systemd "loginctl";
+
+  # Used by key bindings in config.kdl and by the bar.
+  powerMenu = pkgs.writeShellScriptBin "power-menu" ''
+    choice=$(printf '%s\n' Lock Suspend "Log out" Restart "Shut down" \
+      | ${fuzzel} --dmenu --prompt "power: ") || exit 0
+    case "$choice" in
+      Lock) ${loginctl} lock-session ;;
+      Suspend) ${systemctl} suspend ;;
+      "Log out") ${lib.getExe pkgs.niri} msg action quit --skip-confirmation ;;
+      Restart) ${systemctl} reboot ;;
+      "Shut down") ${systemctl} poweroff ;;
+    esac
+  '';
+  clipboardHistory = pkgs.writeShellScriptBin "clipboard-history" ''
+    cliphist=${lib.getExe config.services.cliphist.package}
+    $cliphist list | ${fuzzel} --dmenu --prompt "clipboard: " \
+      | $cliphist decode | ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
+  '';
 in {
   imports = [./apps.nix];
 
@@ -57,6 +78,8 @@ in {
       "niri/config.kdl".source = "${niriConfig}/config.kdl";
       "niri/theme.kdl".source = "${niriConfig}/theme.kdl";
     };
+
+    home.packages = [powerMenu clipboardHistory];
 
     # Launcher used by the key bindings in config.kdl.
     programs = {
@@ -79,7 +102,14 @@ in {
           modules-center = ["clock"];
           modules-right =
             ["privacy" "idle_inhibitor" "tray" "wireplumber" "network" "bluetooth"]
-            ++ lib.optionals isLaptop ["power-profiles-daemon" "battery"];
+            ++ lib.optionals isLaptop ["power-profiles-daemon" "battery"]
+            ++ ["custom/power"];
+
+          "custom/power" = {
+            format = "POWER";
+            tooltip = false;
+            on-click = lib.getExe powerMenu;
+          };
 
           clock.format = "{:%a %d %b  %H:%M}";
           # Stops screen lock and suspend while activated.
@@ -105,6 +135,7 @@ in {
           bluetooth = {
             format = "BT {status}";
             format-connected = "BT {device_alias}";
+            on-click = "${lib.getExe config.programs.ghostty.package} -e ${lib.getExe pkgs.bluetui}";
           };
           # Click to change to the next power profile.
           power-profiles-daemon.format = "{profile}";
@@ -138,6 +169,9 @@ in {
     services = {
       # Volume and brightness pop-up, used by volumectl and lightctl.
       avizo.enable = lib.mkDefault true;
+
+      # Clipboard history, shown by clipboard-history (Mod+Alt+V).
+      cliphist.enable = lib.mkDefault true;
 
       # Notifications, started by D-Bus on the first notification.
       mako = {

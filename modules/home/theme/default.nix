@@ -165,7 +165,7 @@ in {
           border: 1px solid #${c.surface1};
         }
         #clock, #privacy, #idle_inhibitor, #tray, #wireplumber, #network,
-        #bluetooth, #power-profiles-daemon, #battery {
+        #bluetooth, #power-profiles-daemon, #battery, #custom-power {
           padding: 0 8px;
         }
         #privacy, #battery.critical:not(.charging) {
