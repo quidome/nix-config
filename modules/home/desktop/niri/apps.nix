@@ -11,7 +11,7 @@ in {
     xdg.mimeApps = {
       enable = true;
       defaultApplications =
-        defaultFor "firefox.desktop" [
+        defaultFor "zen.desktop" [
           "application/x-extension-htm"
           "application/x-extension-html"
           "application/x-extension-shtml"
