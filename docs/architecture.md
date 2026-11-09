@@ -49,7 +49,7 @@ Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `
 | `scripts/` | The leak guard and its tests, run as flake checks (`leak-guard`, `leak-guard-test`) | `.gitattributes` |
 | `live-image/` | Install images: base (ssh keys, sshd, nmtui) and a bcachefs variant | `modules/shared` |
 
-Hosts now: `nimbus` (laptop, GNOME), `bea` (desktop, GNOME), `truce` (laptop, Plasma, the default:
+Hosts now: `nimbus` (laptop, niri), `bea` (desktop, GNOME), `truce` (laptop, Plasma, the default:
 it does not set `gui`).
 
 ## Patterns to follow
