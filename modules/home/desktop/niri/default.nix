@@ -120,6 +120,21 @@ in {
       };
     };
 
+    # Wallpaper. The image is read from the synced Pictures folder at run
+    # time, so it is not in git or the Nix store.
+    systemd.user.services.swaybg = {
+      Unit = {
+        Description = "Wallpaper";
+        PartOf = ["graphical-session.target"];
+        After = ["graphical-session.target"];
+      };
+      Service = {
+        ExecStart = "${lib.getExe pkgs.swaybg} --mode fill --image %h/Pictures/Wallpapers/pngtree-ethereal-flower-bioluminescent-petals-azure-background-magical-glow-dwallpaper-image_16626678.jpg";
+        Restart = "on-failure";
+      };
+      Install.WantedBy = ["graphical-session.target"];
+    };
+
     services = {
       # Volume and brightness pop-up, used by volumectl and lightctl.
       avizo.enable = lib.mkDefault true;
