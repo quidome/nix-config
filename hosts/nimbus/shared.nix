@@ -1,6 +1,5 @@
 {
   settings = {
-    gui = "niri";
     formFactor = "laptop";
     roles = {
       dev.enable = true;
