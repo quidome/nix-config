@@ -60,9 +60,6 @@ in {
 
     zoxide.enable = true;
 
-    zsh = {
-      enable = true;
-      initContent = "fpath+=($HOME/.zsh/completion/)";
-    };
+    zsh.enable = true;
   };
 }

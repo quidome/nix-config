@@ -13,7 +13,7 @@ if git -C "$(dirname "$file")" check-attr filter -- "$file" 2>/dev/null | grep -
   exit 0
 fi
 
-if ! alejandra -q "$file" 2>&1; then
+if ! alejandra -q "$file" >&2; then
   echo "alejandra could not format $file (syntax error?)" >&2
   exit 2
 fi

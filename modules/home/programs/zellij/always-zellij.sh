@@ -23,16 +23,16 @@ _zellij_attach() {
     return
   fi
 
-  if [[ "$TERM" != "screen-256color" && "$TERM" != "linux" && -z "$ZELLIJ" ]]; then
+  if [[ "$TERM" != "dumb" && "$TERM" != "linux" && -z "$ZELLIJ" ]]; then
     local -a animals=(🐶 🐱 🐭 🐹 🐰 🦊 🐻 🐼 🐨 🐯 🦁 🐮 🐷 🐸 🐙 🦋 🐝 🦄 🐳 🦈 🦅 🦉 🦚 🦜 🐊 🦒 🐘 🦘 🦥 🦦)
-    local used
+    local used animal
     used=$(zellij list-sessions --short 2>/dev/null)
     local -a available=()
     for animal in "${animals[@]}"; do
       grep -qxF "${animal}" <<< "$used" || available+=("$animal")
     done
     if [ ${#available[@]} -eq 0 ]; then
-      local animal other session_name
+      local other session_name
       for animal in "${animals[@]}"; do
         for other in "${animals[@]}"; do
           session_name="${animal}-${other}"

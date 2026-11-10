@@ -147,6 +147,16 @@ else
 fi
 chmod 644 "$dir/locked.nix"
 
+new_case unreadable-folder
+put locked/secret.nix "p = \"$hash6\";"
+chmod 000 "$dir/locked"
+if [[ -r "$dir/locked" ]]; then
+  echo "skip $name: running as root"
+else
+  expect 2 "cannot list all files"
+fi
+chmod 755 "$dir/locked"
+
 new_case unsupported-nested-gitattributes
 put a/.gitattributes 'secrets.nix filter=git-crypt diff=git-crypt'
 put a/secrets.nix "p = \"$hash6\";"

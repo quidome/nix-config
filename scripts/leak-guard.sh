@@ -12,6 +12,15 @@ unsupported() {
   exit 2
 }
 
+# A failed find must stop the guard, or a folder is skipped without a message.
+# Use right after the loop that reads it.
+check_find() {
+  wait "$!" || {
+    echo "leak guard: cannot list all files" >&2
+    exit 2
+  }
+}
+
 # A nested .gitattributes may only turn the filter off for its whole folder,
 # as git-crypt's own .git-crypt/.gitattributes does; every file there is checked.
 plain_dirs=()
@@ -27,6 +36,7 @@ while IFS= read -r -d '' file; do
   dir="${file#./}"
   plain_dirs+=("${dir%/.gitattributes}/")
 done < <(find . -mindepth 2 -name .gitattributes -not -path './.git/*' -print0)
+check_find
 
 # Patterns that git-crypt encrypts, from .gitattributes.
 encrypted=()
@@ -79,8 +89,11 @@ checks=(
   'age secret key|AGE-SECRET-KEY-1[0-9A-Z]{10,}'
 )
 
+mapfile -d '' files < <(find . -type f -not -path './.git/*' -print0 | sort -z)
+check_find
+
 hits=()
-while IFS= read -r -d '' file; do
+for file in "${files[@]}"; do
   path="${file#./}"
   if is_encrypted "$path"; then
     continue
@@ -101,7 +114,7 @@ while IFS= read -r -d '' file; do
       hits+=("  $path:$line  $kind")
     done < <(grep -v 'leak-guard: allow' <<<"$found" | cut -d: -f1 || true)
   done
-done < <(find . -type f -not -path './.git/*' -print0 | sort -z)
+done
 
 if ((${#hits[@]})); then
   echo "leak guard: possible secret in a plain file" >&2
