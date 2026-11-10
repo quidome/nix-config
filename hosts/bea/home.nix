@@ -6,4 +6,5 @@
   home.stateVersion = "26.05";
 
   programs.zed-editor.userSettings.buffer_font_size = 13;
+  settings.theme = "light";
 }
