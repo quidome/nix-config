@@ -36,16 +36,18 @@ gc HOST=current_host OPTS="--delete-older-than 14d":
     exit 0
   fi
 
+  addr="$(just _target "$target_host")"
+
   hm_users="$(nix eval --json .#nixosConfigurations.{{HOST}}.config.home-manager.users --apply builtins.attrNames | jq -r '.[]')"
 
   if [ -n "$hm_users" ]; then
     while IFS= read -r u; do
       [ -n "$u" ] || continue
-      ssh "root@$target_host" "sudo -Hiu '$u' nix-collect-garbage {{OPTS}}"
+      ssh "root@$addr" "sudo -Hiu '$u' nix-collect-garbage {{OPTS}}"
     done <<< "$hm_users"
   fi
 
-  ssh "root@$target_host" "nix-collect-garbage {{OPTS}}"
+  ssh "root@$addr" "nix-collect-garbage {{OPTS}}"
 
 # Format Nix files
 fmt:
@@ -97,6 +99,24 @@ _push-lock:
     echo "No flake.lock changes; skipping commit/push."
   fi
 
+# Print an address for HOST; ask for an IP when the name does not resolve
+_target HOST:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  ssh_host="$(ssh -G "{{HOST}}" 2>/dev/null | awk '/^hostname /{print $2; exit}')"
+  if getent hosts "${ssh_host:-{{HOST}}}" >/dev/null; then
+    echo "{{HOST}}"
+    exit 0
+  fi
+
+  read -rp "Cannot resolve '{{HOST}}'. IP address: " ip < /dev/tty > /dev/tty
+  if [ -z "$ip" ]; then
+    echo "No address given; stopping." >&2
+    exit 1
+  fi
+  echo "$ip"
+
 # Host-specific actions (machine-level)
 host HOST ACTION="switch":
   #!/usr/bin/env bash
@@ -119,5 +139,6 @@ host HOST ACTION="switch":
   if [ "$target_host" = "$local_host" ]; then
     sudo nixos-rebuild --flake .#{{HOST}} "$action"
   else
-    nixos-rebuild --flake .#{{HOST}} --target-host "root@$target_host" "$action"
+    addr="$(just _target "$target_host")"
+    nixos-rebuild --flake .#{{HOST}} --target-host "root@$addr" "$action"
   fi
