@@ -26,7 +26,7 @@ The host's choices are read twice, once by the system and once by home-manager, 
 see the same `settings.*` values.
 
 Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `pkgsUnstable`),
-`home-manager` (matching release), `disko`, `claude-code`, `nix-index-database`, `zen-browser`. One `pkgs` set for
+`home-manager` (matching release), `disko`, `claude-code`, `nix-index-database`, `zen-browser`, `plasma-manager` (Plasma user settings, home-manager module). One `pkgs` set for
 `x86_64-linux`, with unfree packages allowed. All hosts use the same user, passed to modules as `desktopUser`.
 
 ## Layers and modules
@@ -42,7 +42,7 @@ Inputs: `nixpkgs` (stable release), `unstable` (for single packages, passed as `
 | `modules/system/disk-config.nix` | One shared disk layout (EFI + LUKS + btrfs subvolumes, swap file); a function of the disk device. The Docker storage driver (btrfs) and the scrub in the base depend on it | disko |
 | `modules/home/profiles/` | Always-on user base (shell, editors, git, ssh client); graphical base (fonts, Wayland for Electron apps, the terminal Ghostty) | `settings.gui` |
 | `modules/home/roles/` | Optional groups on the user side: `dev`, `personal` | `settings.roles`, `settings.gui` |
-| `modules/home/desktop/` | GNOME and niri user config | `settings.gui` |
+| `modules/home/desktop/` | GNOME, niri and Plasma user config | `settings.gui`, `settings.theme` |
 | `modules/home/programs/` | Settings per program; active when the program is enabled elsewhere | the program's own `enable` |
 | `modules/home/theme/` | Light/dark theme (`settings.theme`, home only); colors and fonts for sessions without their own theme (niri) | `settings.theme`, `settings.gui` |
 | `hosts/<host>/` | `shared.nix` (choices), `system.nix`, `home.nix`, `hardware-configuration.nix` (generated, plain text), and encrypted `disk-config.nix` (disk device), `vars.nix`, `home-vars.nix`; on `nimbus` also encrypted `system-vars.nix` (WireGuard) and `kanshi.nix` | modules |
