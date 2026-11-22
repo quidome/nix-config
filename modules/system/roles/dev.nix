@@ -44,6 +44,7 @@ in {
         # coding agents
         claude-code.packages.${pkgs.stdenv.hostPlatform.system}.default
         pkgsUnstable.pi-coding-agent
+        vikunja.veans
       ]
       ++ lib.optionals (cfg.gui != "none") [
         adoptopenjdk-icedtea-web
