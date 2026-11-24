@@ -8,6 +8,7 @@
     hardware.bluetooth.input.General.UserspaceHID = lib.mkDefault true;
 
     environment.systemPackages = with pkgs; [
+      freecad
       wl-clipboard
     ];
 
