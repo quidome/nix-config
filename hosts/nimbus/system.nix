@@ -48,6 +48,11 @@
       tod.driver = pkgs.libfprint-2-tod1-goodix;
     };
 
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "client";
+    };
+
     usbmuxd.enable = true;
   };
 
