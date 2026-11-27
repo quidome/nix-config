@@ -1,6 +1,7 @@
 {
   settings = {
     formFactor = "laptop";
+    gui = "gnome";
     roles = {
       dev.enable = true;
       gaming.enable = true;

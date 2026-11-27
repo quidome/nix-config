@@ -4,7 +4,7 @@
     ./kanshi.nix
   ];
 
-  settings.theme = "light";
+  settings.theme = "dark";
 
   home.stateVersion = "26.05";
 }
